@@ -8,11 +8,10 @@ import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
 
-import '../../../global/colors.dart';
-import '../Progress_screen.dart';
-import '../mybookings_screen.dart';
-import '../news_screen.dart';
-import 'home_tab.dart';
+import 'appointment.dart';
+import 'courses_page.dart';
+import 'home_page.dart';
+import 'profile_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -41,17 +40,17 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BottonNavController(),
+      home: BottonNavControllerTrainer(),
     );
   }
 }
 
-class BottonNavController extends StatefulWidget {
+class BottonNavControllerTrainer extends StatefulWidget {
   @override
-  _BottonNavControllerState createState() => _BottonNavControllerState();
+  _BottonNavControllerTrainerState createState() => _BottonNavControllerTrainerState();
 }
 
-class _BottonNavControllerState extends State<BottonNavController> {
+class _BottonNavControllerTrainerState extends State<BottonNavControllerTrainer> {
 
   PageController pageController;
 
@@ -79,10 +78,11 @@ class _BottonNavControllerState extends State<BottonNavController> {
       backgroundColor: CustomColor.backgroundColor,
       body: PageView(
         children: [
-          HomeTabs(),
-          Mybookings(),
-          ProgressScreen(),
-          NewsPage()
+          HomePage(),
+          AppointmentPage(),
+          CoursesPage(),
+          ProfilePage(),
+
         ],
 
         controller: pageController,
@@ -94,7 +94,7 @@ class _BottonNavControllerState extends State<BottonNavController> {
           onTapChangedPage: onTapChangedPage,
           pageIndex: pageIndex,
 
-          imageURL: 'assets/home_icon.png', text: 'Home',  imageURL2: 'assets/appointment_menu_icon.png', text2: 'My Bookings', imageURL3: 'assets/progress_icon.png', text3: 'Progress', imageURL4: 'assets/news_icon.png', text4: 'News'),
+          imageURL: 'assets/home_icon.png', text: 'Home',  imageURL2: 'assets/appointment_menu_icon.png', text2: 'Appointment', imageURL3: 'assets/dumbbell_icon.png', text3: 'My courses', imageURL4: 'assets/profile_menu_icon.png', text4: 'Me'),
     );
   }
 

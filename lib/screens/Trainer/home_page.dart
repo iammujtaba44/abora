@@ -117,7 +117,6 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
 
-      bottomNavigationBar:    bottomNavBar(imageURL: 'assets/home_icon.png', text: 'Appointment',  imageURL2: 'assets/appointment_menu_icon.png', text2: 'Appointment', imageURL3: 'assets/dumbbell_icon.png', text3: 'My Courses', imageURL4: 'assets/profile_menu_icon.png', text4: 'Me'),
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,

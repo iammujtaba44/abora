@@ -1,4 +1,5 @@
-import 'package:abora/screens/Client/Home/botton_nav_controller.dart';
+
+import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Home/first_page.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
 import 'package:abora/screens/Client/Home/second_page.dart';
@@ -23,6 +24,8 @@ import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/splashScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'splashScreen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0XFF00001e),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: BottonNavController(),
+      home: SplashScreen(),
     );
   }
 }

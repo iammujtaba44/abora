@@ -1,7 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Client/Home/botton_nav_controller.dart';
+import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
+import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/screens/Trainer/multiuser_login_page.dart';
 
 import 'package:abora/widgets/blue_button.dart';
@@ -118,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MultiuserLoginPage()),
+                          builder: (context) => BottonNavControllerTrainer()),
                     );
                   }),
               SizedBox(
@@ -129,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BottonNavController()),
+                        builder: (context) => BottonNavControllerClient()),
                   );
                 },
                 child: Row(
