@@ -66,10 +66,9 @@ class _NewsPageState extends State<NewsPage> {
             return GestureDetector(
               onTap: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => RateSession()),
-              );
+                  context,
+                  MaterialPageRoute(builder: (context) => RateSession()),
+                );
               },
               child: Container(
                 margin: EdgeInsets.only(top: 20.0),
@@ -80,7 +79,8 @@ class _NewsPageState extends State<NewsPage> {
                       height: getheight(context) * 0.17,
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
                     ),
                     Positioned(
                         child: Container(
@@ -93,11 +93,11 @@ class _NewsPageState extends State<NewsPage> {
                               topLeft: Radius.circular(10.0))),
                     )),
                     Positioned(
-                        left: 330.0,
-                        bottom: 95.0,
+                        right: 0,
+                        top: 0,
                         child: IconButton(
                           icon: Icon(
-                            Icons.help,
+                            Icons.bookmark_sharp,
                             color: Colors.white,
                             size: 18.0,
                           ),
@@ -141,7 +141,7 @@ class _NewsPageState extends State<NewsPage> {
                       ),
                     ),
                     Positioned(
-                        left: 305.0,
+                        right: 5,
                         bottom: 10,
                         child: Text(
                           '5 min ago',
@@ -219,11 +219,10 @@ class _NewsPageState extends State<NewsPage> {
                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                   ),
                   Positioned(
-                      left: 298.0,
+                      right: 0,
                       child: IconButton(
-
                         icon: Icon(
-                          Icons.help,
+                          Icons.bookmark_sharp,
                           color: Colors.white,
                         ),
                       )),

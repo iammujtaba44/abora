@@ -51,6 +51,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   double width;
 
+  List<String> upperList = <String>['1', 'X', 'X'];
+  List<String> lowerList = <String>['30', '65', '110'];
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -60,7 +63,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('PROFILE', style: TextStyle(fontSize: 17),),
+        title: Text(
+          'PROFILE',
+          style: TextStyle(fontSize: 17),
+        ),
         leading: Container(),
         centerTitle: true,
         actions: [
@@ -119,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(5)),
                     margin:
-                    const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                        const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                     padding: const EdgeInsets.all(20),
                     height: 420,
                     width: double.infinity,
@@ -154,10 +160,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 10,
                         ),
                         descriptionContainer('Payment Method'),
-
-
-
-
                       ],
                     ),
                   ),
@@ -166,44 +168,44 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(5)),
                     margin:
-                    const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                        const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                     padding: const EdgeInsets.all(20),
-                    height: 130,
+                    height: 310.h,
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           'Bulk Sessions',
-                          style: TextStyle(color: CustomColor.red),
+                          style:
+                              TextStyle(color: CustomColor.red, fontSize: 20.0),
                         ),
                         SizedBox(
-                          height: 10,
+                          height: 12,
                         ),
-                        Stack(children: [
-                          Column(
-
+                        Container(
+                          // margin: EdgeInsets.all(10),
+                          child: Table(
+                            border: TableBorder.symmetric(
+                                inside: BorderSide(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    width: 1)),
                             children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('1', style: TextStyle(color: CustomColor.white),),
-                                  Text('X', style: TextStyle(color: CustomColor.white),),
-                                  Text('X', style: TextStyle(color: CustomColor.white),)
-                                ],),
-                              SizedBox(height: 30,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('30', style: TextStyle(color: CustomColor.grey),),
-                                  Text('65', style: TextStyle(color: CustomColor.grey),),
-                                  Text('110', style: TextStyle(color: CustomColor.grey),)
-                                ],),
-
+                              TableRow(
+                                  children:
+                                      List.generate(upperList.length, (i) {
+                                return _tableContainer(
+                                    upperList[i], Colors.white, 1);
+                              })),
+                              TableRow(
+                                  children:
+                                      List.generate(lowerList.length, (i) {
+                                return _tableContainer(lowerList[i],
+                                    Colors.grey.withOpacity(0.5), 2);
+                              })),
                             ],
                           ),
-
-                        ],)
+                        ),
                       ],
                     ),
                   ),
@@ -213,9 +215,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(5)),
                       margin:
-                      const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                          const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                       padding: const EdgeInsets.all(20),
-
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,47 +229,67 @@ class _ProfilePageState extends State<ProfilePage> {
                             height: 10,
                           ),
                           ListTile(
-
-                            leading: CircleAvatar(backgroundColor: CustomColor.grey,
-                              backgroundImage: AssetImage('assets/trainer.jpg'),
-                             radius: 30,
-
-                            ),
-                            contentPadding: EdgeInsets.all(0),
-                            title: Text('Patricia Lucas', style: TextStyle(color: CustomColor.white, fontSize: FontSize.h3FontSize - 3),),
-                            subtitle: Text('Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy', style: TextStyle(color: CustomColor.grey, fontSize: 13),),
-
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          ListTile(
-
-                            leading: CircleAvatar(backgroundColor: CustomColor.grey,
-                              backgroundImage: AssetImage('assets/trainer.jpg'),
-                              radius: 30,
-
-                            ),
-                            contentPadding: EdgeInsets.all(0),
-                            title: Text('Patricia Lucas', style: TextStyle(color: CustomColor.white, fontSize: FontSize.h3FontSize - 3),),
-                            subtitle: Text('Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy', style: TextStyle(color: CustomColor.grey, fontSize: 13),),
-
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          ListTile(
-
                             leading: CircleAvatar(
                               backgroundColor: CustomColor.grey,
                               backgroundImage: AssetImage('assets/trainer.jpg'),
                               radius: 30,
-
                             ),
                             contentPadding: EdgeInsets.all(0),
-                            title: Text('Patricia Lucas', style: TextStyle(color: CustomColor.white, fontSize: FontSize.h3FontSize - 3),),
-                            subtitle: Text('Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy', style: TextStyle(color: CustomColor.grey, fontSize: 13),),
-
+                            title: Text(
+                              'Patricia Lucas',
+                              style: TextStyle(
+                                  color: CustomColor.white,
+                                  fontSize: FontSize.h3FontSize - 3),
+                            ),
+                            subtitle: Text(
+                              'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                              style: TextStyle(
+                                  color: CustomColor.grey, fontSize: 13),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: CustomColor.grey,
+                              backgroundImage: AssetImage('assets/trainer.jpg'),
+                              radius: 30,
+                            ),
+                            contentPadding: EdgeInsets.all(0),
+                            title: Text(
+                              'Patricia Lucas',
+                              style: TextStyle(
+                                  color: CustomColor.white,
+                                  fontSize: FontSize.h3FontSize - 3),
+                            ),
+                            subtitle: Text(
+                              'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                              style: TextStyle(
+                                  color: CustomColor.grey, fontSize: 13),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: CustomColor.grey,
+                              backgroundImage: AssetImage('assets/trainer.jpg'),
+                              radius: 30,
+                            ),
+                            contentPadding: EdgeInsets.all(0),
+                            title: Text(
+                              'Patricia Lucas',
+                              style: TextStyle(
+                                  color: CustomColor.white,
+                                  fontSize: FontSize.h3FontSize - 3),
+                            ),
+                            subtitle: Text(
+                              'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                              style: TextStyle(
+                                  color: CustomColor.grey, fontSize: 13),
+                            ),
                           )
                         ],
                       ),
@@ -283,18 +304,37 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  _tableContainer(String _label, Color _color, int type) {
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      child: type == 1
+          ? Text(_label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: _color,
+                fontSize: 20.0,
+              ))
+          : Text(_label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: _color,
+                fontSize: 20.0,
+              )),
+    );
+  }
+
   Widget descriptionContainer(String text) {
     return Container(
       height: 50,
       width: double.infinity,
       decoration: BoxDecoration(
           color: CustomColor.backgroundColor,
-          borderRadius: BorderRadius.circular(5)
-      ),
+          borderRadius: BorderRadius.circular(5)),
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Text(text, style: TextStyle(color: CustomColor.white)),
-      ),);
+      ),
+    );
   }
 
   Widget _buildContent() {
@@ -336,7 +376,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EditSingleVideoPage()),
+                                        builder: (context) =>
+                                            EditSingleVideoPage()),
                                   );
                                 },
                                 child: Container(
@@ -355,8 +396,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                             height: 25,
                                             width: 70,
                                             decoration: BoxDecoration(
-                                                color:
-                                                    CustomColor.signUpButtonColor,
+                                                color: CustomColor
+                                                    .signUpButtonColor,
                                                 borderRadius:
                                                     BorderRadius.circular(5)),
                                             child: Text(
@@ -369,7 +410,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       ],
                                     )),
                               ),
-                              SizedBox(width: 8,),
+                              SizedBox(
+                                width: 8,
+                              ),
                               Container(
                                   decoration: BoxDecoration(
                                       color: CustomColor.backgroundColor,
@@ -399,7 +442,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       )
                                     ],
                                   )),
-                              SizedBox(width: 8,),
+                              SizedBox(
+                                width: 8,
+                              ),
                               Container(
                                   decoration: BoxDecoration(
                                       color: CustomColor.backgroundColor,
@@ -429,7 +474,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       )
                                     ],
                                   )),
-                              SizedBox(width: 8,),
+                              SizedBox(
+                                width: 8,
+                              ),
                               Container(
                                   decoration: BoxDecoration(
                                       color: CustomColor.backgroundColor,
@@ -459,7 +506,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                       )
                                     ],
                                   )),
-                              SizedBox(width: 8,),
+                              SizedBox(
+                                width: 8,
+                              ),
                               Container(
                                   decoration: BoxDecoration(
                                       color: CustomColor.backgroundColor,
