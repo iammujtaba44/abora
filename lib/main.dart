@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0XFF00001e),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      home: ThirdPage(),
     );
   }
 }

@@ -6,6 +6,8 @@ import 'package:abora/widgets/details_single_container.dart';
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:preview/preview.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -47,13 +49,23 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
+List<DateTime> presentDates = [];
+List<DateTime> absentDates = [];
+
 class _HomePageState extends State<HomePage> {
   CalendarController _controller;
   List<Color> _colors = [Colors.deepOrange, Colors.yellow];
 
   double width;
   double height;
-
+  var _selected;
+  DateTime _currentDate2 = DateTime.now();
+  CalendarCarousel _calendarCarouselNoHeader;
+  var len = 9;
+  int a;
+  EventList<Event> _markedDateMap = new EventList<Event>(
+    events: {},
+  );
   TextStyle dayStyle(FontWeight fontWeight) {
     return TextStyle(color: Color(0xFF30384c), fontWeight: fontWeight);
   }
@@ -75,6 +87,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    _calendarCarouselNoHeader = cal();
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
@@ -173,38 +186,21 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Container(
                     margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    color: Theme.of(context).primaryColor,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     child: Column(
                       children: [
                         SizedBox(
                           height: 30,
                         ),
-                        TableCalendar(
-                          headerVisible: false,
-                          startingDayOfWeek: StartingDayOfWeek.monday,
-                          calendarStyle: CalendarStyle(
-                            weekdayStyle: dayStyle(FontWeight.normal),
-                            weekendStyle: dayStyle(FontWeight.normal),
-                            selectedColor: CustomColor.signUpButtonColor,
-                            todayColor: Color(0xff30374b),
-                          ),
-                          daysOfWeekStyle: DaysOfWeekStyle(
-                            weekdayStyle: TextStyle(
-                              color: CustomColor.white,
-                              fontSize: 16,
-                            ),
-                            weekendStyle: TextStyle(
-                                color: CustomColor.white, fontSize: 16),
-                          ),
-                          headerStyle: HeaderStyle(
-                            formatButtonVisible: true,
-                            titleTextStyle: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          calendarController: _controller,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            //    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                          ), //width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height / 3,
+                          child: _calendarCarouselNoHeader,
                         ),
                         SizedBox(
                           height: 40,
@@ -212,6 +208,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 40,
+                  )
                 ],
               ),
             ]),
@@ -264,6 +263,132 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ],
+    );
+  }
+
+  _tableContainer(String _label, Color _color) {
+    return Container(
+      padding: EdgeInsets.all(20.0),
+      child: Text(_label,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: _color,
+            fontSize: 20.0,
+          )),
+    );
+  }
+
+  static Widget _presentIcon(String day) => Text(
+        day,
+        style: TextStyle(
+          color: Colors.green,
+        ),
+      );
+
+  static Widget _absentIcon(String day) => Container(
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.all(
+            Radius.circular(1000),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            day,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+  evnetsFiller() {
+    for (int i = 0; i < len; i++) {
+      a = i + 1;
+      presentDates.add(new DateTime(2020, 10, a));
+    }
+    a = 0;
+    for (int i = 0; i < len; i++) {
+      a = i + 1;
+      absentDates.add(new DateTime(2020, 9, a));
+    }
+
+    for (int i = 0; i < len; i++) {
+      _markedDateMap.add(
+        presentDates[i],
+        new Event(
+          date: presentDates[i],
+          title: 'Event 5',
+          icon: _presentIcon(
+            presentDates[i].day.toString(),
+          ),
+        ),
+      );
+    }
+
+    for (int i = 0; i < len; i++) {
+      _markedDateMap.add(
+        absentDates[i],
+        new Event(
+          date: absentDates[i],
+          title: 'Event 5',
+          icon: _absentIcon(
+            absentDates[i].day.toString(),
+          ),
+        ),
+      );
+    }
+  }
+
+  cal() {
+    return CalendarCarousel<Event>(
+      // height: cHeight / 2,
+      // width: cwid / 1.2,
+      onDayPressed: (DateTime date, List<Event> events) {
+        this.setState(() => _currentDate2 = date);
+        events.forEach((event) => print(event.title));
+      },
+      showOnlyCurrentMonthDate: true,
+      showHeader: false,
+      // headerTextStyle: TextStyle(color: Color.fromRGBO(5, 115, 106, 10)),
+      // headerTitleTouchable: true,
+      //headerMargin: EdgeInsets.all(1),
+      leftButtonIcon: IconButton(
+        icon: Icon(
+          Icons.arrow_left,
+          color: Color.fromRGBO(5, 115, 106, 10),
+        ),
+      ),
+      rightButtonIcon: IconButton(
+        icon: Icon(
+          Icons.arrow_right,
+          color: Color.fromRGBO(5, 115, 106, 10),
+        ),
+      ),
+      dayPadding: 6,
+      daysTextStyle: TextStyle(color: Colors.grey),
+      // weekDayBackgroundColor: Color.fromRGBO(228, 229, 230, 10),
+      weekdayTextStyle: TextStyle(color: Colors.white),
+
+      customGridViewPhysics: NeverScrollableScrollPhysics(),
+      // selectedDateTime: _currentDate2,
+      // todayButtonColor: Colors.blue[200],
+      markedDatesMap: _markedDateMap,
+      markedDateShowIcon: true,
+      markedDateIconMaxShown: 0,
+
+      markedDateMoreShowTotal: null,
+
+      markedDateCustomTextStyle: TextStyle(
+        fontSize: 18,
+        color: Colors.green,
+      ),
+      // null for not showing hidden events indicator
+      markedDateIconBuilder: (event) {
+        return event.icon;
+      },
+      minSelectedDate: _currentDate2.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate2.add(Duration(days: 360)),
     );
   }
 }

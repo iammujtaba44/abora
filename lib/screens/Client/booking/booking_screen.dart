@@ -46,9 +46,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       'Confirm Booking'.toUpperCase(),
                       style: TextStyle(color: CustomColor.white),
                     ),
-                    func: () {
-
-                    }),
+                    func: () {}),
               )
             ],
           ),
@@ -91,6 +89,9 @@ class _BookingScreenState extends State<BookingScreen> {
                   ), //width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 3,
                   child: _calendarCarouselNoHeader,
+                ),
+                SizedBox(
+                  height: 20.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
