@@ -113,7 +113,7 @@ class ThirdPage extends StatelessWidget {
                 ],
               ),
               Expanded(
-                flex: 8,
+                flex: 9,
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   child: ListView.builder(
@@ -210,7 +210,7 @@ class ThirdPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0, right: 20),
                   child: GridView.count(
-                    childAspectRatio: 2 / 3,
+                    childAspectRatio: .85.h,
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
                     mainAxisSpacing: 20,
