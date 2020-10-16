@@ -1,5 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Client/Home/botton_nav_controller.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
 import 'package:abora/screens/Trainer/multiuser_login_page.dart';
 
@@ -128,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => HomeTabs()),
+                        builder: (context) => BottonNavController()),
                   );
                 },
                 child: Row(

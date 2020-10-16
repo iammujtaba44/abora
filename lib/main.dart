@@ -1,3 +1,4 @@
+import 'package:abora/screens/Client/Home/botton_nav_controller.dart';
 import 'package:abora/screens/Client/Home/first_page.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
 import 'package:abora/screens/Client/Home/second_page.dart';
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0XFF00001e),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      home: BottonNavController(),
     );
   }
 }
