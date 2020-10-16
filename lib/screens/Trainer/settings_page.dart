@@ -93,7 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
 SizedBox(height: 50,),
 
-          settingsListTile(context, 'assets/profile_icon.png', 'Account Settings'),
+          settingsListTile(context, 'assets/user_icon.png', 'Account Settings'),
           settingsListTile(context, 'assets/card_icon.png', 'Payment Settings'),
           settingsListTile(context, 'assets/refund_icon.png', 'Refund'),
           settingsListTile(context, 'assets/help_icon.png', 'FAQ\'s'),

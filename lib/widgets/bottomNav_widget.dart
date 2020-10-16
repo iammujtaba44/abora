@@ -1,7 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:flutter/material.dart';
 
-Widget bottomNavBar({IconData iconData1, Text text1, IconData iconData2, Text text2 , IconData iconData3, Text text3, IconData iconData4, Text text4}) {
+Widget bottomNavBar({String imageURL, String text, String imageURL2, String text2 , String imageURL3, String text3, String imageURL4, String text4, int pageIndex, Function onTapChangedPage}) {
   return ClipRRect(
     borderRadius: BorderRadius.only(
       topLeft: Radius.circular(30.0),
@@ -14,20 +14,20 @@ Widget bottomNavBar({IconData iconData1, Text text1, IconData iconData2, Text te
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-              ),
-              title: Text('Home')),
+              icon:  ImageIcon(AssetImage(imageURL),),
+              title: Text(text)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.email), title: Text('Appointment')),
+              icon:  ImageIcon(AssetImage(imageURL2),),
+              title: Text(text2)),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.build,
-              ),
-              title: Text('My Courses')),
+              icon: ImageIcon(AssetImage(imageURL3),),
+              title: Text(text3)),
           BottomNavigationBarItem(
-              icon: Icon(Icons.build), title: Text('My Courses')),
+              icon: ImageIcon(AssetImage(imageURL4),),
+              title: Text(text4)),
         ],
+        currentIndex: pageIndex,
+        onTap: onTapChangedPage,
         selectedItemColor: CustomColor.white,
         unselectedItemColor: CustomColor.bottomNavInactiveColor,
       ),

@@ -113,7 +113,7 @@ class ThirdPage extends StatelessWidget {
                 ],
               ),
               Expanded(
-                flex: 5,
+                flex: 8,
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   child: ListView.builder(

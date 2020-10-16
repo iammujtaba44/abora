@@ -13,6 +13,7 @@ import 'package:preview/preview.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:unicorndial/unicorndial.dart';
 
+import '../../widgets/bottomNav_widget.dart';
 import 'courses_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -128,43 +129,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30.0),
-          topRight: Radius.circular(30.0),
-        ),
-        child: Container(
-          color: Colors.red,
-          child: BottomNavigationBar(
-            backgroundColor: CustomColor.signUpButtonColor,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                  ),
-                  title: Text(
-                    'Home',
-                  )),
-              BottomNavigationBarItem(
-                  icon: Image.asset('assets/appointment_menu_icon.png'),
-                  title: Text('Appointment')),
-              BottomNavigationBarItem(
-                  icon: Image.asset('assets/dumbbell_icon.png'),
-                  title: Text('My Courses')),
-              BottomNavigationBarItem(
-                  activeIcon: Image.asset(
-                    'assets/profile_menu_icon.png',
-                    color: Colors.red,
-                  ),
-                  icon: Image.asset('assets/profile_menu_icon.png'),
-                  title: Text('My Courses')),
-            ],
-            selectedItemColor: CustomColor.white,
-            unselectedItemColor: CustomColor.bottomNavInactiveColor,
-          ),
-        ),
-      ),
+
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
         centerTitle: true,

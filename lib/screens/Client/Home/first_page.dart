@@ -100,7 +100,7 @@ class  FirstPage extends StatelessWidget {
                 )
               ],),
               Expanded(
-                flex: 5,
+                flex: 8,
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   child: ListView.builder(
@@ -119,16 +119,20 @@ class  FirstPage extends StatelessWidget {
                             ),
                             color: Theme.of(context).primaryColor,
                             child: Container(
-                              padding:
-                              EdgeInsets.only(left: 12, right: 12, top: 6),
+                              padding: EdgeInsets.only(
+                                  left: 12, right: 12, top: 20.0, bottom: 20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
                                 children: [
                                   ClipRRect(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      child: Image.asset(
-                                          'assets/trainerCube.png', width: 80.h, height: 80.h,),
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    child: Image.asset(
+                                      'assets/trainerCube.png',
+                                      width: 80.h,
+                                      height: 80.h,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 5,
@@ -138,7 +142,7 @@ class  FirstPage extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.w400,
-                                    fontSize: FontSize.h5FontSize),
+                                        fontSize: FontSize.h5FontSize),
                                   ),
                                   SizedBox(
                                     height: 2,
@@ -156,15 +160,18 @@ class  FirstPage extends StatelessWidget {
                                     child: FlatButton(
                                       color: CustomColor.signUpButtonColor,
                                       onPressed: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => BookingTab()),
-                                      );
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BookingTab()),
+                                        );
                                       },
                                       child: Text(
                                         'Book Now',
-                                        style: TextStyle(color: Colors.white, fontSize: FontSize.h5FontSize),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: FontSize.h5FontSize),
                                       ),
                                     ),
                                   )

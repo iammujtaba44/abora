@@ -8,6 +8,12 @@ import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
 
+import '../../../global/colors.dart';
+import '../Progress_screen.dart';
+import '../mybookings_screen.dart';
+import '../news_screen.dart';
+import 'home_tab.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -35,73 +41,68 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: HomeTabs(),
+      home: BottonNavControllerClient(),
     );
   }
 }
 
-class HomeTabs extends StatefulWidget {
+class BottonNavControllerClient extends StatefulWidget {
   @override
-  _HomeTabsState createState() => _HomeTabsState();
+  _BottonNavControllerClientState createState() => _BottonNavControllerClientState();
 }
 
-class _HomeTabsState extends State<HomeTabs> {
+class _BottonNavControllerClientState extends State<BottonNavControllerClient> {
 
+  PageController pageController;
 
+  int pageIndex = 0;
+
+  onTapChangedPage(int pageIndex) {
+    pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+  }
+
+  onPageChanged(int pageIndex) {
+    setState(() {
+      this.pageIndex = pageIndex;
+    });
+  }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    pageController = PageController();
+  }
+  @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: DefaultTabController(
-        initialIndex: 0,
-        length: 3,
-        child: Scaffold(
-          backgroundColor: CustomColor.backgroundColor,
+    return Scaffold(
+      backgroundColor: CustomColor.backgroundColor,
+      body: PageView(
+        children: [
+          HomeTabs(),
+          Mybookings(),
+          ProgressScreen(),
+          NewsPage()
+        ],
 
-          appBar: AppBar(
-            title: Text('HOME'),
-            centerTitle: true,
-            leading: Padding(
-              padding: const EdgeInsets.only(left: 12),
-              child: Image.asset('assets/logo.png'),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  Icons.settings,
-                  color: Colors.red,
-                ),
-                onPressed: () {},
-              )
-            ],
-
-            //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            bottom: TabBar(
-              labelColor: CustomColor.red,
-              unselectedLabelColor: CustomColor.grey,
-              indicatorColor: CustomColor.red,
-              tabs: [
-                Tab(
-                    child: Text(
-                      'One-On-One',
-                    )),
-                Tab(child: Text('Group')),
-                Tab(child: Text('Online')),
-              ],
-            ),
-
-          ),
-
-          body: TabBarView(
-            children: [
-            FirstPage(),
-            SecondPage(),
-              ThirdPage(),
-            ],
-          ),
-        ),
+        controller: pageController,
+        physics: NeverScrollableScrollPhysics(),
+        onPageChanged: onPageChanged,
       ),
+
+      bottomNavigationBar:  bottomNavBar(
+          onTapChangedPage: onTapChangedPage,
+          pageIndex: pageIndex,
+
+          imageURL: 'assets/home_icon.png', text: 'Home',  imageURL2: 'assets/appointment_menu_icon.png', text2: 'My Bookings', imageURL3: 'assets/progress_icon.png', text3: 'Progress', imageURL4: 'assets/news_icon.png', text4: 'News'),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pageController.dispose();
   }
 }
 
