@@ -96,7 +96,7 @@ class  SecondPage extends StatelessWidget {
                   Padding(
                     padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
-                    child: Text('View All', style: TextStyle(color: CustomColor.blue),),
+                    child: Text('View All', style: TextStyle(color: CustomColor.blue),), 
                   )
                 ],),
               Expanded(
