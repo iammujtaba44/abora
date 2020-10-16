@@ -25,6 +25,7 @@ import 'package:abora/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 import 'splashScreen.dart';
+import 'splashScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Color(0XFF00001e),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: ThirdPage(),
+      home: SplashScreen(),
     );
   }
 }
