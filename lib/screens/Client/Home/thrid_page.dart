@@ -8,8 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class  ThirdPage extends StatelessWidget {
-
+class ThirdPage extends StatelessWidget {
   double height;
 
   double width;
@@ -61,7 +60,8 @@ class  ThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(640, 1136 ), allowFontScaling: false);
+    ScreenUtil.init(context,
+        designSize: Size(640, 1136), allowFontScaling: false);
 
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
@@ -94,20 +94,24 @@ class  ThirdPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 18),
                     child: Text(
                       'Ads',
-                      style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
-                    padding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
-                    child: Text('View All', style: TextStyle(color: CustomColor.blue),),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 18),
+                    child: Text(
+                      'View All',
+                      style: TextStyle(color: CustomColor.blue),
+                    ),
                   )
-                ],),
+                ],
+              ),
               Expanded(
                 flex: 5,
                 child: Container(
@@ -128,16 +132,20 @@ class  ThirdPage extends StatelessWidget {
                             ),
                             color: Theme.of(context).primaryColor,
                             child: Container(
-                              padding:
-                              EdgeInsets.only(left: 12, right: 12, top: 6),
+                              padding: EdgeInsets.only(
+                                  left: 12, right: 12, top: 20.0, bottom: 20.0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: Image.asset(
-                                      'assets/trainerCube.png', width: 80.h, height: 80.h,),
+                                      'assets/trainerCube.png',
+                                      width: 80.h,
+                                      height: 80.h,
+                                    ),
                                   ),
                                   SizedBox(
                                     height: 5,
@@ -168,12 +176,15 @@ class  ThirdPage extends StatelessWidget {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => BookingTab()),
+                                              builder: (context) =>
+                                                  BookingTab()),
                                         );
                                       },
                                       child: Text(
                                         'Book Now',
-                                        style: TextStyle(color: Colors.white, fontSize: FontSize.h5FontSize),
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: FontSize.h5FontSize),
                                       ),
                                     ),
                                   )
@@ -187,11 +198,11 @@ class  ThirdPage extends StatelessWidget {
               ),
               Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
+                    const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
                 child: Text(
                   'Top Training Companies',
                   style:
-                  TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -199,83 +210,104 @@ class  ThirdPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 20.0, right: 20),
                   child: GridView.count(
+                    childAspectRatio: 2 / 3,
                     crossAxisCount: 2,
                     crossAxisSpacing: 15,
-                    mainAxisSpacing: 5,
+                    mainAxisSpacing: 20,
                     children: List.generate(
                         8,
-                            (index) => GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => UploadCoursePage()),
-                            );
-                          },
-                          child: Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  Container(
-                                    height: 130.h,
-                                    width: width,
-                                    decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(10),
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: AssetImage(
-                                            'assets/trainer.jpg',
+                        (index) => GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => UploadCoursePage()),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        Container(
+                                          height: 170,
+                                          width: width,
+                                          decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                fit: BoxFit.fill,
+                                                image: AssetImage(
+                                                  'assets/trainer.jpg',
+                                                ),
+                                              )),
+                                        ),
+                                        Positioned(
+                                          right: 10,
+                                          bottom: 10,
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            height: 30,
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                                color: CustomColor
+                                                    .signUpButtonColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(5)),
+                                            child: Text(
+                                              '\$49.50',
+                                              style: TextStyle(
+                                                  color: CustomColor.white),
+                                            ),
                                           ),
-                                        )),
-                                  ),
-                                  Positioned(
-                                    right: 10,
-                                    bottom: 10,
-                                    child: Container(
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      'Course Title',
+                                      style: TextStyle(
+                                          color: CustomColor.red,
+                                          fontSize: FontSize.h3FontSize,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      height: 3.0,
+                                    ),
+                                    Text(
+                                      '20 videos',
+                                      style: TextStyle(
+                                          color: CustomColor.grey,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    SizedBox(
+                                      height: 13.0,
+                                    ),
+                                    Container(
                                       alignment: Alignment.center,
                                       height: 30,
-                                      width: 70,
+                                      width: 200.w,
                                       decoration: BoxDecoration(
                                           color: CustomColor.signUpButtonColor,
-                                          borderRadius: BorderRadius.circular(5)),
+                                          borderRadius:
+                                              BorderRadius.circular(5)),
                                       child: Text(
-                                        '\$49.50',
-                                        style: TextStyle(color: CustomColor.white),
+                                        'Buy Now',
+                                        style:
+                                            TextStyle(color: CustomColor.white),
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-                              Text(
-                                'Course Title',
-                                style: TextStyle(
-                                    color: CustomColor.red,
-                                    fontSize: FontSize.h3FontSize,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              Text(
-                                '20 videos',
-                                style: TextStyle(
-                                    color: CustomColor.grey,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                height: 30,
-                                width: 200.w,
-                                decoration: BoxDecoration(
-                                    color: CustomColor.signUpButtonColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Text(
-                                  'Buy Now',
-                                  style: TextStyle(color: CustomColor.white),
+                                  ],
                                 ),
                               ),
-
-                            ],
-                          ),
-                        )),
+                            )),
                   ),
                 ),
               ),
