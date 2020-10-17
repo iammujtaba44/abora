@@ -170,7 +170,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     margin:
                         const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                     padding: const EdgeInsets.all(20),
-                    height: 310.h,
+                    height: 240.h,
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           'Bulk Sessions',
                           style:
-                              TextStyle(color: CustomColor.red, fontSize: 20.0),
+                              TextStyle(color: CustomColor.red,),
                         ),
                         SizedBox(
                           height: 12,
@@ -306,19 +306,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   _tableContainer(String _label, Color _color, int type) {
     return Container(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.all(20.0.h),
       child: type == 1
           ? Text(_label,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: _color,
-                fontSize: 20.0,
+                fontSize: 20.0.h,
               ))
           : Text(_label,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: _color,
-                fontSize: 20.0,
+                fontSize: 20.0.h,
               )),
     );
   }
