@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1022256996521",
+    "firebase_url": "https://abora-42865.firebaseio.com",
+    "project_id": "abora-42865",
+    "storage_bucket": "abora-42865.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022256996521:android:978c4f28a517a1331649b8",
+        "android_client_info": {
+          "package_name": "com.example.abora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022256996521-e2hikeubjjo5ebiphjemponrp59rc1ff.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo1tN0XzWRQAfQQNX75weIJIERQ8o10Q8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022256996521-e2hikeubjjo5ebiphjemponrp59rc1ff.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

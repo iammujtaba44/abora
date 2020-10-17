@@ -422,12 +422,14 @@ class _BookingScreenState extends State<BookingScreen> {
       // headerTitleTouchable: true,
       //headerMargin: EdgeInsets.all(1),
       leftButtonIcon: IconButton(
+        onPressed: () {},
         icon: Icon(
           Icons.arrow_left,
           color: Color.fromRGBO(5, 115, 106, 10),
         ),
       ),
       rightButtonIcon: IconButton(
+        onPressed: () {},
         icon: Icon(
           Icons.arrow_right,
           color: Color.fromRGBO(5, 115, 106, 10),

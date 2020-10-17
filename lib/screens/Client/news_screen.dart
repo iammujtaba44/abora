@@ -96,6 +96,7 @@ class _NewsPageState extends State<NewsPage> {
                         right: 0,
                         top: 0,
                         child: IconButton(
+                          onPressed: () {},
                           icon: Icon(
                             Icons.bookmark_sharp,
                             color: Colors.white,
@@ -221,6 +222,7 @@ class _NewsPageState extends State<NewsPage> {
                   Positioned(
                       right: 0,
                       child: IconButton(
+                        onPressed: () {},
                         icon: Icon(
                           Icons.bookmark_sharp,
                           color: Colors.white,

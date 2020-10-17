@@ -1,4 +1,4 @@
- import 'package:abora/global/colors.dart';
+import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 
 import 'package:abora/widgets/blue_button.dart';
@@ -329,12 +329,14 @@ class _ViewDetailState extends State<ViewDetail> {
       // headerTitleTouchable: true,
       //headerMargin: EdgeInsets.all(1),
       leftButtonIcon: IconButton(
+        onPressed: () {},
         icon: Icon(
           Icons.arrow_left,
           color: Color.fromRGBO(5, 115, 106, 10),
         ),
       ),
       rightButtonIcon: IconButton(
+        onPressed: () {},
         icon: Icon(
           Icons.arrow_right,
           color: Color.fromRGBO(5, 115, 106, 10),
