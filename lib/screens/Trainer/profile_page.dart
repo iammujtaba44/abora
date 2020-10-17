@@ -178,7 +178,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         Text(
                           'Bulk Sessions',
                           style:
-                              TextStyle(color: CustomColor.red,),
+                              TextStyle(color: CustomColor.red,), 
                         ),
                         SizedBox(
                           height: 12,
