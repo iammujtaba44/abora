@@ -1,10 +1,12 @@
 import 'package:abora/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
-class AuthService {
+class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   UserModel _userFromFirebaseUser(User user) {
+    notifyListeners();
     return user != null ? UserModel(userId: user.uid) : null;
   }
 
@@ -16,6 +18,7 @@ class AuthService {
     try {
       var result = await _auth.signInAnonymously();
       User user = result.user;
+      notifyListeners();
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

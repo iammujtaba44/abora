@@ -1,7 +1,9 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/user_model.dart';
+import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/screens/Trainer/otp_page.dart';
+import 'package:abora/screens/wrapper.dart';
 import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
@@ -203,8 +205,12 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
               func: () async {
                 var result = await _auth.registerWithEmailAndPassword(
                     emailController.text, passwordController.text);
+
                 if (result == null) {
                   print('Sorry couldn\'t register');
+                } else if (result != null) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
                 }
 
                 // if (_formKey.currentState.validate()) {
