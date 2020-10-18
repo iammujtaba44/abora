@@ -4,6 +4,7 @@ import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/screens/Trainer/multiuser_login_page.dart';
+import 'package:abora/screens/Trainer/multiuser_signup_page.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BottonNavControllerTrainer()),
+                          builder: (context) => MultiuserLoginPage()),
                     );
                   }),
               SizedBox(
@@ -130,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BottonNavControllerClient()),
+                        builder: (context) => MultiuserSignUpPage()),
                   );
                 },
                 child: Row(

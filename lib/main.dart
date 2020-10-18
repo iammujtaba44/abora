@@ -1,4 +1,4 @@
-
+import 'package:abora/models/user.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Home/first_page.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
@@ -21,13 +21,17 @@ import 'package:abora/screens/Trainer/profile_page.dart';
 import 'package:abora/screens/Trainer/settings_page.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
+import 'package:abora/screens/authenticate/authenticate.dart';
+import 'package:abora/screens/wrapper.dart';
+import 'package:abora/services/auth.dart';
 import 'package:abora/splashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'splashScreen.dart';
-import 'splashScreen.dart';
-
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -36,15 +40,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Color(0XFF00001e),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: SplashScreen(),
-    );
+    return StreamProvider<UserModel>.value(
+        value: AuthService().user,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            primaryColor: Color(0XFF00001e),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: Wrapper(),
+        ));
   }
 }

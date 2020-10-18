@@ -1,6 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/models/user.dart';
 import 'package:abora/screens/Trainer/otp_page.dart';
+import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
@@ -42,8 +44,28 @@ class MultiuserSignUpPage extends StatefulWidget {
 }
 
 class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
+  final AuthService _auth = AuthService();
+
+  TextEditingController firstNameController,
+      lastNameController,
+      emailController,
+      passwordController,
+      confirmPassowrdController;
+
   int _index = 0;
   bool isChecked = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+    confirmPassowrdController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +96,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
               SizedBox(
                 height: 20,
               ),
-              Login(context),
+              SignUp(context),
               Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -99,11 +121,43 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
     );
   }
 
-  Widget Login(BuildContext context) {
+  Widget SignUp(BuildContext context) {
     return Container(
       child: Column(
         children: [
-          customTextField(iconData: Icons.person, text: 'First Name'),
+          Container(
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: CustomColor.textFieldFilledColor,
+                border: Border.all(color: CustomColor.textFieldBorderColor)),
+            child: TextFormField(
+              controller: firstNameController,
+              decoration: InputDecoration(
+                prefixIcon: Icon(
+                  Icons.person,
+                  color: CustomColor.textFieldLabelColor,
+                  size: FontSize.h3FontSize + 2,
+                ),
+                hintText: 'text',
+                contentPadding: EdgeInsets.only(left: 10, right: 10),
+                hintStyle: TextStyle(
+                    color: CustomColor.textFieldLabelColor,
+                    fontSize: FontSize.h3FontSize - 2),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent)),
+              ),
+              onChanged: (value) {
+                setState(() => firstNameController.text = value);
+              },
+            ),
+          ),
+          // customTextField(
+          //     iconData: Icons.person,
+          //     text: 'First Name',
+          //     controller: firstNameController),
           SizedBox(
             height: 20,
           ),
@@ -154,11 +208,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
             ],
           ),
           blueButton(
-            func: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => OTPPage()),
-              );
+            func: () async {
+              print('${firstNameController.text}');
             },
             child: Text(
               'SIGN UP'.toUpperCase(),

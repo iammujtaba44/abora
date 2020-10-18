@@ -1,5 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/details_double_container.dart';
 import 'package:abora/widgets/details_single_container.dart';
@@ -55,6 +56,10 @@ List<DateTime> absentDates = [];
 class _HomePageState extends State<HomePage> {
   CalendarController _controller;
   List<Color> _colors = [Colors.deepOrange, Colors.yellow];
+
+  //Auth
+
+  final AuthService _auth = AuthService();
 
   double width;
   double height;
@@ -114,7 +119,9 @@ class _HomePageState extends State<HomePage> {
             child: Icon(Icons.add_circle),
             backgroundColor: Colors.orange,
             label: 'Post Ad',
-            onTap: () => print('Post Ad'),
+            onTap: () async {
+              await _auth.signOut();
+            },
           ),
           SpeedDialChild(
             child: Icon(Icons.cloud_upload),

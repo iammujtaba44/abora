@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-class  FirstPage extends StatelessWidget {
+class FirstPage extends StatelessWidget {
   final List<Trainer> trainers = [
     Trainer(
         name: 'Garaham Cracker',
@@ -55,12 +55,12 @@ class  FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(context, designSize: Size(640, 1136 ), allowFontScaling: false);
+    ScreenUtil.init(context,
+        designSize: Size(640, 1136), allowFontScaling: false);
     return Scaffold(
-      backgroundColor: CustomColor.backgroundColor,
+        backgroundColor: CustomColor.backgroundColor,
         body: Container(
-         child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -84,23 +84,27 @@ class  FirstPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                Padding(
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
-                  child: Text(
-                    'Ads',
-                    style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 18),
+                    child: Text(
+                      'Ads',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding:
-                  const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
-                  child: Text('View All', style: TextStyle(color: CustomColor.blue),),
-                )
-              ],),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12, horizontal: 18),
+                    child: Text(
+                      'View All',
+                      style: TextStyle(color: CustomColor.blue),
+                    ),
+                  )
+                ],
+              ),
               Expanded(
-                flex: 8,
+                flex: 9,
                 child: Container(
                   margin: EdgeInsets.only(left: 8),
                   child: ListView.builder(
@@ -124,7 +128,7 @@ class  FirstPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(8.0),
@@ -219,8 +223,8 @@ class  FirstPage extends StatelessWidget {
                                 Container(
                                   padding: EdgeInsets.only(left: 12),
                                   child: Column(
-crossAxisAlignment: CrossAxisAlignment.start,
-
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Mario Speedwagon',
@@ -244,13 +248,12 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                       SizedBox(
                                         height: 3.0,
                                       ),
-
-                                       Container(
-                                         width: 350.h,
-                                         child: Row(
-
-                                            children: [
-                                              Expanded(child: SmoothStarRating(
+                                      Container(
+                                        width: 350.h,
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: SmoothStarRating(
                                                   allowHalfRating: false,
                                                   onRated: (v) {},
                                                   starCount: 5,
@@ -258,27 +261,36 @@ crossAxisAlignment: CrossAxisAlignment.start,
                                                   size: 15.0,
                                                   isReadOnly: true,
                                                   color: Colors.yellow[800],
-                                                  borderColor: Colors.yellow[800],
-                                                  spacing: 0.0),),
-                                              Expanded(child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                  borderColor:
+                                                      Colors.yellow[800],
+                                                  spacing: 0.0),
+                                            ),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
                                                 children: [
-                                                  Text('View Profile', style: TextStyle(color: CustomColor.signUpButtonColor),),
-                                                  SizedBox(width: 3,),
-                                                  Icon(Icons.arrow_forward_ios, size: 12, color: CustomColor.signUpButtonColor,),
-                                                ],),),
-
-
-
-
-
-
-
-
-                                            ],
-                                          ),
-                                       ),
-
+                                                  Text(
+                                                    'View Profile',
+                                                    style: TextStyle(
+                                                        color: CustomColor
+                                                            .signUpButtonColor),
+                                                  ),
+                                                  SizedBox(
+                                                    width: 3,
+                                                  ),
+                                                  Icon(
+                                                    Icons.arrow_forward_ios,
+                                                    size: 12,
+                                                    color: CustomColor
+                                                        .signUpButtonColor,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
