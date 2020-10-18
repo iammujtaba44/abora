@@ -35,9 +35,9 @@ Container customTextField(
         focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.transparent)),
       ),
-      onChanged: (value) {
-        controller.text = value;
-      },
+      // onChanged: (value) {
+      //   controller.text = value;
+      // },
     ),
   );
 }

@@ -161,20 +161,31 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
           SizedBox(
             height: 20,
           ),
-          customTextField(iconData: Icons.person, text: 'Last Name'),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(iconData: Icons.email, text: 'Email Address'),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(iconData: Icons.lock_outline, text: 'Password'),
+          customTextField(
+              iconData: Icons.person,
+              text: 'Last Name',
+              controller: lastNameController),
           SizedBox(
             height: 20,
           ),
           customTextField(
-              iconData: Icons.lock_outline, text: 'Confirm Password'),
+              iconData: Icons.email,
+              text: 'Email Address',
+              controller: emailController),
+          SizedBox(
+            height: 20,
+          ),
+          customTextField(
+              iconData: Icons.lock_outline,
+              text: 'Password',
+              controller: passwordController),
+          SizedBox(
+            height: 20,
+          ),
+          customTextField(
+              iconData: Icons.lock_outline,
+              text: 'Confirm Password',
+              controller: confirmPassowrdController),
           SizedBox(
             height: 20,
           ),
@@ -209,7 +220,10 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
           ),
           blueButton(
             func: () async {
-              print('${firstNameController.text}');
+              print(lastNameController.text);
+              print(emailController.text);
+
+              // print('${firstNameController.text}');
             },
             child: Text(
               'SIGN UP'.toUpperCase(),
