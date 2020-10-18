@@ -1,6 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/models/user.dart';
+import 'package:abora/models/user_model.dart';
 import 'package:abora/screens/Trainer/otp_page.dart';
 import 'package:abora/services/auth.dart';
 
@@ -45,6 +45,7 @@ class MultiuserSignUpPage extends StatefulWidget {
 
 class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
 
   TextEditingController firstNameController,
       lastNameController,
@@ -123,114 +124,102 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
 
   Widget SignUp(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Container(
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: CustomColor.textFieldFilledColor,
-                border: Border.all(color: CustomColor.textFieldBorderColor)),
-            child: TextFormField(
-              controller: firstNameController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: CustomColor.textFieldLabelColor,
-                  size: FontSize.h3FontSize + 2,
-                ),
-                hintText: 'text',
-                contentPadding: EdgeInsets.only(left: 10, right: 10),
-                hintStyle: TextStyle(
-                    color: CustomColor.textFieldLabelColor,
-                    fontSize: FontSize.h3FontSize - 2),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent)),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.transparent)),
-              ),
-              onChanged: (value) {
-                setState(() => firstNameController.text = value);
-              },
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            customTextField(
+                validator: 'Enter First Name',
+                iconData: Icons.person,
+                text: 'First Name',
+                controller: firstNameController),
+            SizedBox(
+              height: 20,
             ),
-          ),
-          // customTextField(
-          //     iconData: Icons.person,
-          //     text: 'First Name',
-          //     controller: firstNameController),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(
-              iconData: Icons.person,
-              text: 'Last Name',
-              controller: lastNameController),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(
-              iconData: Icons.email,
-              text: 'Email Address',
-              controller: emailController),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(
-              iconData: Icons.lock_outline,
-              text: 'Password',
-              controller: passwordController),
-          SizedBox(
-            height: 20,
-          ),
-          customTextField(
-              iconData: Icons.lock_outline,
-              text: 'Confirm Password',
-              controller: confirmPassowrdController),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            children: [
-              Checkbox(
-                value: true,
-                onChanged: (value) {},
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width / 1.5,
-                child: new RichText(
-                  text: new TextSpan(
-                    style: TextStyle(fontSize: FontSize.h5FontSize),
-                    text:
-                        'By signing up you indicate that you have read and agreed to the ',
-                    children: [
-                      new TextSpan(
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: CustomColor.red,
-                            fontSize: FontSize.h5FontSize),
-                        text: 'Terms of Service.',
-                        recognizer: new TapGestureRecognizer()
-                          ..onTap = () => print('Tap Here onTap'),
-                      )
-                    ],
+            customTextField(
+                validator: 'Enter Last Name',
+                iconData: Icons.person,
+                text: 'Last Name',
+                controller: lastNameController),
+            SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                validator: 'Enter an Email',
+                iconData: Icons.email,
+                text: 'Email Address',
+                controller: emailController),
+            SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                passwordValid: true,
+                validator: 'Enter Your Password',
+                iconData: Icons.lock_outline,
+                text: 'Password',
+                controller: passwordController),
+            SizedBox(
+              height: 20,
+            ),
+            customTextField(
+                passwordValid: true,
+                validator: 'Enter Confirm Password',
+                iconData: Icons.lock_outline,
+                text: 'Confirm Password',
+                controller: confirmPassowrdController),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Checkbox(
+                  value: true,
+                  onChanged: (value) {},
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width / 1.5,
+                  child: new RichText(
+                    text: new TextSpan(
+                      style: TextStyle(fontSize: FontSize.h5FontSize),
+                      text:
+                          'By signing up you indicate that you have read and agreed to the ',
+                      children: [
+                        new TextSpan(
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: CustomColor.red,
+                              fontSize: FontSize.h5FontSize),
+                          text: 'Terms of Service.',
+                          recognizer: new TapGestureRecognizer()
+                            ..onTap = () => print('Tap Here onTap'),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-          blueButton(
-            func: () async {
-              print(lastNameController.text);
-              print(emailController.text);
-
-              // print('${firstNameController.text}');
-            },
-            child: Text(
-              'SIGN UP'.toUpperCase(),
-              style: TextStyle(color: CustomColor.white),
+              ],
             ),
-          ),
-        ],
+            blueButton(
+              func: () async {
+                var result = await _auth.registerWithEmailAndPassword(
+                    emailController.text, passwordController.text);
+                if (result == null) {
+                  print('Sorry couldn\'t register');
+                }
+
+                // if (_formKey.currentState.validate()) {
+
+                // }
+
+                // print('${firstNameController.text}');
+              },
+              child: Text(
+                'SIGN UP'.toUpperCase(),
+                style: TextStyle(color: CustomColor.white),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

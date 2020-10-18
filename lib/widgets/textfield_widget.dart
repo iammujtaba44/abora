@@ -3,7 +3,9 @@ import 'package:abora/global/fontSize.dart';
 import 'package:flutter/material.dart';
 
 Container customTextField(
-    {IconData iconData,
+    {bool passwordValid,
+    String validator,
+    IconData iconData,
     String text,
     bool curveContainer = false,
     EdgeInsets edgeInsets = const EdgeInsets.only(left: 10, right: 10),
@@ -16,6 +18,11 @@ Container customTextField(
         color: CustomColor.textFieldFilledColor,
         border: Border.all(color: CustomColor.textFieldBorderColor)),
     child: TextFormField(
+      validator: (val) => val.isEmpty
+          ? validator
+          : passwordValid
+              ? val.length < 6 ? 'Enter a password 6+ chars long' : null
+              : null,
       controller: controller == null ? null : controller,
       decoration: InputDecoration(
         prefixIcon: iconData != null
