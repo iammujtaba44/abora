@@ -1,11 +1,11 @@
 import 'package:abora/models/user_model.dart';
 import 'package:abora/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-<<<<<<< HEAD
+
 import 'package:flutter/cupertino.dart';
-=======
+
 import 'package:flutter/material.dart';
->>>>>>> fc6b911c3791b5f232e0151c68866a9d9560037b
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AuthService extends ChangeNotifier {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -43,16 +43,25 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  Future registerWithEmailAndPassword(String email, String password) async {
+  Future registerWithEmailAndPassword({
+    @required String email,
+    @required String password,
+    @required String name,
+  }) async {
     try {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
 
-      await DatabaseSerivce(uId: user.uid).updateUserData('abc', 'a', 'a', 'b');
+      await DatabaseSerivce(uId: user.uid)
+          .updateUserData(email: email, password: password, name: name);
 
       return user;
     } catch (e) {
+      Fluttertoast.showToast(
+          msg: e.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER);
       print(e.toString());
       return null;
     }

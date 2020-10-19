@@ -1,16 +1,12 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/models/user_model.dart';
 import 'package:abora/screens/Trainer/home_page.dart';
-import 'package:abora/screens/Trainer/otp_page.dart';
-import 'package:abora/screens/wrapper.dart';
 import 'package:abora/services/auth.dart';
-
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:preview/preview.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -77,47 +73,53 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Row(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: MediaQuery.of(context).size.height / 1.1,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    width: 130,
-                    height: 130,
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/logo.png',
+                        width: 130,
+                        height: 130,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Tabs(context),
-              SizedBox(
-                height: 20,
-              ),
-              SignUp(context),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Already have an account? ',
-                    style: TextStyle(color: CustomColor.white),
+                  SizedBox(
+                    height: 15,
                   ),
-                  Text(
-                    'Login',
-                    style: TextStyle(color: CustomColor.red),
+                  Tabs(context),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SignUp(context),
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: CustomColor.white),
+                      ),
+                      Text(
+                        'Login',
+                        style: TextStyle(color: CustomColor.red),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
                   )
                 ],
               ),
-              SizedBox(
-                height: 10,
-              )
-            ],
+            ),
           ),
         ),
       ),
@@ -203,14 +205,42 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
             ),
             blueButton(
               func: () async {
-                dynamic result = await _auth.registerWithEmailAndPassword(
-                    emailController.text, passwordController.text);
+                if (emailController.text.isNotEmpty &&
+                    passwordController.text.isNotEmpty &&
+                    firstNameController.text.isNotEmpty &&
+                    lastNameController.text.isNotEmpty &&
+                    confirmPassowrdController.text.isNotEmpty) {
+                  if (passwordController.text ==
+                      confirmPassowrdController.text) {
+                    dynamic result = await _auth.registerWithEmailAndPassword(
+                        email: emailController.text,
+                        password: passwordController.text,
+                        name:
+                            "${firstNameController.text + lastNameController.text}");
 
-                if (result == null) {
-                  print('Sorry couldn\'t register');
-                } else if (result != null) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
+                    if (result == null) {
+                      print('Sorry couldn\'t register');
+                    } else if (result != null) {
+                      emailController.clear();
+                      passwordController..clear();
+                      firstNameController..clear();
+                      lastNameController.clear();
+                      confirmPassowrdController.clear();
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                    }
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: 'Passwords does not match',
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.CENTER);
+                  }
+                } else {
+                  Fluttertoast.showToast(
+                      msg: 'Please fill all fiels first',
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.CENTER);
                 }
 
                 // if (_formKey.currentState.validate()) {
@@ -321,41 +351,4 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
       ),
     );
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPad extends PreviewProvider {
-  @override
-  String get title => 'IPad';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.ipadPro12,
-          child: MyApp(),
-        ),
-      ];
 }

@@ -9,11 +9,12 @@ class DatabaseSerivce {
       FirebaseFirestore.instance.collection('signup');
 
   Future updateUserData(
-      String email, String firstName, String lastName, String password) async {
+      {String email,
+      String name,
+      String password}) async {
     return await signup.doc(uId).set({
       'email': email,
-      'firstName': firstName,
-      'lastName': lastName,
+      'name': name,
       'password': password
     });
   }

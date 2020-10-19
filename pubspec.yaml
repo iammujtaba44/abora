@@ -39,6 +39,7 @@ dependencies:
   smooth_star_rating: 1.1.1
   table_calendar: ^2.0.1
   unicorndial: ^1.1.5
+  fluttertoast: ^7.1.1
 
 dev_dependencies:
   flutter_test:
