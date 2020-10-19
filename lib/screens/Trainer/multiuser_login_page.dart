@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/multiuser_signup_page.dart';
+import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
@@ -44,12 +45,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
   int _index = 0;
   bool isChecked = false;
 
+  AuthService _auth = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
       body: Container(
-      child: Padding(
+        child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,11 +106,19 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Don\'t have an account? ', style: TextStyle(color: CustomColor.white),),
-                  Text('Sign up', style: TextStyle(color: CustomColor.red),)
+                  Text(
+                    'Don\'t have an account? ',
+                    style: TextStyle(color: CustomColor.white),
+                  ),
+                  Text(
+                    'Sign up',
+                    style: TextStyle(color: CustomColor.red),
+                  )
                 ],
               ),
-              SizedBox(height: 10,)
+              SizedBox(
+                height: 10,
+              )
             ],
           ),
         ),
@@ -119,12 +130,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
     return Container(
       child: Column(
         children: [
-         customTextField(iconData: Icons.email, text:'Email Address'),
+          customTextField(iconData: Icons.email, text: 'Email Address'),
           SizedBox(
             height: 20,
           ),
           customTextField(iconData: Icons.lock_outline, text: 'Password'),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -133,7 +146,6 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                   setState(() {
                     isChecked = !isChecked;
                   });
-
                 },
                 child: Row(
                   children: [
@@ -141,29 +153,44 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       height: 15,
                       width: 15,
                       decoration: BoxDecoration(
-                        color: isChecked ?  CustomColor.red : null,
+                          color: isChecked ? CustomColor.red : null,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: CustomColor.white)),
                     ),
-                    SizedBox(width: 10,),
-                    Text('Remember me', style: TextStyle(color: CustomColor.white,),)
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Remember me',
+                      style: TextStyle(
+                        color: CustomColor.white,
+                      ),
+                    )
                   ],
                 ),
               ),
-              Text('Forgot password?', style: TextStyle(color: CustomColor.white),),
+              Text(
+                'Forgot password?',
+                style: TextStyle(color: CustomColor.white),
+              ),
             ],
           ),
-
-          SizedBox(height: 30,),
-
-          blueButton(func: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MultiuserSignUpPage()),
-            );
-          },child: Text('log in'.toUpperCase(), style: TextStyle(color: CustomColor.white),),),
-
-
+          SizedBox(
+            height: 30,
+          ),
+          blueButton(
+            func: () async {
+              var result =
+                  _auth.signInWithEmailAndPassword('abc@gmail.com', '123123');
+              if (result == null) {
+                print('result is null------------');
+              }
+            },
+            child: Text(
+              'log in'.toUpperCase(),
+              style: TextStyle(color: CustomColor.white),
+            ),
+          ),
         ],
       ),
     );
@@ -210,8 +237,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
               ),
               onTap: () {
                 setState(() {
-
-                _index = 0;
+                  _index = 0;
                 });
               },
             ),
@@ -252,7 +278,6 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
               ),
               onTap: () {
                 setState(() {
-
                   _index = 1;
                 });
               },
@@ -263,6 +288,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
     );
   }
 }
+
 class IPhone5 extends PreviewProvider {
   @override
   String get title => 'iPhone 5';

@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/login_page.dart';
+import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/dialog_box.dart/alert.dart';
@@ -55,6 +56,7 @@ class _SettingsPageState extends State<SettingsPage> {
   double width;
 
   CalendarController _controller;
+  AuthService _auth = AuthService();
 
   TextStyle dayStyle(FontWeight fontWeight) {
     return TextStyle(color: Color(0xFF30384c), fontWeight: fontWeight);
@@ -77,7 +79,12 @@ class _SettingsPageState extends State<SettingsPage> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('SETTING', style: TextStyle(fontSize: 15, ),),
+          title: Text(
+            'SETTING',
+            style: TextStyle(
+              fontSize: 15,
+            ),
+          ),
           leading: Container(),
           centerTitle: true,
           actions: [
@@ -89,33 +96,26 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
         backgroundColor: CustomColor.backgroundColor,
-        body: ListView(children: [
-
-SizedBox(height: 50,),
-
-          settingsListTile(context, 'assets/user_icon.png', 'Account Settings'),
-          settingsListTile(context, 'assets/card_icon.png', 'Payment Settings'),
-          settingsListTile(context, 'assets/refund_icon.png', 'Refund'),
-          settingsListTile(context, 'assets/help_icon.png', 'FAQ\'s'),
-          settingsListTile(context, 'assets/report_icon.png', 'Report'),
-          GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => LoginPage()),
-                );
-              },
-              child: settingsListTile(context, 'assets/logout_icon.png', 'Logout')),
-
-
-
-
-
-
-
-        ],)
-    );
+        body: ListView(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            settingsListTile(
+                context, 'assets/user_icon.png', 'Account Settings'),
+            settingsListTile(
+                context, 'assets/card_icon.png', 'Payment Settings'),
+            settingsListTile(context, 'assets/refund_icon.png', 'Refund'),
+            settingsListTile(context, 'assets/help_icon.png', 'FAQ\'s'),
+            settingsListTile(context, 'assets/report_icon.png', 'Report'),
+            GestureDetector(
+                onTap: () async {
+                  await _auth.signOut();
+                },
+                child: settingsListTile(
+                    context, 'assets/logout_icon.png', 'Logout')),
+          ],
+        ));
   }
 
   _onAlertButtonsPressed(context) {
@@ -135,12 +135,12 @@ class IPhone5 extends PreviewProvider {
   String get title => 'iPhone 5';
   @override
   List<Preview> get previews => [
-    Preview(
-      key: Key('preview'),
-      frame: Frames.iphone5,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          key: Key('preview'),
+          frame: Frames.iphone5,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPhoneX extends PreviewProvider {
@@ -148,11 +148,11 @@ class IPhoneX extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.iphoneX,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.iphoneX,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPad extends PreviewProvider {
@@ -160,9 +160,9 @@ class IPad extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.ipadPro12,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.ipadPro12,
+          child: MyApp(),
+        ),
+      ];
 }

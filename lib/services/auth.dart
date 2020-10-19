@@ -1,5 +1,7 @@
 import 'package:abora/models/user_model.dart';
+import 'package:abora/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -12,7 +14,7 @@ class AuthService {
     return _auth.authStateChanges();
   }
 
-  Future<UserModel> signInAnon() async {
+  Future signInAnon() async {
     try {
       var result = await _auth.signInAnonymously();
       User user = result.user;
@@ -23,13 +25,27 @@ class AuthService {
     }
   }
 
-  Future<UserModel> registerWithEmailAndPassword(
-      String email, String password) async {
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      var result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
+      return user;
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
+
+  Future registerWithEmailAndPassword(String email, String password) async {
     try {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
-      return _userFromFirebaseUser(user);
+
+      await DatabaseSerivce(uId: user.uid).updateUserData('abc', 'a', 'a', 'b');
+
+      return user;
     } catch (e) {
       print(e.toString());
       return null;

@@ -201,7 +201,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
             ),
             blueButton(
               func: () async {
-                var result = await _auth.registerWithEmailAndPassword(
+                dynamic result = await _auth.registerWithEmailAndPassword(
                     emailController.text, passwordController.text);
                 if (result == null) {
                   print('Sorry couldn\'t register');
