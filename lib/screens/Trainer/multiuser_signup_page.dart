@@ -2,6 +2,7 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/services/auth.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/gestures.dart';
@@ -226,22 +227,14 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       firstNameController..clear();
                       lastNameController.clear();
                       confirmPassowrdController.clear();
-
+                      CustomToast(text: 'Registered Successfully');
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomePage()));
                     }
-                  } else {
-                    Fluttertoast.showToast(
-                        msg: 'Passwords does not match',
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.CENTER);
-                  }
-                } else {
-                  Fluttertoast.showToast(
-                      msg: 'Please fill all fiels first',
-                      toastLength: Toast.LENGTH_LONG,
-                      gravity: ToastGravity.CENTER);
-                }
+                  } else
+                    CustomToast(text: 'Passwords does not match');
+                } else
+                  CustomToast(text: 'Please fill all fiels first');
 
                 // if (_formKey.currentState.validate()) {
 

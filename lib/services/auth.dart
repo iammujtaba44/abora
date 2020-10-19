@@ -1,5 +1,6 @@
 import 'package:abora/models/user_model.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -58,10 +59,7 @@ class AuthService extends ChangeNotifier {
 
       return user;
     } catch (e) {
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.CENTER);
+      CustomToast(text: e.toString());
       print(e.toString());
       return null;
     }
