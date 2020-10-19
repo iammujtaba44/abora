@@ -1,4 +1,5 @@
 import 'package:abora/models/user_model.dart';
+import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -37,6 +38,8 @@ class AuthService extends ChangeNotifier {
       var result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
+      UserCredentionl.userId = user.uid;
+      print('------------- ${UserCredentionl.userId}');
       return user;
     } catch (error) {
       print(error.toString());

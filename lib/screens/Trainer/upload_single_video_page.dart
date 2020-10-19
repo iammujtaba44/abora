@@ -3,6 +3,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
+import 'package:abora/services/database.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/dialog_box.dart/alert.dart';
@@ -10,11 +11,13 @@ import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -105,15 +108,13 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  rectBorderWidget(context,
-                      height: 200,
-                      width: double.infinity,
+                  rectBorderWidget(context, height: 200, width: double.infinity,
                       func: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => PostAdPage()),
-                        );
-                      }),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PostAdPage()),
+                    );
+                  }),
                   SizedBox(
                     height: 20,
                   ),
@@ -193,7 +194,12 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     'UPLOAD COURSE',
                     style: TextStyle(color: Colors.white),
                   ),
-                  func: () => _onAlertButtonsPressed(context),
+                  func: () async {
+                    final user = Provider.of<User>(context, listen: false);
+                    // print('---------${user.uid}');
+                    await DatabaseSerivce(uId: user.uid).uploadVideo(
+                        title: 'Raheel', description: 'okay2', video: 'http2');
+                  }, //_onAlertButtonsPressed(context),
                 ),
               ),
             ],

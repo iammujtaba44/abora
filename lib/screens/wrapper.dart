@@ -1,4 +1,5 @@
 import 'package:abora/models/user_model.dart';
+import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/screens/Trainer/login_page.dart';
 import 'package:abora/screens/Trainer/settings_page.dart';
@@ -16,7 +17,7 @@ class Wrapper extends StatelessWidget {
     if (user == null) {
       return LoginPage();
     } else {
-      return HomePage();
+      return BottonNavControllerTrainer();
     }
   }
 }

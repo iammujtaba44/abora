@@ -1,5 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/screens/Trainer/multiuser_signup_page.dart';
 import 'package:abora/services/auth.dart';
 
@@ -180,10 +181,15 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
           ),
           blueButton(
             func: () async {
-              var result =
-                  _auth.signInWithEmailAndPassword('abc@gmail.com', '123123');
+              var result = _auth.signInWithEmailAndPassword(
+                  'raheel@gmail.com', '123456');
               if (result == null) {
                 print('result is null------------');
+              } else {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BottonNavControllerTrainer()));
               }
             },
             child: Text(
