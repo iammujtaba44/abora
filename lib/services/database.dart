@@ -1,10 +1,10 @@
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class DatabaseSerivce {
+class DatabaseService {
   final String uId;
 
-  DatabaseSerivce({this.uId});
+  DatabaseService({this.uId});
 
   final CollectionReference user =
       FirebaseFirestore.instance.collection('user');

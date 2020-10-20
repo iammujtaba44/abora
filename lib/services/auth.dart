@@ -38,11 +38,11 @@ class AuthService extends ChangeNotifier {
       var result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
-      UserCredentionl.userId = user.uid;
-      print('------------- ${UserCredentionl.userId}');
+      UserCredentials.userId = user.uid;
+      print('------------- ${UserCredentials.userId}');
       return user;
     } catch (error) {
-      print(error.toString());
+       CustomToast(text: error.toString());
       return null;
     }
   }
@@ -57,7 +57,7 @@ class AuthService extends ChangeNotifier {
           email: email, password: password);
       User user = result.user;
 
-      await DatabaseSerivce(uId: user.uid)
+      await DatabaseService(uId: user.uid)
           .updateUserData(email: email, password: password, name: name);
 
       return user;
@@ -72,7 +72,7 @@ class AuthService extends ChangeNotifier {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
+    CustomToast(text: e.toString());
       return null;
     }
   }

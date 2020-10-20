@@ -1,10 +1,3 @@
-
-
-
-class UserCredentionl {
-
+class UserCredentials {
   static String userId;
-
-
 }
-

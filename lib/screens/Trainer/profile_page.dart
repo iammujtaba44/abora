@@ -9,6 +9,7 @@ import 'package:abora/widgets/dialog_box.dart/alert.dart';
 import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
+import 'package:chewie/chewie.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
+import 'package:video_player/video_player.dart';
+
+import '../../services/constants.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -61,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   void initState() {
-    print(UserCredentionl.userId);
+    print(UserCredentials.userId);
     super.initState();
   }
 
@@ -73,7 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         designSize: Size(640, 1136), allowFontScaling: false);
 
     return StreamProvider<List<UploadVideo>>.value(
-      value: DatabaseSerivce(uId: UserCredentionl.userId).uploadVideoStream,
+      value: DatabaseService(uId: UserCredentials.userId).uploadVideoStream,
       child: Scaffold(
         appBar: AppBar(
           title: Text(
@@ -410,11 +414,44 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class WrapperRow extends StatelessWidget {
+class WrapperRow extends StatefulWidget {
   @override
+  _WrapperRowState createState() => _WrapperRowState();
+}
+
+class _WrapperRowState extends State<WrapperRow> {
+
+
+
+  VideoPlayerController videoPlayerController;
+  Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    videoPlayerController = new VideoPlayerController.network("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
+    _initializeVideoPlayerFuture = videoPlayerController.initialize().then((_) => {
+      setState(() {})
+    });
+
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    videoPlayerController.dispose();
+    
+    super.dispose();
+
+
+  }
+
+ @override
   Widget build(BuildContext context) {
-    final user = Provider.of<List<UploadVideo>>(context);
-    print("------------ ${user[0].description}");
+        final user = Provider.of<List<UploadVideo>>(context);
+   // print("------------ ${user[0].description}");
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -434,6 +471,24 @@ class WrapperRow extends StatelessWidget {
                 height: 100,
                 child: Stack(
                   children: [
+                    Chewie(
+                      key: PageStorageKey("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
+                      controller: ChewieController(
+                        videoPlayerController: videoPlayerController,
+                        aspectRatio: 1.8.h,
+                        autoInitialize: true,
+                        showControls: false,
+                        looping: true,
+                        autoPlay: true,
+                        errorBuilder: (context, errorMessage) {
+                          return Center(
+                            child: Text('abc', style: TextStyle(color: Colors.white),
+                          ));
+                        }
+                      ),
+                    ),
+
+
                     Positioned(
                       right: 10,
                       bottom: 10,
@@ -573,7 +628,10 @@ class WrapperRow extends StatelessWidget {
       ),
     );
   }
+
 }
+
+
 
 class IPhone5 extends PreviewProvider {
   @override

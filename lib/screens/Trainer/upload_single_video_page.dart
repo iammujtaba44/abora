@@ -4,6 +4,7 @@ import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/services/storage.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/dialog_box.dart/alert.dart';
@@ -16,8 +17,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
+
+import '../../services/constants.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -56,6 +60,17 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
   double height;
 
   double width;
+  
+  
+
+  Storage _storage ;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _storage = Storage(uId: UserCredentials.userId);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,10 +210,14 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   func: () async {
-                    final user = Provider.of<User>(context, listen: false);
-                    // print('---------${user.uid}');
-                    await DatabaseSerivce(uId: user.uid).uploadVideo(
-                        title: 'Raheel', description: 'okay2', video: 'http2');
+
+                _storage.uploadToStorage();
+
+                    
+                    // final user = Provider.of<User>(context, listen: false);
+                    // // print('---------${user.uid}');
+                    // await DatabaseService(uId: user.uid).uploadVideo(
+                    //     title: 'Raheel', description: 'okay2', video: 'http2');
                   }, //_onAlertButtonsPressed(context),
                 ),
               ),
@@ -208,6 +227,12 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
       ),
     );
   }
+
+  
+
+  
+
+
 
   _onAlertButtonsPressed(context) {
     Alert(
