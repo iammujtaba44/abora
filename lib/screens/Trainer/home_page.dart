@@ -1,6 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/services/auth.dart';
+import 'package:abora/services/constants.dart';
+import 'package:abora/services/database.dart';
 
 import 'package:abora/widgets/details_double_container.dart';
 import 'package:abora/widgets/details_single_container.dart';
@@ -146,7 +148,18 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              DatabaseService(uId: UserCredentials.userId).updateTrainerHomeData(
+                booking: '1',
+                conversionRate: '1',
+                ratio: '1',
+                thisMonthVisits: '1',
+                totalBookingThisMonth: '1',
+                totalSessionsBooked: '1',
+                totalViews: '1',
+                visit: '1'
+              );
+            },
             icon: Icon(
               Icons.settings,
               color: CustomColor.red,
