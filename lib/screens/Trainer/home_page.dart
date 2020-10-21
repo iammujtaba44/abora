@@ -1,8 +1,10 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/widgets/CustomToast.dart';
 
 import 'package:abora/widgets/details_double_container.dart';
 import 'package:abora/widgets/details_single_container.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -99,149 +102,165 @@ class _HomePageState extends State<HomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      floatingActionButton: SpeedDial(
-        child: Icon(Icons.add),
-        animatedIconTheme: IconThemeData(size: 22.0),
-        // this is ignored if animatedIcon is non null
-        // child: Icon(Icons.add),
+    return StreamBuilder<TrainerUser>(
+        stream: DatabaseService(uId: UserCredentials.userId)
+            .currentTrainerUserStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            TrainerUser trainerData = snapshot.data;
+            return Scaffold(
+              floatingActionButton: SpeedDial(
+                child: Icon(Icons.add),
+                animatedIconTheme: IconThemeData(size: 22.0),
+                // this is ignored if animatedIcon is non null
+                // child: Icon(Icons.add),
 
-        curve: Curves.bounceIn,
-        overlayColor: Colors.black,
-        overlayOpacity: 0.5,
-        onOpen: () => print('OPENING DIAL'),
-        onClose: () => print('DIAL CLOSED'),
-        tooltip: 'Speed Dial',
-        heroTag: 'speed-dial-hero-tag',
-        backgroundColor: CustomColor.signUpButtonColor,
-        foregroundColor: CustomColor.white,
-        elevation: 8.0,
-        shape: CircleBorder(),
-        children: [
-          SpeedDialChild(
-            child: Icon(Icons.add_circle),
-            backgroundColor: Colors.orange,
-            label: 'Post Ad',
-            onTap: () async {
-              await _auth.signOut();
-            },
-          ),
-          SpeedDialChild(
-            child: Icon(Icons.cloud_upload),
-            backgroundColor: Colors.red,
-            label: 'Upload Video',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CoursesPage()),
-              );
-            },
-          ),
-        ],
-      ),
-      backgroundColor: CustomColor.backgroundColor,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'HOME',
-          style: TextStyle(fontSize: 16),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              DatabaseService(uId: UserCredentials.userId).updateTrainerHomeData(
-                booking: '1',
-                conversionRate: '1',
-                ratio: '1',
-                thisMonthVisits: '1',
-                totalBookingThisMonth: '1',
-                totalSessionsBooked: '1',
-                totalViews: '1',
-                visit: '1'
-              );
-            },
-            icon: Icon(
-              Icons.settings,
-              color: CustomColor.red,
-            ),
-          )
-        ],
-      ),
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: Theme.of(context).primaryColor,
-            expandedHeight: height / 3,
-            leading: Container(),
-            flexibleSpace: FlexibleSpaceBar(
-              background: _buildContent(),
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              ListView(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
+                curve: Curves.bounceIn,
+                overlayColor: Colors.black,
+                overlayOpacity: 0.5,
+                onOpen: () => print('OPENING DIAL'),
+                onClose: () => print('DIAL CLOSED'),
+                tooltip: 'Speed Dial',
+                heroTag: 'speed-dial-hero-tag',
+                backgroundColor: CustomColor.signUpButtonColor,
+                foregroundColor: CustomColor.white,
+                elevation: 8.0,
+                shape: CircleBorder(),
                 children: [
-                  detailsDoubleContainer(context,
-                      text: 'Total Views',
-                      value: '2.5K',
-                      text2: 'This Month Visits',
-                      value2: '45.6K'),
-                  SizedBox(
-                    height: 20,
+                  SpeedDialChild(
+                    child: Icon(Icons.add_circle),
+                    backgroundColor: Colors.orange,
+                    label: 'Post Ad',
+                    onTap: () async {
+                      await _auth.signOut();
+                    },
                   ),
-                  detailsDoubleContainer(context,
-                      text: 'Total Views',
-                      value: '2.5K',
-                      text2: 'This Month Visits',
-                      value2: '45.6K'),
-                  SizedBox(
-                    height: 20,
+                  SpeedDialChild(
+                    child: Icon(Icons.cloud_upload),
+                    backgroundColor: Colors.red,
+                    label: 'Upload Video',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CoursesPage()),
+                      );
+                    },
                   ),
-                  detailsSingleContainer(context,
-                      text: 'Booking : Visit : Ratio : Conversion Rate',
-                      value: '16 : 16 : 16 : 48%'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            //    borderRadius: BorderRadius.all(Radius.circular(20.0))
-                          ), //width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 3,
-                          child: _calendarCarouselNoHeader,
-                        ),
-                        SizedBox(
-                          height: 40,
-                        )
-                      ],
+                ],
+              ),
+              backgroundColor: CustomColor.backgroundColor,
+              appBar: AppBar(
+                centerTitle: true,
+                title: Text(
+                  'HOME',
+                  style: TextStyle(fontSize: 16),
+                ),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      DatabaseService(uId: UserCredentials.userId)
+                          .updateTrainerHomeData(
+                              booking: '1',
+                              conversionRate: '1',
+                              ratio: '1',
+                              thisMonthVisits: '1',
+                              totalBookingThisMonth: '1',
+                              totalSessionsBooked: '1',
+                              totalViews: '1',
+                              visit: '1');
+                    },
+                    icon: Icon(
+                      Icons.settings,
+                      color: CustomColor.red,
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
                   )
                 ],
               ),
-            ]),
-          ),
-        ],
-      ),
-    );
+              body: CustomScrollView(
+                slivers: [
+                  SliverAppBar(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    expandedHeight: height / 3,
+                    leading: Container(),
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: _buildContent(name: trainerData.name),
+                    ),
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate([
+                      ListView(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        children: [
+                          detailsDoubleContainer(context,
+                              text: 'Total Views',
+                              value: trainerData.totalViews,
+                              text2: 'This Month Visits',
+                              value2: trainerData.thisMonthVisits),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          detailsDoubleContainer(context,
+                              text: 'Total Sessions Booked',
+                              value: trainerData.totalSessionsBooked,
+                              text2: 'Total Booking This Month',
+                              value2: trainerData.totalBookingThisMonth),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          detailsSingleContainer(context,
+                              text: 'Booking : Visit : Ratio : Conversion Rate',
+                              value:
+                                  '${trainerData.booking} : ${trainerData.visit} : ${trainerData.ratio} : ${trainerData.conversionRate}%'),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            margin:
+                                const EdgeInsets.only(left: 20.0, right: 20.0),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0))),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    //    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                                  ), //width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height / 3,
+                                  child: _calendarCarouselNoHeader,
+                                ),
+                                SizedBox(
+                                  height: 40,
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          )
+                        ],
+                      )
+                    ]),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        });
   }
 
-  Widget _buildContent() {
+  Widget _buildContent({
+    String name,
+  }) {
     return Column(
       children: [
         Stack(
@@ -263,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Davei Samah',
+                      name,
                       style: TextStyle(
                           fontSize: FontSize.h3FontSize,
                           color: CustomColor.white),

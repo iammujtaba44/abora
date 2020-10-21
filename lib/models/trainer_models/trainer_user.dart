@@ -1,4 +1,4 @@
-class TrainerHomePageModel {
+class TrainerUser {
   final String uId;
   final String name;
   final String email;
@@ -12,18 +12,17 @@ class TrainerHomePageModel {
   final String ratio;
   final String conversionRate;
 
-  TrainerHomePageModel(
-      {
-      this.uId,
+  TrainerUser(
+      {this.uId,
       this.email,
       this.name,
       this.password,
       this.totalViews,
-       this.thisMonthVisits,
-        this.totalSessionsBooked,
-        this.totalBookingThisMonth,
-        this.booking,
-        this.visit,
-        this.ratio,
-        this.conversionRate});  
+      this.thisMonthVisits,
+      this.totalSessionsBooked,
+      this.totalBookingThisMonth,
+      this.booking,
+      this.visit,
+      this.ratio,
+      this.conversionRate});
 }

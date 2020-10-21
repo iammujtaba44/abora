@@ -1,7 +1,5 @@
-
-
 import 'package:abora/models/UploadVideoModel.dart';
-import 'package:abora/models/trainer_models/home_page_model.dart';
+import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseService {
@@ -22,37 +20,26 @@ class DatabaseService {
     }).toList();
   }
 
-
-
-
-  
-  fetchCurrentTrainerData() async{
-      currentTrainerUser = await user.doc(uId).get();
+  TrainerUser getCurrentTrainerUser(DocumentSnapshot ds) {
+    return TrainerUser(
+      uId: uId,
+      email: ds.data()['email'],
+      name: ds.data()['name'],
+      booking: ds.data()['booking'],
+      conversionRate: ds.data()['conversionRate'],
+      password: ds.data()['password'],
+      ratio: ds.data()['ratio'],
+      thisMonthVisits: ds.data()['thisMonthVisits'],
+      totalViews: ds.data()['totalViews'],
+      totalSessionsBooked: ds.data()['totalSessionsBooked'],
+      totalBookingThisMonth: ds.data()['totalBookingThisMonth'],
+      visit: ds.data()['visit'],
+    );
   }
 
-  
-
-  TrainerHomePageModel getCurrentTrainerUser(DocumentSnapshot ds)   {
-      fetchCurrentTrainerData();
-     return TrainerHomePageModel(uId: uId,
-     email: currentTrainerUser.data()['email'],
-     name: currentTrainerUser.data()['name'],
-     booking: currentTrainerUser.data()['booking'],
-     conversionRate: currentTrainerUser.data()['conversionRate'],
-     password: currentTrainerUser.data()['password'],
-      ratio: currentTrainerUser.data()['ratio'],
-      thisMonthVisits: currentTrainerUser.data()['thisMonthVisits'],
-      totalViews: currentTrainerUser.data()['totalViews'],
-      totalSessionsBooked: currentTrainerUser.data()['totalSessionsBooked'],
-      totalBookingThisMonth: currentTrainerUser.data()['totalBookingThisMonth'],
-      visit: currentTrainerUser.data()['visit'],
-     );
-  }
-
-  Stream<TrainerHomePageModel> get currentTrainerUserStream {
+  Stream<TrainerUser> get currentTrainerUserStream {
     return user.doc(uId).snapshots().map(getCurrentTrainerUser);
   }
-  
 
   Stream<List<UploadVideo>> get uploadVideoStream {
     return user
@@ -76,8 +63,6 @@ class DatabaseService {
         .set({'email': email, 'name': name, 'password': password});
   }
 
-  
-
   Future updateTrainerHomeData(
       {String totalViews,
       String thisMonthVisits,
@@ -95,7 +80,7 @@ class DatabaseService {
       'booking': booking,
       'visit': visit,
       'ratio': ratio,
-      'conversionRate': conversionRate, 
+      'conversionRate': conversionRate,
     });
   }
 }
