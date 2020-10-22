@@ -1,12 +1,9 @@
-import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/screens/wrapper.dart';
 import 'package:abora/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'splashScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

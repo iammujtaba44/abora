@@ -60,10 +60,10 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
   double height;
 
   double width;
-  
-  
 
-  Storage _storage ;
+  var file;
+
+  Storage _storage;
 
   @override
   void initState() {
@@ -124,12 +124,17 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     height: 5.h,
                   ),
                   rectBorderWidget(context, height: 200, width: double.infinity,
-                      func: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => PostAdPage()),
-                    );
-                  }),
+                      func: () async {
+                    file = await ImagePicker.pickVideo(
+                        source: ImageSource.gallery);
+
+                    setState(() {});
+
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => PostAdPage()),
+                    // );
+                  }, file: file),
                   SizedBox(
                     height: 20,
                   ),
@@ -210,10 +215,8 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     style: TextStyle(color: Colors.white),
                   ),
                   func: () async {
+                    _storage.uploadToStorage();
 
-                _storage.uploadToStorage();
-
-                    
                     // final user = Provider.of<User>(context, listen: false);
                     // // print('---------${user.uid}');
                     // await DatabaseService(uId: user.uid).uploadVideo(
@@ -227,12 +230,6 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
       ),
     );
   }
-
-  
-
-  
-
-
 
   _onAlertButtonsPressed(context) {
     Alert(

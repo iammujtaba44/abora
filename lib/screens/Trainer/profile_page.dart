@@ -420,9 +420,6 @@ class WrapperRow extends StatefulWidget {
 }
 
 class _WrapperRowState extends State<WrapperRow> {
-
-
-
   VideoPlayerController videoPlayerController;
   Future<void> _initializeVideoPlayerFuture;
 
@@ -431,27 +428,24 @@ class _WrapperRowState extends State<WrapperRow> {
     // TODO: implement initState
     super.initState();
 
-    videoPlayerController = new VideoPlayerController.network("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
-    _initializeVideoPlayerFuture = videoPlayerController.initialize().then((_) => {
-      setState(() {})
-    });
-
+    videoPlayerController = new VideoPlayerController.network(
+        "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
+    _initializeVideoPlayerFuture =
+        videoPlayerController.initialize().then((_) => {setState(() {})});
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
     videoPlayerController.dispose();
-    
+
     super.dispose();
-
-
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
-        final user = Provider.of<List<UploadVideo>>(context);
-   // print("------------ ${user[0].description}");
+    final user = Provider.of<List<UploadVideo>>(context);
+    // print("------------ ${user[0].description}");
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
@@ -472,23 +466,23 @@ class _WrapperRowState extends State<WrapperRow> {
                 child: Stack(
                   children: [
                     Chewie(
-                      key: PageStorageKey("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
+                      key: PageStorageKey(
+                          "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
                       controller: ChewieController(
-                        videoPlayerController: videoPlayerController,
-                        aspectRatio: 1.8.h,
-                        autoInitialize: true,
-                        showControls: false,
-                        looping: true,
-                        autoPlay: true,
-                        errorBuilder: (context, errorMessage) {
-                          return Center(
-                            child: Text('abc', style: TextStyle(color: Colors.white),
-                          ));
-                        }
-                      ),
+                          videoPlayerController: videoPlayerController,
+                          aspectRatio: 1.8.h,
+                          autoInitialize: true,
+                          showControls: false,
+                          looping: true,
+                          autoPlay: true,
+                          errorBuilder: (context, errorMessage) {
+                            return Center(
+                                child: Text(
+                              'abc',
+                              style: TextStyle(color: Colors.white),
+                            ));
+                          }),
                     ),
-
-
                     Positioned(
                       right: 10,
                       bottom: 10,
@@ -628,10 +622,7 @@ class _WrapperRowState extends State<WrapperRow> {
       ),
     );
   }
-
 }
-
-
 
 class IPhone5 extends PreviewProvider {
   @override

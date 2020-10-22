@@ -1,4 +1,5 @@
 import 'package:abora/models/UploadVideoModel.dart';
+import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -10,6 +11,8 @@ class DatabaseService {
 
   final CollectionReference user =
       FirebaseFirestore.instance.collection('user');
+
+  // ----------MODEL FUNCTIONS
 
   List<UploadVideo> getVidoeList(QuerySnapshot qs) {
     return qs.docs.map((e) {
@@ -37,6 +40,16 @@ class DatabaseService {
     );
   }
 
+  Course uploadCourse(DocumentSnapshot ds) {
+    return Course(
+        title: ds.data()['title'],
+        description: ds.data()['description'],
+        cost: ds.data()['cost'],
+        courseVideosLink: ds.data()['courseVideosLink']);
+  }
+
+  // ----------STREAMS
+
   Stream<TrainerUser> get currentTrainerUserStream {
     return user.doc(uId).snapshots().map(getCurrentTrainerUser);
   }
@@ -47,6 +60,25 @@ class DatabaseService {
         .collection('uploadVideo')
         .snapshots()
         .map(getVidoeList);
+  }
+
+  Stream<Course> get courseStream {
+    return user.doc(uId).snapshots().map(uploadCourse);
+  }
+
+  // -----------ASYNCHRONOUS FUNCTIONS
+
+  Future uploadCourseAsync(
+      {String title,
+      String cost,
+      String description,
+      List<String> courseVideosLink}) async {
+    return await user.doc(uId).collection('courses').doc().set({
+      'title': title,
+      'cost': cost,
+      'description': description,
+      'courseVideosLink': courseVideosLink
+    });
   }
 
   Future uploadVideo({String title, String description, String video}) async {

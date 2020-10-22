@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +10,34 @@ import 'database.dart';
 
 class Storage {
   final String uId;
+  List<String> videoURLs = List<String>();
 
   Storage({this.uId});
 
   final StorageReference videosRef =
       FirebaseStorage.instance.ref().child('videos/');
+
+  uploadCourseToStorage(List<File> listFile) async {
+    try {
+      for (var file in listFile) {
+        StorageUploadTask uploadTask = videosRef
+            .child(Path.basename(file.path))
+            .putFile(file, StorageMetadata(contentType: 'video/mp4'));
+        var storageTaskSnapshot = await uploadTask.onComplete;
+        var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+        final String url = downloadUrl.toString();
+        videoURLs.add(url);
+      }
+
+      DatabaseService(uId: uId).uploadCourseAsync(
+          cost: '2',
+          courseVideosLink: videoURLs,
+          title: 'abc',
+          description: 'abc');
+    } catch (e) {
+      CustomToast(text: e.toString());
+    }
+  }
 
   uploadToStorage() async {
     try {
@@ -20,8 +45,9 @@ class Storage {
 
       print('------------${file.absolute.path.toString()}');
 
-      StorageUploadTask uploadTask =
-          videosRef.child(Path.basename(file.path)).putFile(file, StorageMetadata(contentType: 'video/mp4'));
+      StorageUploadTask uploadTask = videosRef
+          .child(Path.basename(file.path))
+          .putFile(file, StorageMetadata(contentType: 'video/mp4'));
       var storageTaskSnapshot = await uploadTask.onComplete;
       var downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
       final String url = downloadUrl.toString();

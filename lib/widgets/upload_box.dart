@@ -1,10 +1,20 @@
+import 'dart:io';
+
 import 'package:abora/global/colors.dart';
+import 'package:chewie/chewie.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:video_player/video_player.dart';
 
-Widget rectBorderWidget(BuildContext context, {double height = 90 , double width= 90, Function func, String imageURL = 'assets/trainer.jpg' }) {
-  ScreenUtil.init(context, designSize: Size(640, 1134), allowFontScaling: false);
+Widget rectBorderWidget(BuildContext context,
+    {double height = 90,
+    double width = 90,
+    Function func,
+    String imageURL = 'assets/trainer.jpg',
+    File file}) {
+  ScreenUtil.init(context,
+      designSize: Size(640, 1134), allowFontScaling: false);
   return GestureDetector(
     onTap: func,
     child: DottedBorder(
@@ -15,19 +25,44 @@ Widget rectBorderWidget(BuildContext context, {double height = 90 , double width
       strokeWidth: 2,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(12)),
-        child: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(imageURL),
-                  fit: BoxFit.fill
-            ),
-            borderRadius: BorderRadius.circular(10),
-            color: CustomColor.textFieldFilledColor,
-          ),
-          child: Icon(Icons.cloud_upload, size: 50, color: CustomColor.dottedBorderColor),
-          height: height.h,
-          width: width.h,
-        ),
+        child: file != null
+            ? Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: CustomColor.textFieldFilledColor,
+                ),
+                height: height.h,
+                width: width.h,
+                child: Chewie(
+                  // key: PageStorageKey("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
+                  controller: ChewieController(
+                      videoPlayerController: VideoPlayerController.file(file),
+                      aspectRatio: 1.8.h,
+                      autoInitialize: true,
+                      showControls: false,
+                      looping: true,
+                      autoPlay: true,
+                      errorBuilder: (context, errorMessage) {
+                        return Center(
+                            child: Text(
+                          'error',
+                          style: TextStyle(color: Colors.white),
+                        ));
+                      }),
+                ),
+              )
+            : Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage(imageURL), fit: BoxFit.fill),
+                  borderRadius: BorderRadius.circular(10),
+                  color: CustomColor.textFieldFilledColor,
+                ),
+                child: Icon(Icons.cloud_upload,
+                    size: 50, color: CustomColor.dottedBorderColor),
+                height: height.h,
+                width: width.h,
+              ),
       ),
     ),
   );
