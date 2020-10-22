@@ -5,8 +5,11 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/constants.dart';
 import 'package:abora/services/storage.dart';
+import 'package:abora/widgets/alert_dialog.dart';
 
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -55,6 +58,8 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
   double height;
   double width;
 
+  bool showCircularProgressIndicator = false;
+
   VideoPlayerController videoPlayerController;
   Future<void> _initializeVideoPlayerFuture;
 
@@ -71,10 +76,10 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
     // TODO: implement initState
     super.initState();
 
-    videoPlayerController = new VideoPlayerController.network(
-        "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
-    _initializeVideoPlayerFuture =
-        videoPlayerController.initialize().then((_) => {setState(() {})});
+    // videoPlayerController = new VideoPlayerController.network(
+    //     "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
+    // _initializeVideoPlayerFuture =
+    //     videoPlayerController.initialize().then((_) => {setState(() {})});
 
     courseTitleController = TextEditingController();
     costController = TextEditingController();
@@ -108,215 +113,249 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
           ),
         ],
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                      width: double.infinity,
-                      color: Theme.of(context).primaryColor,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width / 1.5,
-                                  child: new RichText(
-                                    text: new TextSpan(
-                                      style: TextStyle(
-                                          fontSize: FontSize.h3FontSize,
-                                          color: CustomColor.red),
-                                      text: 'Upload videos',
-                                      children: [
-                                        new TextSpan(
-                                          style: TextStyle(
-                                              color: CustomColor.grey,
-                                              fontSize: FontSize.h5FontSize,
-                                              fontWeight: FontWeight.w600),
-                                          text:
-                                              ' (you can add multiple videos)',
-                                          recognizer: new TapGestureRecognizer()
-                                            ..onTap =
-                                                () => print('Tap Here onTap'),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file);
-                                      setState(() {});
-                                    }, file: file),
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file1 = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file1);
-                                      setState(() {});
-                                    }, file: file1),
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file2 = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file2);
-                                      setState(() {});
-                                    }, file: file2),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file3 = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file3);
-                                      setState(() {});
-                                    }, file: file3),
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file4 = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file4);
-                                      setState(() {});
-                                    }, file: file4),
-                                    rectBorderWidget(context,
-                                        imageURL: '',
-                                        height: 100,
-                                        width: 100, func: () async {
-                                      file5 = await ImagePicker.pickVideo(
-                                          source: ImageSource.gallery);
-                                      filesList.add(file5);
-                                      setState(() {});
-                                    }, file: file5),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Column(
+      body: Stack(
+        children: [
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0, top: 30),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Container(
+                  child: Column(
+                    children: [
+                      Container(
+                          width: double.infinity,
+                          color: Theme.of(context).primaryColor,
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(
-                                  height: 10,
+                                Column(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.5,
+                                      child: new RichText(
+                                        text: new TextSpan(
+                                          style: TextStyle(
+                                              fontSize: FontSize.h3FontSize,
+                                              color: CustomColor.red),
+                                          text: 'Upload videos',
+                                          children: [
+                                            new TextSpan(
+                                              style: TextStyle(
+                                                  color: CustomColor.grey,
+                                                  fontSize: FontSize.h5FontSize,
+                                                  fontWeight: FontWeight.w600),
+                                              text:
+                                                  ' (you can add multiple videos)',
+                                              recognizer:
+                                                  new TapGestureRecognizer()
+                                                    ..onTap = () =>
+                                                        print('Tap Here onTap'),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file);
+                                          setState(() {});
+                                        }, file: file),
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file1 = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file1);
+                                          setState(() {});
+                                        }, file: file1),
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file2 = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file2);
+                                          setState(() {});
+                                        }, file: file2),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file3 = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file3);
+                                          setState(() {});
+                                        }, file: file3),
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file4 = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file4);
+                                          setState(() {});
+                                        }, file: file4),
+                                        rectBorderWidget(context,
+                                            imageURL: '',
+                                            height: 100,
+                                            width: 100, func: () async {
+                                          file5 = await ImagePicker.pickVideo(
+                                              source: ImageSource.gallery);
+                                          filesList.add(file5);
+                                          setState(() {});
+                                        }, file: file5),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  'Course Title',
-                                  style: TextStyle(
-                                      color: CustomColor.red,
-                                      fontSize: FontSize.h3FontSize,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                customTextField(
-                                    text: 'Type here',
-                                    controller: courseTitleController),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Cost',
-                                  style: TextStyle(
-                                      color: CustomColor.red,
-                                      fontSize: FontSize.h3FontSize,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                customTextField(
-                                    text: '\$49.50',
-                                    controller: costController),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  'Description',
-                                  style: TextStyle(
-                                      color: CustomColor.red,
-                                      fontSize: FontSize.h3FontSize,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: CustomColor.textFieldFilledColor,
-                                      border: Border.all(
-                                          color: CustomColor
-                                              .textFieldBorderColor)),
-                                  child: TextField(
-                                      controller: descriptionController,
-                                      keyboardType: TextInputType.multiline,
-                                      minLines: 5,
-                                      //Normal textInputField will be displayed
-                                      maxLines: 5,
-                                      decoration: InputDecoration(
-                                        prefixIcon: null,
-                                        hintText: 'Type here',
-                                        hintStyle: TextStyle(
-                                            color:
-                                                CustomColor.textFieldLabelColor,
-                                            fontSize: FontSize.h3FontSize - 2),
-                                        enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent)),
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.transparent)),
-                                      )),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Course Title',
+                                      style: TextStyle(
+                                          color: CustomColor.red,
+                                          fontSize: FontSize.h3FontSize,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    customTextField(
+                                        text: 'Type here',
+                                        controller: courseTitleController),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Cost',
+                                      style: TextStyle(
+                                          color: CustomColor.red,
+                                          fontSize: FontSize.h3FontSize,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    customTextField(
+                                        text: '\$49.50',
+                                        controller: costController),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Text(
+                                      'Description',
+                                      style: TextStyle(
+                                          color: CustomColor.red,
+                                          fontSize: FontSize.h3FontSize,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color:
+                                              CustomColor.textFieldFilledColor,
+                                          border: Border.all(
+                                              color: CustomColor
+                                                  .textFieldBorderColor)),
+                                      child: TextField(
+                                          controller: descriptionController,
+                                          keyboardType: TextInputType.multiline,
+                                          minLines: 5,
+                                          //Normal textInputField will be displayed
+                                          maxLines: 5,
+                                          decoration: InputDecoration(
+                                            prefixIcon: null,
+                                            hintText: 'Type here',
+                                            hintStyle: TextStyle(
+                                                color: CustomColor
+                                                    .textFieldLabelColor,
+                                                fontSize:
+                                                    FontSize.h3FontSize - 2),
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.transparent)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.transparent)),
+                                          )),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      )),
-                  blueButton(
-                      child: Text(
-                        'UPLOAD VIDEO',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      func: () {
-                        print(costController.text);
-                        print(courseTitleController.text);
-                        print(descriptionController.text);
-                        Storage(uId: UserCredentials.userId)
-                            .uploadCourseToStorage(filesList);
-                      }),
-                ],
+                          )),
+                      blueButton(
+                          child: Text(
+                            'UPLOAD VIDEO',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          func: () async {
+                            setState(() {
+                              showCircularProgressIndicator = true;
+                            });
+                            showCircularProgressIndicator =
+                                await Storage(uId: UserCredentials.userId)
+                                    .uploadCourseToStorage(
+                                        listFile: filesList,
+                                        cost: costController.text,
+                                        description: descriptionController.text,
+                                        title: courseTitleController.text);
+
+                            setState(() {
+                              showCircularProgressIndicator = false;
+
+                              onAlertButtonsPressed(context,
+                                  title: 'Course added Successfully !');
+                              filesList.clear();
+                              costController.text = '';
+                              descriptionController.text = '';
+                              courseTitleController.text = '';
+                              file = null;
+                              file1 = null;
+                              file2 = null;
+                              file3 = null;
+                              file4 = null;
+                              file5 = null;
+                            });
+                          }),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          Center(
+            child: showCircularProgressIndicator
+                ? CircularProgressIndicator()
+                : Container(),
+          ),
+        ],
       ),
     );
   }

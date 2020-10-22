@@ -4,8 +4,8 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/payment_page.dart';
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -50,7 +50,6 @@ class PostAdPage extends StatefulWidget {
 }
 
 class _PostAdPageState extends State<PostAdPage> {
-
   Completer<GoogleMapController> _controller = Completer();
 
   static const LatLng _center = const LatLng(45.521563, -122.677433);
@@ -72,8 +71,15 @@ class _PostAdPageState extends State<PostAdPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('POST AD', style: TextStyle(fontSize: FontSize.h3FontSize, fontWeight: FontWeight.w400),),
-        leading: Icon(Icons.arrow_back_ios, color: CustomColor.red,),
+        title: Text(
+          'POST AD',
+          style: TextStyle(
+              fontSize: FontSize.h3FontSize, fontWeight: FontWeight.w400),
+        ),
+        leading: Icon(
+          Icons.arrow_back_ios,
+          color: CustomColor.red,
+        ),
         centerTitle: true,
         actions: [
           Image.asset(
@@ -127,7 +133,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                     color: CustomColor.backgroundColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0,
+                                      right: 15.0,
+                                      top: 8.0,
+                                      bottom: 8.0),
                                   child: Row(
                                     children: [
                                       Text(
@@ -152,7 +162,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                     color: CustomColor.backgroundColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0,
+                                      right: 15.0,
+                                      top: 8.0,
+                                      bottom: 8.0),
                                   child: Row(
                                     children: [
                                       Text(
@@ -177,7 +191,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                     color: CustomColor.backgroundColor,
                                     borderRadius: BorderRadius.circular(5)),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0,
+                                      right: 15.0,
+                                      top: 8.0,
+                                      bottom: 8.0),
                                   child: Row(
                                     children: [
                                       Text(
@@ -216,11 +234,10 @@ class _PostAdPageState extends State<PostAdPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
-                            Text(
-                              'Number of days',
-                              style: TextStyle(color: Colors.white),
-                            ),
+                        Text(
+                          'Number of days',
+                          style: TextStyle(color: Colors.white),
+                        ),
                         Container(
                             height: 35,
                             width: 100,
@@ -236,7 +253,9 @@ class _PostAdPageState extends State<PostAdPage> {
                                     '60',
                                     style: TextStyle(color: CustomColor.grey),
                                   ),
-                                  SizedBox(width: 20,),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
                                   Icon(
                                     Icons.keyboard_arrow_down,
                                     size: 20,
@@ -245,7 +264,6 @@ class _PostAdPageState extends State<PostAdPage> {
                                 ],
                               ),
                             )),
-
                       ],
                     ),
                   ),
@@ -253,11 +271,11 @@ class _PostAdPageState extends State<PostAdPage> {
               ],
             ),
           ),
-
           Container(
             width: double.infinity,
-color: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.only(left: 20.0, right: 20, top: 5, bottom: 20),
+            color: Theme.of(context).primaryColor,
+            padding: const EdgeInsets.only(
+                left: 20.0, right: 20, top: 5, bottom: 20),
             margin: EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -269,15 +287,15 @@ color: Theme.of(context).primaryColor,
                 ),
                 Text('Number of miles : 3',
                     style: TextStyle(color: CustomColor.white)),
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(300)
-                    ),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(300)),
                     height: 200,
-
                     child: GoogleMap(
                       onMapCreated: _onMapCreated,
                       initialCameraPosition: CameraPosition(
@@ -290,11 +308,9 @@ color: Theme.of(context).primaryColor,
               ],
             ),
           ),
-
           Padding(
             padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
             child: Container(
-
               alignment: Alignment.center,
               height: 50,
               width: double.infinity,
@@ -303,11 +319,11 @@ color: Theme.of(context).primaryColor,
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-
                     Text(
                       'Total Price',
                       style: TextStyle(color: Colors.red, fontSize: 15),
@@ -321,8 +337,6 @@ color: Theme.of(context).primaryColor,
               ),
             ),
           ),
-
-
           Padding(
             padding: EdgeInsets.only(top: 30.h, left: 30.0.h, right: 30.h),
             child: blueButton(
@@ -333,8 +347,7 @@ color: Theme.of(context).primaryColor,
               func: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => PaymentPage()),
+                  MaterialPageRoute(builder: (context) => PaymentPage()),
                 );
               },
             ),

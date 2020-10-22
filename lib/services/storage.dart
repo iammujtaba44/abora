@@ -17,7 +17,11 @@ class Storage {
   final StorageReference videosRef =
       FirebaseStorage.instance.ref().child('videos/');
 
-  uploadCourseToStorage(List<File> listFile) async {
+  Future uploadCourseToStorage(
+      {@required List<File> listFile,
+      @required String cost,
+      @required String title,
+      @required String description}) async {
     try {
       for (var file in listFile) {
         StorageUploadTask uploadTask = videosRef
@@ -30,11 +34,14 @@ class Storage {
       }
 
       DatabaseService(uId: uId).uploadCourseAsync(
-          cost: '2',
+          cost: cost,
           courseVideosLink: videoURLs,
-          title: 'abc',
-          description: 'abc');
+          title: title,
+          description: description);
+
+      return true;
     } catch (e) {
+      return false;
       CustomToast(text: e.toString());
     }
   }

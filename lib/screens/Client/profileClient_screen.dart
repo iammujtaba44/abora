@@ -2,8 +2,8 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/videoPage_screen.dart';
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -377,7 +377,6 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -400,8 +399,8 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                                             height: 25,
                                             width: 70,
                                             decoration: BoxDecoration(
-                                                color:
-                                                    CustomColor.signUpButtonColor,
+                                                color: CustomColor
+                                                    .signUpButtonColor,
                                                 borderRadius:
                                                     BorderRadius.circular(5)),
                                             child: Text(

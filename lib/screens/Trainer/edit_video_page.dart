@@ -5,8 +5,8 @@ import 'package:abora/screens/Trainer/details_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -63,8 +63,15 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('EDIT VIDEO', style: TextStyle(fontSize: FontSize.h3FontSize,fontWeight: FontWeight.w400),),
-        leading: Icon(Icons.arrow_back_ios, color: Colors.red,),
+        title: Text(
+          'EDIT VIDEO',
+          style: TextStyle(
+              fontSize: FontSize.h3FontSize, fontWeight: FontWeight.w400),
+        ),
+        leading: Icon(
+          Icons.arrow_back_ios,
+          color: Colors.red,
+        ),
         centerTitle: true,
         actions: [
           Image.asset(
@@ -79,39 +86,39 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
         children: [
           Expanded(
             flex: 9,
-            child:   Container(
+            child: Container(
               color: Theme.of(context).primaryColor,
               margin: const EdgeInsets.all(20.0),
-              padding: EdgeInsets.only(left: 20, right: 20, top: 20, bottom: height/10),
+              padding: EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: height / 10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-
-                 Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                   children: [
-                   Container(
-                     child: new RichText(
-                       text: new TextSpan(
-                         style: TextStyle(
-                             fontSize: FontSize.h3FontSize,
-                             color: CustomColor.red),
-                         text: 'Upload videos',
-                         children: [
-
-                         ],
-                       ),
-                     ),
-                   ),
-                   Container(
-                     child: Text('Edit',
-                       style: TextStyle(
-                           fontSize: FontSize.h3FontSize,
-                           color: CustomColor.blue),
-                     ),
-                   ),
-                 ],),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: new RichText(
+                          text: new TextSpan(
+                            style: TextStyle(
+                                fontSize: FontSize.h3FontSize,
+                                color: CustomColor.red),
+                            text: 'Upload videos',
+                            children: [],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(
+                              fontSize: FontSize.h3FontSize,
+                              color: CustomColor.blue),
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 5.h,
                   ),
@@ -136,7 +143,8 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                     ),
                   ),
                 ),*/
-                  rectBorderWidget(context, height: 200, width: double.infinity, func: () {
+                  rectBorderWidget(context, height: 200, width: double.infinity,
+                      func: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PostAdPage()),
@@ -155,7 +163,7 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                             MaterialPageRoute(
                                 builder: (context) => AppointmentPage()),
                           );
-            },
+                        },
                         child: Container(
                           child: Text(
                             'Title',
@@ -167,14 +175,15 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                         ),
                       ),
                       Container(
-                        child: Text('Edit',
+                        child: Text(
+                          'Edit',
                           style: TextStyle(
                               fontSize: FontSize.h3FontSize,
                               color: CustomColor.blue),
                         ),
                       ),
-                    ],),
-
+                    ],
+                  ),
                   SizedBox(
                     height: 5,
                   ),
@@ -185,18 +194,21 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                    Text(
-                      'Description',
-                      style: TextStyle(
-                          color: CustomColor.red,
-                          fontSize: FontSize.h3FontSize,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text('Edit',              style: TextStyle(
-                        fontSize: FontSize.h3FontSize,
-                        color: CustomColor.blue),
-                    ),
-                  ],),
+                      Text(
+                        'Description',
+                        style: TextStyle(
+                            color: CustomColor.red,
+                            fontSize: FontSize.h3FontSize,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        'Edit',
+                        style: TextStyle(
+                            fontSize: FontSize.h3FontSize,
+                            color: CustomColor.blue),
+                      ),
+                    ],
+                  ),
                   Container(
                     decoration: BoxDecoration(
                         color: CustomColor.textFieldFilledColor,
@@ -204,49 +216,49 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                         border: Border.all(
                             color: CustomColor.textFieldBorderColor)),
                     child: TextField(
-
                         keyboardType: TextInputType.multiline,
                         minLines: 5,
                         //Normal textInputField will be displayed
                         maxLines: 5,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                          contentPadding:
+                              EdgeInsets.only(left: 10, right: 10, top: 10),
                           prefixIcon: null,
-                          hintText: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et',
+                          hintText:
+                              'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et',
                           hintStyle: TextStyle(
                               color: CustomColor.textFieldLabelColor,
                               fontSize: FontSize.h3FontSize - 2),
                           enabledBorder: UnderlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.transparent)),
+                                  BorderSide(color: Colors.transparent)),
                           focusedBorder: UnderlineInputBorder(
                               borderSide:
-                              BorderSide(color: Colors.transparent)),
+                                  BorderSide(color: Colors.transparent)),
                         )),
                   ),
-
-
-
-
                 ],
               ),
             ),
           ),
-          Expanded(child: Column(children: [
-            SizedBox(
-              height: 5.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
-              child: blueButton(
-                child: Text(
-                  'UPLOAD COURSE',
-                  style: TextStyle(color: Colors.white),
+          Expanded(
+              child: Column(
+            children: [
+              SizedBox(
+                height: 5.h,
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
+                child: blueButton(
+                  child: Text(
+                    'UPLOAD COURSE',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  func: () => _onAlertButtonsPressed(context),
                 ),
-                func: () => _onAlertButtonsPressed(context),),
-            ),
-          ],))
-
+              ),
+            ],
+          ))
         ],
       ),
     );
@@ -269,12 +281,12 @@ class IPhone5 extends PreviewProvider {
   String get title => 'iPhone 5';
   @override
   List<Preview> get previews => [
-    Preview(
-      key: Key('preview'),
-      frame: Frames.iphone5,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          key: Key('preview'),
+          frame: Frames.iphone5,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPhoneX extends PreviewProvider {
@@ -282,11 +294,11 @@ class IPhoneX extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.iphoneX,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.iphoneX,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPad extends PreviewProvider {
@@ -294,9 +306,9 @@ class IPad extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.ipadPro12,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.ipadPro12,
+          child: MyApp(),
+        ),
+      ];
 }

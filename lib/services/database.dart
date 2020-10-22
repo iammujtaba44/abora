@@ -1,5 +1,6 @@
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
+import 'package:abora/models/trainer_models/post_ad.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -13,7 +14,6 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('user');
 
   // ----------MODEL FUNCTIONS
-
   List<UploadVideo> getVidoeList(QuerySnapshot qs) {
     return qs.docs.map((e) {
       return UploadVideo(
@@ -48,6 +48,17 @@ class DatabaseService {
         courseVideosLink: ds.data()['courseVideosLink']);
   }
 
+  PostAd postAd(DocumentSnapshot ds) {
+    return PostAd(
+      area: ds.data()['area'],
+      exerciseType: ds.data()['exerciseType'],
+      exerciseSubType: ds.data()['exerciseSubType'],
+      numberOfDay: ds.data()['numberOfDay'],
+      totalPrice: ds.data()['totalPrice'],
+      years: ds.data()['years'],
+    );
+  }
+
   // ----------STREAMS
 
   Stream<TrainerUser> get currentTrainerUserStream {
@@ -66,6 +77,10 @@ class DatabaseService {
     return user.doc(uId).snapshots().map(uploadCourse);
   }
 
+  Stream<PostAd> get postAdStream {
+    return user.doc(uId).snapshots().map(postAd);
+  }
+
   // -----------ASYNCHRONOUS FUNCTIONS
 
   Future uploadCourseAsync(
@@ -78,6 +93,23 @@ class DatabaseService {
       'cost': cost,
       'description': description,
       'courseVideosLink': courseVideosLink
+    });
+  }
+
+  Future postAdAsync(
+      {String years,
+      String exerciseType,
+      String exerciseSubType,
+      String numberOfDay,
+      String area,
+      String totalPrice}) async {
+    return await user.doc(uId).collection('postAds').doc().set({
+      'years': years,
+      'exerciseType': exerciseType,
+      'exerciseSubType': exerciseSubType,
+      'numberOfDay': numberOfDay,
+      'area': area,
+      'totalPrice': totalPrice
     });
   }
 

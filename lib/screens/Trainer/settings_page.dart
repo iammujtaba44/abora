@@ -4,8 +4,8 @@ import 'package:abora/screens/Trainer/login_page.dart';
 import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/settings_list_tile.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';

@@ -3,8 +3,8 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/profile_page.dart';
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -70,8 +70,14 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
-        title: Text('PAYMENT', style: TextStyle(fontSize: 15),),
-        leading: Icon(Icons.arrow_back_ios, color: CustomColor.red,),
+        title: Text(
+          'PAYMENT',
+          style: TextStyle(fontSize: 15),
+        ),
+        leading: Icon(
+          Icons.arrow_back_ios,
+          color: CustomColor.red,
+        ),
         centerTitle: true,
         actions: [
           PopupMenuButton<String>(
@@ -80,7 +86,7 @@ class _PaymentPageState extends State<PaymentPage> {
               itemBuilder: (BuildContext context) {
                 return Constants.choices.map((String choice) {
                   return PopupMenuItem<String>(
-textStyle: TextStyle(color: CustomColor.white),
+                    textStyle: TextStyle(color: CustomColor.white),
                     value: choice,
                     child: Text(choice),
                   );
@@ -129,7 +135,7 @@ textStyle: TextStyle(color: CustomColor.white),
                         Expanded(
                           flex: 5,
                           child: customTextField(
-                            isPadding: true,
+                              isPadding: true,
                               text: '1234 5678 4325 3245',
                               curveContainer: true,
                               edgeInsets: EdgeInsets.only(left: 10)),
@@ -161,7 +167,7 @@ textStyle: TextStyle(color: CustomColor.white),
                     ),
                     SizedBox(height: 4),
                     customTextField(
-                      isPadding: true,
+                        isPadding: true,
                         text: 'John Doe',
                         curveContainer: true,
                         edgeInsets: EdgeInsets.only(left: 10)),
@@ -180,7 +186,7 @@ textStyle: TextStyle(color: CustomColor.white),
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
-                                isPadding: true,
+                                  isPadding: true,
                                   text: '05 / 21',
                                   curveContainer: true,
                                   edgeInsets: EdgeInsets.only(left: 10)),
@@ -200,7 +206,7 @@ textStyle: TextStyle(color: CustomColor.white),
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
-                                isPadding: true,
+                                  isPadding: true,
                                   text: '123',
                                   curveContainer: true,
                                   edgeInsets: EdgeInsets.only(left: 10)),
@@ -250,13 +256,14 @@ textStyle: TextStyle(color: CustomColor.white),
               func: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => ProfilePage()),
+                  MaterialPageRoute(builder: (context) => ProfilePage()),
                 );
               },
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );

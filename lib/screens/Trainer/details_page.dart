@@ -4,8 +4,8 @@ import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/Trainer/settings_page.dart';
 
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -93,8 +93,7 @@ class _DetailPageState extends State<DetailPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => NewsPage()),
+                    MaterialPageRoute(builder: (context) => NewsPage()),
                   );
                 },
                 child: Text(
@@ -303,8 +302,7 @@ class _DetailPageState extends State<DetailPage> {
                   func: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => SettingsPage()),
+                      MaterialPageRoute(builder: (context) => SettingsPage()),
                     );
                   }),
             )

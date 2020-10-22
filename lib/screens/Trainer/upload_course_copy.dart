@@ -1,8 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box.dart/alert.dart';
-import 'package:abora/widgets/dialog_box.dart/alert_style.dart';
+import 'package:abora/widgets/dialog_box/alert.dart';
+import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -63,7 +63,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
         children: [
           Container(
             alignment: Alignment.center,
-            height:70.h,
+            height: 70.h,
             color: Theme.of(context).primaryColor,
             child: Padding(
               padding: const EdgeInsets.only(top: 8.0),
@@ -76,9 +76,11 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                   ),
                   Text(
                     'UPLOAD COURSE',
-                    style: TextStyle(color: CustomColor.white, fontSize: FontSize.h3FontSize + 4),
+                    style: TextStyle(
+                        color: CustomColor.white,
+                        fontSize: FontSize.h3FontSize + 4),
                   ),
-                  Icon( 
+                  Icon(
                     Icons.arrow_back_ios,
                     color: CustomColor.red,
                   ),
@@ -139,8 +141,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -160,8 +161,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -181,8 +181,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -210,8 +209,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -231,8 +229,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -252,8 +249,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                               color: CustomColor.textFieldFilledColor,
                             ),
                             child: Icon(Icons.cloud_upload,
-                                size: 50,
-                                color: CustomColor.dottedBorderColor),
+                                size: 50, color: CustomColor.dottedBorderColor),
                             height: 100.h,
                             width: 100.h,
                           ),
@@ -362,11 +358,12 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
           Padding(
             padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
             child: blueButton(
-                child: Text(
-                  'UPLOAD COURSE',
-                  style: TextStyle(color: Colors.white),
-                ),
-                func: () => _onAlertButtonsPressed(context),),
+              child: Text(
+                'UPLOAD COURSE',
+                style: TextStyle(color: Colors.white),
+              ),
+              func: () => _onAlertButtonsPressed(context),
+            ),
           ),
           Spacer(),
         ],
@@ -382,7 +379,6 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
       title: '',
       desc: "Course added Successfully !",
       image: Image.asset('assets/dialog_img.png'),
-     
     ).show();
   }
 }
