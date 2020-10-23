@@ -3,6 +3,7 @@ import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/models/trainer_models/post_ad.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class DatabaseService {
   final String uId;
@@ -12,6 +13,14 @@ class DatabaseService {
 
   final CollectionReference user =
       FirebaseFirestore.instance.collection('user');
+
+  // update single field
+
+  Future<String> updateSignleField(
+      {@required String key, @required String value}) async {
+    await user.doc(uId).update({key: value});
+    return value;
+  }
 
   //---- NOTE: Struction is like this:
   // Model function
@@ -77,6 +86,7 @@ class DatabaseService {
   TrainerUser getCurrentTrainerUser(DocumentSnapshot ds) {
     return TrainerUser(
       uId: uId,
+      bio: ds.data()['bio'],
       email: ds.data()['email'],
       name: ds.data()['name'],
       booking: ds.data()['booking'],
@@ -91,6 +101,10 @@ class DatabaseService {
     );
   }
 
+  Stream<TrainerUser> get currentTrainerUserStream {
+    return user.doc(uId).snapshots().map(getCurrentTrainerUser);
+  }
+
   PostAd postAd(DocumentSnapshot ds) {
     return PostAd(
       area: ds.data()['area'],
@@ -103,10 +117,6 @@ class DatabaseService {
   }
 
   // ----------STREAMS
-
-  Stream<TrainerUser> get currentTrainerUserStream {
-    return user.doc(uId).snapshots().map(getCurrentTrainerUser);
-  }
 
   Stream<PostAd> get postAdStream {
     return user.doc(uId).snapshots().map(postAd);

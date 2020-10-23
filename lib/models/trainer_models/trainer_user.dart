@@ -1,5 +1,6 @@
 class TrainerUser {
   final String uId;
+  final String bio;
   final String name;
   final String email;
   final String password;
@@ -14,6 +15,7 @@ class TrainerUser {
 
   TrainerUser(
       {this.uId,
+      this.bio,
       this.email,
       this.name,
       this.password,
