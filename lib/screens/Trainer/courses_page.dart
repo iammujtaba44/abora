@@ -1,10 +1,14 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
+import 'package:abora/services/constants.dart';
+import 'package:abora/services/database.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
+import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -52,7 +56,8 @@ class _CoursesPageState extends State<CoursesPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context, designSize: Size(640, 1134), allowFontScaling: false);
+    ScreenUtil.init(context,
+        designSize: Size(640, 1134), allowFontScaling: false);
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -72,77 +77,100 @@ class _CoursesPageState extends State<CoursesPage> {
           ),
         ],
       ),
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 20),
-          child: GridView.count(
-            crossAxisCount: 2,
-            crossAxisSpacing: 15,
-            mainAxisSpacing: 5,
-            children: List.generate(
-                5,
-                (index) => GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UploadCoursePage()),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          Stack(
-                            children: [
-                              Container(
-                                height: 180.h,
-                                width: width,
-                                decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                        'assets/trainer.jpg',
-                                      ),
-                                    )),
-                              ),
-                              Positioned(
-                                right: 10,
-                                bottom: 10,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: 30,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                      color: CustomColor.signUpButtonColor,
-                                      borderRadius: BorderRadius.circular(5)),
-                                  child: Text(
-                                    '\$49.50',
-                                    style: TextStyle(color: CustomColor.white),
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Course Title',
-                            style: TextStyle(
-                                color: CustomColor.red,
-                                fontSize: FontSize.h3FontSize,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            '20 videos',
-                            style: TextStyle(
-                                color: CustomColor.grey,
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      ),
-                    )),
-          ),
+      body: StreamProvider<List<Course>>.value(
+        value:
+            DatabaseService(uId: "R7DjizSAFMaHfc1BgTWRFb7NZPP2").courseStream,
+        child: Container(
+          child: Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 20),
+              child: CourseGridView(
+                height: height,
+                width: width,
+              )),
         ),
       ),
+    );
+  }
+}
+
+class CourseGridView extends StatefulWidget {
+  final double height;
+  final double width;
+
+  CourseGridView({this.height, this.width});
+
+  @override
+  _CourseGridViewState createState() => _CourseGridViewState();
+}
+
+class _CourseGridViewState extends State<CourseGridView> {
+  @override
+  Widget build(BuildContext context) {
+    List<Course> courses = Provider.of<List<Course>>(context);
+
+    return GridView.count(
+      crossAxisCount: 2,
+      crossAxisSpacing: 15,
+      mainAxisSpacing: 5,
+      children: List.generate(
+          courses.length,
+          (index) => GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UploadCoursePage()),
+                  );
+                },
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        Container(
+                          height: 180.h,
+                          width: widget.width,
+                          decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                fit: BoxFit.fill,
+                                image: AssetImage(
+                                  'assets/trainer.jpg',
+                                ),
+                              )),
+                        ),
+                        Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 30,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                color: CustomColor.signUpButtonColor,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Text(
+                              courses[index].cost,
+                              style: TextStyle(color: CustomColor.white),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Text(
+                      courses[index].title,
+                      style: TextStyle(
+                          color: CustomColor.red,
+                          fontSize: FontSize.h3FontSize,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      '${courses[index].courseVideosLink.length} videos',
+                      style: TextStyle(
+                          color: CustomColor.grey, fontWeight: FontWeight.w500),
+                    )
+                  ],
+                ),
+              )),
     );
   }
 }

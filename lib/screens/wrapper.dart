@@ -5,6 +5,7 @@ import 'package:abora/screens/Trainer/login_page.dart';
 import 'package:abora/screens/Trainer/settings_page.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/services/auth.dart';
+import 'package:abora/services/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
+
+    UserCredentials.userId = user.uid;
 
     if (user == null) {
       return LoginPage();

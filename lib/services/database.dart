@@ -13,7 +13,42 @@ class DatabaseService {
   final CollectionReference user =
       FirebaseFirestore.instance.collection('user');
 
-  // ----------MODEL FUNCTIONS
+  //---- NOTE: Struction is like this:
+  // Model function
+  // Stream
+  // Async Function
+
+  // COURSES
+
+  List<Course> uploadCourse(QuerySnapshot qs) {
+    return qs.docs.map((ds) {
+      return Course(
+          title: ds.data()['title'],
+          description: ds.data()['description'],
+          cost: ds.data()['cost'],
+          courseVideosLink: List.from(ds.data()['courseVideosLink']));
+    }).toList();
+  }
+
+  Stream<List<Course>> get courseStream {
+    return user.doc(uId).collection('courses').snapshots().map(uploadCourse);
+  }
+
+  Future uploadCourseAsync(
+      {String title,
+      String cost,
+      String description,
+      List<String> courseVideosLink}) async {
+    return await user.doc(uId).collection('courses').doc().set({
+      'title': title,
+      'cost': cost,
+      'description': description,
+      'courseVideosLink': courseVideosLink
+    });
+  }
+
+  // SINGLE VIDEO
+
   List<UploadVideo> getVidoeList(QuerySnapshot qs) {
     return qs.docs.map((e) {
       return UploadVideo(
@@ -21,6 +56,22 @@ class DatabaseService {
           description: e.data()['description'],
           video: e.data()['video']);
     }).toList();
+  }
+
+  Stream<List<UploadVideo>> get uploadVideoStream {
+    return user
+        .doc(uId)
+        .collection('uploadVideo')
+        .snapshots()
+        .map(getVidoeList);
+  }
+
+  Future uploadVideo({String title, String description, String video}) async {
+    return await user
+        .doc(uId)
+        .collection('uploadVideo')
+        .doc()
+        .set({'title': title, 'description': description, 'video': video});
   }
 
   TrainerUser getCurrentTrainerUser(DocumentSnapshot ds) {
@@ -40,14 +91,6 @@ class DatabaseService {
     );
   }
 
-  Course uploadCourse(DocumentSnapshot ds) {
-    return Course(
-        title: ds.data()['title'],
-        description: ds.data()['description'],
-        cost: ds.data()['cost'],
-        courseVideosLink: ds.data()['courseVideosLink']);
-  }
-
   PostAd postAd(DocumentSnapshot ds) {
     return PostAd(
       area: ds.data()['area'],
@@ -65,36 +108,11 @@ class DatabaseService {
     return user.doc(uId).snapshots().map(getCurrentTrainerUser);
   }
 
-  Stream<List<UploadVideo>> get uploadVideoStream {
-    return user
-        .doc(uId)
-        .collection('uploadVideo')
-        .snapshots()
-        .map(getVidoeList);
-  }
-
-  Stream<Course> get courseStream {
-    return user.doc(uId).snapshots().map(uploadCourse);
-  }
-
   Stream<PostAd> get postAdStream {
     return user.doc(uId).snapshots().map(postAd);
   }
 
   // -----------ASYNCHRONOUS FUNCTIONS
-
-  Future uploadCourseAsync(
-      {String title,
-      String cost,
-      String description,
-      List<String> courseVideosLink}) async {
-    return await user.doc(uId).collection('courses').doc().set({
-      'title': title,
-      'cost': cost,
-      'description': description,
-      'courseVideosLink': courseVideosLink
-    });
-  }
 
   Future postAdAsync(
       {String years,
@@ -111,14 +129,6 @@ class DatabaseService {
       'area': area,
       'totalPrice': totalPrice
     });
-  }
-
-  Future uploadVideo({String title, String description, String video}) async {
-    return await user
-        .doc(uId)
-        .collection('uploadVideo')
-        .doc()
-        .set({'title': title, 'description': description, 'video': video});
   }
 
   Future updateUserData({String email, String name, String password}) async {
