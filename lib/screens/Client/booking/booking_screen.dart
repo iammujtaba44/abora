@@ -18,7 +18,6 @@ List<DateTime> presentDates = [];
 List<DateTime> absentDates = [];
 
 class _BookingScreenState extends State<BookingScreen> {
-  var _selected;
   DateTime _currentDate2 = DateTime.now();
   CalendarCarousel _calendarCarouselNoHeader;
   var len = 9;
@@ -27,7 +26,7 @@ class _BookingScreenState extends State<BookingScreen> {
     events: {},
   );
   List<int> _values = <int>[01, 02, 03, 04, 05];
-
+  var _selected;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

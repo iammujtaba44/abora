@@ -10,7 +10,9 @@ Container customTextField(
     bool curveContainer = false,
     EdgeInsets edgeInsets = const EdgeInsets.only(left: 10, right: 10),
     bool isPadding = false,
-    TextEditingController controller}) {
+    TextEditingController controller,
+    Function onChanged,
+    Function onComplete}) {
   return Container(
     height: 50,
     decoration: BoxDecoration(
@@ -18,10 +20,14 @@ Container customTextField(
         color: CustomColor.textFieldFilledColor,
         border: Border.all(color: CustomColor.textFieldBorderColor)),
     child: TextFormField(
+      onChanged: onChanged,
+      onEditingComplete: onComplete,
       validator: (val) => val.isEmpty
           ? validator
           : passwordValid
-              ? val.length < 6 ? 'Enter a password 6+ chars long' : null
+              ? val.length < 6
+                  ? 'Enter a password 6+ chars long'
+                  : null
               : null,
       controller: controller == null ? null : controller,
       decoration: InputDecoration(

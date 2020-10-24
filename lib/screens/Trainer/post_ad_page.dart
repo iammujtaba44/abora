@@ -61,6 +61,19 @@ class _PostAdPageState extends State<PostAdPage> {
   double height;
 
   double width;
+  List<String> years = <String>[
+    "40 years",
+    "50 years",
+    "60 years",
+    "70 years",
+    "80 years"
+  ];
+  List<String> ex1 = <String>["Cardio", 'Lever', 'Thighs', 'Chest', 'Biceps'];
+  List<int> _values = <int>[20, 30, 40, 50, 60];
+  var _selected;
+  var _selectedyear;
+  var _selectedEx1;
+  var _selectedEx2;
 
   @override
   Widget build(BuildContext context) {
@@ -129,89 +142,143 @@ class _PostAdPageState extends State<PostAdPage> {
                         child: Column(
                           children: [
                             Container(
-                                decoration: BoxDecoration(
-                                    color: CustomColor.backgroundColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0,
-                                      right: 15.0,
-                                      top: 8.0,
-                                      bottom: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        '40 Years',
-                                        style:
-                                            TextStyle(color: CustomColor.red),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.keyboard_arrow_down,
-                                        size: 20,
-                                        color: CustomColor.red,
-                                      )
-                                    ],
+                              padding: EdgeInsets.only(left: 10.0),
+                              width: 160.0,
+                              height: 40.0,
+                              // alignment: Alignment.bottomRight,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(6.0))),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: CustomColor.orangeColor,
                                   ),
-                                )),
+                                  iconSize: 20,
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    color: CustomColor.red,
+                                    letterSpacing: 1.2,
+                                  ),
+                                  iconEnabledColor: Colors.red,
+                                  iconDisabledColor: Colors.red,
+                                  isDense: true,
+                                  items: years.map((years) {
+                                    return DropdownMenuItem(
+                                      child: Text(years),
+                                      value: years,
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selectedyear = newValue;
+                                    });
+                                  },
+                                  value: _selectedyear,
+                                  isExpanded: false,
+                                  hint: new Text(
+                                    "40 Years",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ),
                             SizedBox(
                               height: 5,
                             ),
                             Container(
-                                decoration: BoxDecoration(
-                                    color: CustomColor.backgroundColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0,
-                                      right: 15.0,
-                                      top: 8.0,
-                                      bottom: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'Cardio',
-                                        style:
-                                            TextStyle(color: CustomColor.red),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.keyboard_arrow_down,
-                                        size: 20,
-                                        color: CustomColor.red,
-                                      )
-                                    ],
+                              padding: EdgeInsets.only(left: 10.0),
+                              width: 160.0,
+                              height: 40.0,
+                              // alignment: Alignment.bottomRight,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(6.0))),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: CustomColor.orangeColor,
                                   ),
-                                )),
+                                  iconSize: 20,
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    color: CustomColor.red,
+                                    letterSpacing: 1.2,
+                                  ),
+                                  iconEnabledColor: Colors.red,
+                                  iconDisabledColor: Colors.red,
+                                  isDense: true,
+                                  items: ex1.map((ex1) {
+                                    return DropdownMenuItem(
+                                      child: Text(ex1),
+                                      value: ex1,
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selectedEx1 = newValue;
+                                    });
+                                  },
+                                  value: _selectedEx1,
+                                  isExpanded: false,
+                                  hint: new Text(
+                                    "Cardio",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ),
                             SizedBox(
                               height: 5,
                             ),
                             Container(
-                                decoration: BoxDecoration(
-                                    color: CustomColor.backgroundColor,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0,
-                                      right: 15.0,
-                                      top: 8.0,
-                                      bottom: 8.0),
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'Laver',
-                                        style:
-                                            TextStyle(color: CustomColor.red),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.keyboard_arrow_down,
-                                        size: 20,
-                                        color: CustomColor.red,
-                                      )
-                                    ],
+                              padding: EdgeInsets.only(left: 10.0),
+                              width: 160.0,
+                              height: 40.0,
+                              // alignment: Alignment.bottomRight,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(6.0))),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  icon: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: CustomColor.orangeColor,
                                   ),
-                                )),
+                                  iconSize: 20,
+                                  style: TextStyle(
+                                    fontSize: 13.0,
+                                    color: CustomColor.red,
+                                    letterSpacing: 1.2,
+                                  ),
+                                  iconEnabledColor: Colors.red,
+                                  iconDisabledColor: Colors.red,
+                                  isDense: true,
+                                  items: ex1.map((ex1) {
+                                    return DropdownMenuItem(
+                                      child: Text(ex1),
+                                      value: ex1,
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _selectedEx2 = newValue;
+                                    });
+                                  },
+                                  value: _selectedEx2,
+                                  isExpanded: false,
+                                  hint: new Text(
+                                    "Lever",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       )
@@ -239,31 +306,50 @@ class _PostAdPageState extends State<PostAdPage> {
                           style: TextStyle(color: Colors.white),
                         ),
                         Container(
-                            height: 35,
-                            width: 100,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  Text(
-                                    '60',
-                                    style: TextStyle(color: CustomColor.grey),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: CustomColor.red,
-                                  )
-                                ],
+                          padding: EdgeInsets.only(left: 50.0, right: 15.0),
+                          width: 120.0,
+                          height: 40.0,
+                          // alignment: Alignment.bottomRight,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6.0))),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              icon: Icon(
+                                Icons.keyboard_arrow_down,
+                                color: CustomColor.orangeColor,
                               ),
-                            )),
+                              iconSize: 20,
+                              style: TextStyle(
+                                fontSize: 15.0,
+                                color: Colors.red,
+                                letterSpacing: 1.2,
+                              ),
+                              iconEnabledColor: Colors.grey,
+                              iconDisabledColor: Colors.red,
+                              isDense: true,
+                              items: _values.map((city) {
+                                return DropdownMenuItem(
+                                  child: Text(city.toString()),
+                                  value: city,
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  _selected = newValue;
+                                });
+                              },
+                              value: _selected,
+                              isExpanded: false,
+                              hint: new Text(
+                                "60",
+                                style: TextStyle(
+                                    color: Colors.grey.withOpacity(0.5)),
+                              ),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -341,7 +427,7 @@ class _PostAdPageState extends State<PostAdPage> {
             padding: EdgeInsets.only(top: 30.h, left: 30.0.h, right: 30.h),
             child: blueButton(
               child: Text(
-                'UPLOAD COURSE',
+                'POST ADD',
                 style: TextStyle(color: Colors.white),
               ),
               func: () {

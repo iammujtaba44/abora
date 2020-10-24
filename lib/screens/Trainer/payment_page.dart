@@ -2,6 +2,8 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/profile_page.dart';
+import 'package:abora/services/paymentService.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/dialog_box/alert.dart';
 import 'package:abora/widgets/dialog_box/alert_style.dart';
@@ -11,8 +13,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -60,6 +65,63 @@ class _PaymentPageState extends State<PaymentPage> {
     }
   }
 
+  List cards = [
+    {
+      'cardNumber': '4242424242424242',
+      'expiryDate': '04/24',
+      'cardHolderName': 'Muhammad Ahsan Ayaz',
+      'cvvCode': '424',
+      'showBackView': false,
+    },
+  ];
+  String cardNumber = '';
+  String expiryDate = '';
+  String cardHolderName = '';
+  String cvvCode = '';
+  bool isCvvFocused = false;
+
+  TextEditingController cardNumberCtr,
+      expiryDateCtr,
+      cardHolderNameCtr,
+      cvvCodeCtr;
+  @override
+  void initState() {
+    // cardNumberCtr = TextEditingController();
+    // expiryDateCtr = TextEditingController();
+    // cardHolderNameCtr = TextEditingController();
+    // cvvCodeCtr = TextEditingController();
+
+    super.initState();
+
+    StripeService.init();
+  }
+
+  payViaExistingCard(BuildContext context, card) async {
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Please wait...');
+    await dialog.show();
+    var expiryArr = card['expiryDate'].split('/');
+    CreditCard stripeCard = CreditCard(
+      number: card['cardNumber'],
+      expMonth: int.parse(expiryArr[0]),
+      expYear: int.parse(expiryArr[1]),
+    );
+    var response = await StripeService.payViaExistingCard(
+        amount: '2500', currency: 'USD', card: stripeCard);
+    await dialog.hide();
+    CustomToast(text: response.message);
+    print(response.message);
+    // Scaffold.of(context)
+    //     .showSnackBar(SnackBar(
+    //       content: Text(response.message),
+    //       duration: new Duration(milliseconds: 1200),
+    //     ))
+    //     .closed
+    //     .then((_) {
+    //   //Navigator.pop(context);
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     height = MediaQuery.of(context).size.height;
@@ -98,7 +160,9 @@ class _PaymentPageState extends State<PaymentPage> {
         children: [
           Expanded(
             child: Container(
-              color: Theme.of(context).primaryColor,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
               padding: const EdgeInsets.all(20.0),
               margin: EdgeInsets.all(20),
               child: SingleChildScrollView(
@@ -106,6 +170,15 @@ class _PaymentPageState extends State<PaymentPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    CreditCardWidget(
+                      cardBgColor: CustomColor.textFieldFilledColor,
+                      width: width,
+                      cardNumber: cardNumber,
+                      expiryDate: expiryDate,
+                      cardHolderName: cardHolderName,
+                      cvvCode: cvvCode,
+                      showBackView: isCvvFocused,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -135,6 +208,12 @@ class _PaymentPageState extends State<PaymentPage> {
                         Expanded(
                           flex: 5,
                           child: customTextField(
+                              onChanged: (value) {
+                                setState(() {
+                                  cardNumber = value;
+                                });
+                              },
+                              controller: cardNumberCtr,
                               isPadding: true,
                               text: '1234 5678 4325 3245',
                               curveContainer: true,
@@ -167,6 +246,13 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     SizedBox(height: 4),
                     customTextField(
+                        onChanged: (value) {
+                          setState(() {
+                            isCvvFocused = true;
+                            cardHolderName = value;
+                          });
+                        },
+                        controller: cardHolderNameCtr,
                         isPadding: true,
                         text: 'John Doe',
                         curveContainer: true,
@@ -186,6 +272,12 @@ class _PaymentPageState extends State<PaymentPage> {
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      expiryDate = value;
+                                    });
+                                  },
+                                  controller: expiryDateCtr,
                                   isPadding: true,
                                   text: '05 / 21',
                                   curveContainer: true,
@@ -206,6 +298,12 @@ class _PaymentPageState extends State<PaymentPage> {
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
+                                  onChanged: (value) {
+                                    setState(() {
+                                      cvvCode = value;
+                                    });
+                                  },
+                                  controller: cvvCodeCtr,
                                   isPadding: true,
                                   text: '123',
                                   curveContainer: true,
@@ -254,10 +352,11 @@ class _PaymentPageState extends State<PaymentPage> {
                 style: TextStyle(color: Colors.white),
               ),
               func: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ProfilePage()),
-                );
+                payViaExistingCard(context, cards[0]);
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => ProfilePage()),
+                // );
               },
             ),
           ),
