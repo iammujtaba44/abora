@@ -10,6 +10,7 @@ import 'package:abora/widgets/details_double_container.dart';
 import 'package:abora/widgets/details_single_container.dart';
 import 'package:calendarro/calendarro.dart';
 import 'package:calendarro/date_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -102,9 +103,10 @@ class _HomePageState extends State<HomePage> {
     width = MediaQuery.of(context).size.width;
     height = MediaQuery.of(context).size.height;
 
+    final database = Provider.of<DatabaseService>(context);
+
     return StreamBuilder<TrainerUser>(
-        stream: DatabaseService(uId: UserCredentials.userId)
-            .currentTrainerUserStream,
+        stream: database.currentTrainerUserStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             TrainerUser trainerData = snapshot.data;

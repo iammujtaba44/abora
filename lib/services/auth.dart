@@ -9,11 +9,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class AuthService extends ChangeNotifier {
+class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   UserModel _userFromFirebaseUser(User user) {
-    notifyListeners();
     return user != null ? UserModel(userId: user.uid) : null;
   }
 
@@ -25,7 +24,6 @@ class AuthService extends ChangeNotifier {
     try {
       var result = await _auth.signInAnonymously();
       User user = result.user;
-      notifyListeners();
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
@@ -42,7 +40,7 @@ class AuthService extends ChangeNotifier {
       print('------------- ${UserCredentials.userId}');
       return user;
     } catch (error) {
-       CustomToast(text: error.toString());
+      CustomToast(text: error.toString());
       return null;
     }
   }
@@ -72,7 +70,7 @@ class AuthService extends ChangeNotifier {
     try {
       return await _auth.signOut();
     } catch (e) {
-    CustomToast(text: e.toString());
+      CustomToast(text: e.toString());
       return null;
     }
   }

@@ -59,6 +59,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   double height;
   double width;
+  DatabaseService database;
 
   @override
   void initState() {
@@ -72,41 +73,43 @@ class _ProfilePageState extends State<ProfilePage> {
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
 
-    return StreamProvider<TrainerUser>.value(
-      value:
-          DatabaseService(uId: UserCredentials.userId).currentTrainerUserStream,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'PROFILE',
-            style: TextStyle(fontSize: 17),
+    database = Provider.of<DatabaseService>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'PROFILE',
+          style: TextStyle(fontSize: 17),
+        ),
+        leading: Container(),
+        centerTitle: true,
+        actions: [
+          Image.asset(
+            'assets/logo.png',
+            width: 40,
+            height: 130,
           ),
-          leading: Container(),
-          centerTitle: true,
-          actions: [
-            Image.asset(
-              'assets/logo.png',
-              width: 40,
-              height: 130,
+        ],
+      ),
+      backgroundColor: CustomColor.backgroundColor,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Theme.of(context).primaryColor,
+            expandedHeight: height / 2.5,
+            leading: Container(),
+            flexibleSpace: FlexibleSpaceBar(
+              background: _buildContent(),
             ),
-          ],
-        ),
-        backgroundColor: CustomColor.backgroundColor,
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: Theme.of(context).primaryColor,
-              expandedHeight: height / 2.5,
-              leading: Container(),
-              flexibleSpace: FlexibleSpaceBar(
-                background: _buildContent(),
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate([ProfileListView()]),
-            ),
-          ],
-        ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              ProfileListView(
+                database: database,
+              )
+            ]),
+          ),
+        ],
       ),
     );
   }
@@ -167,6 +170,9 @@ class _ProfilePageState extends State<ProfilePage> {
 }
 
 class ProfileListView extends StatefulWidget {
+  final DatabaseService database;
+
+  ProfileListView({this.database});
   @override
   _ProfileListViewState createState() => _ProfileListViewState();
 }
@@ -187,241 +193,254 @@ class _ProfileListViewState extends State<ProfileListView> {
 
   @override
   Widget build(BuildContext context) {
-    var trainer = Provider.of<TrainerUser>(context);
-    bioTextController.text = trainer.bio;
-    return ListView(
-      shrinkWrap: true,
-      physics: ClampingScrollPhysics(),
-      children: [
-        Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(5)),
-          margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
-          padding: const EdgeInsets.all(20),
-          height: 290.h,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Bio',
-                    style: TextStyle(color: CustomColor.red),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      bioEnabled = !bioEnabled;
-                      bioEnabled
-                          ? editOrsaveIcon = Icons.check
-                          : editOrsaveIcon = Icons.edit;
+    return StreamBuilder<TrainerUser>(
+        stream: widget.database.currentTrainerUserStream,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            TrainerUser trainerData = snapshot.data;
+            bioTextController.text = trainerData.bio;
+            return ListView(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(5)),
+                  margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                  padding: const EdgeInsets.all(20),
+                  height: 290.h,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Bio',
+                            style: TextStyle(color: CustomColor.red),
+                          ),
+                          GestureDetector(
+                            onTap: () async {
+                              bioEnabled = !bioEnabled;
+                              bioEnabled
+                                  ? editOrsaveIcon = Icons.check
+                                  : editOrsaveIcon = Icons.edit;
 
-                      if (!bioEnabled) {
-                        bioTextController.text =
-                            await DatabaseService(uId: UserCredentials.userId)
-                                .updateSignleField(
-                                    key: 'bio', value: bioTextController.text);
-                      }
-                      setState(() {});
-                    },
-                    child: Icon(
-                      editOrsaveIcon,
-                      color: Colors.white,
-                      size: 30.h,
+                              if (!bioEnabled) {
+                                bioTextController.text = await widget.database
+                                    .updateSignleField(
+                                        key: 'bio',
+                                        value: bioTextController.text);
+                              }
+                              setState(() {});
+                            },
+                            child: Icon(
+                              editOrsaveIcon,
+                              color: Colors.white,
+                              size: 30.h,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      Container(
+                        width: 500.h,
+                        child: TextField(
+                          controller: bioTextController,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              enabled: bioEnabled,
+                              hintMaxLines: 5,
+                              hintStyle: TextStyle(color: Colors.white),
+                              hintText: "Type here..."),
+                          onChanged: (value) {},
+                          maxLines: 5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(5)),
+                  margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                  padding: const EdgeInsets.all(20),
+                  height: 420,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Description',
+                        style: TextStyle(color: CustomColor.red),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('Area'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('Speciality'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('Home Training'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('GYM Training'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('Price Per Session (P/S)'),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      descriptionContainer('Payment Method'),
+                    ],
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(5)),
+                  margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                  padding: const EdgeInsets.all(20),
+                  height: 240.h,
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Bulk Sessions',
+                        style: TextStyle(
+                          color: CustomColor.red,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        // margin: EdgeInsets.all(10),
+                        child: Table(
+                          border: TableBorder.symmetric(
+                              inside: BorderSide(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  width: 1)),
+                          children: [
+                            TableRow(
+                                children: List.generate(upperList.length, (i) {
+                              return _tableContainer(
+                                  upperList[i], Colors.white, 1);
+                            })),
+                            TableRow(
+                                children: List.generate(lowerList.length, (i) {
+                              return _tableContainer(lowerList[i],
+                                  Colors.grey.withOpacity(0.5), 2);
+                            })),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(5)),
+                    margin:
+                        const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                    padding: const EdgeInsets.all(20),
+                    width: double.infinity,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Reviews',
+                          style: TextStyle(color: CustomColor.red),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: CustomColor.grey,
+                            backgroundImage: AssetImage('assets/trainer.jpg'),
+                            radius: 30,
+                          ),
+                          contentPadding: EdgeInsets.all(0),
+                          title: Text(
+                            'Patricia Lucas',
+                            style: TextStyle(
+                                color: CustomColor.white,
+                                fontSize: FontSize.h3FontSize - 3),
+                          ),
+                          subtitle: Text(
+                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                            style: TextStyle(
+                                color: CustomColor.grey, fontSize: 13),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: CustomColor.grey,
+                            backgroundImage: AssetImage('assets/trainer.jpg'),
+                            radius: 30,
+                          ),
+                          contentPadding: EdgeInsets.all(0),
+                          title: Text(
+                            'Patricia Lucas',
+                            style: TextStyle(
+                                color: CustomColor.white,
+                                fontSize: FontSize.h3FontSize - 3),
+                          ),
+                          subtitle: Text(
+                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                            style: TextStyle(
+                                color: CustomColor.grey, fontSize: 13),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundColor: CustomColor.grey,
+                            backgroundImage: AssetImage('assets/trainer.jpg'),
+                            radius: 30,
+                          ),
+                          contentPadding: EdgeInsets.all(0),
+                          title: Text(
+                            'Patricia Lucas',
+                            style: TextStyle(
+                                color: CustomColor.white,
+                                fontSize: FontSize.h3FontSize - 3),
+                          ),
+                          subtitle: Text(
+                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                            style: TextStyle(
+                                color: CustomColor.grey, fontSize: 13),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 5.h,
-              ),
-              Container(
-                width: 500.h,
-                child: TextField(
-                  controller: bioTextController,
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      enabled: bioEnabled,
-                      hintMaxLines: 5,
-                      hintStyle: TextStyle(color: Colors.white),
-                      hintText: "Type here..."),
-                  onChanged: (value) {},
-                  maxLines: 5,
                 ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(5)),
-          margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
-          padding: const EdgeInsets.all(20),
-          height: 420,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Description',
-                style: TextStyle(color: CustomColor.red),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('Area'),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('Speciality'),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('Home Training'),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('GYM Training'),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('Price Per Session (P/S)'),
-              SizedBox(
-                height: 10,
-              ),
-              descriptionContainer('Payment Method'),
-            ],
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(5)),
-          margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
-          padding: const EdgeInsets.all(20),
-          height: 240.h,
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Bulk Sessions',
-                style: TextStyle(
-                  color: CustomColor.red,
-                ),
-              ),
-              SizedBox(
-                height: 12,
-              ),
-              Container(
-                // margin: EdgeInsets.all(10),
-                child: Table(
-                  border: TableBorder.symmetric(
-                      inside: BorderSide(
-                          color: Colors.grey.withOpacity(0.5), width: 1)),
-                  children: [
-                    TableRow(
-                        children: List.generate(upperList.length, (i) {
-                      return _tableContainer(upperList[i], Colors.white, 1);
-                    })),
-                    TableRow(
-                        children: List.generate(lowerList.length, (i) {
-                      return _tableContainer(
-                          lowerList[i], Colors.grey.withOpacity(0.5), 2);
-                    })),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
-                borderRadius: BorderRadius.circular(5)),
-            margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
-            padding: const EdgeInsets.all(20),
-            width: double.infinity,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Reviews',
-                  style: TextStyle(color: CustomColor.red),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: CustomColor.grey,
-                    backgroundImage: AssetImage('assets/trainer.jpg'),
-                    radius: 30,
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-                  title: Text(
-                    'Patricia Lucas',
-                    style: TextStyle(
-                        color: CustomColor.white,
-                        fontSize: FontSize.h3FontSize - 3),
-                  ),
-                  subtitle: Text(
-                    'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                    style: TextStyle(color: CustomColor.grey, fontSize: 13),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: CustomColor.grey,
-                    backgroundImage: AssetImage('assets/trainer.jpg'),
-                    radius: 30,
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-                  title: Text(
-                    'Patricia Lucas',
-                    style: TextStyle(
-                        color: CustomColor.white,
-                        fontSize: FontSize.h3FontSize - 3),
-                  ),
-                  subtitle: Text(
-                    'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                    style: TextStyle(color: CustomColor.grey, fontSize: 13),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: CustomColor.grey,
-                    backgroundImage: AssetImage('assets/trainer.jpg'),
-                    radius: 30,
-                  ),
-                  contentPadding: EdgeInsets.all(0),
-                  title: Text(
-                    'Patricia Lucas',
-                    style: TextStyle(
-                        color: CustomColor.white,
-                        fontSize: FontSize.h3FontSize - 3),
-                  ),
-                  subtitle: Text(
-                    'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                    style: TextStyle(color: CustomColor.grey, fontSize: 13),
-                  ),
-                )
               ],
-            ),
-          ),
-        ),
-      ],
-    );
+            );
+          }
+          return Scaffold(body: Center(child: CircularProgressIndicator()));
+        });
   }
 
   _tableContainer(String _label, Color _color, int type) {
