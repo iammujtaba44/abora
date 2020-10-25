@@ -389,7 +389,7 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   payViaExistingCard2(BuildContext context, month, year, cardNumber) async {
-    print(cardNumber);
+    // print(cardNumber);
     ProgressDialog dialog = new ProgressDialog(context);
     dialog.style(message: 'Please wait...');
     await dialog.show();
