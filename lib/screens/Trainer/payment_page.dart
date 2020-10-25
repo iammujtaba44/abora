@@ -2,6 +2,7 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/profile_page.dart';
+import 'package:abora/services/database.dart';
 import 'package:abora/services/paymentService.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
@@ -9,14 +10,17 @@ import 'package:abora/widgets/dialog_box/alert.dart';
 import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
+import 'package:credit_card_validate/credit_card_validate.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:preview/preview.dart';
 import 'package:progress_dialog/progress_dialog.dart';
+import 'package:provider/provider.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class MyApp extends StatelessWidget {
@@ -48,6 +52,9 @@ class MyApp extends StatelessWidget {
 }
 
 class PaymentPage extends StatefulWidget {
+  final PostAdData;
+  const PaymentPage({Key key, this.PostAdData}) : super(key: key);
+
   @override
   _PaymentPageState createState() => _PaymentPageState();
 }
@@ -56,6 +63,7 @@ class _PaymentPageState extends State<PaymentPage> {
   double height;
   double width;
   bool checkTick = false;
+  IconData brandIcon;
 
   void choiceAction(String choice) {
     if (choice == Constants.changeCard) {
@@ -79,47 +87,20 @@ class _PaymentPageState extends State<PaymentPage> {
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
-
+  DatabaseService database;
   TextEditingController cardNumberCtr,
       expiryDateCtr,
       cardHolderNameCtr,
       cvvCodeCtr;
   @override
   void initState() {
-    // cardNumberCtr = TextEditingController();
-    // expiryDateCtr = TextEditingController();
-    // cardHolderNameCtr = TextEditingController();
-    // cvvCodeCtr = TextEditingController();
-
     super.initState();
-
+    brandIcon = FontAwesomeIcons.ccVisa;
+    cardNumberCtr = TextEditingController();
+    expiryDateCtr = TextEditingController();
+    cardHolderNameCtr = TextEditingController();
+    cvvCodeCtr = TextEditingController();
     StripeService.init();
-  }
-
-  payViaExistingCard(BuildContext context, card) async {
-    ProgressDialog dialog = new ProgressDialog(context);
-    dialog.style(message: 'Please wait...');
-    await dialog.show();
-    var expiryArr = card['expiryDate'].split('/');
-    CreditCard stripeCard = CreditCard(
-      number: card['cardNumber'],
-      expMonth: int.parse(expiryArr[0]),
-      expYear: int.parse(expiryArr[1]),
-    );
-    var response = await StripeService.payViaExistingCard(
-        amount: '2500', currency: 'USD', card: stripeCard);
-    await dialog.hide();
-    CustomToast(text: response.message);
-    print(response.message);
-    // Scaffold.of(context)
-    //     .showSnackBar(SnackBar(
-    //       content: Text(response.message),
-    //       duration: new Duration(milliseconds: 1200),
-    //     ))
-    //     .closed
-    //     .then((_) {
-    //   //Navigator.pop(context);
-    // });
   }
 
   @override
@@ -128,7 +109,7 @@ class _PaymentPageState extends State<PaymentPage> {
     width = MediaQuery.of(context).size.width;
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
-
+    database = Provider.of<DatabaseService>(context);
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
@@ -190,7 +171,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   color: CustomColor.red,
                                   fontSize: FontSize.h3FontSize),
                             ),
-                            Text('\$20.00',
+                            Text('\$${widget.PostAdData['totalPrice']}',
                                 style: TextStyle(
                                     color: CustomColor.blue,
                                     fontSize: FontSize.h2FontSize - 5)),
@@ -211,6 +192,15 @@ class _PaymentPageState extends State<PaymentPage> {
                               onChanged: (value) {
                                 setState(() {
                                   cardNumber = value;
+                                  String brand =
+                                      CreditCardValidator.identifyCardBrand(
+                                          value);
+                                  if (brand != null) {
+                                    if (brand == 'visa')
+                                      brandIcon = FontAwesomeIcons.ccVisa;
+                                    else if (brand == 'master_card')
+                                      brandIcon = FontAwesomeIcons.ccMastercard;
+                                  }
                                 });
                               },
                               controller: cardNumberCtr,
@@ -222,19 +212,24 @@ class _PaymentPageState extends State<PaymentPage> {
                         SizedBox(
                           width: 10,
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Container(
+                        Container(
                             height: 50,
+                            width: 65.0,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(5),
                                 color: CustomColor.textFieldFilledColor,
                                 border: Border.all(
                                   color: CustomColor.textFieldBorderColor,
                                 )),
-                            child: Image.asset('assets/visa.png'),
-                          ),
-                        )
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 5.0),
+                              child: FaIcon(
+                                brandIcon,
+                                size: 45.0,
+                                color: Colors.white38,
+                              ),
+                            ) //Image.asset('assets/visa.png'),
+                            )
                       ],
                     ),
                     SizedBox(
@@ -352,12 +347,23 @@ class _PaymentPageState extends State<PaymentPage> {
                 style: TextStyle(color: Colors.white),
               ),
               func: () {
-                payViaExistingCard(context, cards[0]);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => ProfilePage()),
-                // );
+                _onpressed();
               },
+              // func: () {
+              //   database.postAdAsync(
+              //       numberOfDay: widget.PostAdData['days'],
+              //       exerciseSubType: widget.PostAdData['ex'],
+              //       exerciseType: widget.PostAdData['ex1'],
+              //       totalPrice: widget.PostAdData['totalPrice'],
+              //       years: widget.PostAdData['years']);
+              //   // print(widget.PostAdData['years']);
+              //
+              //   //  payViaExistingCard(context, cards[0]);
+              //   // Navigator.push(
+              //   //   context,
+              //   //   MaterialPageRoute(builder: (context) => ProfilePage()),
+              //   // );
+              // },
             ),
           ),
           SizedBox(
@@ -366,6 +372,79 @@ class _PaymentPageState extends State<PaymentPage> {
         ],
       ),
     );
+  }
+
+  _onpressed() {
+    if (cardNumber != null &&
+        expiryDate != null &&
+        cardHolderName != null &&
+        cvvCode != null) {
+      var month = expiryDate[0];
+      month += expiryDate[1];
+      var year = expiryDate[2];
+      year += expiryDate[3];
+      payViaExistingCard2(context, month, year, cardNumber);
+    } else
+      CustomToast(text: 'Please fill the fileds');
+  }
+
+  payViaExistingCard2(BuildContext context, month, year, cardNumber) async {
+    print(cardNumber);
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Please wait...');
+    await dialog.show();
+    // var expiryArr = card['expiryDate'].split('/');
+    CreditCard stripeCard = CreditCard(
+        number: cardNumber,
+        expMonth: int.parse(month),
+        expYear: int.parse(year));
+    var response = await StripeService.payViaExistingCard(
+        amount: "30000", //widget.PostAdData['totalPrice'],
+        currency: 'USD',
+        card: stripeCard);
+    await dialog.hide();
+    // CustomToast(text: response.message);
+
+    //  print(response.message);
+    if (response.success == true) {
+      _onAlertButtonsPressed(context);
+      database.postAdAsync(
+          numberOfDay: widget.PostAdData['days'],
+          exerciseSubType: widget.PostAdData['ex'],
+          exerciseType: widget.PostAdData['ex1'],
+          totalPrice: widget.PostAdData['totalPrice'],
+          years: widget.PostAdData['years']);
+    } else {
+      CustomToast(text: response.message);
+    }
+  }
+
+  payViaExistingCard(BuildContext context, card) async {
+    ProgressDialog dialog = new ProgressDialog(context);
+    dialog.style(message: 'Please wait...');
+    await dialog.show();
+    var expiryArr = card['expiryDate'].split('/');
+    CreditCard stripeCard = CreditCard(
+      number: card['cardNumber'],
+      expMonth: int.parse(expiryArr[0]),
+      expYear: int.parse(expiryArr[1]),
+    );
+    var response = await StripeService.payViaExistingCard(
+        amount: '25000', currency: 'USD', card: stripeCard);
+    await dialog.hide();
+    CustomToast(text: response.message);
+
+    _onAlertButtonsPressed(context);
+    print(response.message);
+    // Scaffold.of(context)
+    //     .showSnackBar(SnackBar(
+    //       content: Text(response.message),
+    //       duration: new Duration(milliseconds: 1200),
+    //     ))
+    //     .closed
+    //     .then((_) {
+    //   //Navigator.pop(context);
+    // });
   }
 
   _onAlertButtonsPressed(context) {

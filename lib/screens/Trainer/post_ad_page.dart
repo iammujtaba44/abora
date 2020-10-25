@@ -74,6 +74,7 @@ class _PostAdPageState extends State<PostAdPage> {
   var _selectedyear;
   var _selectedEx1;
   var _selectedEx2;
+  int totalprice = 20;
 
   @override
   Widget build(BuildContext context) {
@@ -415,7 +416,7 @@ class _PostAdPageState extends State<PostAdPage> {
                       style: TextStyle(color: Colors.red, fontSize: 15),
                     ),
                     Text(
-                      'Euro 20',
+                      'Euro ${totalprice}',
                       style: TextStyle(color: CustomColor.green, fontSize: 20),
                     ),
                   ],
@@ -430,18 +431,34 @@ class _PostAdPageState extends State<PostAdPage> {
                 'POST ADD',
                 style: TextStyle(color: Colors.white),
               ),
-              func: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PaymentPage()),
-                );
-              },
+              func: _ontap,
             ),
           ),
           Spacer(),
         ],
       ),
     );
+  }
+
+  _ontap() {
+    if (_selectedyear.toString().isNotEmpty &&
+        _selectedEx1.toString().isNotEmpty &&
+        _selectedEx2.toString().isNotEmpty &&
+        _selected.toString().isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PaymentPage(
+                  PostAdData: {
+                    'years': _selectedyear.toString(),
+                    'ex': _selectedEx1.toString(),
+                    'ex1': _selectedEx2.toString(),
+                    'days': _selected.toString(),
+                    'totalPrice': totalprice.toString()
+                  },
+                )),
+      );
+    }
   }
 
   _onAlertButtonsPressed(context) {

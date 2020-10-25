@@ -1,4 +1,5 @@
 import 'package:abora/models/UploadVideoModel.dart';
+import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/models/trainer_models/post_ad.dart';
 import 'package:abora/models/trainer_models/reviews.dart';
@@ -79,6 +80,52 @@ class DatabaseService {
     });
   }
 
+//Apointment
+  List<AppointmentModel> apointment(QuerySnapshot qs) {
+    return qs.docs.map((ds) {
+      return AppointmentModel(
+        imageUrl: ds.data()['imageUrl'],
+        clientName: ds.data()['clientName'],
+        goal: ds.data()['goal'],
+        noOfBookings: ds.data()['noOfBookings'],
+        sessionType: ds.data()['sessionType'],
+        dates: List.from(ds.data()['dates']),
+      );
+    }).toList();
+  }
+
+  Stream<List<AppointmentModel>> get apintmentStream {
+    return user
+        .doc(uId)
+        .collection('appointments')
+        .doc('upcomingApointments')
+        .collection('data')
+        .snapshots()
+        .map(apointment);
+  }
+
+  Future uploadApointmentAsync(
+      {String imageUrl,
+      String clientName,
+      String noOfBookings,
+      String sessionType,
+      String goal,
+      List<String> dates}) async {
+    return await user
+        .doc(uId)
+        .collection('appointments')
+        .doc('upcomingApointments')
+        .collection('data')
+        .doc()
+        .set({
+      'imageUrl': imageUrl,
+      'clientName': clientName,
+      'goal': goal,
+      'noOfBookings': noOfBookings,
+      'sessionType': sessionType,
+      'dates': dates,
+    });
+  }
   // SINGLE VIDEO
 
   List<UploadVideo> getVidoeList(QuerySnapshot qs) {

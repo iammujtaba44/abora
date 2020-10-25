@@ -48,6 +48,8 @@ dependencies:
   flutter_credit_card: ^0.1.3
   stripe_payment: ^1.0.8
   progress_dialog: ^1.2.4
+  font_awesome_flutter: ^8.10.0
+  credit_card_validate: ^0.0.3
 
   # video player packages
   chewie: 

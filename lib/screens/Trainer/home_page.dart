@@ -1,9 +1,12 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
+import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/utils/Helper.dart';
 import 'package:abora/widgets/CustomToast.dart';
 
 import 'package:abora/widgets/details_double_container.dart';
@@ -130,13 +133,36 @@ class _HomePageState extends State<HomePage> {
                 shape: CircleBorder(),
                 children: [
                   SpeedDialChild(
-                    child: Icon(Icons.add_circle),
-                    backgroundColor: Colors.orange,
-                    label: 'Post Ad',
-                    onTap: () async {
-                      await _auth.signOut();
-                    },
-                  ),
+                      child: Icon(Icons.add_circle),
+                      backgroundColor: Colors.orange,
+                      label: 'Post Ad',
+                      onTap: () async {
+                        // List<AppointmentModel> aa = database.apintmentStream;
+                        // print(aa);
+                        // 2020-10-25
+                        // List<String> dates1 = [Helper.getDate(DateTime.now())];
+                        // List<String> dates1 = [
+                        //   '2020-10-10',
+                        //   '2020-10-11',
+                        //   '2020-10-12'
+                        // ];
+                        // database.uploadApointmentAsync(
+                        //     clientName: 'RaheelZain',
+                        //     imageUrl: 'XYZ',
+                        //     goal: 'loose 4kg',
+                        //     noOfBookings: '1',
+                        //     sessionType: 'one-o-one',
+                        //     dates: dates1);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PostAdPage()),
+                        );
+                      }
+                      // onTap: () async {
+                      //   await _auth.signOut();
+                      // },
+                      ),
                   SpeedDialChild(
                     child: Icon(Icons.cloud_upload),
                     backgroundColor: Colors.red,

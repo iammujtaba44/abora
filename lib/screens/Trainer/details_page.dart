@@ -12,6 +12,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
 }
 
 class DetailPage extends StatefulWidget {
+  final DetailsData;
+  const DetailPage({Key key, this.DetailsData}) : super(key: key);
   @override
   _DetailPageState createState() => _DetailPageState();
 }
@@ -60,6 +64,15 @@ class _DetailPageState extends State<DetailPage> {
     return TextStyle(color: Color(0xFF30384c), fontWeight: fontWeight);
   }
 
+  DateTime _currentDate2 = DateTime.now();
+  CalendarCarousel _calendarCarouselNoHeader;
+  var len = 9;
+  int a = 0;
+  EventList<Event> _markedDateMap = new EventList<Event>(
+    events: {},
+  );
+  List<DateTime> presentDates = [];
+  List<DateTime> absentDates = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -75,6 +88,9 @@ class _DetailPageState extends State<DetailPage> {
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
 
+    // print(widget.DetailsData['dates']);
+    evnetsFiller();
+    _calendarCarouselNoHeader = cal2();
     return Scaffold(
         appBar: AppBar(
           title: Row(
@@ -97,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
                   );
                 },
                 child: Text(
-                  'User Name',
+                  widget.DetailsData['clientName'],
                   style: TextStyle(
                       fontSize: 17,
                       color: CustomColor.white,
@@ -154,7 +170,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          '3',
+                                          widget.DetailsData['noOfBookings'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -173,7 +189,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          'Lose 4Kgs in 3 sessions',
+                                          widget.DetailsData['goal'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -192,7 +208,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          'One-one-One',
+                                          widget.DetailsData['sessionType'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -258,32 +274,13 @@ class _DetailPageState extends State<DetailPage> {
                   SizedBox(
                     height: 30,
                   ),
-                  TableCalendar(
-                    headerVisible: false,
-                    startingDayOfWeek: StartingDayOfWeek.monday,
-                    calendarStyle: CalendarStyle(
-                      weekdayStyle: dayStyle(FontWeight.normal),
-                      weekendStyle: dayStyle(FontWeight.normal),
-                      selectedColor: Colors.green,
-                      todayColor: Color(0xff30374b),
-                    ),
-                    daysOfWeekStyle: DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(
-                        color: CustomColor.white,
-                        fontSize: 16,
-                      ),
-                      weekendStyle:
-                          TextStyle(color: CustomColor.white, fontSize: 16),
-                    ),
-                    headerStyle: HeaderStyle(
-                      formatButtonVisible: true,
-                      titleTextStyle: TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    calendarController: _controller,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      //    borderRadius: BorderRadius.all(Radius.circular(20.0))
+                    ), //width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 2.7,
+                    child: _calendarCarouselNoHeader,
                   ),
                   SizedBox(
                     height: 40,
@@ -308,6 +305,125 @@ class _DetailPageState extends State<DetailPage> {
             )
           ],
         ));
+  }
+
+  Widget _presentIcon(String day) => Container(
+        decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.all(
+            Radius.circular(1000),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            day,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+  Widget _absentIcon(String day) => Container(
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.all(
+            Radius.circular(1000),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            day,
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
+        ),
+      );
+
+  evnetsFiller() {
+    List<String> aa = widget.DetailsData['dates'];
+    print(aa);
+    for (int i = 0; i < aa.length; i++) {
+      var array = aa[i].split('-');
+      presentDates.add(new DateTime(
+          int.parse(array[0]), int.parse(array[1]), int.parse(array[2])));
+      a++;
+      //a = i + 1;
+
+    }
+    // presentDates.forEach((element) {
+    //   print(element);
+    // });
+    // print(a);
+    // for (int i = 0; i < len; i++) {
+    //   a = i + 1;
+    //   absentDates.add(new DateTime(2020, 9, a));
+    // }
+
+    for (int i = 0; i < a; i++) {
+      _markedDateMap.add(
+        presentDates[i],
+        new Event(
+          date: presentDates[i],
+          title: 'Event 5',
+          icon: _presentIcon(
+            presentDates[i].day.toString(),
+          ),
+        ),
+      );
+    }
+
+    // for (int i = 0; i < len; i++) {
+    //   _markedDateMap.add(
+    //     absentDates[i],
+    //     new Event(
+    //       date: absentDates[i],
+    //       title: 'Event 5',
+    //       icon: _absentIcon(
+    //         absentDates[i].day.toString(),
+    //       ),
+    //     ),
+    //   );
+    // }
+  }
+
+  cal2() {
+    return CalendarCarousel<Event>(
+      // height: cHeight / 2,
+      // width: cwid / 1.2,
+      onDayPressed: (DateTime date, List<Event> events) {
+        this.setState(() => _currentDate2 = date);
+        events.forEach((event) => print(event.title));
+      },
+      showOnlyCurrentMonthDate: true,
+      showHeader: false,
+      weekdayTextStyle: TextStyle(color: Colors.white),
+      dayPadding: 6,
+      daysTextStyle: TextStyle(color: Colors.grey),
+      weekendTextStyle: TextStyle(
+        color: Colors.red,
+      ),
+
+      customGridViewPhysics: NeverScrollableScrollPhysics(),
+      selectedDateTime: _currentDate2,
+      todayButtonColor: Colors.blue[200],
+      markedDatesMap: _markedDateMap,
+      markedDateShowIcon: true,
+      markedDateIconMaxShown: 1,
+      markedDateMoreShowTotal: null,
+
+      markedDateCustomTextStyle: TextStyle(
+        fontSize: 18,
+        color: Colors.white,
+      ),
+      // null for not showing hidden events indicator
+      markedDateIconBuilder: (event) {
+        return event.icon;
+      },
+      minSelectedDate: _currentDate2.subtract(Duration(days: 360)),
+      maxSelectedDate: _currentDate2.add(Duration(days: 360)),
+    );
   }
 
   _onAlertButtonsPressed(context) {
