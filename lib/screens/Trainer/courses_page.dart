@@ -2,6 +2,7 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
+import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
 
@@ -117,9 +118,9 @@ class _CourseGridViewState extends State<CourseGridView> {
           (index) => GestureDetector(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => UploadCoursePage()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => UploadSingleVideoPage()));
                 },
                 child: Column(
                   children: [

@@ -15,7 +15,7 @@ class Storage {
   Storage({this.uId});
 
   final StorageReference videosRef =
-      FirebaseStorage.instance.ref().child('videos/');
+      FirebaseStorage.instance.ref().child('videos');
 
   Future uploadCourseToStorage(
       {@required List<File> listFile,
@@ -46,11 +46,12 @@ class Storage {
     }
   }
 
-  uploadToStorage() async {
+  uploadToStorage(
+      {@required String title,
+      @required String description,
+      @required File file}) async {
     try {
-      final file = await ImagePicker.pickVideo(source: ImageSource.gallery);
-
-      print('------------${file.absolute.path.toString()}');
+      //  print('------------${file.absolute.path.toString()}');
 
       StorageUploadTask uploadTask = videosRef
           .child(Path.basename(file.path))
@@ -60,7 +61,7 @@ class Storage {
       final String url = downloadUrl.toString();
 
       DatabaseService(uId: uId)
-          .uploadVideo(title: 'abc', description: 'des', video: url);
+          .uploadVideo(title: title, description: description, video: url);
     } catch (e) {
       CustomToast(text: e.toString());
     }

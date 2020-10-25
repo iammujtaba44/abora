@@ -131,24 +131,38 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, bottom: 15),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Davei Samah',
-                          style: TextStyle(
-                              fontSize: FontSize.h3FontSize + 5,
-                              color: CustomColor.white),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        WrapperRow()
-                      ],
+                  Expanded(
+                    flex: 5,
+                    child: Container(
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Text(
+                              'Davei Samah',
+                              style: TextStyle(
+                                  fontSize: FontSize.h3FontSize + 5,
+                                  color: CustomColor.white),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+                  Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: WrapperRow(database: database),
+                      )),
+                  Expanded(flex: 1, child: Container()),
                 ],
               ),
             ),
@@ -860,6 +874,9 @@ class _ProfileListViewState extends State<ProfileListView> {
 }
 
 class WrapperRow extends StatefulWidget {
+  final DatabaseService database;
+
+  WrapperRow({this.database});
   @override
   _WrapperRowState createState() => _WrapperRowState();
 }
@@ -875,8 +892,8 @@ class _WrapperRowState extends State<WrapperRow> {
 
     videoPlayerController = new VideoPlayerController.network(
         "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
-    _initializeVideoPlayerFuture =
-        videoPlayerController.initialize().then((_) => {setState(() {})});
+    // _initializeVideoPlayerFuture =
+    //     videoPlayerController.initialize().then((_) => {setState(() {})});
   }
 
   @override
@@ -889,183 +906,71 @@ class _WrapperRowState extends State<WrapperRow> {
 
   @override
   Widget build(BuildContext context) {
-    // final user = Provider.of<List<UploadVideo>>(context);
-    // print("------------ ${user[0].description}");
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditSingleVideoPage()),
+    // final videos = Provider.of<List<UploadVideo>>(context) ?? [];
+
+    return StreamBuilder<List<UploadVideo>>(
+        stream: widget.database.uploadVideoStream,
+        builder: (context, snapshot) {
+          return ListView.builder(
+            shrinkWrap: true,
+            itemCount: snapshot.data.length ?? 0,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                          color: CustomColor.backgroundColor,
+                          borderRadius: BorderRadius.circular(5)),
+                      width: 130,
+                      height: 100,
+                      child: Stack(
+                        children: [
+                          Chewie(
+                            key: PageStorageKey(snapshot.data[index].video),
+                            controller: ChewieController(
+                                videoPlayerController:
+                                    new VideoPlayerController.network(
+                                        snapshot.data[index].video),
+                                aspectRatio: 1.8.h,
+                                autoInitialize: true,
+                                showControls: false,
+                                looping: false,
+                                autoPlay: false,
+                                errorBuilder: (context, errorMessage) {
+                                  return Center(
+                                      child: Text(
+                                    'abc',
+                                    style: TextStyle(color: Colors.white),
+                                  ));
+                                }),
+                          ),
+                          Positioned(
+                            right: 10,
+                            bottom: 10,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 25,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.signUpButtonColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Text(
+                                'Edit',
+                                style: TextStyle(color: CustomColor.white),
+                              ),
+                            ),
+                          )
+                        ],
+                      )),
+                  SizedBox(
+                    width: 8,
+                  )
+                ],
               );
             },
-            child: Container(
-                decoration: BoxDecoration(
-                    color: CustomColor.backgroundColor,
-                    borderRadius: BorderRadius.circular(5)),
-                width: 130,
-                height: 100,
-                child: Stack(
-                  children: [
-                    Chewie(
-                      key: PageStorageKey(
-                          "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
-                      controller: ChewieController(
-                          videoPlayerController: videoPlayerController,
-                          aspectRatio: 1.8.h,
-                          autoInitialize: true,
-                          showControls: false,
-                          looping: true,
-                          autoPlay: true,
-                          errorBuilder: (context, errorMessage) {
-                            return Center(
-                                child: Text(
-                              'abc',
-                              style: TextStyle(color: Colors.white),
-                            ));
-                          }),
-                    ),
-                    Positioned(
-                      right: 10,
-                      bottom: 10,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: CustomColor.signUpButtonColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'Edit',
-                          style: TextStyle(color: CustomColor.white),
-                        ),
-                      ),
-                    )
-                  ],
-                )),
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  color: CustomColor.backgroundColor,
-                  borderRadius: BorderRadius.circular(5)),
-              width: 130,
-              height: 100,
-              child: Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 25,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: CustomColor.signUpButtonColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'Edit',
-                        style: TextStyle(color: CustomColor.white),
-                      ),
-                    ),
-                  )
-                ],
-              )),
-          SizedBox(
-            width: 8,
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  color: CustomColor.backgroundColor,
-                  borderRadius: BorderRadius.circular(5)),
-              width: 130,
-              height: 100,
-              child: Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 25,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: CustomColor.signUpButtonColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'Edit',
-                        style: TextStyle(color: CustomColor.white),
-                      ),
-                    ),
-                  )
-                ],
-              )),
-          SizedBox(
-            width: 8,
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  color: CustomColor.backgroundColor,
-                  borderRadius: BorderRadius.circular(5)),
-              width: 130,
-              height: 100,
-              child: Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 25,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: CustomColor.signUpButtonColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'Edit',
-                        style: TextStyle(color: CustomColor.white),
-                      ),
-                    ),
-                  )
-                ],
-              )),
-          SizedBox(
-            width: 8,
-          ),
-          Container(
-              decoration: BoxDecoration(
-                  color: CustomColor.backgroundColor,
-                  borderRadius: BorderRadius.circular(5)),
-              width: 130,
-              height: 100,
-              child: Stack(
-                children: [
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 25,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          color: CustomColor.signUpButtonColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Text(
-                        'Edit',
-                        style: TextStyle(color: CustomColor.white),
-                      ),
-                    ),
-                  )
-                ],
-              )),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
 
