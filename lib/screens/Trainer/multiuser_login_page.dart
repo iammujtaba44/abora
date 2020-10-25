@@ -183,14 +183,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
             func: () async {
               var result = _auth.signInWithEmailAndPassword(
                   'raheel@gmail.com', '123456');
-              if (result == null) {
-                print('result is null------------');
-              } else {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottonNavControllerTrainer()));
-              }
+              // if (result == null) {
+              //   print('result is null------------');
+              // } else {
+              //   Navigator.push(
+              //       context,
+              //       MaterialPageRoute(
+              //           builder: (context) => BottonNavControllerTrainer()));
+              // }
             },
             child: Text(
               'log in'.toUpperCase(),

@@ -159,17 +159,11 @@ class _HomePageState extends State<HomePage> {
                 ),
                 actions: [
                   IconButton(
-                    onPressed: () {
-                      DatabaseService(uId: UserCredentials.userId)
-                          .updateTrainerHomeData(
-                              booking: '1',
-                              conversionRate: '1',
-                              ratio: '1',
-                              thisMonthVisits: '1',
-                              totalBookingThisMonth: '1',
-                              totalSessionsBooked: '1',
-                              totalViews: '1',
-                              visit: '1');
+                    onPressed: () async {
+                      await database.reviewAsync(
+                          imageURL: 'new image url',
+                          review: 'It was so amazing working with him.',
+                          reviewerName: 'Alex');
                     },
                     icon: Icon(
                       Icons.settings,
@@ -196,24 +190,24 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           detailsDoubleContainer(context,
                               text: 'Total Views',
-                              value: trainerData.totalViews,
+                              value: trainerData.totalViews ?? '0',
                               text2: 'This Month Visits',
-                              value2: trainerData.thisMonthVisits),
+                              value2: trainerData?.thisMonthVisits ?? '0'),
                           SizedBox(
                             height: 20,
                           ),
                           detailsDoubleContainer(context,
                               text: 'Total Sessions Booked',
-                              value: trainerData.totalSessionsBooked,
+                              value: trainerData.totalSessionsBooked ?? '0',
                               text2: 'Total Booking This Month',
-                              value2: trainerData.totalBookingThisMonth),
+                              value2: trainerData.totalBookingThisMonth ?? '0'),
                           SizedBox(
                             height: 20,
                           ),
                           detailsSingleContainer(context,
                               text: 'Booking : Visit : Ratio : Conversion Rate',
                               value:
-                                  '${trainerData.booking} : ${trainerData.visit} : ${trainerData.ratio} : ${trainerData.conversionRate}%'),
+                                  '${trainerData.booking ?? '0'} : ${trainerData.visit ?? '0'} : ${trainerData.ratio ?? '0'} : ${trainerData.conversionRate ?? '0'}%'),
                           SizedBox(
                             height: 20,
                           ),

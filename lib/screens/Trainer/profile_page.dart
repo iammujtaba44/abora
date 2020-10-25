@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/UploadVideoModel.dart';
+import 'package:abora/models/trainer_models/reviews.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/edit_video_page.dart';
 import 'package:abora/services/constants.dart';
@@ -179,8 +180,31 @@ class ProfileListView extends StatefulWidget {
 
 class _ProfileListViewState extends State<ProfileListView> {
   TextEditingController bioTextController = new TextEditingController();
+  TextEditingController areaTextController = new TextEditingController();
+  TextEditingController specialityTextController = new TextEditingController();
+  TextEditingController homeTrainingTextController =
+      new TextEditingController();
+  TextEditingController gymTrainingTextController = new TextEditingController();
+  TextEditingController pricePerSessionTextController =
+      new TextEditingController();
+  TextEditingController paymentMethodTextController =
+      new TextEditingController();
+
   bool bioEnabled = false;
+  bool areaEnabled = false;
+  bool specialityEnabled = false;
+  bool homeTrainingEnabled = false;
+  bool gymTrainingEnabled = false;
+  bool pricePerSessionEnabled = false;
+  bool paymentMethodEnabled = false;
+
   IconData editOrsaveIcon;
+  IconData areaIconData;
+  IconData specialityIconData;
+  IconData homeTrainingIconData;
+  IconData gymTrainingIconData;
+  IconData pricePerSessionIconData;
+  IconData paymentMethodIconData;
 
   List<String> upperList = <String>['1', 'X', 'X'];
   List<String> lowerList = <String>['30', '65', '110'];
@@ -188,6 +212,12 @@ class _ProfileListViewState extends State<ProfileListView> {
   @override
   void initState() {
     super.initState();
+    areaIconData = Icons.edit;
+    specialityIconData = Icons.edit;
+    homeTrainingIconData = Icons.edit;
+    gymTrainingIconData = Icons.edit;
+    pricePerSessionIconData = Icons.edit;
+    paymentMethodIconData = Icons.edit;
     editOrsaveIcon = Icons.edit;
   }
 
@@ -199,6 +229,13 @@ class _ProfileListViewState extends State<ProfileListView> {
           if (snapshot.hasData) {
             TrainerUser trainerData = snapshot.data;
             bioTextController.text = trainerData.bio;
+            areaTextController.text = trainerData.area;
+            specialityTextController.text = trainerData.speciality;
+            homeTrainingTextController.text = trainerData.homeTraining;
+            gymTrainingTextController.text = trainerData.gymTraining;
+            pricePerSessionTextController.text = trainerData.pricePerSession;
+            paymentMethodTextController.text = trainerData.paymentMethod;
+
             return ListView(
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
@@ -282,27 +319,314 @@ class _ProfileListViewState extends State<ProfileListView> {
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('Area'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: areaTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: areaEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                areaEnabled = !areaEnabled;
+                                areaEnabled
+                                    ? areaIconData = Icons.check
+                                    : areaIconData = Icons.edit;
+
+                                if (!areaEnabled) {
+                                  areaTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'area',
+                                          value: areaTextController.text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(areaIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('Speciality'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: specialityTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: specialityEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                specialityEnabled = !specialityEnabled;
+                                specialityEnabled
+                                    ? specialityIconData = Icons.check
+                                    : specialityIconData = Icons.edit;
+
+                                if (!specialityEnabled) {
+                                  specialityTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'speciality',
+                                          value: specialityTextController.text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(specialityIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('Home Training'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: homeTrainingTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: homeTrainingEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                homeTrainingEnabled = !homeTrainingEnabled;
+                                homeTrainingEnabled
+                                    ? homeTrainingIconData = Icons.check
+                                    : homeTrainingIconData = Icons.edit;
+
+                                if (!homeTrainingEnabled) {
+                                  homeTrainingTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'homeTraining',
+                                          value:
+                                              homeTrainingTextController.text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(homeTrainingIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('GYM Training'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: gymTrainingTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: gymTrainingEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                gymTrainingEnabled = !gymTrainingEnabled;
+                                gymTrainingEnabled
+                                    ? gymTrainingIconData = Icons.check
+                                    : gymTrainingIconData = Icons.edit;
+
+                                if (!gymTrainingEnabled) {
+                                  gymTrainingTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'gymTraining',
+                                          value:
+                                              gymTrainingTextController.text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(gymTrainingIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('Price Per Session (P/S)'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: pricePerSessionTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: pricePerSessionEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                pricePerSessionEnabled =
+                                    !pricePerSessionEnabled;
+                                pricePerSessionEnabled
+                                    ? pricePerSessionIconData = Icons.check
+                                    : pricePerSessionIconData = Icons.edit;
+
+                                if (!pricePerSessionEnabled) {
+                                  pricePerSessionTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'pricePerSession',
+                                          value: pricePerSessionTextController
+                                              .text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(pricePerSessionIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
                       SizedBox(
                         height: 10,
                       ),
-                      descriptionContainer('Payment Method'),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  controller: paymentMethodTextController,
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: paymentMethodEnabled,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Type here..."),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                print('abc--------------');
+                                paymentMethodEnabled = !paymentMethodEnabled;
+                                paymentMethodEnabled
+                                    ? paymentMethodIconData = Icons.check
+                                    : paymentMethodIconData = Icons.edit;
+
+                                if (!paymentMethodEnabled) {
+                                  paymentMethodTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'paymentMethod',
+                                          value:
+                                              paymentMethodTextController.text);
+                                }
+                                setState(() {});
+                              },
+                              child: Icon(paymentMethodIconData,
+                                  color: Colors.white, size: 30.h),
+                            ),
+                          )
+                        ],
+                      ),
+
+                      // descriptionContainer(
+                      //   key: 'homeTraining',
+                      //   controller: homeTrainingTextController,
+                      //   enabled: homeTrainingEnabled,
+                      //   iconData: iconData,
+                      // ),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // descriptionContainer(
+                      //   key: 'GYMTraining',
+                      //   controller: gymTrainingTextController,
+                      //   enabled: gymTrainingEnabled,
+                      //   iconData: iconData,
+                      // ),
+                      // // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // descriptionContainer('Price Per Session (P/S)'),
+                      // SizedBox(
+                      //   height: 10,
+                      // ),
+                      // descriptionContainer('Payment Method'),
                     ],
                   ),
                 ),
@@ -359,80 +683,104 @@ class _ProfileListViewState extends State<ProfileListView> {
                         const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                     padding: const EdgeInsets.all(20),
                     width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Reviews',
-                          style: TextStyle(color: CustomColor.red),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: CustomColor.grey,
-                            backgroundImage: AssetImage('assets/trainer.jpg'),
-                            radius: 30,
+                    child: StreamBuilder<List<Review>>(
+                      stream: widget.database.reviewStream,
+                      builder: (context, snapshot) {
+                        return Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Reviews',
+                                style: TextStyle(color: CustomColor.red),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              ListView.builder(
+                                itemCount: snapshot.data.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundColor: CustomColor.grey,
+                                          backgroundImage:
+                                              AssetImage('assets/trainer.jpg'),
+                                          radius: 30,
+                                        ),
+                                        contentPadding: EdgeInsets.all(0),
+                                        title: Text(
+                                          snapshot.data[index].reviewerName,
+                                          style: TextStyle(
+                                              color: CustomColor.white,
+                                              fontSize:
+                                                  FontSize.h3FontSize - 3),
+                                        ),
+                                        subtitle: Text(
+                                          snapshot.data[index].reivew,
+                                          style: TextStyle(
+                                              color: CustomColor.grey,
+                                              fontSize: 13),
+                                        ),
+                                      ),
+                                      SizedBox(height: 15),
+                                    ],
+                                  );
+                                },
+                                // children: [
+
+                                //   SizedBox(
+                                //     height: 15,
+                                //   ),
+                                //   ListTile(
+                                //     leading: CircleAvatar(
+                                //       backgroundColor: CustomColor.grey,
+                                //       backgroundImage: AssetImage('assets/trainer.jpg'),
+                                //       radius: 30,
+                                //     ),
+                                //     contentPadding: EdgeInsets.all(0),
+                                //     title: Text(
+                                //       'Patricia Lucas',
+                                //       style: TextStyle(
+                                //           color: CustomColor.white,
+                                //           fontSize: FontSize.h3FontSize - 3),
+                                //     ),
+                                //     subtitle: Text(
+                                //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                                //       style: TextStyle(
+                                //           color: CustomColor.grey, fontSize: 13),
+                                //     ),
+                                //   ),
+                                //   SizedBox(
+                                //     height: 15,
+                                //   ),
+                                //   ListTile(
+                                //     leading: CircleAvatar(
+                                //       backgroundColor: CustomColor.grey,
+                                //       backgroundImage: AssetImage('assets/trainer.jpg'),
+                                //       radius: 30,
+                                //     ),
+                                //     contentPadding: EdgeInsets.all(0),
+                                //     title: Text(
+                                //       'Patricia Lucas',
+                                //       style: TextStyle(
+                                //           color: CustomColor.white,
+                                //           fontSize: FontSize.h3FontSize - 3),
+                                //     ),
+                                //     subtitle: Text(
+                                //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                                //       style: TextStyle(
+                                //           color: CustomColor.grey, fontSize: 13),
+                                //     ),
+                                //   )
+                                // ],
+                              ),
+                            ],
                           ),
-                          contentPadding: EdgeInsets.all(0),
-                          title: Text(
-                            'Patricia Lucas',
-                            style: TextStyle(
-                                color: CustomColor.white,
-                                fontSize: FontSize.h3FontSize - 3),
-                          ),
-                          subtitle: Text(
-                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                            style: TextStyle(
-                                color: CustomColor.grey, fontSize: 13),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: CustomColor.grey,
-                            backgroundImage: AssetImage('assets/trainer.jpg'),
-                            radius: 30,
-                          ),
-                          contentPadding: EdgeInsets.all(0),
-                          title: Text(
-                            'Patricia Lucas',
-                            style: TextStyle(
-                                color: CustomColor.white,
-                                fontSize: FontSize.h3FontSize - 3),
-                          ),
-                          subtitle: Text(
-                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                            style: TextStyle(
-                                color: CustomColor.grey, fontSize: 13),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: CustomColor.grey,
-                            backgroundImage: AssetImage('assets/trainer.jpg'),
-                            radius: 30,
-                          ),
-                          contentPadding: EdgeInsets.all(0),
-                          title: Text(
-                            'Patricia Lucas',
-                            style: TextStyle(
-                                color: CustomColor.white,
-                                fontSize: FontSize.h3FontSize - 3),
-                          ),
-                          subtitle: Text(
-                            'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                            style: TextStyle(
-                                color: CustomColor.grey, fontSize: 13),
-                          ),
-                        )
-                      ],
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -462,17 +810,51 @@ class _ProfileListViewState extends State<ProfileListView> {
     );
   }
 
-  Widget descriptionContainer(String text) {
-    return Container(
-      height: 50,
-      width: double.infinity,
-      decoration: BoxDecoration(
-          color: CustomColor.backgroundColor,
-          borderRadius: BorderRadius.circular(5)),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Text(text, style: TextStyle(color: CustomColor.white)),
-      ),
+  Widget descriptionContainer({
+    String text,
+    TextEditingController controller,
+    bool enabled,
+    IconData iconData,
+    String key,
+  }) {
+    return Stack(
+      children: [
+        Container(
+            height: 50,
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: CustomColor.backgroundColor,
+                borderRadius: BorderRadius.circular(5)),
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextField(
+                controller: controller,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                    enabled: enabled,
+                    hintStyle: TextStyle(color: Colors.white),
+                    hintText: "Type here..."),
+                onChanged: (value) {},
+              ),
+            )),
+        Align(
+          alignment: Alignment.topRight,
+          child: GestureDetector(
+            onTap: () async {
+              print('abc--------------');
+              enabled = !enabled;
+              enabled ? iconData = Icons.check : iconData = Icons.edit;
+
+              if (!enabled) {
+                controller.text = await widget.database
+                    .updateSignleField(key: key, value: controller.text);
+              }
+              setState(() {});
+            },
+            child: Icon(iconData, color: Colors.white, size: 30.h),
+          ),
+        )
+      ],
     );
   }
 }

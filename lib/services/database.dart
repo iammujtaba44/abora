@@ -1,6 +1,7 @@
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/models/trainer_models/post_ad.dart';
+import 'package:abora/models/trainer_models/reviews.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,28 @@ class DatabaseService {
   // Model function
   // Stream
   // Async Function
+
+  // RREVIEWS
+
+  List<Review> review(QuerySnapshot qs) {
+    return qs.docs.map((ds) {
+      return Review(
+        imageURL: ds.data()['imageURL'],
+        reviewerName: ds.data()['reviewerName'],
+        reivew: ds.data()['review'],
+      );
+    }).toList();
+  }
+
+  Stream<List<Review>> get reviewStream {
+    return user.doc(uId).collection('reviews').snapshots().map(review);
+  }
+
+  Future reviewAsync(
+      {String imageURL, String reviewerName, String review}) async {
+    return await user.doc(uId).collection('reviews').doc().set(
+        {'imageURL': imageURL, 'reviewerName': reviewerName, 'review': review});
+  }
 
   // COURSES
 
@@ -87,6 +110,12 @@ class DatabaseService {
     return TrainerUser(
       uId: uId,
       bio: ds.data()['bio'],
+      area: ds.data()['area'],
+      speciality: ds.data()['speciality'],
+      homeTraining: ds.data()['homeTraining'],
+      gymTraining: ds.data()['gymTraining'],
+      pricePerSession: ds.data()['pricePerSession'],
+      paymentMethod: ds.data()['paymentMethod'],
       email: ds.data()['email'],
       name: ds.data()['name'],
       booking: ds.data()['booking'],

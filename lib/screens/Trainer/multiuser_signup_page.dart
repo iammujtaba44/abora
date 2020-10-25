@@ -115,9 +115,6 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  )
                 ],
               ),
             ),
@@ -228,8 +225,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       lastNameController.clear();
                       confirmPassowrdController.clear();
                       CustomToast(text: 'Registered Successfully');
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      //   Navigator.push(context,
+                      //       MaterialPageRoute(builder: (context) => HomePage()));
                     }
                   } else
                     CustomToast(text: 'Passwords does not match');
