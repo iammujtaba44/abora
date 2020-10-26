@@ -210,7 +210,8 @@ class _HomePageState extends State<HomePage> {
                     expandedHeight: height / 3,
                     leading: Container(),
                     flexibleSpace: FlexibleSpaceBar(
-                      background: _buildContent(name: trainerData.name),
+                      background: _buildContent(
+                          name: trainerData.name, bio: trainerData.bio),
                     ),
                   ),
                   SliverList(
@@ -287,6 +288,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildContent({
     String name,
+    String bio,
   }) {
     return Column(
       children: [
@@ -320,7 +322,7 @@ class _HomePageState extends State<HomePage> {
                     Container(
                         width: width / 1.1,
                         child: Text(
-                          'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+                          bio ?? '',
                           style: TextStyle(color: CustomColor.white),
                         )),
                   ],

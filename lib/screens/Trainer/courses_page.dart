@@ -49,6 +49,8 @@ class _CoursesPageState extends State<CoursesPage> {
 
   double width;
 
+  DatabaseService database;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -61,6 +63,8 @@ class _CoursesPageState extends State<CoursesPage> {
         designSize: Size(640, 1134), allowFontScaling: false);
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
+
+    database = Provider.of<DatabaseService>(context);
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
@@ -79,8 +83,7 @@ class _CoursesPageState extends State<CoursesPage> {
         ],
       ),
       body: StreamProvider<List<Course>>.value(
-        value:
-            DatabaseService(uId: "R7DjizSAFMaHfc1BgTWRFb7NZPP2").courseStream,
+        value: database.courseStream,
         child: Container(
           child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 20),

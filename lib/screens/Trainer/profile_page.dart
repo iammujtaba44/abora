@@ -307,7 +307,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                               enabled: bioEnabled,
                               hintMaxLines: 5,
                               hintStyle: TextStyle(color: Colors.white),
-                              hintText: "Type here..."),
+                              hintText: "bio"),
                           onChanged: (value) {},
                           maxLines: 5,
                         ),
@@ -349,7 +349,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: areaEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "Area"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -357,7 +357,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
                                 areaEnabled = !areaEnabled;
                                 areaEnabled
                                     ? areaIconData = Icons.check
@@ -396,7 +395,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: specialityEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "Speciality"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -404,7 +403,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
                                 specialityEnabled = !specialityEnabled;
                                 specialityEnabled
                                     ? specialityIconData = Icons.check
@@ -443,7 +441,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: homeTrainingEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "Home Training"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -451,7 +449,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
                                 homeTrainingEnabled = !homeTrainingEnabled;
                                 homeTrainingEnabled
                                     ? homeTrainingIconData = Icons.check
@@ -491,7 +488,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: gymTrainingEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "GYM Training"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -539,7 +536,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: pricePerSessionEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "Price Per Session"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -588,7 +585,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   decoration: InputDecoration(
                                       enabled: paymentMethodEnabled,
                                       hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "Type here..."),
+                                      hintText: "Payment Method"),
                                   onChanged: (value) {},
                                 ),
                               )),
@@ -847,7 +844,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                 decoration: InputDecoration(
                     enabled: enabled,
                     hintStyle: TextStyle(color: Colors.white),
-                    hintText: "Type here..."),
+                    hintText: "Bio"),
                 onChanged: (value) {},
               ),
             )),
@@ -855,7 +852,6 @@ class _ProfileListViewState extends State<ProfileListView> {
           alignment: Alignment.topRight,
           child: GestureDetector(
             onTap: () async {
-              print('abc--------------');
               enabled = !enabled;
               enabled ? iconData = Icons.check : iconData = Icons.edit;
 
@@ -882,28 +878,6 @@ class WrapperRow extends StatefulWidget {
 }
 
 class _WrapperRowState extends State<WrapperRow> {
-  VideoPlayerController videoPlayerController;
-  Future<void> _initializeVideoPlayerFuture;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    videoPlayerController = new VideoPlayerController.network(
-        "https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb");
-    // _initializeVideoPlayerFuture =
-    //     videoPlayerController.initialize().then((_) => {setState(() {})});
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    videoPlayerController.dispose();
-
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     // final videos = Provider.of<List<UploadVideo>>(context) ?? [];
@@ -916,60 +890,110 @@ class _WrapperRowState extends State<WrapperRow> {
             itemCount: snapshot.data.length ?? 0,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  Container(
-                      decoration: BoxDecoration(
-                          color: CustomColor.backgroundColor,
-                          borderRadius: BorderRadius.circular(5)),
-                      width: 130,
-                      height: 100,
-                      child: Stack(
-                        children: [
-                          Chewie(
-                            key: PageStorageKey(snapshot.data[index].video),
-                            controller: ChewieController(
-                                videoPlayerController:
-                                    new VideoPlayerController.network(
-                                        snapshot.data[index].video),
-                                aspectRatio: 1.8.h,
-                                autoInitialize: true,
-                                showControls: false,
-                                looping: false,
-                                autoPlay: false,
-                                errorBuilder: (context, errorMessage) {
-                                  return Center(
-                                      child: Text(
-                                    'abc',
-                                    style: TextStyle(color: Colors.white),
-                                  ));
-                                }),
-                          ),
-                          Positioned(
-                            right: 10,
-                            bottom: 10,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 25,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                  color: CustomColor.signUpButtonColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Text(
-                                'Edit',
-                                style: TextStyle(color: CustomColor.white),
-                              ),
-                            ),
-                          )
-                        ],
-                      )),
-                  SizedBox(
-                    width: 8,
-                  )
-                ],
+              return Container(
+                key: PageStorageKey('keydata$index'),
+                child: Row(
+                  children: [
+                    VideoWidget(
+                      play: true,
+                      videoURL: snapshot.data[index].video,
+                    ),
+                    SizedBox(
+                      width: 8,
+                    )
+                  ],
+                ),
               );
             },
           );
+        });
+  }
+}
+
+class VideoWidget extends StatefulWidget {
+  final bool play;
+  final String videoURL;
+
+  VideoWidget({this.play, this.videoURL});
+
+  @override
+  _VideoWidgetState createState() => _VideoWidgetState();
+}
+
+class _VideoWidgetState extends State<VideoWidget> {
+  VideoPlayerController videoPlayerController;
+  Future<void> _initializeVideoPlayerFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    videoPlayerController = new VideoPlayerController.network(widget.videoURL);
+    _initializeVideoPlayerFuture = videoPlayerController.initialize().then((_) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    videoPlayerController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: _initializeVideoPlayerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return Container(
+                decoration: BoxDecoration(
+                    color: CustomColor.backgroundColor,
+                    borderRadius: BorderRadius.circular(5)),
+                width: 130,
+                height: 100,
+                child: Stack(
+                  children: [
+                    Chewie(
+                      key: PageStorageKey(widget.videoURL),
+                      controller: ChewieController(
+                          videoPlayerController: videoPlayerController,
+                          aspectRatio: 1.8.h,
+                          autoInitialize: true,
+                          showControls: false,
+                          looping: false,
+                          autoPlay: false,
+                          errorBuilder: (context, errorMessage) {
+                            return Center(
+                                child: Text(
+                              errorMessage,
+                              style: TextStyle(color: Colors.white),
+                            ));
+                          }),
+                    ),
+                    Positioned(
+                      right: 10,
+                      bottom: 10,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: 70,
+                        decoration: BoxDecoration(
+                            color: CustomColor.signUpButtonColor,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(color: CustomColor.white),
+                        ),
+                      ),
+                    )
+                  ],
+                ));
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
         });
   }
 }
