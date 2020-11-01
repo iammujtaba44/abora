@@ -1,7 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/Trainer/multiuser_signup_page.dart';
+import 'package:abora/screens/multiuser_signup_page.dart';
 import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';
@@ -47,6 +47,10 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
   bool isChecked = false;
 
   AuthService _auth = AuthService();
+  TextEditingController emailTextEditingController =
+      new TextEditingController();
+  TextEditingController passwordTextEditingController =
+      new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -131,11 +135,17 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
     return Container(
       child: Column(
         children: [
-          customTextField(iconData: Icons.email, text: 'Email Address'),
+          customTextField(
+              iconData: Icons.email,
+              text: 'Email Address',
+              controller: emailTextEditingController),
           SizedBox(
             height: 20,
           ),
-          customTextField(iconData: Icons.lock_outline, text: 'Password'),
+          customTextField(
+              iconData: Icons.lock_outline,
+              text: 'Password',
+              controller: passwordTextEditingController),
           SizedBox(
             height: 20,
           ),
@@ -181,16 +191,10 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
           ),
           blueButton(
             func: () async {
-              var result = _auth.signInWithEmailAndPassword(
-                  'raheel@gmail.com', '123456');
-              // if (result == null) {
-              //   print('result is null------------');
-              // } else {
-              //   Navigator.push(
-              //       context,
-              //       MaterialPageRoute(
-              //           builder: (context) => BottonNavControllerTrainer()));
-              // }
+              await _auth.signInWithEmailAndPassword(
+                  emailTextEditingController.text,
+                  passwordTextEditingController.text,
+                  _index);
             },
             child: Text(
               'log in'.toUpperCase(),

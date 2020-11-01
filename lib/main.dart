@@ -1,4 +1,4 @@
-import 'package:abora/screens/Trainer/login_page.dart';
+import 'package:abora/screens/login_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/screens/wrapper.dart';
 import 'package:abora/services/auth.dart';

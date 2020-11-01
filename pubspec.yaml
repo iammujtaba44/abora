@@ -50,6 +50,7 @@ dependencies:
   progress_dialog: ^1.2.4
   font_awesome_flutter: ^8.10.0
   credit_card_validate: ^0.0.3
+  shared_preferences: ^0.5.12+2
 
   # video player packages
   chewie: 

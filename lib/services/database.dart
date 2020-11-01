@@ -16,11 +16,16 @@ class DatabaseService {
   final CollectionReference user =
       FirebaseFirestore.instance.collection('user');
 
+  final CollectionReference trainer =
+      FirebaseFirestore.instance.collection('trainer');
+  final CollectionReference client =
+      FirebaseFirestore.instance.collection('client');
+
   // update single field
 
   Future<String> updateSignleField(
       {@required String key, @required String value}) async {
-    await user.doc(uId).update({key: value});
+    await trainer.doc(uId).update({key: value});
     return value;
   }
 
@@ -42,12 +47,12 @@ class DatabaseService {
   }
 
   Stream<List<Review>> get reviewStream {
-    return user.doc(uId).collection('reviews').snapshots().map(review);
+    return trainer.doc(uId).collection('reviews').snapshots().map(review);
   }
 
   Future reviewAsync(
       {String imageURL, String reviewerName, String review}) async {
-    return await user.doc(uId).collection('reviews').doc().set(
+    return await trainer.doc(uId).collection('reviews').doc().set(
         {'imageURL': imageURL, 'reviewerName': reviewerName, 'review': review});
   }
 
@@ -64,7 +69,7 @@ class DatabaseService {
   }
 
   Stream<List<Course>> get courseStream {
-    return user.doc(uId).collection('courses').snapshots().map(uploadCourse);
+    return trainer.doc(uId).collection('courses').snapshots().map(uploadCourse);
   }
 
   Future uploadCourseAsync(
@@ -72,7 +77,7 @@ class DatabaseService {
       String cost,
       String description,
       List<String> courseVideosLink}) async {
-    return await user.doc(uId).collection('courses').doc().set({
+    return await trainer.doc(uId).collection('courses').doc().set({
       'title': title,
       'cost': cost,
       'description': description,
@@ -95,7 +100,7 @@ class DatabaseService {
   }
 
   Stream<List<AppointmentModel>> get apintmentStream {
-    return user
+    return trainer
         .doc(uId)
         .collection('appointments')
         .doc('upcomingApointments')
@@ -111,7 +116,7 @@ class DatabaseService {
       String sessionType,
       String goal,
       List<String> dates}) async {
-    return await user
+    return await trainer
         .doc(uId)
         .collection('appointments')
         .doc('upcomingApointments')
@@ -138,7 +143,7 @@ class DatabaseService {
   }
 
   Stream<List<UploadVideo>> get uploadVideoStream {
-    return user
+    return trainer
         .doc(uId)
         .collection('uploadVideo')
         .snapshots()
@@ -146,7 +151,7 @@ class DatabaseService {
   }
 
   Future uploadVideo({String title, String description, String video}) async {
-    return await user
+    return await trainer
         .doc(uId)
         .collection('uploadVideo')
         .doc()
@@ -178,7 +183,7 @@ class DatabaseService {
   }
 
   Stream<TrainerUser> get currentTrainerUserStream {
-    return user.doc(uId).snapshots().map(getCurrentTrainerUser);
+    return trainer.doc(uId).snapshots().map(getCurrentTrainerUser);
   }
 
   PostAd postAd(DocumentSnapshot ds) {
@@ -195,7 +200,7 @@ class DatabaseService {
   // ----------STREAMS
 
   Stream<PostAd> get postAdStream {
-    return user.doc(uId).snapshots().map(postAd);
+    return trainer.doc(uId).snapshots().map(postAd);
   }
 
   // -----------ASYNCHRONOUS FUNCTIONS
@@ -207,7 +212,7 @@ class DatabaseService {
       String numberOfDay,
       String area,
       String totalPrice}) async {
-    return await user.doc(uId).collection('postAds').doc().set({
+    return await trainer.doc(uId).collection('postAds').doc().set({
       'years': years,
       'exerciseType': exerciseType,
       'exerciseSubType': exerciseSubType,
@@ -217,8 +222,16 @@ class DatabaseService {
     });
   }
 
-  Future updateUserData({String email, String name, String password}) async {
-    return await user
+  // Trainer
+  Future trainerUserData({String email, String name, String password}) async {
+    return await trainer
+        .doc(uId)
+        .set({'email': email, 'name': name, 'password': password});
+  }
+
+  // Client
+  Future clientUserData({String email, String name, String password}) async {
+    return await client
         .doc(uId)
         .set({'email': email, 'name': name, 'password': password});
   }
@@ -232,7 +245,7 @@ class DatabaseService {
       String visit,
       String ratio,
       String conversionRate}) async {
-    return await user.doc(uId).update({
+    return await trainer.doc(uId).update({
       'totalViews': totalViews,
       'thisMonthVisits': thisMonthVisits,
       'totalSessionsBooked': totalSessionsBooked,

@@ -20,6 +20,7 @@ Container customTextField(
         color: CustomColor.textFieldFilledColor,
         border: Border.all(color: CustomColor.textFieldBorderColor)),
     child: TextFormField(
+      style: TextStyle(color: Colors.white),
       onChanged: onChanged,
       onEditingComplete: onComplete,
       validator: (val) => val.isEmpty
@@ -71,6 +72,7 @@ CustomtextfieldWithText({String text, String, hintText, var controller}) {
         // width: MediaQuery.of(context).size.width,
         color: CustomColor.textFieldFilledColor,
         child: TextFormField(
+          style: TextStyle(color: Colors.white),
           maxLines: 1,
           autofocus: false,
           controller: controller == null ? null : controller,

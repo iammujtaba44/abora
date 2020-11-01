@@ -3,7 +3,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
-import 'package:abora/screens/Trainer/settings_page.dart';
+import 'package:abora/screens/settings_page.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';

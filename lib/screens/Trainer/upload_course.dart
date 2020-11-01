@@ -19,6 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:preview/preview.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 class MyApp extends StatelessWidget {
@@ -92,6 +94,9 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
     width = MediaQuery.of(context).size.width;
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
+
+    // getting storage provider
+    final storage = Provider.of<Storage>(context);
 
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
@@ -320,12 +325,11 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                               showCircularProgressIndicator = true;
                             });
                             showCircularProgressIndicator =
-                                await Storage(uId: UserCredentials.userId)
-                                    .uploadCourseToStorage(
-                                        listFile: filesList,
-                                        cost: costController.text,
-                                        description: descriptionController.text,
-                                        title: courseTitleController.text);
+                                await storage.uploadCourseToStorage(
+                                    listFile: filesList,
+                                    cost: costController.text,
+                                    description: descriptionController.text,
+                                    title: courseTitleController.text);
 
                             setState(() {
                               showCircularProgressIndicator = false;

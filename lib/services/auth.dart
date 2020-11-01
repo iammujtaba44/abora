@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,13 +32,18 @@ class AuthService {
     }
   }
 
-  Future signInWithEmailAndPassword(String email, String password) async {
+  Future signInWithEmailAndPassword(
+      String email, String password, int index) async {
     try {
       var result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
-      UserCredentials.userId = user.uid;
-      print('------------- ${UserCredentials.userId}');
+
+      // Passing the index of the kind of user that is trying to register.
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt('typeOfUser', index);
+      prefs.setBool('isLogin', true);
+
       return user;
     } catch (error) {
       CustomToast(text: error.toString());
@@ -45,18 +51,29 @@ class AuthService {
     }
   }
 
-  Future registerWithEmailAndPassword({
-    @required String email,
-    @required String password,
-    @required String name,
-  }) async {
+  Future registerWithEmailAndPassword(
+      {@required String email,
+      @required String password,
+      @required String name,
+      @required int index}) async {
     try {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
 
-      await DatabaseService(uId: user.uid)
-          .updateUserData(email: email, password: password, name: name);
+      // Passing the index of the kind of user that is trying to register.
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setInt('typeOfUser', index);
+      prefs.setBool('isLogin', false);
+
+
+      if (index == 0) {
+        await DatabaseService(uId: user.uid)
+            .trainerUserData(email: email, password: password, name: name);
+      } else if (index == 1) {
+        await DatabaseService(uId: user.uid)
+            .clientUserData(email: email, password: password, name: name);
+      }
 
       return user;
     } catch (e) {

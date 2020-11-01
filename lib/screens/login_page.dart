@@ -3,8 +3,8 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Home/home_tab.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/Trainer/multiuser_login_page.dart';
-import 'package:abora/screens/Trainer/multiuser_signup_page.dart';
+import 'package:abora/screens/multiuser_login_page.dart';
+import 'package:abora/screens/multiuser_signup_page.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:flutter/material.dart';

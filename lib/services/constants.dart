@@ -1,3 +1,3 @@
-class UserCredentials {
-  static String userId;
+class AboraUserInfo {
+  static int typeOfUser = 0;
 }

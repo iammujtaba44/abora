@@ -1,6 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Trainer/login_page.dart';
+import 'package:abora/screens/login_page.dart';
 import 'package:abora/services/auth.dart';
 
 import 'package:abora/widgets/blue_button.dart';

@@ -1,10 +1,8 @@
-
-
 import 'package:abora/global/colors.dart';
 import 'package:abora/screens/Client/Home/first_page.dart';
 import 'package:abora/screens/Client/Home/second_page.dart';
 import 'package:abora/screens/Client/Home/thrid_page.dart';
-import 'package:abora/widgets/bottomNav_widget.dart';
+import 'package:abora/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
 
@@ -46,9 +44,6 @@ class HomeTabs extends StatefulWidget {
 }
 
 class _HomeTabsState extends State<HomeTabs> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -57,7 +52,6 @@ class _HomeTabsState extends State<HomeTabs> {
         length: 3,
         child: Scaffold(
           backgroundColor: CustomColor.backgroundColor,
-
           appBar: AppBar(
             title: Text('HOME'),
             centerTitle: true,
@@ -71,7 +65,10 @@ class _HomeTabsState extends State<HomeTabs> {
                   Icons.settings,
                   color: Colors.red,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => SettingsPage()));
+                },
               )
             ],
 
@@ -83,19 +80,17 @@ class _HomeTabsState extends State<HomeTabs> {
               tabs: [
                 Tab(
                     child: Text(
-                      'One-On-One',
-                    )),
+                  'One-On-One',
+                )),
                 Tab(child: Text('Group')),
                 Tab(child: Text('Online')),
               ],
             ),
-
           ),
-
           body: TabBarView(
             children: [
-            FirstPage(),
-            SecondPage(),
+              FirstPage(),
+              SecondPage(),
               ThirdPage(),
             ],
           ),
@@ -110,12 +105,12 @@ class IPhone5 extends PreviewProvider {
   String get title => 'iPhone 5';
   @override
   List<Preview> get previews => [
-    Preview(
-      key: Key('preview'),
-      frame: Frames.iphone5,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          key: Key('preview'),
+          frame: Frames.iphone5,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPhoneX extends PreviewProvider {
@@ -123,9 +118,9 @@ class IPhoneX extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.iphoneX,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.iphoneX,
+          child: MyApp(),
+        ),
+      ];
 }
