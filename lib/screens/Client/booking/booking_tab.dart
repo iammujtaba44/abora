@@ -1,13 +1,7 @@
 import 'package:abora/global/colors.dart';
-import 'package:abora/screens/Client/Home/first_page.dart';
-import 'package:abora/screens/Client/Home/second_page.dart';
-import 'package:abora/screens/Client/Home/thrid_page.dart';
 import 'package:abora/screens/Client/booking/book_course.dart';
 import 'package:abora/screens/Client/booking/booking_screen.dart';
 
-import 'package:abora/screens/Client/mybookings_screen.dart';
-import 'package:abora/screens/Trainer/courses_page.dart';
-import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
 

@@ -1,13 +1,11 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -57,7 +55,6 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     firstNameController = TextEditingController();
@@ -96,11 +93,11 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                   SizedBox(
                     height: 15,
                   ),
-                  Tabs(context),
+                  tabs(context),
                   SizedBox(
                     height: 20,
                   ),
-                  SignUp(context),
+                  signUp(context),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -124,7 +121,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
     );
   }
 
-  Widget SignUp(BuildContext context) {
+  Widget signUp(BuildContext context) {
     return Container(
       child: Form(
         key: _formKey,
@@ -225,14 +222,14 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       firstNameController..clear();
                       lastNameController.clear();
                       confirmPassowrdController.clear();
-                      CustomToast(text: 'Registered Successfully');
+                      customToast(text: 'Registered Successfully');
                       //   Navigator.push(context,
                       //       MaterialPageRoute(builder: (context) => HomePage()));
                     }
                   } else
-                    CustomToast(text: 'Passwords does not match');
+                    customToast(text: 'Passwords does not match');
                 } else
-                  CustomToast(text: 'Please fill all fiels first');
+                  customToast(text: 'Please fill all fiels first');
 
                 // if (_formKey.currentState.validate()) {
 
@@ -251,7 +248,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
     );
   }
 
-  Widget Tabs(BuildContext context) {
+  Widget tabs(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

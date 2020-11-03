@@ -1,19 +1,10 @@
 import 'package:abora/global/colors.dart';
-import 'package:abora/global/fontSize.dart';
-
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
-import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:preview/preview.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class ViewDetail extends StatefulWidget {
@@ -25,6 +16,8 @@ List<DateTime> presentDates = [];
 List<DateTime> absentDates = [];
 
 class _ViewDetailState extends State<ViewDetail> {
+  // ignore: unused_field
+  CalendarController _controller;
   double height;
 
   double width;
@@ -35,7 +28,6 @@ class _ViewDetailState extends State<ViewDetail> {
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {},
   );
-  CalendarController _controller;
 
   TextStyle dayStyle(FontWeight fontWeight) {
     return TextStyle(color: Color(0xFF30384c), fontWeight: fontWeight);
@@ -43,8 +35,6 @@ class _ViewDetailState extends State<ViewDetail> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     _controller = CalendarController();
   }
@@ -240,17 +230,6 @@ class _ViewDetailState extends State<ViewDetail> {
       decoration: BoxDecoration(
           color: color, borderRadius: BorderRadius.all(Radius.circular(1000))),
     );
-  }
-
-  _onAlertButtonsPressed(context) {
-    Alert(
-      style: AlertStyle(backgroundColor: Theme.of(context).primaryColor),
-      context: context,
-      buttons: [],
-      title: '',
-      desc: "Video Updated Successful !",
-      image: Image.asset('assets/dialog_img.png'),
-    ).show();
   }
 
   static Widget _presentIcon(String day) => Text(

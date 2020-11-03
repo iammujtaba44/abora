@@ -1,13 +1,6 @@
-import 'dart:developer';
-
-import 'package:abora/models/user_model.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/screens/login_page.dart';
-import 'package:abora/screens/settings_page.dart';
-import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/services/auth.dart';
-import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';

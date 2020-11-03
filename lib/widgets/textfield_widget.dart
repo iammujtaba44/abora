@@ -56,7 +56,7 @@ Container customTextField(
   );
 }
 
-CustomtextfieldWithText({String text, String, hintText, var controller}) {
+customtextfieldWithText({String text, String hintText, var controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [

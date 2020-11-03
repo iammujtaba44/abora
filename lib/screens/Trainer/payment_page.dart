@@ -1,7 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Trainer/profile_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/paymentService.dart';
 import 'package:abora/widgets/CustomToast.dart';
@@ -9,11 +8,8 @@ import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/dialog_box/alert.dart';
 import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
 import 'package:credit_card_validate/credit_card_validate.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -52,8 +48,8 @@ class MyApp extends StatelessWidget {
 }
 
 class PaymentPage extends StatefulWidget {
-  final PostAdData;
-  const PaymentPage({Key key, this.PostAdData}) : super(key: key);
+  final postAdData;
+  const PaymentPage({Key key, this.postAdData}) : super(key: key);
 
   @override
   _PaymentPageState createState() => _PaymentPageState();
@@ -171,7 +167,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   color: CustomColor.red,
                                   fontSize: FontSize.h3FontSize),
                             ),
-                            Text('\$${widget.PostAdData['totalPrice']}',
+                            Text('\$${widget.postAdData['totalPrice']}',
                                 style: TextStyle(
                                     color: CustomColor.blue,
                                     fontSize: FontSize.h2FontSize - 5)),
@@ -351,12 +347,12 @@ class _PaymentPageState extends State<PaymentPage> {
               },
               // func: () {
               //   database.postAdAsync(
-              //       numberOfDay: widget.PostAdData['days'],
-              //       exerciseSubType: widget.PostAdData['ex'],
-              //       exerciseType: widget.PostAdData['ex1'],
-              //       totalPrice: widget.PostAdData['totalPrice'],
-              //       years: widget.PostAdData['years']);
-              //   // print(widget.PostAdData['years']);
+              //       numberOfDay: widget.postAdData['days'],
+              //       exerciseSubType: widget.postAdData['ex'],
+              //       exerciseType: widget.postAdData['ex1'],
+              //       totalPrice: widget.postAdData['totalPrice'],
+              //       years: widget.postAdData['years']);
+              //   // print(widget.postAdData['years']);
               //
               //   //  payViaExistingCard(context, cards[0]);
               //   // Navigator.push(
@@ -385,7 +381,7 @@ class _PaymentPageState extends State<PaymentPage> {
       year += expiryDate[3];
       payViaExistingCard2(context, month, year, cardNumber);
     } else
-      CustomToast(text: 'Please fill the fileds');
+      customToast(text: 'Please fill the fileds');
   }
 
   payViaExistingCard2(BuildContext context, month, year, cardNumber) async {
@@ -399,7 +395,7 @@ class _PaymentPageState extends State<PaymentPage> {
         expMonth: int.parse(month),
         expYear: int.parse(year));
     var response = await StripeService.payViaExistingCard(
-        amount: "30000", //widget.PostAdData['totalPrice'],
+        amount: "30000", //widget.postAdData['totalPrice'],
         currency: 'USD',
         card: stripeCard);
     await dialog.hide();
@@ -409,13 +405,13 @@ class _PaymentPageState extends State<PaymentPage> {
     if (response.success == true) {
       _onAlertButtonsPressed(context);
       database.postAdAsync(
-          numberOfDay: widget.PostAdData['days'],
-          exerciseSubType: widget.PostAdData['ex'],
-          exerciseType: widget.PostAdData['ex1'],
-          totalPrice: widget.PostAdData['totalPrice'],
-          years: widget.PostAdData['years']);
+          numberOfDay: widget.postAdData['days'],
+          exerciseSubType: widget.postAdData['ex'],
+          exerciseType: widget.postAdData['ex1'],
+          totalPrice: widget.postAdData['totalPrice'],
+          years: widget.postAdData['years']);
     } else {
-      CustomToast(text: response.message);
+      customToast(text: response.message);
     }
   }
 
@@ -432,7 +428,7 @@ class _PaymentPageState extends State<PaymentPage> {
     var response = await StripeService.payViaExistingCard(
         amount: '25000', currency: 'USD', card: stripeCard);
     await dialog.hide();
-    CustomToast(text: response.message);
+    customToast(text: response.message);
 
     _onAlertButtonsPressed(context);
     print(response.message);

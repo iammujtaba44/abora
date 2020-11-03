@@ -2,24 +2,17 @@ import 'dart:io';
 
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Trainer/upload_single_video_page.dart';
-import 'package:abora/services/constants.dart';
 import 'package:abora/services/storage.dart';
 import 'package:abora/widgets/alert_dialog.dart';
-
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:preview/preview.dart';
-import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
@@ -63,7 +56,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
   bool showCircularProgressIndicator = false;
 
   VideoPlayerController videoPlayerController;
-  Future<void> _initializeVideoPlayerFuture;
+  //Future<void> _initializeVideoPlayerFuture;
 
   var file, file1, file2, file3, file4, file5;
 
@@ -75,7 +68,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     // videoPlayerController = new VideoPlayerController.network(
@@ -176,6 +168,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file);
@@ -185,6 +178,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file1 = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file1);
@@ -194,6 +188,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file2 = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file2);
@@ -212,6 +207,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file3 = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file3);
@@ -221,6 +217,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file4 = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file4);
@@ -230,6 +227,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                             imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
+                                          // ignore: deprecated_member_use
                                           file5 = await ImagePicker.pickVideo(
                                               source: ImageSource.gallery);
                                           filesList.add(file5);

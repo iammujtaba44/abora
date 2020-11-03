@@ -1,28 +1,18 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
-import 'package:abora/screens/Client/news_screen.dart';
-import 'package:abora/screens/Trainer/post_ad_page.dart';
-import 'package:abora/services/database.dart';
 import 'package:abora/services/storage.dart';
 import 'package:abora/widgets/alert_dialog.dart';
 
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
-
-import '../../services/constants.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -74,7 +64,6 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -134,6 +123,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                       ),
                       rectBorderWidget(context,
                           height: 200, width: double.infinity, func: () async {
+                        // ignore: deprecated_member_use
                         file = await ImagePicker.pickVideo(
                             source: ImageSource.gallery);
 
@@ -265,17 +255,6 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
         ],
       ),
     );
-  }
-
-  _onAlertButtonsPressed(context) {
-    Alert(
-      style: AlertStyle(backgroundColor: Theme.of(context).primaryColor),
-      context: context,
-      buttons: [],
-      title: '',
-      desc: "Video Uploaded Successfully !",
-      image: Image.asset('assets/dialog_img.png'),
-    ).show();
   }
 }
 

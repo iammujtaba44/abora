@@ -1,9 +1,6 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import '../widgets/CustomToast.dart';
 import 'database.dart';
@@ -41,8 +38,8 @@ class Storage {
 
       return true;
     } catch (e) {
+      customToast(text: e.toString());
       return false;
-      CustomToast(text: e.toString());
     }
   }
 
@@ -63,7 +60,7 @@ class Storage {
       DatabaseService(uId: uId)
           .uploadVideo(title: title, description: description, video: url);
     } catch (e) {
-      CustomToast(text: e.toString());
+      customToast(text: e.toString());
     }
   }
 }

@@ -51,7 +51,7 @@ class SecondPage extends StatelessWidget {
         rating: 5),
   ];
 
-  Color presidentialBlue = Color(0XFF151B54);
+  final Color presidentialBlue = Color(0XFF151B54);
 
   @override
   Widget build(BuildContext context) {

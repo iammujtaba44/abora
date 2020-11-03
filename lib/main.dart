@@ -1,10 +1,7 @@
-import 'package:abora/screens/login_page.dart';
-import 'package:abora/screens/Trainer/post_ad_page.dart';
-import 'package:abora/screens/wrapper.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/services/auth_widget.dart';
 import 'package:abora/services/auth_widget_builder.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +19,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  final PrimaryColor = const Color(0xFF5190ED);
+  final primaryColor = const Color(0xFF5190ED);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -3,11 +3,10 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/trainer.dart';
-import 'package:abora/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:smooth_star_rating/smooth_star_rating.dart';
 
+// ignore: must_be_immutable
 class ThirdPage extends StatelessWidget {
   double height;
 

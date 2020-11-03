@@ -1,13 +1,9 @@
 import 'package:abora/models/user_model.dart';
-import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
@@ -46,7 +42,7 @@ class AuthService {
 
       return user;
     } catch (error) {
-      CustomToast(text: error.toString());
+      customToast(text: error.toString());
       return null;
     }
   }
@@ -66,7 +62,6 @@ class AuthService {
       prefs.setInt('typeOfUser', index);
       prefs.setBool('isLogin', false);
 
-
       if (index == 0) {
         await DatabaseService(uId: user.uid)
             .trainerUserData(email: email, password: password, name: name);
@@ -77,7 +72,7 @@ class AuthService {
 
       return user;
     } catch (e) {
-      CustomToast(text: e.toString());
+      customToast(text: e.toString());
       print(e.toString());
       return null;
     }
@@ -87,7 +82,7 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      CustomToast(text: e.toString());
+      customToast(text: e.toString());
       return null;
     }
   }

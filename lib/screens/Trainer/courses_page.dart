@@ -1,11 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/course.dart';
-import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
-import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
@@ -53,7 +50,6 @@ class _CoursesPageState extends State<CoursesPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

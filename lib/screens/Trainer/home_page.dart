@@ -1,31 +1,18 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/screens/settings_page.dart';
-import 'package:abora/services/auth.dart';
-import 'package:abora/services/constants.dart';
 import 'package:abora/services/database.dart';
-import 'package:abora/utils/Helper.dart';
-import 'package:abora/widgets/CustomToast.dart';
-
 import 'package:abora/widgets/details_double_container.dart';
 import 'package:abora/widgets/details_single_container.dart';
-import 'package:calendarro/calendarro.dart';
-import 'package:calendarro/date_utils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:unicorndial/unicorndial.dart';
-
-import '../../widgets/bottomNav_widget.dart';
 import 'courses_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -66,15 +53,15 @@ List<DateTime> absentDates = [];
 
 class _HomePageState extends State<HomePage> {
   CalendarController _controller;
-  List<Color> _colors = [Colors.deepOrange, Colors.yellow];
+  // List<Color> _colors = [Colors.deepOrange, Colors.yellow];
 
   //Auth
 
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
 
   double width;
   double height;
-  var _selected;
+  //var _selected;
   DateTime _currentDate2 = DateTime.now();
   CalendarCarousel _calendarCarouselNoHeader;
   var len = 9;
@@ -88,15 +75,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     _controller = CalendarController();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _controller.dispose();
   }
@@ -335,17 +319,17 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _tableContainer(String _label, Color _color) {
-    return Container(
-      padding: EdgeInsets.all(20.0),
-      child: Text(_label,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: _color,
-            fontSize: 20.0,
-          )),
-    );
-  }
+  // _tableContainer(String _label, Color _color) {
+  //   return Container(
+  //     padding: EdgeInsets.all(20.0),
+  //     child: Text(_label,
+  //         textAlign: TextAlign.center,
+  //         style: TextStyle(
+  //           color: _color,
+  //           fontSize: 20.0,
+  //         )),
+  //   );
+  // }
 
   static Widget _presentIcon(String day) => Text(
         day,

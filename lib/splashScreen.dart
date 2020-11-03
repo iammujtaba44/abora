@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:abora/screens/Client/Home/first_page.dart';
 import 'package:abora/screens/login_page.dart';
 import 'package:flutter/material.dart';
 
@@ -21,13 +19,13 @@ class _SplashScreenState extends State<SplashScreen> {
     });
   }
 
-  _makeInvisible() {
-    Timer(Duration(seconds: 4), () {
-      setState(() {
-        _visible = false;
-      });
-    });
-  }
+  // _makeInvisible() {
+  //   Timer(Duration(seconds: 4), () {
+  //     setState(() {
+  //       _visible = false;
+  //     });
+  //   });
+  // }
 
   void initState() {
     super.initState();

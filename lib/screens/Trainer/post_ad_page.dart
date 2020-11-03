@@ -4,13 +4,7 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/payment_page.dart';
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
-import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -416,7 +410,7 @@ class _PostAdPageState extends State<PostAdPage> {
                       style: TextStyle(color: Colors.red, fontSize: 15),
                     ),
                     Text(
-                      'Euro ${totalprice}',
+                      'Euro $totalprice',
                       style: TextStyle(color: CustomColor.green, fontSize: 20),
                     ),
                   ],
@@ -449,7 +443,7 @@ class _PostAdPageState extends State<PostAdPage> {
         context,
         MaterialPageRoute(
             builder: (context) => PaymentPage(
-                  PostAdData: {
+                  postAdData: {
                     'years': _selectedyear.toString(),
                     'ex': _selectedEx1.toString(),
                     'ex1': _selectedEx2.toString(),
@@ -459,17 +453,6 @@ class _PostAdPageState extends State<PostAdPage> {
                 )),
       );
     }
-  }
-
-  _onAlertButtonsPressed(context) {
-    Alert(
-      style: AlertStyle(backgroundColor: Theme.of(context).primaryColor),
-      context: context,
-      buttons: [],
-      title: '',
-      desc: "Video Uploaded Successfully !",
-      image: Image.asset('assets/dialog_img.png'),
-    ).show();
   }
 }
 

@@ -1,19 +1,8 @@
 import 'package:abora/global/colors.dart';
-import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/details_page.dart';
-
-import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
-import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:preview/preview.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class Mybookings extends StatefulWidget {
   @override
@@ -257,16 +246,5 @@ class _MybookingsState extends State<Mybookings> {
         ],
       ),
     );
-  }
-
-  _onAlertButtonsPressed(context) {
-    Alert(
-      style: AlertStyle(backgroundColor: Theme.of(context).primaryColor),
-      context: context,
-      buttons: [],
-      title: '',
-      desc: "Video Updated Successful !",
-      image: Image.asset('assets/dialog_img.png'),
-    ).show();
   }
 }

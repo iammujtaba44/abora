@@ -1,10 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/home_page.dart';
-
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
 
@@ -92,14 +90,11 @@ class _OTPPageState extends State<OTPPage> {
               SizedBox(
                 height: 15,
               ),
-
               SizedBox(
                 height: 20,
               ),
-              Login(context),
+              login(context),
               Spacer(),
-
-
             ],
           ),
         ),
@@ -107,30 +102,32 @@ class _OTPPageState extends State<OTPPage> {
     );
   }
 
-  Widget Login(BuildContext context) {
+  Widget login(BuildContext context) {
     return Container(
       child: Column(
         children: [
-
-          customTextField(iconData: Icons.lock_outline, text:'OTP'),
-          SizedBox(height: 30,),
-
-
-          blueButton(func: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-
-          },child: Text('PROCEED'.toUpperCase(), style: TextStyle(color: CustomColor.white),),)
-
+          customTextField(iconData: Icons.lock_outline, text: 'OTP'),
+          SizedBox(
+            height: 30,
+          ),
+          blueButton(
+            func: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            child: Text(
+              'PROCEED'.toUpperCase(),
+              style: TextStyle(color: CustomColor.white),
+            ),
+          )
         ],
       ),
     );
   }
-
-
 }
+
 class IPhone5 extends PreviewProvider {
   @override
   String get title => 'iPhone 5';

@@ -1,16 +1,8 @@
 import 'package:abora/global/colors.dart';
-import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/settings_page.dart';
-
 import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/dialog_box/alert.dart';
-import 'package:abora/widgets/dialog_box/alert_style.dart';
-import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
@@ -47,8 +39,8 @@ class MyApp extends StatelessWidget {
 }
 
 class DetailPage extends StatefulWidget {
-  final DetailsData;
-  const DetailPage({Key key, this.DetailsData}) : super(key: key);
+  final detailsData;
+  const DetailPage({Key key, this.detailsData}) : super(key: key);
   @override
   _DetailPageState createState() => _DetailPageState();
 }
@@ -58,6 +50,7 @@ class _DetailPageState extends State<DetailPage> {
 
   double width;
 
+  // ignore: unused_field
   CalendarController _controller;
 
   TextStyle dayStyle(FontWeight fontWeight) {
@@ -75,8 +68,6 @@ class _DetailPageState extends State<DetailPage> {
   List<DateTime> absentDates = [];
   @override
   void initState() {
-    // TODO: implement initState
-
     super.initState();
     _controller = CalendarController();
   }
@@ -113,7 +104,7 @@ class _DetailPageState extends State<DetailPage> {
                   );
                 },
                 child: Text(
-                  widget.DetailsData['clientName'],
+                  widget.detailsData['clientName'],
                   style: TextStyle(
                       fontSize: 17,
                       color: CustomColor.white,
@@ -170,7 +161,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          widget.DetailsData['noOfBookings'],
+                                          widget.detailsData['noOfBookings'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -189,7 +180,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          widget.DetailsData['goal'],
+                                          widget.detailsData['goal'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -208,7 +199,7 @@ class _DetailPageState extends State<DetailPage> {
                                               color: CustomColor.white),
                                         ),
                                         Text(
-                                          widget.DetailsData['sessionType'],
+                                          widget.detailsData['sessionType'],
                                           style:
                                               TextStyle(color: CustomColor.red),
                                         )
@@ -324,25 +315,25 @@ class _DetailPageState extends State<DetailPage> {
         ),
       );
 
-  Widget _absentIcon(String day) => Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: BorderRadius.all(
-            Radius.circular(1000),
-          ),
-        ),
-        child: Center(
-          child: Text(
-            day,
-            style: TextStyle(
-              color: Colors.black,
-            ),
-          ),
-        ),
-      );
+  // Widget _absentIcon(String day) => Container(
+  //       decoration: BoxDecoration(
+  //         color: Colors.red,
+  //         borderRadius: BorderRadius.all(
+  //           Radius.circular(1000),
+  //         ),
+  //       ),
+  //       child: Center(
+  //         child: Text(
+  //           day,
+  //           style: TextStyle(
+  //             color: Colors.black,
+  //           ),
+  //         ),
+  //       ),
+  //     );
 
   evnetsFiller() {
-    List<String> aa = widget.DetailsData['dates'];
+    List<String> aa = widget.detailsData['dates'];
     print(aa);
     for (int i = 0; i < aa.length; i++) {
       var array = aa[i].split('-');
@@ -424,17 +415,6 @@ class _DetailPageState extends State<DetailPage> {
       minSelectedDate: _currentDate2.subtract(Duration(days: 360)),
       maxSelectedDate: _currentDate2.add(Duration(days: 360)),
     );
-  }
-
-  _onAlertButtonsPressed(context) {
-    Alert(
-      style: AlertStyle(backgroundColor: Theme.of(context).primaryColor),
-      context: context,
-      buttons: [],
-      title: '',
-      desc: "Video Updated Successful !",
-      image: Image.asset('assets/dialog_img.png'),
-    ).show();
   }
 }
 

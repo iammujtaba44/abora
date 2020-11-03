@@ -1,9 +1,4 @@
-
-
 import 'package:abora/global/colors.dart';
-import 'package:abora/screens/Client/Home/first_page.dart';
-import 'package:abora/screens/Client/Home/second_page.dart';
-import 'package:abora/screens/Client/Home/thrid_page.dart';
 import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:preview/preview.dart';
@@ -48,17 +43,18 @@ class MyApp extends StatelessWidget {
 
 class BottonNavControllerClient extends StatefulWidget {
   @override
-  _BottonNavControllerClientState createState() => _BottonNavControllerClientState();
+  _BottonNavControllerClientState createState() =>
+      _BottonNavControllerClientState();
 }
 
 class _BottonNavControllerClientState extends State<BottonNavControllerClient> {
-
   PageController pageController;
 
   int pageIndex = 0;
 
   onTapChangedPage(int pageIndex) {
-    pageController.animateToPage(pageIndex, duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
+    pageController.animateToPage(pageIndex,
+        duration: Duration(milliseconds: 300), curve: Curves.bounceInOut);
   }
 
   onPageChanged(int pageIndex) {
@@ -69,38 +65,36 @@ class _BottonNavControllerClientState extends State<BottonNavControllerClient> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     pageController = PageController();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColor.backgroundColor,
       body: PageView(
-        children: [
-          HomeTabs(),
-          Mybookings(),
-          ProgressScreen(),
-          NewsPage()
-        ],
-
+        children: [HomeTabs(), Mybookings(), ProgressScreen(), NewsPage()],
         controller: pageController,
         physics: NeverScrollableScrollPhysics(),
         onPageChanged: onPageChanged,
       ),
-
-      bottomNavigationBar:  bottomNavBar(
+      bottomNavigationBar: bottomNavBar(
           onTapChangedPage: onTapChangedPage,
           pageIndex: pageIndex,
-
-          imageURL: 'assets/home_icon.png', text: 'Home',  imageURL2: 'assets/appointment_menu_icon.png', text2: 'My Bookings', imageURL3: 'assets/progress_icon.png', text3: 'Progress', imageURL4: 'assets/news_icon.png', text4: 'News'),
+          imageURL: 'assets/home_icon.png',
+          text: 'Home',
+          imageURL2: 'assets/appointment_menu_icon.png',
+          text2: 'My Bookings',
+          imageURL3: 'assets/progress_icon.png',
+          text3: 'Progress',
+          imageURL4: 'assets/news_icon.png',
+          text4: 'News'),
     );
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     pageController.dispose();
   }
@@ -111,12 +105,12 @@ class IPhone5 extends PreviewProvider {
   String get title => 'iPhone 5';
   @override
   List<Preview> get previews => [
-    Preview(
-      key: Key('preview'),
-      frame: Frames.iphone5,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          key: Key('preview'),
+          frame: Frames.iphone5,
+          child: MyApp(),
+        ),
+      ];
 }
 
 class IPhoneX extends PreviewProvider {
@@ -124,9 +118,9 @@ class IPhoneX extends PreviewProvider {
   String get title => 'Iphone X';
   @override
   List<Preview> get previews => [
-    Preview(
-      frame: Frames.iphoneX,
-      child: MyApp(),
-    ),
-  ];
+        Preview(
+          frame: Frames.iphoneX,
+          child: MyApp(),
+        ),
+      ];
 }

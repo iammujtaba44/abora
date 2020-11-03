@@ -1,9 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/multiuser_signup_page.dart';
 import 'package:abora/services/auth.dart';
-
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -102,11 +99,11 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
               SizedBox(
                 height: 20,
               ),
-              Tabs(context),
+              tabs(context),
               SizedBox(
                 height: 20,
               ),
-              Login(context),
+              login(context),
               Spacer(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -131,7 +128,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
     );
   }
 
-  Widget Login(BuildContext context) {
+  Widget login(BuildContext context) {
     return Container(
       child: Column(
         children: [
@@ -206,7 +203,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
     );
   }
 
-  Widget Tabs(BuildContext context) {
+  Widget tabs(BuildContext context) {
     return Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

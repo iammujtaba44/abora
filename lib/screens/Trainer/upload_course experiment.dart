@@ -1,9 +1,5 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/widgets/blue_button.dart';
-import 'package:abora/widgets/textfield_widget.dart';
-import 'package:abora/widgets/upload_box.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +36,12 @@ class MyApp extends StatelessWidget {
 
 class UploadCoursePageExperiment extends StatefulWidget {
   @override
-  _UploadCoursePageExperimentState createState() => _UploadCoursePageExperimentState();
+  _UploadCoursePageExperimentState createState() =>
+      _UploadCoursePageExperimentState();
 }
 
-class _UploadCoursePageExperimentState extends State<UploadCoursePageExperiment> {
+class _UploadCoursePageExperimentState
+    extends State<UploadCoursePageExperiment> {
   double height;
 
   double width;
@@ -75,7 +73,6 @@ class _UploadCoursePageExperimentState extends State<UploadCoursePageExperiment>
               child: Column(
                 children: [
                   Container(
-                    
                     child: new RichText(
                       text: new TextSpan(
                         style: TextStyle(
@@ -102,23 +99,24 @@ class _UploadCoursePageExperimentState extends State<UploadCoursePageExperiment>
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-        /*              Expanded(child: rectBorderWidget),
+                      /*              Expanded(child: rectBorderWidget),
                       Expanded(child: rectBorderWidget),
                       Expanded(child: rectBorderWidget),
-        */            ],
+        */
+                    ],
                   ),
                   Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-         /*             Expanded(child: rectBorderWidget),
+                      /*             Expanded(child: rectBorderWidget),
                       Expanded(child: rectBorderWidget),
                       Expanded(child: rectBorderWidget),
-        */            ],
+        */
+                    ],
                   ),
                   Spacer()
                 ],
-                
               ),
             ),
             Expanded(

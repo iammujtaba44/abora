@@ -15,9 +15,8 @@ class RateSession extends StatefulWidget {
 class _RateSessionState extends State<RateSession> {
   @override
   Widget build(BuildContext context) {
-
-    ScreenUtil.init(context, designSize: Size(640, 1134), allowFontScaling: false);
-
+    ScreenUtil.init(context,
+        designSize: Size(640, 1134), allowFontScaling: false);
 
     return SafeArea(
         child: Scaffold(
@@ -47,17 +46,17 @@ class _RateSessionState extends State<RateSession> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CustomtextfieldWithText(
+                      customtextfieldWithText(
                           text: 'How Much Weight Did You Lose',
                           hintText: '0.00'),
                       SizedBox(
                         height: 30.0,
                       ),
-                      _RatingWithText('Rate The Session'),
+                      _ratingWithText('Rate The Session'),
                       SizedBox(
                         height: 30.0,
                       ),
-                      _RatingWithText('Rate The Trainer'),
+                      _ratingWithText('Rate The Trainer'),
                       SizedBox(
                         height: 30.0,
                       ),
@@ -123,7 +122,7 @@ class _RateSessionState extends State<RateSession> {
     );
   }
 
-  _RatingWithText(String text) {
+  _ratingWithText(String text) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
