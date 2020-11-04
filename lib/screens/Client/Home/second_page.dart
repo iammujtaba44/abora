@@ -1,60 +1,18 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
-
-import 'package:abora/trainer.dart';
+import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class SecondPage extends StatelessWidget {
-  final List<Trainer> trainers = [
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-  ];
-
   final Color presidentialBlue = Color(0XFF151B54);
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseService>(context);
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
     return Scaffold(
@@ -110,7 +68,7 @@ class SecondPage extends StatelessWidget {
                   child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
-                    itemCount: trainers.length,
+                    itemCount: 3,
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
@@ -191,113 +149,130 @@ class SecondPage extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
                 child: Text(
-                  'Trainers You May Know',
+                  'Top Trending Companies',
                   style:
                       TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
                 flex: 8,
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: trainers.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          color: Theme.of(context).primaryColor,
-                          child: Container(
-                            margin: const EdgeInsets.all(14.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/trainer.png',
-                                      height: 70,
+                child: StreamBuilder(
+                  stream: database.allTrainersStream,
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? ListView.builder(
+                            scrollDirection: Axis.vertical,
+                            itemCount: snapshot.data.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12.0),
+                                child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    ),
+                                    color: Theme.of(context).primaryColor,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(14.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/trainer.png',
+                                                height: 70,
+                                              )),
+                                          Container(
+                                            padding: EdgeInsets.only(left: 12),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  snapshot.data[index].name,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                SizedBox(
+                                                  height: 5.0,
+                                                ),
+                                                Text(
+                                                  snapshot.data[index].bio ??
+                                                      '',
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: 12,
+                                                  ),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 5,
+                                                  textAlign: TextAlign.justify,
+                                                ),
+                                                SizedBox(
+                                                  height: 3.0,
+                                                ),
+                                                Container(
+                                                  width: 350.h,
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: SmoothStarRating(
+                                                            allowHalfRating:
+                                                                false,
+                                                            onRated: (v) {},
+                                                            starCount: 5,
+                                                            rating: 3,
+                                                            size: 15.0,
+                                                            isReadOnly: true,
+                                                            color: Colors
+                                                                .yellow[800],
+                                                            borderColor: Colors
+                                                                .yellow[800],
+                                                            spacing: 0.0),
+                                                      ),
+                                                      Expanded(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Text(
+                                                              'View Profile',
+                                                              style: TextStyle(
+                                                                  color: CustomColor
+                                                                      .signUpButtonColor),
+                                                            ),
+                                                            SizedBox(
+                                                              width: 3,
+                                                            ),
+                                                            Icon(
+                                                              Icons
+                                                                  .arrow_forward_ios,
+                                                              size: 12,
+                                                              color: CustomColor
+                                                                  .signUpButtonColor,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     )),
-                                Container(
-                                  padding: EdgeInsets.only(left: 12),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Mario Speedwagon',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        height: 5.0,
-                                      ),
-                                      Text(
-                                        'Lorem Ipsem dolor sit amet, consetur\nsadispcing eliter, sed',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 12,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 5,
-                                        textAlign: TextAlign.justify,
-                                      ),
-                                      SizedBox(
-                                        height: 3.0,
-                                      ),
-                                      Container(
-                                        width: 350.h,
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: SmoothStarRating(
-                                                  allowHalfRating: false,
-                                                  onRated: (v) {},
-                                                  starCount: 5,
-                                                  rating: 3,
-                                                  size: 15.0,
-                                                  isReadOnly: true,
-                                                  color: Colors.yellow[800],
-                                                  borderColor:
-                                                      Colors.yellow[800],
-                                                  spacing: 0.0),
-                                            ),
-                                            Expanded(
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  Text(
-                                                    'View Profile',
-                                                    style: TextStyle(
-                                                        color: CustomColor
-                                                            .signUpButtonColor),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 3,
-                                                  ),
-                                                  Icon(
-                                                    Icons.arrow_forward_ios,
-                                                    size: 12,
-                                                    color: CustomColor
-                                                        .signUpButtonColor,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )),
-                    );
+                              );
+                            },
+                          )
+                        : CircularProgressIndicator();
                   },
                 ),
               ),

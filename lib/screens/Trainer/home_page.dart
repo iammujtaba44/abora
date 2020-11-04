@@ -2,6 +2,7 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
+import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/settings_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/widgets/details_double_container.dart';
@@ -13,7 +14,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:preview/preview.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'courses_page.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -155,7 +155,8 @@ class _HomePageState extends State<HomePage> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CoursesPage()),
+                        MaterialPageRoute(
+                            builder: (context) => UploadCoursePage()),
                       );
                     },
                   ),

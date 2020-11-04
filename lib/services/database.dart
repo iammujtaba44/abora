@@ -21,6 +21,41 @@ class DatabaseService {
   final CollectionReference client =
       FirebaseFirestore.instance.collection('client');
 
+  final CollectionReference topTrendingCourses =
+      FirebaseFirestore.instance.collection('topTrendingCourses');
+
+  // get all Trainer records
+
+  List<TrainerUser> allTrainers(QuerySnapshot qs) {
+    return qs.docs.map((ds) {
+      return TrainerUser(
+        uId: uId,
+        bio: ds.data()['bio'],
+        area: ds.data()['area'],
+        speciality: ds.data()['speciality'],
+        homeTraining: ds.data()['homeTraining'],
+        gymTraining: ds.data()['gymTraining'],
+        pricePerSession: ds.data()['pricePerSession'],
+        paymentMethod: ds.data()['paymentMethod'],
+        email: ds.data()['email'],
+        name: ds.data()['name'],
+        booking: ds.data()['booking'],
+        conversionRate: ds.data()['conversionRate'],
+        password: ds.data()['password'],
+        ratio: ds.data()['ratio'],
+        thisMonthVisits: ds.data()['thisMonthVisits'],
+        totalViews: ds.data()['totalViews'],
+        totalSessionsBooked: ds.data()['totalSessionsBooked'],
+        totalBookingThisMonth: ds.data()['totalBookingThisMonth'],
+        visit: ds.data()['visit'],
+      );
+    }).toList();
+  }
+
+  Stream<List<TrainerUser>> get allTrainersStream {
+    return trainer.snapshots().map(allTrainers);
+  }
+
   // update single field
 
   Future<String> updateSignleField(
@@ -72,11 +107,21 @@ class DatabaseService {
     return trainer.doc(uId).collection('courses').snapshots().map(uploadCourse);
   }
 
+  Stream<List<Course>> get topTrendingCourseStream {
+    return topTrendingCourses.snapshots().map(uploadCourse);
+  }
+
   Future uploadCourseAsync(
       {String title,
       String cost,
       String description,
       List<String> courseVideosLink}) async {
+    await topTrendingCourses.doc().set({
+      'title': title,
+      'cost': cost,
+      'description': description,
+      'courseVideosLink': courseVideosLink
+    });
     return await trainer.doc(uId).collection('courses').doc().set({
       'title': title,
       'cost': cost,

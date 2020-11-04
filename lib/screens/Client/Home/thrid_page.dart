@@ -2,9 +2,11 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
+import 'package:abora/services/database.dart';
 import 'package:abora/trainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class ThirdPage extends StatelessWidget {
@@ -59,6 +61,8 @@ class ThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseService>(context);
+
     ScreenUtil.init(context,
         designSize: Size(640, 1136), allowFontScaling: false);
 
@@ -206,108 +210,129 @@ class ThirdPage extends StatelessWidget {
               ),
               Expanded(
                 flex: 8,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20),
-                  child: GridView.count(
-                    childAspectRatio: .85.h,
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 15,
-                    mainAxisSpacing: 20,
-                    children: List.generate(
-                        8,
-                        (index) => GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UploadCoursePage()),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          height: 170,
-                                          width: width,
+                child: StreamBuilder(
+                  stream: database.topTrendingCourseStream,
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, right: 20),
+                            child: GridView.count(
+                              childAspectRatio: .85.h,
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 20,
+                              children: List.generate(
+                                  snapshot.data.length,
+                                  (index) => GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    UploadCoursePage()),
+                                          );
+                                        },
+                                        child: Container(
                                           decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-                                                  'assets/trainer.jpg',
-                                                ),
-                                              )),
-                                        ),
-                                        Positioned(
-                                          right: 10,
-                                          bottom: 10,
-                                          child: Container(
-                                            alignment: Alignment.center,
-                                            height: 30,
-                                            width: 70,
-                                            decoration: BoxDecoration(
-                                                color: CustomColor
-                                                    .signUpButtonColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(5)),
-                                            child: Text(
-                                              '\$49.50',
-                                              style: TextStyle(
-                                                  color: CustomColor.white),
-                                            ),
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    Text(
-                                      'Course Title',
-                                      style: TextStyle(
-                                          color: CustomColor.red,
-                                          fontSize: FontSize.h3FontSize,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 3.0,
-                                    ),
-                                    Text(
-                                      '20 videos',
-                                      style: TextStyle(
-                                          color: CustomColor.grey,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                    SizedBox(
-                                      height: 13.0,
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height: 30,
-                                      width: 200.w,
-                                      decoration: BoxDecoration(
-                                          color: CustomColor.signUpButtonColor,
-                                          borderRadius:
-                                              BorderRadius.circular(5)),
-                                      child: Text(
-                                        'Buy Now',
-                                        style:
-                                            TextStyle(color: CustomColor.white),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )),
-                  ),
+                                          child: Column(
+                                            children: [
+                                              Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 170,
+                                                    width: width,
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.green,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                        image: DecorationImage(
+                                                          fit: BoxFit.fill,
+                                                          image: AssetImage(
+                                                            'assets/trainer.jpg',
+                                                          ),
+                                                        )),
+                                                  ),
+                                                  Positioned(
+                                                    right: 10,
+                                                    bottom: 10,
+                                                    child: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      height: 30,
+                                                      width: 70,
+                                                      decoration: BoxDecoration(
+                                                          color: CustomColor
+                                                              .signUpButtonColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5)),
+                                                      child: Text(
+                                                        snapshot
+                                                            .data[index].cost,
+                                                        style: TextStyle(
+                                                            color: CustomColor
+                                                                .white),
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 10.0,
+                                              ),
+                                              Text(
+                                                snapshot.data[index].title,
+                                                style: TextStyle(
+                                                    color: CustomColor.red,
+                                                    fontSize:
+                                                        FontSize.h3FontSize,
+                                                    fontWeight:
+                                                        FontWeight.w600),
+                                              ),
+                                              SizedBox(
+                                                height: 3.0,
+                                              ),
+                                              Text(
+                                                '${snapshot.data[index].courseVideosLink.length} videos',
+                                                style: TextStyle(
+                                                    color: CustomColor.grey,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              SizedBox(
+                                                height: 13.0,
+                                              ),
+                                              Container(
+                                                alignment: Alignment.center,
+                                                height: 30,
+                                                width: 200.w,
+                                                decoration: BoxDecoration(
+                                                    color: CustomColor
+                                                        .signUpButtonColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5)),
+                                                child: Text(
+                                                  'Buy Now',
+                                                  style: TextStyle(
+                                                      color: CustomColor.white),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )),
+                            ),
+                          )
+                        : CircularProgressIndicator();
+                  },
                 ),
               ),
             ],

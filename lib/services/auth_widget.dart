@@ -53,7 +53,7 @@ class _AuthWidgetState extends State<AuthWidget> {
     //int value = getUserType();
     if (widget.userSnapshot.connectionState == ConnectionState.active) {
       if (widget.userSnapshot.hasData) {
-        if (isLogin) {
+        if (isLogin ?? false) {
           if (typeOfUser == 0) {
             if (isExistTrainer) {
               return BottonNavControllerTrainer();
