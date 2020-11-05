@@ -1,3 +1,4 @@
+import 'package:abora/global/constants.dart';
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
@@ -23,6 +24,9 @@ class DatabaseService {
 
   final CollectionReference topTrendingCourses =
       FirebaseFirestore.instance.collection('topTrendingCourses');
+
+  final CollectionReference allAds =
+      FirebaseFirestore.instance.collection('allAds');
 
   // get all Trainer records
 
@@ -242,7 +246,26 @@ class DatabaseService {
     );
   }
 
+  List<PostAd> allPostAds(QuerySnapshot qs) {
+    return qs.docs.map((document) {
+      return PostAd(
+        name: document.data()['name'],
+        bio: document.data()['bio'],
+        area: document.data()['area'],
+        exerciseType: document.data()['exerciseType'],
+        exerciseSubType: document.data()['exerciseSubType'],
+        numberOfDay: document.data()['numberOfDay'],
+        totalPrice: document.data()['totalPrice'],
+        years: document.data()['years'],
+      );
+    }).toList();
+  }
+
   // ----------STREAMS
+
+  Stream<List<PostAd>> get allPostAdStream {
+    return allAds.snapshots().map(allPostAds);
+  }
 
   Stream<PostAd> get postAdStream {
     return trainer.doc(uId).snapshots().map(postAd);
@@ -257,7 +280,19 @@ class DatabaseService {
       String numberOfDay,
       String area,
       String totalPrice}) async {
+    await allAds.doc().set({
+      'name': Constants.trainerUserData.name,
+      'bio': Constants.trainerUserData.bio ?? '',
+      'years': years,
+      'exerciseType': exerciseType,
+      'exerciseSubType': exerciseSubType,
+      'numberOfDay': numberOfDay,
+      'area': area,
+      'totalPrice': totalPrice
+    });
     return await trainer.doc(uId).collection('postAds').doc().set({
+      'name': Constants.trainerUserData.name,
+      'bio': Constants.trainerUserData.bio ?? '',
       'years': years,
       'exerciseType': exerciseType,
       'exerciseSubType': exerciseSubType,
@@ -266,6 +301,19 @@ class DatabaseService {
       'totalPrice': totalPrice
     });
   }
+
+  PostAd allPostAd(DocumentSnapshot ds) {
+    return PostAd(
+      area: ds.data()['area'],
+      exerciseType: ds.data()['exerciseType'],
+      exerciseSubType: ds.data()['exerciseSubType'],
+      numberOfDay: ds.data()['numberOfDay'],
+      totalPrice: ds.data()['totalPrice'],
+      years: ds.data()['years'],
+    );
+  }
+
+  // ----------STREAMS
 
   // Trainer
   Future trainerUserData({String email, String name, String password}) async {

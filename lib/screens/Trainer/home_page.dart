@@ -1,4 +1,5 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
@@ -97,6 +98,7 @@ class _HomePageState extends State<HomePage> {
         stream: database.currentTrainerUserStream,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            Constants.trainerUserData = snapshot.data;
             TrainerUser trainerData = snapshot.data;
             return Scaffold(
               floatingActionButton: SpeedDial(

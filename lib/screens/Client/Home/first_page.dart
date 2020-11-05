@@ -65,7 +65,7 @@ class FirstPage extends StatelessWidget {
               Expanded(
                 flex: 9,
                 child: StreamBuilder(
-                  stream: database.allTrainersStream,
+                  stream: database.allPostAdStream,
                   builder: (context, snapshot) {
                     return snapshot.hasData
                         ? Container(
@@ -122,8 +122,7 @@ class FirstPage extends StatelessWidget {
                                             SizedBox(
                                               height: 2,
                                             ),
-                                            Text(
-                                                'Lorem ipsum dolor sit \n        amet, consetur',
+                                            Text(snapshot.data[index].bio,
                                                 style: TextStyle(
                                                   color: Colors.grey,
                                                 )),

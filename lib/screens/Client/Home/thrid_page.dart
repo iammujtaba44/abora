@@ -117,86 +117,102 @@ class ThirdPage extends StatelessWidget {
               ),
               Expanded(
                 flex: 9,
-                child: Container(
-                  margin: EdgeInsets.only(left: 8),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: trainers.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 4),
-                        child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            color: Theme.of(context).primaryColor,
-                            child: Container(
-                              padding: EdgeInsets.only(
-                                  left: 12, right: 12, top: 20.0, bottom: 20.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.asset(
-                                      'assets/trainerCube.png',
-                                      width: 80.h,
-                                      height: 80.h,
-                                    ),
+                child: StreamBuilder(
+                  stream: database.allPostAdStream,
+                  builder: (context, snapshot) {
+                    return snapshot.hasData
+                        ? Container(
+                            margin: EdgeInsets.only(left: 8),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)),
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Graham Cracker',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: FontSize.h5FontSize),
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Text(
-                                      'Lorem ipsum dolor sit \n        amet, consetur',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                      )),
-                                  SizedBox(
-                                    height: 1,
-                                  ),
-                                  SizedBox(
-                                    width: 200.w,
-                                    child: FlatButton(
-                                      color: CustomColor.signUpButtonColor,
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  BookingTab()),
-                                        );
-                                      },
-                                      child: Text(
-                                        'Book Now',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: FontSize.h5FontSize),
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                  child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            )),
-                      );
-                    },
-                  ),
+                                      color: Theme.of(context).primaryColor,
+                                      child: Container(
+                                        padding: EdgeInsets.only(
+                                            left: 12,
+                                            right: 12,
+                                            top: 20.0,
+                                            bottom: 20.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              child: Image.asset(
+                                                'assets/trainerCube.png',
+                                                width: 80.h,
+                                                height: 80.h,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              snapshot.data[index].name,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize:
+                                                      FontSize.h5FontSize),
+                                            ),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
+                                            Text(snapshot.data[index].bio,
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                )),
+                                            SizedBox(
+                                              height: 1,
+                                            ),
+                                            SizedBox(
+                                              width: 200.w,
+                                              child: FlatButton(
+                                                color: CustomColor
+                                                    .signUpButtonColor,
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            BookingTab()),
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Book Now',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize:
+                                                          FontSize.h5FontSize),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      )),
+                                );
+                              },
+                            ),
+                          )
+                        : CircularProgressIndicator();
+                  },
                 ),
               ),
               Padding(

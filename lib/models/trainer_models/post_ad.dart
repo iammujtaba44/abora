@@ -5,9 +5,13 @@ class PostAd {
   String numberOfDay;
   String area;
   String totalPrice;
+  String name;
+  String bio;
 
   PostAd(
-      {this.years,
+      {this.name,
+      this.bio,
+      this.years,
       this.exerciseType,
       this.exerciseSubType,
       this.numberOfDay,
