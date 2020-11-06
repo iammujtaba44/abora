@@ -4,7 +4,6 @@ import 'package:abora/screens/Client/Home/second_page.dart';
 import 'package:abora/screens/Client/Home/thrid_page.dart';
 import 'package:abora/screens/settings_page.dart';
 import 'package:flutter/material.dart';
-import 'package:preview/preview.dart';
 
 void main() {
   runApp(MyApp());
@@ -98,29 +97,4 @@ class _HomeTabsState extends State<HomeTabs> {
       ),
     );
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
 }

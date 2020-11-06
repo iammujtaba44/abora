@@ -4,7 +4,6 @@ import 'package:abora/screens/multiuser_login_page.dart';
 import 'package:abora/screens/multiuser_signup_page.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
-import 'package:preview/preview.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -151,29 +150,4 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
 }

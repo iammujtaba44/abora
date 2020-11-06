@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:preview/preview.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:stripe_payment/stripe_payment.dart';
@@ -453,44 +452,4 @@ class _PaymentPageState extends State<PaymentPage> {
       image: Image.asset('assets/dialog_img.png'),
     ).show();
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPad extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.ipadPro12,
-          child: MyApp(),
-        ),
-      ];
 }

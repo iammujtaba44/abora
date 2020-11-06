@@ -1,10 +1,12 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/height.dart';
+
 import 'package:abora/screens/Client/ClientPayment_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/utils/Helper.dart';
 import 'package:abora/widgets/CustomToast.dart';
+
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,6 +52,9 @@ class _BookingScreenState extends State<BookingScreen> {
     final database = Provider.of<DatabaseService>(context);
     // evnetsFiller();
     _calendarCarouselNoHeader = cal2();
+
+    //final database = Provider.of<DatabaseService>(context);
+
     return Scaffold(
       body: Container(
         height: getheight(context),

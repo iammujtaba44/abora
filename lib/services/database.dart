@@ -64,22 +64,23 @@ class DatabaseService {
     return trainer.snapshots().map(allTrainers);
   }
 
-  // get trainer courses once
-  Future<List> onPressed() async {
-    List temp = List();
-    var querySnapshot = await trainer.where('email', isEqualTo: email).get();
-    querySnapshot.docs.forEach((result) async {
-      var querySnapshot2 =
-          await trainer.doc(result.id).collection("courses").get();
+  // // get trainer courses once
+  // Future onPressed() async {
+  //   List temp = List();
+  //   var querySnapshot = await trainer.where('email', isEqualTo: email).get();
+  //   querySnapshot.docs.forEach((result) async {
+  //     var querySnapshot2 =
+  //         await trainer.doc(result.id).collection("courses").get();
 
-      querySnapshot2.docs.forEach((result) {
-        print(result.data());
-        temp.add(result.data());
-      });
-    });
+  //     querySnapshot2.docs.forEach((result) {
+  //       //  print(result.data());
+  //       Constants.globalCourses.add(result.data());
+  //       //print('--------------${Constants.globalCourses}');
+  //     });
+  //   });
 
-    return temp;
-  }
+  //   return Constants.globalCourses;
+  // }
   // Stream<List<Course>> get getTrainerCoursesOnce {
   //   return trainer.where('email', isEqualTo: email).get().then((querySnapshot) {
   //     querySnapshot.docs.forEach((result) {
