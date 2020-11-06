@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:preview/preview.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MyApp extends StatelessWidget {
@@ -416,41 +415,4 @@ class _DetailPageState extends State<DetailPage> {
       maxSelectedDate: _currentDate2.add(Duration(days: 360)),
     );
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPad extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.ipadPro12,
-          child: MyApp(),
-        ),
-      ];
 }

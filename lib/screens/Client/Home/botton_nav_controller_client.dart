@@ -1,7 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:preview/preview.dart';
 
 import '../../../global/colors.dart';
 import '../Progress_screen.dart';
@@ -98,29 +97,4 @@ class _BottonNavControllerClientState extends State<BottonNavControllerClient> {
     super.dispose();
     pageController.dispose();
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
 }

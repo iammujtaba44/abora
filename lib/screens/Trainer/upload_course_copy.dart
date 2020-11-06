@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:preview/preview.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -379,41 +378,4 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
       image: Image.asset('assets/dialog_img.png'),
     ).show();
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPad extends PreviewProvider {
-  @override
-  String get title => 'IPad';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.ipadPro12,
-          child: MyApp(),
-        ),
-      ];
 }

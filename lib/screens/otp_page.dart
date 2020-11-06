@@ -4,7 +4,6 @@ import 'package:abora/screens/Trainer/home_page.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:preview/preview.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -126,41 +125,4 @@ class _OTPPageState extends State<OTPPage> {
       ),
     );
   }
-}
-
-class IPhone5 extends PreviewProvider {
-  @override
-  String get title => 'iPhone 5';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          key: Key('preview'),
-          frame: Frames.iphone5,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPhoneX extends PreviewProvider {
-  @override
-  String get title => 'Iphone X';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.iphoneX,
-          child: MyApp(),
-        ),
-      ];
-}
-
-class IPad extends PreviewProvider {
-  @override
-  String get title => 'IPad';
-  @override
-  List<Preview> get previews => [
-        Preview(
-          frame: Frames.ipadPro12,
-          child: MyApp(),
-        ),
-      ];
 }
