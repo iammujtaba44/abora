@@ -37,6 +37,7 @@ class _BookingScreenState extends State<BookingScreen> {
   ];
 
   var _selected;
+  var _selectedSession;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,16 +258,16 @@ class _BookingScreenState extends State<BookingScreen> {
                 isDense: true,
                 items: _goalString.map((city) {
                   return DropdownMenuItem(
-                    child: Text(city.toString()),
-                    // value: city,
+                    child: Text(city),
+                    value: city,
                   );
                 }).toList(),
                 onChanged: (newValue) {
                   setState(() {
-                    _selected = newValue;
+                    _selectedSession = newValue;
                   });
                 },
-                value: _selected,
+                value: _selectedSession,
                 isExpanded: false,
                 hint: new Text(
                   "Session Type",
