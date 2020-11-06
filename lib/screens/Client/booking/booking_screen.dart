@@ -1,7 +1,10 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/height.dart';
+import 'package:abora/screens/Client/ClientPayment_page.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/utils/Helper.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,10 +32,11 @@ class _BookingScreenState extends State<BookingScreen> {
   DateTime _currentDate2 = DateTime.now();
   CalendarCarousel _calendarCarouselNoHeader;
   var len = 9;
-  int a;
+  int a = 0;
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {},
   );
+  List<String> _selectedDates = [];
   List<int> _values = <int>[01, 02, 03, 04, 05];
   List<String> _goalString = <String>[
     'One-on-One',
@@ -44,7 +48,8 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DatabaseService>(context);
-
+    // evnetsFiller();
+    _calendarCarouselNoHeader = cal2();
     return Scaffold(
       body: Container(
         height: getheight(context),
@@ -62,7 +67,38 @@ class _BookingScreenState extends State<BookingScreen> {
                       style: TextStyle(color: CustomColor.white),
                     ),
                     func: () {
-                      print(Constants.currentClientEmail);
+                      if (_selected != null &&
+                          _selectedSession != null &&
+                          goalTextFieldController.text.isNotEmpty &&
+                          _selectedDates.isNotEmpty) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ClientPaymentPage(
+                                      addAp: {
+                                        'clientEmail':
+                                            Constants.currentClientEmail,
+                                        'clientImageUrl': 'abc',
+                                        'clientName':
+                                            Constants.currentClientName,
+                                        'dates': _selectedDates,
+                                        'goal': goalTextFieldController.text,
+                                        'noOfBookings': _selected,
+                                        'sessionType': _selectedSession,
+                                        'trainerEmail': widget.email,
+                                        'trainerImageUrl': 'abc',
+                                        'trainerName': widget.name
+                                      },
+                                    )));
+                      } else {
+                        //  print(Helper.getDate(DateTime.now()));
+                        // print(_selectedDates);
+                        customToast(text: 'Please fill all fields');
+                        customToast(
+                            text:
+                                'Select Dates from Calender by clicking dates');
+                      }
+
                       // database.uploadApointmentAsync(
                       //     clientEmail: 'ak11@gmail.com',
                       //     clientImageUrl: 'abc',
@@ -84,8 +120,6 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   _mainContainer() {
-    evnetsFiller();
-    _calendarCarouselNoHeader = cal();
     return Container(
       margin: EdgeInsets.all(20.0),
       decoration: BoxDecoration(
@@ -374,16 +408,9 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  static Widget _presentIcon(String day) => Text(
-        day,
-        style: TextStyle(
-          color: Colors.green,
-        ),
-      );
-
-  static Widget _absentIcon(String day) => Container(
+  Widget _presentIcon(String day) => Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.green,
           borderRadius: BorderRadius.all(
             Radius.circular(1000),
           ),
@@ -399,87 +426,73 @@ class _BookingScreenState extends State<BookingScreen> {
       );
 
   evnetsFiller() {
-    for (int i = 0; i < len; i++) {
-      a = i + 1;
-      presentDates.add(new DateTime(2020, 10, a));
-    }
-    a = 0;
-    for (int i = 0; i < len; i++) {
-      a = i + 1;
-      absentDates.add(new DateTime(2020, 9, a));
-    }
+    // List<String> aa = widget.detailsData['dates'];
+    // print(aa);
 
-    for (int i = 0; i < len; i++) {
-      _markedDateMap.add(
-        presentDates[i],
-        new Event(
-          date: presentDates[i],
-          title: 'Event 5',
-          icon: _presentIcon(
-            presentDates[i].day.toString(),
-          ),
-        ),
-      );
-    }
+    if (_selectedDates.isNotEmpty) {
+      print(_selectedDates);
+      for (int i = 0; i < _selectedDates.length; i++) {
+        var array = _selectedDates[i].split('-');
 
-    for (int i = 0; i < len; i++) {
-      _markedDateMap.add(
-        absentDates[i],
-        new Event(
-          date: absentDates[i],
-          title: 'Event 5',
-          icon: _absentIcon(
-            absentDates[i].day.toString(),
+        presentDates.add(new DateTime(
+            int.parse(array[0]), int.parse(array[1]), int.parse(array[2])));
+        a++;
+      }
+
+      for (int i = 0; i < a; i++) {
+        _markedDateMap.add(
+          presentDates[i],
+          new Event(
+            date: presentDates[i],
+            title: 'Event 5',
+            icon: _presentIcon(
+              presentDates[i].day.toString(),
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
   }
 
-  cal() {
+  cal2() {
     return CalendarCarousel<Event>(
-      // height: cHeight / 2,
-      // width: cwid / 1.2,
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
+        _selectedDates.add(Helper.getDate(date));
+        _markedDateMap.add(
+          date,
+          new Event(
+            date: date,
+            title: 'Event 5',
+            icon: _presentIcon(
+              date.day.toString(),
+            ),
+          ),
+        );
+
+        //evnetsFiller();
         events.forEach((event) => print(event.title));
       },
       showOnlyCurrentMonthDate: true,
       showHeader: false,
-      // headerTextStyle: TextStyle(color: Color.fromRGBO(5, 115, 106, 10)),
-      // headerTitleTouchable: true,
-      //headerMargin: EdgeInsets.all(1),
-      leftButtonIcon: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.arrow_left,
-          color: Color.fromRGBO(5, 115, 106, 10),
-        ),
-      ),
-      rightButtonIcon: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          Icons.arrow_right,
-          color: Color.fromRGBO(5, 115, 106, 10),
-        ),
-      ),
+      weekdayTextStyle: TextStyle(color: Colors.white),
       dayPadding: 6,
       daysTextStyle: TextStyle(color: Colors.grey),
-      // weekDayBackgroundColor: Color.fromRGBO(228, 229, 230, 10),
-      weekdayTextStyle: TextStyle(color: Colors.white),
+      weekendTextStyle: TextStyle(
+        color: Colors.red,
+      ),
 
       customGridViewPhysics: NeverScrollableScrollPhysics(),
-      // selectedDateTime: _currentDate2,
-      // todayButtonColor: Colors.blue[200],
+      selectedDateTime: _currentDate2,
+      todayButtonColor: Colors.blue[200],
       markedDatesMap: _markedDateMap,
-      markedDateShowIcon: true,
+      //  markedDateShowIcon: true,
       markedDateIconMaxShown: 0,
-
       markedDateMoreShowTotal: null,
 
       markedDateCustomTextStyle: TextStyle(
         fontSize: 18,
-        color: Colors.green,
+        color: Colors.white,
       ),
       // null for not showing hidden events indicator
       markedDateIconBuilder: (event) {

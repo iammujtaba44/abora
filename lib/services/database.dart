@@ -203,7 +203,11 @@ class DatabaseService {
   }
 
   Stream<List<AppointmentModel>> get apintmentStream {
-    return appointments.snapshots().map(apointment);
+    return appointments
+        .doc('upcomingApointments')
+        .collection('data')
+        .snapshots()
+        .map(apointment);
   }
 
   Future uploadApointmentAsync(

@@ -315,23 +315,6 @@ class _DetailPageState extends State<DetailPage> {
         ),
       );
 
-  // Widget _absentIcon(String day) => Container(
-  //       decoration: BoxDecoration(
-  //         color: Colors.red,
-  //         borderRadius: BorderRadius.all(
-  //           Radius.circular(1000),
-  //         ),
-  //       ),
-  //       child: Center(
-  //         child: Text(
-  //           day,
-  //           style: TextStyle(
-  //             color: Colors.black,
-  //           ),
-  //         ),
-  //       ),
-  //     );
-
   evnetsFiller() {
     List<String> aa = widget.detailsData['dates'];
     print(aa);
@@ -416,6 +399,22 @@ class _DetailPageState extends State<DetailPage> {
       maxSelectedDate: _currentDate2.add(Duration(days: 360)),
     );
   }
+// Widget _absentIcon(String day) => Container(
+//       decoration: BoxDecoration(
+//         color: Colors.red,
+//         borderRadius: BorderRadius.all(
+//           Radius.circular(1000),
+//         ),
+//       ),
+//       child: Center(
+//         child: Text(
+//           day,
+//           style: TextStyle(
+//             color: Colors.black,
+//           ),
+//         ),
+//       ),
+//     );
 }
 
 class IPhone5 extends PreviewProvider {
