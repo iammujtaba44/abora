@@ -218,8 +218,6 @@ class DatabaseService {
       String goal,
       List<String> dates}) async {
     return await appointments
-        .doc(uId)
-        .collection('appointments')
         .doc('upcomingApointments')
         .collection('data')
         .doc()

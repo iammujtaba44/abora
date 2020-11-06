@@ -1,3 +1,4 @@
+import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/screens/login_page.dart';
@@ -34,7 +35,8 @@ class _AuthWidgetState extends State<AuthWidget> {
     snapShotTrainer = await trainer.doc(widget.userSnapshot.data.uid).get();
     isExistTrainer = snapShotTrainer.exists;
     isExistClient = snapShotClient.exists;
-
+    Constants.currentClientEmail = widget.userSnapshot.data.email;
+    Constants.currentClientName = widget.userSnapshot.data.displayName;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     typeOfUser = prefs.getInt('typeOfUser');
     isLogin = prefs.getBool('isLogin');

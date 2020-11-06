@@ -1,5 +1,7 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/height.dart';
+import 'package:abora/services/database.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
   final String name;
@@ -40,6 +43,8 @@ class _BookingScreenState extends State<BookingScreen> {
   var _selectedSession;
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseService>(context);
+
     return Scaffold(
       body: Container(
         height: getheight(context),
@@ -56,7 +61,20 @@ class _BookingScreenState extends State<BookingScreen> {
                       'Confirm Booking'.toUpperCase(),
                       style: TextStyle(color: CustomColor.white),
                     ),
-                    func: () {}),
+                    func: () {
+                      print(Constants.currentClientEmail);
+                      // database.uploadApointmentAsync(
+                      //     clientEmail: 'ak11@gmail.com',
+                      //     clientImageUrl: 'abc',
+                      //     clientName: 'ak',
+                      //     dates: ["2", "3"],
+                      //     goal: 'abc',
+                      //     noOfBookings: '2',
+                      //     sessionType: 'abc',
+                      //     trainerEmail: widget.email,
+                      //     trainerImageUrl: 'abc',
+                      //     trainerName: 'abc');
+                    }),
               )
             ],
           ),
