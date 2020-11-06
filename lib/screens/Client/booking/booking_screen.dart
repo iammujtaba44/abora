@@ -9,6 +9,11 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 class BookingScreen extends StatefulWidget {
+  final String name;
+  final String bio;
+  final String email;
+
+  BookingScreen({this.name, this.bio, this.email});
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -17,6 +22,7 @@ List<DateTime> presentDates = [];
 List<DateTime> absentDates = [];
 
 class _BookingScreenState extends State<BookingScreen> {
+  TextEditingController goalTextFieldController = TextEditingController();
   DateTime _currentDate2 = DateTime.now();
   CalendarCarousel _calendarCarouselNoHeader;
   var len = 9;
@@ -25,6 +31,11 @@ class _BookingScreenState extends State<BookingScreen> {
     events: {},
   );
   List<int> _values = <int>[01, 02, 03, 04, 05];
+  List<String> _goalString = <String>[
+    'One-on-One',
+    'FaceTime',
+  ];
+
   var _selected;
   @override
   Widget build(BuildContext context) {
@@ -146,14 +157,13 @@ class _BookingScreenState extends State<BookingScreen> {
                     height: 20.0,
                   ),
                   Text(
-                    "Mario Speedwagon",
+                    widget.name,
                     style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(
                     height: 10.0,
                   ),
-                  Text(
-                      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et",
+                  Text(widget.bio,
                       style: TextStyle(color: Colors.grey.withOpacity(0.5))),
                 ],
               ))
@@ -208,6 +218,7 @@ class _BookingScreenState extends State<BookingScreen> {
           customtextfieldWithText(
             text: 'Goal',
             hintText: 'Type here...',
+            controller: goalTextFieldController,
           ),
           SizedBox(
             height: 25.0,
@@ -244,10 +255,10 @@ class _BookingScreenState extends State<BookingScreen> {
                 iconEnabledColor: Colors.grey,
                 iconDisabledColor: Colors.red,
                 isDense: true,
-                items: _values.map((city) {
+                items: _goalString.map((city) {
                   return DropdownMenuItem(
                     child: Text(city.toString()),
-                    value: city,
+                    // value: city,
                   );
                 }).toList(),
                 onChanged: (newValue) {

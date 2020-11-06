@@ -38,6 +38,11 @@ class MyApp extends StatelessWidget {
 }
 
 class BookingTab extends StatefulWidget {
+  final String email;
+  final String name;
+  final String bio;
+
+  BookingTab({this.email, this.name, this.bio});
   @override
   _BookingTabState createState() => _BookingTabState();
 }
@@ -79,8 +84,9 @@ class _BookingTabState extends State<BookingTab> {
           ),
           body: TabBarView(
             children: [
-              BookingScreen(),
-              BookCourse(),
+              BookingScreen(
+                  email: widget.email, name: widget.name, bio: widget.bio),
+              BookCourse(email: widget.email),
             ],
           ),
         ),

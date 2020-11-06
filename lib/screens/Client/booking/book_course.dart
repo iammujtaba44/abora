@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
+import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:preview/preview.dart';
@@ -34,6 +35,9 @@ class MyApp extends StatelessWidget {
 }
 
 class BookCourse extends StatefulWidget {
+  final String email;
+
+  BookCourse({this.email});
   @override
   _BookCourseState createState() => _BookCourseState();
 }
@@ -42,6 +46,13 @@ class _BookCourseState extends State<BookCourse> {
   double height;
 
   double width;
+
+  @override
+  void initState() {
+    super.initState();
+    print(widget.email);
+    DatabaseService().getTrainerCoursesOnce(widget.email);
+  }
 
   @override
   Widget build(BuildContext context) {

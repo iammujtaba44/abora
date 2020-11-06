@@ -7,9 +7,11 @@ class PostAd {
   String totalPrice;
   String name;
   String bio;
+  String email;
 
   PostAd(
-      {this.name,
+      {this.email,
+      this.name,
       this.bio,
       this.years,
       this.exerciseType,

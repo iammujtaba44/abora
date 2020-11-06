@@ -28,6 +28,9 @@ class DatabaseService {
   final CollectionReference allAds =
       FirebaseFirestore.instance.collection('allAds');
 
+  final CollectionReference appointments =
+      FirebaseFirestore.instance.collection('appointments');
+
   // get all Trainer records
 
   List<TrainerUser> allTrainers(QuerySnapshot qs) {
@@ -58,6 +61,33 @@ class DatabaseService {
 
   Stream<List<TrainerUser>> get allTrainersStream {
     return trainer.snapshots().map(allTrainers);
+  }
+
+  // get trainer courses once
+
+  Future getTrainerCoursesOnce(String value) async {
+    var documents = await trainer.where('email', isEqualTo: value).get();
+
+    //documents.collection('courses').snapshots().map(uploadCourse);
+
+    documents.docs.forEach((doc) {
+      FirebaseFirestore.instance
+          .collection('trainer')
+          .doc(doc.id)
+          .collection('courses')
+          .get()
+          .then((value) {
+        value.docs.map((ds) {
+          return Course(
+              title: ds.data()['title'],
+              description: ds.data()['description'],
+              cost: ds.data()['cost'],
+              courseVideosLink: List.from(ds.data()['courseVideosLink']));
+        }).toList();
+      });
+    });
+
+    return documents;
   }
 
   // update single field
@@ -96,7 +126,6 @@ class DatabaseService {
   }
 
   // COURSES
-
   List<Course> uploadCourse(QuerySnapshot qs) {
     return qs.docs.map((ds) {
       return Course(
@@ -138,7 +167,11 @@ class DatabaseService {
   List<AppointmentModel> apointment(QuerySnapshot qs) {
     return qs.docs.map((ds) {
       return AppointmentModel(
-        imageUrl: ds.data()['imageUrl'],
+        trainerName: ds.data()['trainerName'],
+        trainerImageUrl: ds.data()['trainerImageUrl'],
+        trainerEmail: ds.data()['trainerEmail'],
+        clientImageUrl: ds.data()['clientImageUrl'],
+        clientEmail: ds.data()['clientEmail'],
         clientName: ds.data()['clientName'],
         goal: ds.data()['goal'],
         noOfBookings: ds.data()['noOfBookings'],
@@ -149,30 +182,32 @@ class DatabaseService {
   }
 
   Stream<List<AppointmentModel>> get apintmentStream {
-    return trainer
-        .doc(uId)
-        .collection('appointments')
-        .doc('upcomingApointments')
-        .collection('data')
-        .snapshots()
-        .map(apointment);
+    return appointments.snapshots().map(apointment);
   }
 
   Future uploadApointmentAsync(
-      {String imageUrl,
+      {String clientEmail,
       String clientName,
+      String clientImageUrl,
+      String trainerEmail,
+      String trainerImageUrl,
+      String trainerName,
       String noOfBookings,
       String sessionType,
       String goal,
       List<String> dates}) async {
-    return await trainer
+    return await appointments
         .doc(uId)
         .collection('appointments')
         .doc('upcomingApointments')
         .collection('data')
         .doc()
         .set({
-      'imageUrl': imageUrl,
+      'clientEmail': clientEmail,
+      'trainerEmail': trainerEmail,
+      'trainerImageUrl': trainerImageUrl,
+      'clientImageUrl': clientImageUrl,
+      'trainerName': trainerName,
       'clientName': clientName,
       'goal': goal,
       'noOfBookings': noOfBookings,
@@ -249,6 +284,7 @@ class DatabaseService {
   List<PostAd> allPostAds(QuerySnapshot qs) {
     return qs.docs.map((document) {
       return PostAd(
+        email: document.data()['email'],
         name: document.data()['name'],
         bio: document.data()['bio'],
         area: document.data()['area'],
@@ -283,6 +319,7 @@ class DatabaseService {
     await allAds.doc().set({
       'name': Constants.trainerUserData.name,
       'bio': Constants.trainerUserData.bio ?? '',
+      'email': Constants.trainerUserData.email,
       'years': years,
       'exerciseType': exerciseType,
       'exerciseSubType': exerciseSubType,
@@ -293,6 +330,7 @@ class DatabaseService {
     return await trainer.doc(uId).collection('postAds').doc().set({
       'name': Constants.trainerUserData.name,
       'bio': Constants.trainerUserData.bio ?? '',
+      'email': Constants.trainerUserData.email,
       'years': years,
       'exerciseType': exerciseType,
       'exerciseSubType': exerciseSubType,

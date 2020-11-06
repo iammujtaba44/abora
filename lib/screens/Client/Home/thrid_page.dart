@@ -3,7 +3,6 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/services/database.dart';
-import 'package:abora/trainer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -13,49 +12,6 @@ class ThirdPage extends StatelessWidget {
   double height;
 
   double width;
-
-  final List<Trainer> trainers = [
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-    Trainer(
-        name: 'Garaham Cracker',
-        desc: 'Gym Trainer from last 7 years',
-        rating: 5),
-  ];
 
   Color presidentialBlue = Color(0XFF151B54);
 
@@ -192,7 +148,16 @@ class ThirdPage extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            BookingTab()),
+                                                            BookingTab(
+                                                                bio: snapshot
+                                                                    .data[index]
+                                                                    .bio,
+                                                                email: snapshot
+                                                                    .data[index]
+                                                                    .email,
+                                                                name: snapshot
+                                                                    .data[index]
+                                                                    .name)),
                                                   );
                                                 },
                                                 child: Text(
