@@ -112,7 +112,7 @@ class _CourseGridViewState extends State<CourseGridView> {
       crossAxisSpacing: 15,
       mainAxisSpacing: 5,
       children: List.generate(
-          courses.length,
+          courses?.length ?? 0,
           (index) => GestureDetector(
                 onTap: () {
                   Navigator.push(

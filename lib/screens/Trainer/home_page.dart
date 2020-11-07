@@ -2,8 +2,9 @@ import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
+import 'package:abora/screens/Trainer/courses_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
-import 'package:abora/screens/Trainer/upload_course.dart';
+import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/screens/settings_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/widgets/details_double_container.dart';
@@ -155,10 +156,10 @@ class _HomePageState extends State<HomePage> {
                     label: 'Upload Video',
                     onTap: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => UploadCoursePage()),
-                      );
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CoursesPage(),
+                          ));
                     },
                   ),
                 ],

@@ -37,6 +37,8 @@ class _AuthWidgetState extends State<AuthWidget> {
     isExistClient = snapShotClient.exists;
     Constants.currentClientEmail = widget.userSnapshot.data.email;
     Constants.currentClientName = widget.userSnapshot.data.displayName;
+    // Constants.currentTrainerEmail = widget.userSnapshot.data.email;
+    // Constants.currentTrainerName = widget.userSnapshot.data.displayName;
     SharedPreferences prefs = await SharedPreferences.getInstance();
     typeOfUser = prefs.getInt('typeOfUser');
     isLogin = prefs.getBool('isLogin');

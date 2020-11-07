@@ -42,6 +42,7 @@ class BookingTab extends StatefulWidget {
   final String bio;
 
   BookingTab({this.email, this.name, this.bio});
+
   @override
   _BookingTabState createState() => _BookingTabState();
 }

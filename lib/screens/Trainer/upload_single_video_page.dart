@@ -94,118 +94,115 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
       body: Stack(
         children: [
           ListView(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
             children: [
-              Expanded(
-                flex: 9,
-                child: Container(
-                  color: Theme.of(context).primaryColor,
-                  margin: const EdgeInsets.all(20.0),
-                  padding: EdgeInsets.only(
-                      left: 20, right: 20, top: 20, bottom: height / 12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: new RichText(
-                          text: new TextSpan(
-                            style: TextStyle(
-                                fontSize: FontSize.h3FontSize,
-                                color: CustomColor.red),
-                            text: 'Upload videos',
-                            children: [],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5.h,
-                      ),
-                      rectBorderWidget(context,
-                          height: 200, width: double.infinity, func: () async {
-                        // ignore: deprecated_member_use
-                        file = await ImagePicker.pickVideo(
-                            source: ImageSource.gallery);
-
-                        setState(() {});
-
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => PostAdPage()),
-                        // );
-                      }, file: file),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Mybookings()),
-                          );
-                        },
-                        child: Text(
-                          'Title',
+              Container(
+                color: Theme.of(context).primaryColor,
+                margin: const EdgeInsets.all(20.0),
+                padding: EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: height / 12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      child: new RichText(
+                        text: new TextSpan(
                           style: TextStyle(
-                              color: CustomColor.red,
                               fontSize: FontSize.h3FontSize,
-                              fontWeight: FontWeight.bold),
+                              color: CustomColor.red),
+                          text: 'Upload videos',
+                          children: [],
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      customTextField(
-                          text: 'Type here',
-                          curveContainer: true,
-                          isPadding: true,
-                          controller: titleController),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Description',
+                    ),
+                    SizedBox(
+                      height: 5.h,
+                    ),
+                    rectBorderWidget(context,
+                        height: 200, width: double.infinity, func: () async {
+                      // ignore: deprecated_member_use
+                      file = await ImagePicker.pickVideo(
+                          source: ImageSource.gallery);
+
+                      setState(() {});
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => PostAdPage()),
+                      // );
+                    }, file: file, isSingleUpload: true),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Mybookings()),
+                        );
+                      },
+                      child: Text(
+                        'Title',
                         style: TextStyle(
                             color: CustomColor.red,
                             fontSize: FontSize.h3FontSize,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: CustomColor.textFieldFilledColor,
-                            border: Border.all(
-                                color: CustomColor.textFieldBorderColor)),
-                        child: TextField(
-                            controller: descriptionController,
-                            keyboardType: TextInputType.multiline,
-                            minLines: 5,
-                            //Normal textInputField will be displayed
-                            maxLines: 5,
-                            decoration: InputDecoration(
-                              prefixIcon: null,
-                              hintText: 'Type here',
-                              contentPadding: EdgeInsets.only(
-                                  left: 10, top: 10, bottom: 10),
-                              hintStyle: TextStyle(
-                                  color: CustomColor.textFieldLabelColor,
-                                  fontSize: FontSize.h3FontSize - 2),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent)),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: Colors.transparent)),
-                            )),
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    customTextField(
+                        text: 'Type here',
+                        curveContainer: true,
+                        isPadding: true,
+                        controller: titleController),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Description',
+                      style: TextStyle(
+                          color: CustomColor.red,
+                          fontSize: FontSize.h3FontSize,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: CustomColor.textFieldFilledColor,
+                          border: Border.all(
+                              color: CustomColor.textFieldBorderColor)),
+                      child: TextField(
+                          controller: descriptionController,
+                          keyboardType: TextInputType.multiline,
+                          minLines: 5,
+                          //Normal textInputField will be displayed
+                          maxLines: 5,
+                          decoration: InputDecoration(
+                            prefixIcon: null,
+                            hintText: 'Type here',
+                            contentPadding:
+                                EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                            hintStyle: TextStyle(
+                                color: CustomColor.textFieldLabelColor,
+                                fontSize: FontSize.h3FontSize - 2),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
+                          )),
+                    ),
+                  ],
                 ),
               ),
-              Expanded(
-                  child: Column(
+              Column(
                 children: [
                   SizedBox(
                     height: 5.h,
@@ -243,7 +240,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     ),
                   ),
                 ],
-              ))
+              )
             ],
           ),
           Center(

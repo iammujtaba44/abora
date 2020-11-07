@@ -1,4 +1,5 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/reviews.dart';
@@ -130,7 +131,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           Padding(
                             padding: const EdgeInsets.only(left: 20.0),
                             child: Text(
-                              'Davei Samah',
+                              Constants.trainerUserData.name,
                               style: TextStyle(
                                   fontSize: FontSize.h3FontSize + 5,
                                   color: CustomColor.white),
@@ -472,7 +473,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
                                 gymTrainingEnabled = !gymTrainingEnabled;
                                 gymTrainingEnabled
                                     ? gymTrainingIconData = Icons.check
@@ -569,7 +569,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
                                 paymentMethodEnabled = !paymentMethodEnabled;
                                 paymentMethodEnabled
                                     ? paymentMethodIconData = Icons.check
@@ -590,30 +589,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                           )
                         ],
                       ),
-
-                      // descriptionContainer(
-                      //   key: 'homeTraining',
-                      //   controller: homeTrainingTextController,
-                      //   enabled: homeTrainingEnabled,
-                      //   iconData: iconData,
-                      // ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // descriptionContainer(
-                      //   key: 'GYMTraining',
-                      //   controller: gymTrainingTextController,
-                      //   enabled: gymTrainingEnabled,
-                      //   iconData: iconData,
-                      // ),
-                      // // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // descriptionContainer('Price Per Session (P/S)'),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      // descriptionContainer('Payment Method'),
                     ],
                   ),
                 ),
@@ -661,120 +636,121 @@ class _ProfileListViewState extends State<ProfileListView> {
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(5)),
-                    margin:
-                        const EdgeInsets.only(top: 20, left: 20.0, right: 20),
-                    padding: const EdgeInsets.all(20),
-                    width: double.infinity,
-                    child: StreamBuilder<List<Review>>(
-                      stream: widget.database.reviewStream,
-                      builder: (context, snapshot) {
-                        return Container(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Reviews',
-                                style: TextStyle(color: CustomColor.red),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              ListView.builder(
-                                itemCount: snapshot.data.length,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    children: [
-                                      ListTile(
-                                        leading: CircleAvatar(
-                                          backgroundColor: CustomColor.grey,
-                                          backgroundImage:
-                                              AssetImage('assets/trainer.jpg'),
-                                          radius: 30,
-                                        ),
-                                        contentPadding: EdgeInsets.all(0),
-                                        title: Text(
-                                          snapshot.data[index].reviewerName,
-                                          style: TextStyle(
-                                              color: CustomColor.white,
-                                              fontSize:
-                                                  FontSize.h3FontSize - 3),
-                                        ),
-                                        subtitle: Text(
-                                          snapshot.data[index].reivew,
-                                          style: TextStyle(
-                                              color: CustomColor.grey,
-                                              fontSize: 13),
-                                        ),
-                                      ),
-                                      SizedBox(height: 15),
-                                    ],
-                                  );
-                                },
-                                // children: [
-
-                                //   SizedBox(
-                                //     height: 15,
-                                //   ),
-                                //   ListTile(
-                                //     leading: CircleAvatar(
-                                //       backgroundColor: CustomColor.grey,
-                                //       backgroundImage: AssetImage('assets/trainer.jpg'),
-                                //       radius: 30,
-                                //     ),
-                                //     contentPadding: EdgeInsets.all(0),
-                                //     title: Text(
-                                //       'Patricia Lucas',
-                                //       style: TextStyle(
-                                //           color: CustomColor.white,
-                                //           fontSize: FontSize.h3FontSize - 3),
-                                //     ),
-                                //     subtitle: Text(
-                                //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                                //       style: TextStyle(
-                                //           color: CustomColor.grey, fontSize: 13),
-                                //     ),
-                                //   ),
-                                //   SizedBox(
-                                //     height: 15,
-                                //   ),
-                                //   ListTile(
-                                //     leading: CircleAvatar(
-                                //       backgroundColor: CustomColor.grey,
-                                //       backgroundImage: AssetImage('assets/trainer.jpg'),
-                                //       radius: 30,
-                                //     ),
-                                //     contentPadding: EdgeInsets.all(0),
-                                //     title: Text(
-                                //       'Patricia Lucas',
-                                //       style: TextStyle(
-                                //           color: CustomColor.white,
-                                //           fontSize: FontSize.h3FontSize - 3),
-                                //     ),
-                                //     subtitle: Text(
-                                //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
-                                //       style: TextStyle(
-                                //           color: CustomColor.grey, fontSize: 13),
-                                //     ),
-                                //   )
-                                // ],
-                              ),
-                            ],
-                          ),
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(5)),
+                  margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                  padding: const EdgeInsets.all(20),
+                  width: double.infinity,
+                  child: StreamBuilder<List<Review>>(
+                    stream: widget.database.reviewStream,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: CircularProgressIndicator(),
                         );
-                      },
-                    ),
+                      }
+                      return Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Reviews',
+                              style: TextStyle(color: CustomColor.red),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            ListView.builder(
+                              itemCount: snapshot.data.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      leading: CircleAvatar(
+                                        backgroundColor: CustomColor.grey,
+                                        backgroundImage:
+                                            AssetImage('assets/trainer.jpg'),
+                                        radius: 30,
+                                      ),
+                                      contentPadding: EdgeInsets.all(0),
+                                      title: Text(
+                                        snapshot.data[index].reviewerName,
+                                        style: TextStyle(
+                                            color: CustomColor.white,
+                                            fontSize: FontSize.h3FontSize - 3),
+                                      ),
+                                      subtitle: Text(
+                                        snapshot.data[index].reivew,
+                                        style: TextStyle(
+                                            color: CustomColor.grey,
+                                            fontSize: 13),
+                                      ),
+                                    ),
+                                    SizedBox(height: 15),
+                                  ],
+                                );
+                              },
+                              // children: [
+
+                              //   SizedBox(
+                              //     height: 15,
+                              //   ),
+                              //   ListTile(
+                              //     leading: CircleAvatar(
+                              //       backgroundColor: CustomColor.grey,
+                              //       backgroundImage: AssetImage('assets/trainer.jpg'),
+                              //       radius: 30,
+                              //     ),
+                              //     contentPadding: EdgeInsets.all(0),
+                              //     title: Text(
+                              //       'Patricia Lucas',
+                              //       style: TextStyle(
+                              //           color: CustomColor.white,
+                              //           fontSize: FontSize.h3FontSize - 3),
+                              //     ),
+                              //     subtitle: Text(
+                              //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                              //       style: TextStyle(
+                              //           color: CustomColor.grey, fontSize: 13),
+                              //     ),
+                              //   ),
+                              //   SizedBox(
+                              //     height: 15,
+                              //   ),
+                              //   ListTile(
+                              //     leading: CircleAvatar(
+                              //       backgroundColor: CustomColor.grey,
+                              //       backgroundImage: AssetImage('assets/trainer.jpg'),
+                              //       radius: 30,
+                              //     ),
+                              //     contentPadding: EdgeInsets.all(0),
+                              //     title: Text(
+                              //       'Patricia Lucas',
+                              //       style: TextStyle(
+                              //           color: CustomColor.white,
+                              //           fontSize: FontSize.h3FontSize - 3),
+                              //     ),
+                              //     subtitle: Text(
+                              //       'Lorem losum door sit amet conseteur sadisping elitr, sed diam nonumy',
+                              //       style: TextStyle(
+                              //           color: CustomColor.grey, fontSize: 13),
+                              //     ),
+                              //   )
+                              // ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ],
             );
           }
-          return Scaffold(body: Center(child: CircularProgressIndicator()));
+          return Center(child: CircularProgressIndicator());
         });
   }
 
@@ -861,6 +837,9 @@ class _WrapperRowState extends State<WrapperRow> {
     return StreamBuilder<List<UploadVideo>>(
         stream: widget.database.uploadVideoStream,
         builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
           return ListView.builder(
             shrinkWrap: true,
             itemCount: snapshot.data.length ?? 0,

@@ -1,8 +1,6 @@
 import 'package:abora/global/colors.dart';
-import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
-import 'package:abora/services/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +46,7 @@ class _BookCourseState extends State<BookCourse> {
   final CollectionReference trainer =
       FirebaseFirestore.instance.collection('trainer');
 
-  double height;
+  double height = 0;
 
   double width;
   List dataList = List();
