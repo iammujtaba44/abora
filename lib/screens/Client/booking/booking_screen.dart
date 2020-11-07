@@ -82,10 +82,10 @@ class _BookingScreenState extends State<BookingScreen> {
                                 builder: (context) => ClientPaymentPage(
                                       addAp: {
                                         'clientEmail':
-                                            Constants.currentClientEmail,
+                                            Constants.clientUserData.email,
                                         'clientImageUrl': 'abc',
                                         'clientName':
-                                            Constants.currentClientName,
+                                            Constants.clientUserData.name,
                                         'dates': _selectedDates,
                                         'goal': goalTextFieldController.text,
                                         'noOfBookings': _selected,

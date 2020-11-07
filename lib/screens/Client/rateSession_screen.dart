@@ -131,7 +131,7 @@ class _RateSessionState extends State<RateSession> {
           await trainer.doc(result.id).collection("reviews").doc().set({
         'imageURL': widget.trainerData['url'],
         'review': reviewCtr.text,
-        'reviewerName': Constants.currentClientName
+        'reviewerName': Constants.clientUserData.name
       });
     });
   }

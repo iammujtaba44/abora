@@ -1,3 +1,4 @@
+import 'package:abora/models/ClientModel.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 
 class Constants {
@@ -6,6 +7,7 @@ class Constants {
   static TrainerUser trainerUserData;
   static String currentClientEmail;
   static String currentClientName;
+  static ClientUser clientUserData;
   static const List<String> choices = <String>[
     changeCard,
     addNewCard,

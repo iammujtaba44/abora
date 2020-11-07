@@ -1,4 +1,5 @@
 import 'package:abora/global/constants.dart';
+import 'package:abora/models/ClientModel.dart';
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
@@ -238,6 +239,17 @@ class DatabaseService {
       'sessionType': sessionType,
       'dates': dates,
     });
+  }
+
+  ClientUser getCurrentClientUser(DocumentSnapshot ds) {
+    return ClientUser(
+        email: ds.data()['email'],
+        name: ds.data()['name'],
+        password: ds.data()['password']);
+  }
+
+  Stream<ClientUser> get currentClientUserStream {
+    return client.doc(uId).snapshots().map(getCurrentClientUser);
   }
   // SINGLE VIDEO
 

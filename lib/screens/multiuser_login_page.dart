@@ -5,34 +5,6 @@ import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MultiuserLoginPage(),
-    );
-  }
-}
-
 class MultiuserLoginPage extends StatefulWidget {
   @override
   _MultiuserLoginPageState createState() => _MultiuserLoginPageState();
@@ -54,75 +26,79 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
       backgroundColor: CustomColor.backgroundColor,
       body: Container(
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/logo.png',
-                    width: 130,
-                    height: 130,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text(
-                'Keep Connected',
-                style: TextStyle(
-                    color: CustomColor.red,
-                    fontSize: FontSize.h3FontSize + 4,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                width: 240,
-                child: Text(
-                  'Enter your email address and password to get access your account',
-                  style: TextStyle(
-                    color: CustomColor.white,
-                    fontSize: FontSize.h5FontSize,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
+            padding: const EdgeInsets.all(20.0),
+            child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height / 1.1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/logo.png',
+                          width: 130,
+                          height: 130,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      'Keep Connected',
+                      style: TextStyle(
+                          color: CustomColor.red,
+                          fontSize: FontSize.h3FontSize + 4,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Container(
+                      width: 240,
+                      child: Text(
+                        'Enter your email address and password to get access your account',
+                        style: TextStyle(
+                          color: CustomColor.white,
+                          fontSize: FontSize.h5FontSize,
+                        ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    tabs(context),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    login(context),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an account? ',
+                          style: TextStyle(color: CustomColor.white),
+                        ),
+                        Text(
+                          'Sign up',
+                          style: TextStyle(color: CustomColor.red),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              tabs(context),
-              SizedBox(
-                height: 20,
-              ),
-              login(context),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Don\'t have an account? ',
-                    style: TextStyle(color: CustomColor.white),
-                  ),
-                  Text(
-                    'Sign up',
-                    style: TextStyle(color: CustomColor.red),
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              )
-            ],
-          ),
-        ),
+            )),
       ),
     );
   }
