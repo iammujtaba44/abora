@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
+import 'package:abora/screens/Client/clientDetailPage.dart';
 import 'package:abora/screens/Trainer/details_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/cupertino.dart';
@@ -306,7 +307,7 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DetailPage(
+                                      builder: (context) => ClientDetailPage(
                                             detailsData: {
                                               'clientName':
                                                   apoint[index].trainerName,
@@ -315,7 +316,11 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                               'sessionType':
                                                   apoint[index].sessionType,
                                               'goal': apoint[index].goal,
-                                              'dates': apoint[index].dates
+                                              'dates': apoint[index].dates,
+                                              'trainerEmail':
+                                                  apoint[index].trainerEmail,
+                                              'trainerUrl':
+                                                  apoint[index].trainerImageUrl
                                             },
                                           )),
                                 );
@@ -456,7 +461,7 @@ class _PreviousSessionState extends State<PreviousSession> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => DetailPage(
+                                      builder: (context) => ClientDetailPage(
                                             detailsData: {
                                               'clientName':
                                                   apoint[index].trainerName,
@@ -465,7 +470,11 @@ class _PreviousSessionState extends State<PreviousSession> {
                                               'sessionType':
                                                   apoint[index].sessionType,
                                               'goal': apoint[index].goal,
-                                              'dates': apoint[index].dates
+                                              'dates': apoint[index].dates,
+                                              'trainerEmail':
+                                                  apoint[index].trainerEmail,
+                                              'trainerUrl':
+                                                  apoint[index].trainerImageUrl
                                             },
                                           )),
                                 );

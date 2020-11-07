@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
+import 'package:abora/screens/Client/trainerProfile.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -258,11 +259,33 @@ class FirstPage extends StatelessWidget {
                                                               MainAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Text(
-                                                              'View Profile',
-                                                              style: TextStyle(
-                                                                  color: CustomColor
-                                                                      .signUpButtonColor),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          TrainerProfilePage(
+                                                                            trainerData: {
+                                                                              'bio': snapshot.data[index].bio,
+                                                                              'email': snapshot.data[index].email,
+                                                                              'name': snapshot.data[index].name,
+                                                                              'area': snapshot.data[index].area,
+                                                                              'speciality': snapshot.data[index].speciality,
+                                                                              'hometraining': snapshot.data[index].homeTraining,
+                                                                              'gymtraining': snapshot.data[index].gymTraining,
+                                                                              'pricepersession': snapshot.data[index].pricePerSession,
+                                                                              'paymentmethod': snapshot.data[index].paymentMethod,
+                                                                            },
+                                                                          )),
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                'View Profile',
+                                                                style: TextStyle(
+                                                                    color: CustomColor
+                                                                        .signUpButtonColor),
+                                                              ),
                                                             ),
                                                             SizedBox(
                                                               width: 3,

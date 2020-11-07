@@ -1,4 +1,5 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/screens/Trainer/details_page.dart';
 import 'package:abora/services/database.dart';
@@ -598,6 +599,8 @@ class _CalenderState extends State<Calender> {
     List<AppointmentModel> apoint =
         Provider.of<List<AppointmentModel>>(context);
 
+    // print(apoint.length);
+
     Widget _presentIcon(String day) => Container(
           decoration: BoxDecoration(
             color: Colors.green,
@@ -615,42 +618,19 @@ class _CalenderState extends State<Calender> {
           ),
         );
 
-    // Widget _absentIcon(String day) => Container(
-    //       decoration: BoxDecoration(
-    //         color: Colors.red,
-    //         borderRadius: BorderRadius.all(
-    //           Radius.circular(1000),
-    //         ),
-    //       ),
-    //       child: Center(
-    //         child: Text(
-    //           day,
-    //           style: TextStyle(
-    //             color: Colors.black,
-    //           ),
-    //         ),
-    //       ),
-    //     );
-
     evnetsFiller() {
       for (int i = 0; i < apoint.length; i++) {
-        for (int j = 0; j < apoint[i].dates.length; j++) {
-          var array = apoint[i].dates[j].split('-');
-          presentDates.add(new DateTime(
-              int.parse(array[0]), int.parse(array[1]), int.parse(array[2])));
-          a++;
+        if (apoint[i].trainerEmail == Constants.trainerUserData.email) {
+          for (int j = 0; j < apoint[i].dates.length; j++) {
+            var array = apoint[i].dates[j].split('-');
+            presentDates.add(new DateTime(
+                int.parse(array[0]), int.parse(array[1]), int.parse(array[2])));
+            a++;
+          }
         }
         //a = i + 1;
 
       }
-      // presentDates.forEach((element) {
-      //   print(element);
-      // });
-      // print(a);
-      // for (int i = 0; i < len; i++) {
-      //   a = i + 1;
-      //   absentDates.add(new DateTime(2020, 9, a));
-      // }
 
       for (int i = 0; i < a; i++) {
         _markedDateMap.add(
@@ -664,19 +644,6 @@ class _CalenderState extends State<Calender> {
           ),
         );
       }
-
-      // for (int i = 0; i < len; i++) {
-      //   _markedDateMap.add(
-      //     absentDates[i],
-      //     new Event(
-      //       date: absentDates[i],
-      //       title: 'Event 5',
-      //       icon: _absentIcon(
-      //         absentDates[i].day.toString(),
-      //       ),
-      //     ),
-      //   );
-      // }
     }
 
     cal2() {
@@ -716,60 +683,6 @@ class _CalenderState extends State<Calender> {
         maxSelectedDate: _currentDate2.add(Duration(days: 360)),
       );
     }
-
-    // cal() {
-    //   return CalendarCarousel<Event>(
-    //     // height: cHeight / 2,
-    //     // width: cwid / 1.2,
-    //     onDayPressed: (DateTime date, List<Event> events) {
-    //       this.setState(() => _currentDate2 = date);
-    //       events.forEach((event) => print(event.title));
-    //     },
-    //     showOnlyCurrentMonthDate: true,
-    //     showHeader: false,
-    //     // headerTextStyle: TextStyle(color: Color.fromRGBO(5, 115, 106, 10)),
-    //     // headerTitleTouchable: true,
-    //     //headerMargin: EdgeInsets.all(1),
-    //     leftButtonIcon: IconButton(
-    //       onPressed: () {},
-    //       icon: Icon(
-    //         Icons.arrow_left,
-    //         color: Color.fromRGBO(5, 115, 106, 10),
-    //       ),
-    //     ),
-    //     rightButtonIcon: IconButton(
-    //       onPressed: () {},
-    //       icon: Icon(
-    //         Icons.arrow_right,
-    //         color: Color.fromRGBO(5, 115, 106, 10),
-    //       ),
-    //     ),
-    //     dayPadding: 6,
-    //     daysTextStyle: TextStyle(color: Colors.grey),
-    //     // weekDayBackgroundColor: Color.fromRGBO(228, 229, 230, 10),
-    //     weekdayTextStyle: TextStyle(color: Colors.white),
-    //
-    //     customGridViewPhysics: NeverScrollableScrollPhysics(),
-    //     // selectedDateTime: _currentDate2,
-    //     // todayButtonColor: Colors.blue[200],
-    //     markedDatesMap: _markedDateMap,
-    //     markedDateShowIcon: true,
-    //     markedDateIconMaxShown: 0,
-    //
-    //     markedDateMoreShowTotal: null,
-    //
-    //     markedDateCustomTextStyle: TextStyle(
-    //       fontSize: 18,
-    //       color: Colors.green,
-    //     ),
-    //     // null for not showing hidden events indicator
-    //     markedDateIconBuilder: (event) {
-    //       return event.icon;
-    //     },
-    //     minSelectedDate: _currentDate2.subtract(Duration(days: 360)),
-    //     maxSelectedDate: _currentDate2.add(Duration(days: 360)),
-    //   );
-    // }
 
     evnetsFiller();
     _calendarCarouselNoHeader = cal2();
