@@ -13,7 +13,7 @@ Widget rectBorderWidget(BuildContext context,
     Function func,
     File file,
     String imageURL,
-    bool isSingleUpload}) {
+    bool isSingleUpload = false}) {
   ScreenUtil.init(context,
       designSize: Size(640, 1134), allowFontScaling: false);
   return GestureDetector(

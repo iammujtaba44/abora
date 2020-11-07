@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/course.dart';
+import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,16 @@ class _CoursesPageState extends State<CoursesPage> {
 
     database = Provider.of<DatabaseService>(context);
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        backgroundColor: CustomColor.signUpButtonColor,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => UploadCoursePage()),
+          );
+        },
+      ),
       backgroundColor: CustomColor.backgroundColor,
       appBar: AppBar(
         title: Text(

@@ -287,10 +287,10 @@ class _DetailPageState extends State<DetailPage> {
                     style: TextStyle(color: CustomColor.white),
                   ),
                   func: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SettingsPage()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => SettingsPage()),
+                    // );
                   }),
             )
           ],

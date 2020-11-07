@@ -286,6 +286,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                               color: CustomColor
                                                   .textFieldBorderColor)),
                                       child: TextField(
+                                          style: TextStyle(color: Colors.white),
                                           controller: descriptionController,
                                           keyboardType: TextInputType.multiline,
                                           minLines: 5,
