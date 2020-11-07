@@ -414,6 +414,8 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   Widget _presentIcon(String day) => Container(
+        width: 23,
+        height: 27,
         decoration: BoxDecoration(
           color: Colors.green,
           borderRadius: BorderRadius.all(
@@ -424,6 +426,7 @@ class _BookingScreenState extends State<BookingScreen> {
           child: Text(
             day,
             style: TextStyle(
+              fontSize: 16.0,
               color: Colors.black,
             ),
           ),
@@ -463,17 +466,36 @@ class _BookingScreenState extends State<BookingScreen> {
     return CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
-        _selectedDates.add(Helper.getDate(date));
-        _markedDateMap.add(
-          date,
-          new Event(
-            date: date,
-            title: 'Event 5',
-            icon: _presentIcon(
-              date.day.toString(),
+
+        if (_markedDateMap.events.isEmpty) {
+          _selectedDates.add(Helper.getDate(date));
+          _markedDateMap.add(
+            date,
+            new Event(
+              date: date,
+              title: 'Event 5',
+              icon: _presentIcon(
+                date.day.toString(),
+              ),
             ),
-          ),
-        );
+          );
+        } else {
+          for (int i = 0; i < _markedDateMap.events.keys.length; i++) {
+            print(_markedDateMap.events.keys);
+            if (!_markedDateMap.events.keys.contains(date)) {
+              _markedDateMap.add(
+                date,
+                new Event(
+                  date: date,
+                  title: 'Event 5',
+                  icon: _presentIcon(
+                    date.day.toString(),
+                  ),
+                ),
+              );
+            }
+          }
+        }
 
         //evnetsFiller();
         events.forEach((event) => print(event.title));
@@ -491,12 +513,14 @@ class _BookingScreenState extends State<BookingScreen> {
       selectedDateTime: _currentDate2,
       todayButtonColor: Colors.blue[200],
       markedDatesMap: _markedDateMap,
-      //  markedDateShowIcon: true,
+      // markedDateIconMargin: 20.0,
+
+      // markedDateShowIcon: true,
       markedDateIconMaxShown: 0,
       markedDateMoreShowTotal: null,
 
       markedDateCustomTextStyle: TextStyle(
-        fontSize: 18,
+        fontSize: 20,
         color: Colors.white,
       ),
       // null for not showing hidden events indicator

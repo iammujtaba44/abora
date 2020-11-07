@@ -277,6 +277,8 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   }
 
   Widget _presentIcon(String day) => Container(
+        width: 23,
+        height: 27,
         decoration: BoxDecoration(
           color: Colors.green,
           borderRadius: BorderRadius.all(
@@ -287,6 +289,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
           child: Text(
             day,
             style: TextStyle(
+              fontSize: 16.0,
               color: Colors.black,
             ),
           ),
