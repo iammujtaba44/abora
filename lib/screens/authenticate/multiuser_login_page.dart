@@ -1,24 +1,41 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/loading_widget.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MultiuserLoginPage extends StatefulWidget {
+  final Function toggleView;
+  MultiuserLoginPage({this.toggleView});
+
   @override
   _MultiuserLoginPageState createState() => _MultiuserLoginPageState();
 }
 
 class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
   int _index = 0;
-  bool isChecked = false;
+  bool rememberMe = false;
+  String email;
+  String password;
+
+  SharedPreferences prefs;
 
   AuthService _auth = AuthService();
   TextEditingController emailTextEditingController =
       new TextEditingController();
   TextEditingController passwordTextEditingController =
       new TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getPrefs();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +103,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                           'Don\'t have an account? ',
                           style: TextStyle(color: CustomColor.white),
                         ),
-                        Text(
-                          'Sign up',
-                          style: TextStyle(color: CustomColor.red),
+                        GestureDetector(
+                          onTap: () {
+                            widget.toggleView();
+                          },
+                          child: Text(
+                            'Sign up',
+                            style: TextStyle(color: CustomColor.red),
+                          ),
                         )
                       ],
                     ),
@@ -101,6 +123,29 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
             )),
       ),
     );
+  }
+
+  getPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', "");
+    prefs.setString('password', "");
+    prefs.setBool('rememberMe', false);
+    rememberMe = prefs.getBool('rememberMe');
+    emailTextEditingController.text = prefs.getString('email');
+    passwordTextEditingController.text = prefs.getString('password');
+  }
+
+  rememberCredentials(String email, String password, bool rememberMe) async {
+    prefs = await SharedPreferences.getInstance();
+    if (rememberMe) {
+      prefs.setString('email', email);
+      prefs.setString('password', password);
+      prefs.setBool('rememberMe', rememberMe);
+    } else {
+      prefs.remove('email');
+      prefs.remove('password');
+      prefs.setBool('rememberMe', rememberMe);
+    }
   }
 
   Widget login(BuildContext context) {
@@ -127,7 +172,9 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    isChecked = !isChecked;
+                    rememberMe = !rememberMe;
+                    rememberCredentials(emailTextEditingController.text,
+                        passwordTextEditingController.text, rememberMe);
                   });
                 },
                 child: Row(
@@ -136,7 +183,9 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       height: 15,
                       width: 15,
                       decoration: BoxDecoration(
-                          color: isChecked ? CustomColor.red : null,
+                          color: prefs.getBool('rememberMe')
+                              ? CustomColor.green
+                              : null,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: CustomColor.white)),
                     ),
@@ -161,18 +210,22 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
           SizedBox(
             height: 30,
           ),
-          blueButton(
-            func: () async {
-              await _auth.signInWithEmailAndPassword(
-                  emailTextEditingController.text,
-                  passwordTextEditingController.text,
-                  _index);
-            },
-            child: Text(
-              'log in'.toUpperCase(),
-              style: TextStyle(color: CustomColor.white),
-            ),
-          ),
+          Constants.isLoading
+              ? loadingWidget()
+              : blueButton(
+                  func: () async {
+                    setState(() {});
+                    Constants.isLoading = true;
+                    await _auth.signInWithEmailAndPassword(
+                        emailTextEditingController.text,
+                        passwordTextEditingController.text,
+                        _index);
+                  },
+                  child: Text(
+                    'log in'.toUpperCase(),
+                    style: TextStyle(color: CustomColor.white),
+                  ),
+                ),
         ],
       ),
     );

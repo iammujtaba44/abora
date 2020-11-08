@@ -1,3 +1,4 @@
+import 'package:abora/global/constants.dart';
 import 'package:abora/models/user_model.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/widgets/CustomToast.dart';
@@ -39,9 +40,10 @@ class AuthService {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       prefs.setInt('typeOfUser', index);
       prefs.setBool('isLogin', true);
-
+      Constants.isLoading = false;
       return user;
     } catch (error) {
+      Constants.isLoading = false;
       customToast(text: error.toString());
       return null;
     }
@@ -69,9 +71,10 @@ class AuthService {
         await DatabaseService(uId: user.uid)
             .clientUserData(email: email, password: password, name: name);
       }
-
+      Constants.isLoading = false;
       return user;
     } catch (e) {
+      Constants.isLoading = false;
       customToast(text: e.toString());
       print(e.toString());
       return null;

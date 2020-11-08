@@ -1,7 +1,8 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
-import 'package:abora/screens/multiuser_login_page.dart';
-import 'package:abora/screens/multiuser_signup_page.dart';
+import 'package:abora/screens/authenticate/authenticate.dart';
+import 'package:abora/screens/authenticate/multiuser_login_page.dart';
+import 'package:abora/screens/authenticate/multiuser_signup_page.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:flutter/material.dart';
 
@@ -115,7 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MultiuserLoginPage()),
+                          builder: (context) => Authenticate(
+                                showSignIn: true,
+                              )),
                     );
                   }),
               SizedBox(
@@ -126,7 +129,9 @@ class _LoginPageState extends State<LoginPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MultiuserSignUpPage()),
+                        builder: (context) => Authenticate(
+                              showSignIn: false,
+                            )),
                   );
                 },
                 child: Row(

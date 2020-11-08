@@ -1,8 +1,8 @@
 import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/login_page.dart';
-import 'package:abora/screens/multiuser_login_page.dart';
+import 'package:abora/screens/authenticate/login_page.dart';
+import 'package:abora/screens/authenticate/multiuser_login_page.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
