@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/Progress_screen.dart';
+import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
@@ -26,6 +27,9 @@ class _RateSessionState extends State<RateSession> {
   List dataList = List();
   final CollectionReference appointments =
       FirebaseFirestore.instance.collection('appointments');
+
+  double _rateTrainer = 3.0;
+  double _rateSession = 3.0;
   @override
   void initState() {
     super.initState();
@@ -76,7 +80,7 @@ class _RateSessionState extends State<RateSession> {
                       SizedBox(
                         height: 30.0,
                       ),
-                      _ratingWithText('Rate The Trainer'),
+                      _ratingWithText2('Rate The Trainer'),
                       SizedBox(
                         height: 30.0,
                       ),
@@ -106,8 +110,8 @@ class _RateSessionState extends State<RateSession> {
                         style: TextStyle(color: CustomColor.white),
                       ),
                       func: () {
-                        print(Constants.currentClientName);
-                        print(Constants.currentClientEmail);
+                        print(_rateSession);
+                        print(_rateTrainer);
 
                         if (loseCtr.text.isNotEmpty &&
                             reviewCtr.text.isNotEmpty) {
@@ -166,9 +170,14 @@ class _RateSessionState extends State<RateSession> {
           await trainer.doc(result.id).collection("reviews").doc().set({
         'imageURL': widget.trainerData['url'],
         'review': reviewCtr.text,
-        'reviewerName': Constants.clientUserData.name
+        'reviewerName': Constants.clientUserData.name,
+        'sessionRate': _rateSession,
+        'trainerRate': _rateTrainer
       });
     });
+
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Mybookings()));
   }
 
   _fields() {
@@ -221,7 +230,43 @@ class _RateSessionState extends State<RateSession> {
               allowHalfRating: true,
               spacing: 20.0,
               onRated: (value) {
-                print("rating value -> $value");
+                _rateSession = value;
+                //print("rating value -> $value");
+                // print("rating value dd -> ${value.truncate()}");
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  _ratingWithText2(String text) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(color: CustomColor.orangeColor, fontSize: 20.0),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 15.0, top: 15.0),
+            child: SmoothStarRating(
+              rating: 3,
+              isReadOnly: false,
+              size: 40.0.h,
+              color: const Color(0xFFF49900),
+              borderColor: const Color(0xFFF49900),
+              filledIconData: Icons.star,
+              halfFilledIconData: Icons.star_half,
+              defaultIconData: Icons.star_border,
+              starCount: 5,
+              allowHalfRating: true,
+              spacing: 20.0,
+              onRated: (value) {
+                _rateTrainer = value;
+                // print("rating value -> $value");
                 // print("rating value dd -> ${value.truncate()}");
               },
             ),

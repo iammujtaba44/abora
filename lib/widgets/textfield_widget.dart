@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Container customTextField(
     {bool passwordValid,
@@ -12,7 +13,9 @@ Container customTextField(
     bool isPadding = false,
     TextEditingController controller,
     Function onChanged,
-    Function onComplete}) {
+    Function onComplete,
+    bool keyboardType = false,
+    bool fieldFormate = false}) {
   return Container(
     height: 50,
     decoration: BoxDecoration(
@@ -22,6 +25,10 @@ Container customTextField(
     child: TextFormField(
       style: TextStyle(color: Colors.white),
       onChanged: onChanged,
+      keyboardType: keyboardType ? TextInputType.number : TextInputType.text,
+      inputFormatters: fieldFormate
+          ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+          : null,
       onEditingComplete: onComplete,
       validator: (val) => val.isEmpty
           ? validator

@@ -287,145 +287,186 @@ class UpcomingSession extends StatefulWidget {
 }
 
 class _UpcomingSessionState extends State<UpcomingSession> {
+  DatabaseService database;
   @override
   Widget build(BuildContext context) {
-    List<AppointmentModel> apoint =
-        Provider.of<List<AppointmentModel>>(context);
-    return Column(
-      children: List.generate(apoint.length, (index) {
-        if (apoint[index].trainerEmail == Constants.trainerUserData.email) {
+    database = Provider.of<DatabaseService>(context);
+    //  List<AppointmentModel> apoint =
+    //  List<AppointmentModel> apoint =
+    //  Provider.of<List<AppointmentModel>>(context);
+    // print(apoint[0].clientEmail);
+
+    return StreamBuilder(
+      stream: database.apintmentStream,
+      builder: (context, snapshot) {
+        //  print('--------- ${snapshot.data[0].trainerName}');
+
+        if (!snapshot.hasData) {
+          return Container(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasData) {
           return Column(
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(360),
-                        color: CustomColor.red),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
+            children: List.generate(snapshot.data.length, (index) {
+              if (snapshot.data[index].trainerEmail ==
+                  Constants.trainerUserData.email) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              apoint[index].clientName,
-                              style: TextStyle(color: CustomColor.white),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                            detailsData: {
-                                              'clientName':
-                                                  apoint[index].clientName,
-                                              'noOfBookings':
-                                                  apoint[index].noOfBookings,
-                                              'sessionType':
-                                                  apoint[index].sessionType,
-                                              'goal': apoint[index].goal,
-                                              'dates': apoint[index].dates
-                                            },
-                                          )),
-                                );
-                              },
-                              child: Row(
+                        Container(
+                          height: 35,
+                          width: 35,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(360),
+                              color: CustomColor.red),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'View Details',
-                                    style: TextStyle(color: CustomColor.blue),
+                                    snapshot.data[index].clientName,
+                                    style: TextStyle(color: CustomColor.white),
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 12,
-                                    color: CustomColor.blue,
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => DetailPage(
+                                                  detailsData: {
+                                                    'clientName': snapshot
+                                                        .data[index].clientName,
+                                                    'noOfBookings': snapshot
+                                                        .data[index]
+                                                        .noOfBookings,
+                                                    'sessionType': snapshot
+                                                        .data[index]
+                                                        .sessionType,
+                                                    'goal': snapshot
+                                                        .data[index].goal,
+                                                    'dates': snapshot
+                                                        .data[index].dates,
+                                                    'trainerEmail': snapshot
+                                                        .data[index]
+                                                        .trainerEmail,
+                                                    'trainerUrl': snapshot
+                                                        .data[index]
+                                                        .trainerImageUrl,
+                                                    'docId': snapshot
+                                                        .data[index].docId,
+                                                    'get': '0'
+                                                  },
+                                                )),
+                                      );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'View Details',
+                                          style: TextStyle(
+                                              color: CustomColor.blue),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 12,
+                                          color: CustomColor.blue,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'No of Bookings:',
+                                    style: TextStyle(color: CustomColor.grey),
+                                  ),
+                                  Text(
+                                    snapshot.data[index].noOfBookings,
+                                    style: TextStyle(color: CustomColor.grey),
                                   )
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'No of Bookings:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].noOfBookings,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Session Type:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].sessionType,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Goal:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].goal,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Session Type:',
+                                    style: TextStyle(color: CustomColor.grey),
+                                  ),
+                                  Text(
+                                    snapshot.data[index].sessionType,
+                                    style: TextStyle(color: CustomColor.grey),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Goal:',
+                                    style: TextStyle(color: CustomColor.grey),
+                                  ),
+                                  Text(
+                                    snapshot.data[index].goal,
+                                    style: TextStyle(color: CustomColor.grey),
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              SizedBox(
-                child: Container(
-                  height: 0.5,
-                  width: double.infinity,
-                  color: CustomColor.grey,
-                ),
-              )
-            ],
+                    SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      child: Container(
+                        height: 0.5,
+                        width: double.infinity,
+                        color: CustomColor.grey,
+                      ),
+                    )
+                  ],
+                );
+              } else {
+                return SizedBox();
+              }
+            }),
           );
         } else {
           return SizedBox();
         }
-      }),
+      },
     );
   }
 }
@@ -435,148 +476,482 @@ class PreviousSession extends StatefulWidget {
 }
 
 class _PreviousSessionState extends State<PreviousSession> {
+  DatabaseService database;
   @override
   Widget build(BuildContext context) {
-    List<AppointmentModel> apoint =
-        Provider.of<List<AppointmentModel>>(context);
-    return Column(
-      children: List.generate(apoint.length, (index) {
-        if (apoint[index].trainerEmail == Constants.trainerUserData.email) {
-          return Column(
-            children: [
-              SizedBox(
-                height: 10,
+    // List<AppointmentModel> apoint =
+    //     Provider.of<List<AppointmentModel>>(context);
+    database = Provider.of<DatabaseService>(context);
+
+    return StreamBuilder(
+        stream: database.apintmentPreviousStream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 35,
-                    width: 35,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(360),
-                        color: CustomColor.red),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              apoint[index].clientName,
-                              style: TextStyle(color: CustomColor.white),
+            );
+          } else if (snapshot.hasData) {
+            return Column(
+              children: List.generate(snapshot.data.length, (index) {
+                if (snapshot.data[index].trainerEmail ==
+                    Constants.trainerUserData.email) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 35,
+                            width: 35,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(360),
+                                color: CustomColor.red),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      snapshot.data[index].clientName,
+                                      style:
+                                          TextStyle(color: CustomColor.white),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => DetailPage(
+                                                    detailsData: {
+                                                      'clientName': snapshot
+                                                          .data[index]
+                                                          .clientName,
+                                                      'noOfBookings': snapshot
+                                                          .data[index]
+                                                          .noOfBookings,
+                                                      'sessionType': snapshot
+                                                          .data[index]
+                                                          .sessionType,
+                                                      'goal': snapshot
+                                                          .data[index].goal,
+                                                      'dates': snapshot
+                                                          .data[index].dates,
+                                                      'trainerEmail': snapshot
+                                                          .data[index]
+                                                          .trainerEmail,
+                                                      'trainerUrl': snapshot
+                                                          .data[index]
+                                                          .trainerImageUrl,
+                                                      'docId': snapshot
+                                                          .data[index].docId,
+                                                      'get': '1'
+                                                    },
+                                                  )),
+                                        );
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'View Details',
+                                            style: TextStyle(
+                                                color: CustomColor.blue),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 12,
+                                            color: CustomColor.blue,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'No of Bookings:',
+                                      style: TextStyle(color: CustomColor.grey),
+                                    ),
+                                    Text(
+                                      snapshot.data[index].noOfBookings,
+                                      style: TextStyle(color: CustomColor.grey),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Session Type:',
+                                      style: TextStyle(color: CustomColor.grey),
+                                    ),
+                                    Text(
+                                      snapshot.data[index].sessionType,
+                                      style: TextStyle(color: CustomColor.grey),
+                                    )
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Goal:',
+                                      style: TextStyle(color: CustomColor.grey),
+                                    ),
+                                    Text(
+                                      snapshot.data[index].goal,
+                                      style: TextStyle(color: CustomColor.grey),
+                                    )
+                                  ],
+                                ),
+                              ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DetailPage(
-                                            detailsData: {
-                                              'clientName':
-                                                  apoint[index].clientName,
-                                              'noOfBookings':
-                                                  apoint[index].noOfBookings,
-                                              'sessionType':
-                                                  apoint[index].sessionType,
-                                              'goal': apoint[index].goal,
-                                              'dates': apoint[index].dates
-                                            },
-                                          )),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'View Details',
-                                    style: TextStyle(color: CustomColor.blue),
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 12,
-                                    color: CustomColor.blue,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        child: Container(
+                          height: 0.5,
+                          width: double.infinity,
+                          color: CustomColor.grey,
                         ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'No of Bookings:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].noOfBookings,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Session Type:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].sessionType,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: 3,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Goal:',
-                              style: TextStyle(color: CustomColor.grey),
-                            ),
-                            Text(
-                              apoint[index].goal,
-                              style: TextStyle(color: CustomColor.grey),
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              SizedBox(
-                child: Container(
-                  height: 0.5,
-                  width: double.infinity,
-                  color: CustomColor.grey,
-                ),
-              )
-            ],
-          );
-        } else {
-          return SizedBox();
-        }
-      }),
-    );
+                      )
+                    ],
+                  );
+                } else {
+                  return SizedBox();
+                }
+              }),
+            );
+          } else {
+            return SizedBox();
+          }
+        });
   }
 }
+
+// class UpcomingSession extends StatefulWidget {
+//   _UpcomingSessionState createState() => _UpcomingSessionState();
+// }
+//
+// class _UpcomingSessionState extends State<UpcomingSession> {
+//   @override
+//   Widget build(BuildContext context) {
+//     List<AppointmentModel> apoint =
+//         Provider.of<List<AppointmentModel>>(context);
+//     return Column(
+//       children: List.generate(apoint.length, (index) {
+//         if (apoint[index].trainerEmail == Constants.trainerUserData.email) {
+//           return Column(
+//             children: [
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Row(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Container(
+//                     height: 35,
+//                     width: 35,
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(360),
+//                         color: CustomColor.red),
+//                   ),
+//                   SizedBox(
+//                     width: 10,
+//                   ),
+//                   Expanded(
+//                     child: Column(
+//                       children: [
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               apoint[index].clientName,
+//                               style: TextStyle(color: CustomColor.white),
+//                             ),
+//                             GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                       builder: (context) => DetailPage(
+//                                             detailsData: {
+//                                               'clientName':
+//                                                   apoint[index].clientName,
+//                                               'noOfBookings':
+//                                                   apoint[index].noOfBookings,
+//                                               'sessionType':
+//                                                   apoint[index].sessionType,
+//                                               'goal': apoint[index].goal,
+//                                               'dates': apoint[index].dates
+//                                             },
+//                                           )),
+//                                 );
+//                               },
+//                               child: Row(
+//                                 children: [
+//                                   Text(
+//                                     'View Details',
+//                                     style: TextStyle(color: CustomColor.blue),
+//                                   ),
+//                                   Icon(
+//                                     Icons.arrow_forward_ios,
+//                                     size: 12,
+//                                     color: CustomColor.blue,
+//                                   )
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 10,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'No of Bookings:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].noOfBookings,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 3,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'Session Type:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].sessionType,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 3,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'Goal:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].goal,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 height: 5,
+//               ),
+//               SizedBox(
+//                 child: Container(
+//                   height: 0.5,
+//                   width: double.infinity,
+//                   color: CustomColor.grey,
+//                 ),
+//               )
+//             ],
+//           );
+//         } else {
+//           return SizedBox();
+//         }
+//       }),
+//     );
+//   }
+// }
+//
+// class PreviousSession extends StatefulWidget {
+//   _PreviousSessionState createState() => _PreviousSessionState();
+// }
+//
+// class _PreviousSessionState extends State<PreviousSession> {
+//   @override
+//   Widget build(BuildContext context) {
+//     List<AppointmentModel> apoint =
+//         Provider.of<List<AppointmentModel>>(context);
+//     return Column(
+//       children: List.generate(apoint.length, (index) {
+//         if (apoint[index].trainerEmail == Constants.trainerUserData.email) {
+//           return Column(
+//             children: [
+//               SizedBox(
+//                 height: 10,
+//               ),
+//               Row(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Container(
+//                     height: 35,
+//                     width: 35,
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(360),
+//                         color: CustomColor.red),
+//                   ),
+//                   SizedBox(
+//                     width: 10,
+//                   ),
+//                   Expanded(
+//                     child: Column(
+//                       children: [
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               apoint[index].clientName,
+//                               style: TextStyle(color: CustomColor.white),
+//                             ),
+//                             GestureDetector(
+//                               onTap: () {
+//                                 Navigator.push(
+//                                   context,
+//                                   MaterialPageRoute(
+//                                       builder: (context) => DetailPage(
+//                                             detailsData: {
+//                                               'clientName':
+//                                                   apoint[index].clientName,
+//                                               'noOfBookings':
+//                                                   apoint[index].noOfBookings,
+//                                               'sessionType':
+//                                                   apoint[index].sessionType,
+//                                               'goal': apoint[index].goal,
+//                                               'dates': apoint[index].dates
+//                                             },
+//                                           )),
+//                                 );
+//                               },
+//                               child: Row(
+//                                 children: [
+//                                   Text(
+//                                     'View Details',
+//                                     style: TextStyle(color: CustomColor.blue),
+//                                   ),
+//                                   Icon(
+//                                     Icons.arrow_forward_ios,
+//                                     size: 12,
+//                                     color: CustomColor.blue,
+//                                   )
+//                                 ],
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 10,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'No of Bookings:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].noOfBookings,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 3,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'Session Type:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].sessionType,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                         SizedBox(
+//                           height: 3,
+//                         ),
+//                         Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                           children: [
+//                             Text(
+//                               'Goal:',
+//                               style: TextStyle(color: CustomColor.grey),
+//                             ),
+//                             Text(
+//                               apoint[index].goal,
+//                               style: TextStyle(color: CustomColor.grey),
+//                             )
+//                           ],
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//               SizedBox(
+//                 height: 5,
+//               ),
+//               SizedBox(
+//                 child: Container(
+//                   height: 0.5,
+//                   width: double.infinity,
+//                   color: CustomColor.grey,
+//                 ),
+//               )
+//             ],
+//           );
+//         } else {
+//           return SizedBox();
+//         }
+//       }),
+//     );
+//   }
+// }
 
 class Calender extends StatefulWidget {
   // final double height;
@@ -695,7 +1070,9 @@ class _CalenderState extends State<Calender> {
       );
     }
 
-    evnetsFiller();
+    if (apoint != null) {
+      evnetsFiller();
+    }
     _calendarCarouselNoHeader = cal2();
     return Container(
       decoration: BoxDecoration(

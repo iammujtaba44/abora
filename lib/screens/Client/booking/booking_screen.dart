@@ -9,6 +9,7 @@ import 'package:abora/widgets/CustomToast.dart';
 
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -45,12 +46,21 @@ class _BookingScreenState extends State<BookingScreen> {
     'FaceTime',
   ];
 
+  final CollectionReference appointments =
+      FirebaseFirestore.instance.collection('appointments');
   var _selected;
   var _selectedSession;
+
+  @override
+  void initState() {
+    super.initState();
+    evenFiller();
+  }
+
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DatabaseService>(context);
-    // evnetsFiller();
+    //evnetsFiller();
     _calendarCarouselNoHeader = cal2();
 
     //final database = Provider.of<DatabaseService>(context);
@@ -72,6 +82,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       style: TextStyle(color: CustomColor.white),
                     ),
                     func: () {
+                      // print(_selectedDates);
                       if (_selected != null &&
                           _selectedSession != null &&
                           goalTextFieldController.text.isNotEmpty &&
@@ -103,18 +114,6 @@ class _BookingScreenState extends State<BookingScreen> {
                             text:
                                 'Select Dates from Calender by clicking dates');
                       }
-
-                      // database.uploadApointmentAsync(
-                      //     clientEmail: 'ak11@gmail.com',
-                      //     clientImageUrl: 'abc',
-                      //     clientName: 'ak',
-                      //     dates: ["2", "3"],
-                      //     goal: 'abc',
-                      //     noOfBookings: '2',
-                      //     sessionType: 'abc',
-                      //     trainerEmail: widget.email,
-                      //     trainerImageUrl: 'abc',
-                      //     trainerName: 'abc');
                     }),
               )
             ],
@@ -432,33 +431,49 @@ class _BookingScreenState extends State<BookingScreen> {
           ),
         ),
       );
-
-  evnetsFiller() {
+  List<String> getDates = List();
+  evenFiller() async {
     // List<String> aa = widget.detailsData['dates'];
     // print(aa);
+    await appointments
+        .doc('upcomingApointments')
+        .collection('data')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) async {
+        if (element.data()['trainerEmail'] == widget.email) {
+          // print(element.data()['dates']);
+          for (int i = 0; i < element.data()['dates'].length; i++) {
+            // print(element.data()['dates'][i]);
+            getDates.add(element.data()['dates'][i]);
+          }
+        }
+      });
+    });
+    // print(getDates);
 
-    if (_selectedDates.isNotEmpty) {
-      print(_selectedDates);
-      for (int i = 0; i < _selectedDates.length; i++) {
-        var array = _selectedDates[i].split('-');
+    if (getDates.isNotEmpty) {
+      for (int i = 0; i < getDates.length; i++) {
+        var array = getDates[i].split('-');
 
         presentDates.add(new DateTime(
             int.parse(array[0]), int.parse(array[1]), int.parse(array[2])));
-        a++;
+        //  a++;
       }
 
-      for (int i = 0; i < a; i++) {
+      for (int i = 0; i < getDates.length; i++) {
         _markedDateMap.add(
-          presentDates[i],
+          DateTime.parse(getDates[i]),
           new Event(
-            date: presentDates[i],
+            date: DateTime.parse(getDates[i]),
             title: 'Event 5',
             icon: _presentIcon(
-              presentDates[i].day.toString(),
+              DateTime.parse(getDates[i]).day.toString(),
             ),
           ),
         );
       }
+      setState(() {});
     }
   }
 
@@ -481,7 +496,7 @@ class _BookingScreenState extends State<BookingScreen> {
           );
         } else {
           for (int i = 0; i < _markedDateMap.events.keys.length; i++) {
-            print(_markedDateMap.events.keys);
+            //  print(_markedDateMap.events.keys);
             if (!_markedDateMap.events.keys.contains(date)) {
               _selectedDates.add(Helper.getDate(date));
               _markedDateMap.add(
