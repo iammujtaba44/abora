@@ -187,20 +187,45 @@ class DatabaseService {
   }
 
 //Apointment
+  List<AppointmentModel> apointmentPrevious(QuerySnapshot qs) {
+    return qs.docs.map((ds) {
+      return AppointmentModel(
+          trainerName: ds.data()['trainerName'],
+          trainerImageUrl: ds.data()['trainerImageUrl'],
+          trainerEmail: ds.data()['trainerEmail'],
+          clientImageUrl: ds.data()['clientImageUrl'],
+          clientEmail: ds.data()['clientEmail'],
+          clientName: ds.data()['clientName'],
+          goal: ds.data()['goal'],
+          noOfBookings: ds.data()['noOfBookings'],
+          sessionType: ds.data()['sessionType'],
+          dates: List.from(ds.data()['dates']),
+          docId: ds.data()['docId']);
+    }).toList();
+  }
+
+  Stream<List<AppointmentModel>> get apintmentPreviousStream {
+    return appointments
+        .doc('previousApointments')
+        .collection('data')
+        .snapshots()
+        .map(apointment);
+  }
+
   List<AppointmentModel> apointment(QuerySnapshot qs) {
     return qs.docs.map((ds) {
       return AppointmentModel(
-        trainerName: ds.data()['trainerName'],
-        trainerImageUrl: ds.data()['trainerImageUrl'],
-        trainerEmail: ds.data()['trainerEmail'],
-        clientImageUrl: ds.data()['clientImageUrl'],
-        clientEmail: ds.data()['clientEmail'],
-        clientName: ds.data()['clientName'],
-        goal: ds.data()['goal'],
-        noOfBookings: ds.data()['noOfBookings'],
-        sessionType: ds.data()['sessionType'],
-        dates: List.from(ds.data()['dates']),
-      );
+          trainerName: ds.data()['trainerName'],
+          trainerImageUrl: ds.data()['trainerImageUrl'],
+          trainerEmail: ds.data()['trainerEmail'],
+          clientImageUrl: ds.data()['clientImageUrl'],
+          clientEmail: ds.data()['clientEmail'],
+          clientName: ds.data()['clientName'],
+          goal: ds.data()['goal'],
+          noOfBookings: ds.data()['noOfBookings'],
+          sessionType: ds.data()['sessionType'],
+          dates: List.from(ds.data()['dates']),
+          docId: ds.data()['docId']);
     }).toList();
   }
 
@@ -212,21 +237,24 @@ class DatabaseService {
         .map(apointment);
   }
 
-  Future uploadApointmentAsync(
-      {String clientEmail,
-      String clientName,
-      String clientImageUrl,
-      String trainerEmail,
-      String trainerImageUrl,
-      String trainerName,
-      String noOfBookings,
-      String sessionType,
-      String goal,
-      List<String> dates}) async {
+  Future uploadApointmentAsync({
+    String clientEmail,
+    String clientName,
+    String clientImageUrl,
+    String trainerEmail,
+    String trainerImageUrl,
+    String trainerName,
+    String noOfBookings,
+    String sessionType,
+    String goal,
+    List<String> dates,
+  }) async {
+    var randomDoc =
+        appointments.doc('upcomingApointments').collection('data').doc();
     return await appointments
         .doc('upcomingApointments')
         .collection('data')
-        .doc()
+        .doc(randomDoc.id)
         .set({
       'clientEmail': clientEmail,
       'trainerEmail': trainerEmail,
@@ -238,6 +266,7 @@ class DatabaseService {
       'noOfBookings': noOfBookings,
       'sessionType': sessionType,
       'dates': dates,
+      'docId': randomDoc.id
     });
   }
 

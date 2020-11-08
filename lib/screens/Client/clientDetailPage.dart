@@ -41,6 +41,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   @override
   void initState() {
     super.initState();
+    // print(widget.detailsData['docId']);
     _controller = CalendarController();
   }
 
@@ -251,27 +252,31 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                 ],
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-              child: blueButton(
-                  child: Text(
-                    'START SESSION',
-                    style: TextStyle(color: CustomColor.white),
-                  ),
-                  func: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => RateSession(
-                                trainerData: {
-                                  'email': widget.detailsData['trainerEmail'],
-                                  'url': widget.detailsData['trainerUrl']
-                                },
-                              )),
-                    );
-                  }),
-            )
+            widget.detailsData['get'] == '0'
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 20),
+                    child: blueButton(
+                        child: Text(
+                          'START SESSION',
+                          style: TextStyle(color: CustomColor.white),
+                        ),
+                        func: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RateSession(
+                                      trainerData: {
+                                        'email':
+                                            widget.detailsData['trainerEmail'],
+                                        'url': widget.detailsData['trainerUrl'],
+                                        'docId': widget.detailsData['docId']
+                                      },
+                                    )),
+                          );
+                        }),
+                  )
+                : SizedBox()
           ],
         ));
   }

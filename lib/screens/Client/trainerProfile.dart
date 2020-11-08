@@ -510,7 +510,27 @@ class _ProfileListViewState extends State<ProfileListView> {
           ),
         ),
         dataList.length == 0
-            ? Container(child: CircularProgressIndicator())
+            ? Container(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: BorderRadius.circular(5)),
+                margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
+                padding: const EdgeInsets.all(20),
+                width: double.infinity,
+                child: Container(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Reviews',
+                        style: TextStyle(color: CustomColor.red),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                ))
             : Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,

@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/paymentService.dart';
 import 'package:abora/widgets/CustomToast.dart';
@@ -388,6 +389,17 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
           trainerEmail: widget.addAp['trainerEmail'],
           trainerImageUrl: widget.addAp['trainerImageUrl'],
           trainerName: widget.addAp['trainerName']);
+
+      cardNumber = '';
+      expiryDate = '';
+      cardHolderName = '';
+      cvvCode = '';
+      cardHolderNameCtr.clear();
+      cvvCodeCtr.clear();
+      cardNumberCtr.clear();
+      expiryDateCtr.clear();
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Mybookings()));
     } else {
       customToast(text: response.message);
     }

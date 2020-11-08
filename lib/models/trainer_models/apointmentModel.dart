@@ -9,9 +9,10 @@ class AppointmentModel {
   final String sessionType;
   final String goal;
   final List<String> dates;
+  final String docId;
 
   AppointmentModel(
-      {
+      {this.docId,
       this.clientEmail,
       this.clientImageUrl,
       this.clientName,

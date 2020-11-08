@@ -24,11 +24,12 @@ class _RateSessionState extends State<RateSession> {
   final CollectionReference trainer =
       FirebaseFirestore.instance.collection('trainer');
   List dataList = List();
-
+  final CollectionReference appointments =
+      FirebaseFirestore.instance.collection('appointments');
   @override
   void initState() {
     super.initState();
-    print(widget.trainerData);
+    // print(widget.trainerData);
   }
 
   @override
@@ -123,6 +124,40 @@ class _RateSessionState extends State<RateSession> {
   }
 
   submitReview() async {
+    await appointments
+        .doc('upcomingApointments')
+        .collection('data')
+        .get()
+        .then((value) {
+      value.docs.forEach((element) async {
+        if (element.data()['docId'] == widget.trainerData['docId']) {
+          print(element.data());
+
+          await appointments
+              .doc('previousApointments')
+              .collection('data')
+              .doc(widget.trainerData['docId'])
+              .set({
+            'clientEmail': element.data()['clientEmail'],
+            'trainerEmail': element.data()['trainerEmail'],
+            'trainerImageUrl': element.data()['trainerImageUrl'],
+            'clientImageUrl': element.data()['clientImageUrl'],
+            'trainerName': element.data()['trainerName'],
+            'clientName': element.data()['clientName'],
+            'goal': element.data()['goal'],
+            'noOfBookings': element.data()['noOfBookings'],
+            'sessionType': element.data()['sessionType'],
+            'dates': List.from(element.data()['dates']),
+            'docId': widget.trainerData['docId']
+          });
+        }
+      });
+    });
+    await appointments
+        .doc('upcomingApointments')
+        .collection('data')
+        .doc(widget.trainerData['docId'])
+        .delete();
     var querySnapshot = await trainer
         .where('email', isEqualTo: widget.trainerData['email'])
         .get();

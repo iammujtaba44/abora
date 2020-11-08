@@ -483,6 +483,7 @@ class _BookingScreenState extends State<BookingScreen> {
           for (int i = 0; i < _markedDateMap.events.keys.length; i++) {
             print(_markedDateMap.events.keys);
             if (!_markedDateMap.events.keys.contains(date)) {
+              _selectedDates.add(Helper.getDate(date));
               _markedDateMap.add(
                 date,
                 new Event(
