@@ -278,21 +278,23 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-              child: blueButton(
-                  child: Text(
-                    'START SESSION',
-                    style: TextStyle(color: CustomColor.white),
-                  ),
-                  func: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(builder: (context) => SettingsPage()),
-                    // );
-                  }),
-            )
+            widget.detailsData['get'] == '0'
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 20),
+                    child: blueButton(
+                        child: Text(
+                          'START SESSION',
+                          style: TextStyle(color: CustomColor.white),
+                        ),
+                        func: () {
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => SettingsPage()),
+                          // );
+                        }),
+                  )
+                : SizedBox()
           ],
         ));
   }

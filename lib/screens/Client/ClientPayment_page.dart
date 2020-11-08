@@ -140,10 +140,15 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                   color: CustomColor.red,
                                   fontSize: FontSize.h3FontSize),
                             ),
-                            Text('\$${widget.addAp['totalPrice']}',
-                                style: TextStyle(
-                                    color: CustomColor.blue,
-                                    fontSize: FontSize.h2FontSize - 5)),
+                            widget.addAp['totalPrice'] == null
+                                ? Text('\$${widget.addAp['totalPrice']}',
+                                    style: TextStyle(
+                                        color: CustomColor.blue,
+                                        fontSize: FontSize.h2FontSize - 5))
+                                : Text('\$',
+                                    style: TextStyle(
+                                        color: CustomColor.blue,
+                                        fontSize: FontSize.h2FontSize - 5)),
                           ],
                         ),
                       ],
@@ -158,6 +163,8 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                         Expanded(
                           flex: 5,
                           child: customTextField(
+                              fieldFormate: true,
+                              keyboardType: true,
                               onChanged: (value) {
                                 setState(() {
                                   cardNumber = value;
@@ -236,6 +243,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
+                                  keyboardType: true,
                                   onChanged: (value) {
                                     setState(() {
                                       expiryDate = value;
@@ -262,6 +270,8 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
+                                  fieldFormate: true,
+                                  keyboardType: true,
                                   onChanged: (value) {
                                     setState(() {
                                       cvvCode = value;
@@ -316,23 +326,9 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                 style: TextStyle(color: Colors.white),
               ),
               func: () {
+                // print(expiryDate.contains('/'));
                 _onpressed();
               },
-              // func: () {
-              //   database.postAdAsync(
-              //       numberOfDay: widget.postAdData['days'],
-              //       exerciseSubType: widget.postAdData['ex'],
-              //       exerciseType: widget.postAdData['ex1'],
-              //       totalPrice: widget.postAdData['totalPrice'],
-              //       years: widget.postAdData['years']);
-              //   // print(widget.postAdData['years']);
-              //
-              //   //  payViaExistingCard(context, cards[0]);
-              //   // Navigator.push(
-              //   //   context,
-              //   //   MaterialPageRoute(builder: (context) => ProfilePage()),
-              //   // );
-              // },
             ),
           ),
           SizedBox(
@@ -344,17 +340,18 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
   }
 
   _onpressed() {
-    if (cardNumber != null &&
-        expiryDate != null &&
-        cardHolderName != null &&
-        cvvCode != null) {
-      var month = expiryDate[0];
-      month += expiryDate[1];
-      var year = expiryDate[2];
-      year += expiryDate[3];
-      payViaExistingCard2(context, month, year, cardNumber);
-    } else
-      customToast(text: 'Please fill the fileds');
+    if (!expiryDate.contains('/')) {
+      customToast(text: 'Please fill expiry with /');
+    } else {
+      if (cardNumber != '' &&
+          expiryDate != '' &&
+          cardHolderName != '' &&
+          cvvCode != '') {
+        var exDate = expiryDate.split('/');
+        payViaExistingCard2(context, exDate[0], exDate[1], cardNumber);
+      } else
+        customToast(text: 'Please fill the fileds');
+    }
   }
 
   payViaExistingCard2(BuildContext context, month, year, cardNumber) async {
