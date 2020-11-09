@@ -89,9 +89,12 @@ class _TrainerPageState extends State<TrainerProfilePage> {
         Stack(
           children: [
             Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/trainer.jpg'), fit: BoxFit.fill),
+              ),
               height: height / 2.5,
               width: double.infinity,
-              color: Colors.grey,
             ),
             Container(
               height: height / 2.5,
@@ -204,8 +207,8 @@ class _ProfileListViewState extends State<ProfileListView> {
   // IconData editOrsaveIcon;
   // IconData areaIconData;
   // IconData specialityIconData;
-  // IconData homeTrainingIconData;
-  // IconData gymTrainingIconData;
+  Container homeTrainingIconData;
+  Container gymTrainingIconData;
   // IconData pricePerSessionIconData;
   // IconData paymentMethodIconData;
 
@@ -225,6 +228,53 @@ class _ProfileListViewState extends State<ProfileListView> {
     gymTrainingTextController.text = widget.data['gymtraining'];
     pricePerSessionTextController.text = widget.data['pricepersession'];
     paymentMethodTextController.text = widget.data['paymentmethod'];
+
+    if (widget.data['hometraining'] == null) {
+      homeTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.grey,
+      );
+    }
+
+    if (widget.data['hometraining'] == 'green') {
+      homeTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.green,
+      );
+      homeTrainingEnabled = true;
+    } else if (widget.data['hometraining'] == 'red') {
+      homeTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.red,
+      );
+      homeTrainingEnabled = false;
+    }
+    if (widget.data['gymtraining'] == null) {
+      gymTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.grey,
+      );
+    }
+
+    if (widget.data['gymtraining'] == 'green') {
+      gymTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.green,
+      );
+      gymTrainingEnabled = true;
+    } else if (widget.data['gymtraining'] == 'red') {
+      gymTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.red,
+      );
+      gymTrainingEnabled = false;
+    }
     getData();
 
     // areaIconData = Icons.edit;
@@ -378,15 +428,23 @@ class _ProfileListViewState extends State<ProfileListView> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: TextField(
-                          controller: homeTrainingTextController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                              enabled: homeTrainingEnabled,
+                              enabled: false,
                               hintStyle: TextStyle(color: Colors.white),
                               hintText: "Home Training"),
                           onChanged: (value) {},
                         ),
                       )),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: homeTrainingIconData,
+                      ),
+                    ),
+                  )
                 ],
               ),
               SizedBox(
@@ -403,15 +461,23 @@ class _ProfileListViewState extends State<ProfileListView> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: TextField(
-                          controller: gymTrainingTextController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                              enabled: gymTrainingEnabled,
+                              enabled: false,
                               hintStyle: TextStyle(color: Colors.white),
                               hintText: "GYM Training"),
                           onChanged: (value) {},
                         ),
                       )),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: gymTrainingIconData,
+                      ),
+                    ),
+                  )
                 ],
               ),
               SizedBox(

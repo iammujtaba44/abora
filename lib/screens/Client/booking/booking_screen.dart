@@ -418,7 +418,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
   Widget _presentIcon(String day) => Container(
         width: 23,
-        height: 5,
+        height: 27,
         decoration: BoxDecoration(
           color: Colors.green,
           borderRadius: BorderRadius.all(

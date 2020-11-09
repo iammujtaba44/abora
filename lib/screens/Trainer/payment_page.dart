@@ -319,7 +319,6 @@ class _PaymentPageState extends State<PaymentPage> {
                                     style: TextStyle(color: CustomColor.red),
                                   ),
                                   customTextField(
-                                      keyboardType: true,
                                       onChanged: (value) {
                                         setState(() {
                                           expiryDate = value;
