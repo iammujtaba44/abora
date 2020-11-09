@@ -28,6 +28,7 @@ class SecondPage extends StatelessWidget {
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
                 child: TextFormField(
+                  enabled: false,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -138,7 +139,16 @@ class SecondPage extends StatelessWidget {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            BookingTab()),
+                                                            BookingTab(
+                                                                bio: snapshot
+                                                                    .data[index]
+                                                                    .bio,
+                                                                email: snapshot
+                                                                    .data[index]
+                                                                    .email,
+                                                                name: snapshot
+                                                                    .data[index]
+                                                                    .name)),
                                                   );
                                                 },
                                                 child: Text(

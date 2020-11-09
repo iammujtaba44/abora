@@ -191,7 +191,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       height: 15,
                       width: 15,
                       decoration: BoxDecoration(
-                          color: rememberMe ? CustomColor.green : null,
+                          color: rememberMe ?? false ? CustomColor.green : null,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: CustomColor.white)),
                     ),
@@ -223,7 +223,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                     setState(() {});
                     Constants.isLoading = true;
                     await _auth.signInWithEmailAndPassword(
-                        emailTextEditingController.text,
+                        emailTextEditingController.text.trim(),
                         passwordTextEditingController.text,
                         _index);
                   },

@@ -16,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class MyApp extends StatelessWidget {
@@ -96,6 +97,57 @@ class _PaymentPageState extends State<PaymentPage> {
     cardHolderNameCtr = TextEditingController();
     cvvCodeCtr = TextEditingController();
     StripeService.init();
+    getPrefs();
+  }
+
+  getPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final prefsCardNumber = prefs.getString('cardNumber');
+    final prefsCardHolderName = prefs.getString('CardHolderName');
+    final prefsExpiryDate = prefs.getString('Expiry Date');
+    final prefsCvv = prefs.getString('cvv');
+    final prefsCheckTick = prefs.getBool('checkTick');
+
+    if (prefsCardNumber != null) {
+      cardNumberCtr.text = prefs.getString('cardNumber');
+    }
+    if (prefsCardHolderName != null) {
+      cardHolderNameCtr.text = prefs.getString('CardHolderName');
+    }
+    if (prefsExpiryDate != null) {
+      expiryDateCtr.text = prefs.getString('Expiry Date');
+    }
+    if (prefsCvv != null) {
+      cvvCodeCtr.text = prefs.getString("cvv");
+    }
+    if (prefsCheckTick != null) {
+      checkTick = prefs.getBool('checkTick');
+    } else {
+      checkTick = false;
+    }
+    setState(() {});
+  }
+
+  saveCard(
+      {String expiryDate,
+      String cardHolderName,
+      String cardNumber,
+      String cvvCode,
+      bool checkTick}) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (checkTick) {
+      await prefs.setString('cardNumber', cardNumber);
+      await prefs.setString('CardHolderName', cardHolderName);
+      await prefs.setString('Expiry Date', expiryDate);
+      await prefs.setString('cvv', cvvCode);
+      await prefs.setBool('checkTick', checkTick);
+    } else {
+      await prefs.remove('cardNumber');
+      await prefs.remove('CardHolderName');
+      await prefs.remove('Expiry Date');
+      await prefs.remove('cvv');
+      await prefs.setBool('checkTick', checkTick);
+    }
   }
 
   @override
@@ -132,229 +184,241 @@ class _PaymentPageState extends State<PaymentPage> {
               })
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-              padding: const EdgeInsets.all(20.0),
-              margin: EdgeInsets.all(20),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CreditCardWidget(
-                      cardBgColor: CustomColor.textFieldFilledColor,
-                      width: width,
-                      cardNumber: cardNumber,
-                      expiryDate: expiryDate,
-                      cardHolderName: cardHolderName,
-                      cvvCode: cvvCode,
-                      showBackView: isCvvFocused,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                  padding: const EdgeInsets.all(20.0),
+                  margin: EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
+                        CreditCardWidget(
+                          cardBgColor: CustomColor.textFieldFilledColor,
+                          width: width,
+                          cardNumber: cardNumber,
+                          expiryDate: expiryDate,
+                          cardHolderName: cardHolderName,
+                          cvvCode: cvvCode,
+                          showBackView: isCvvFocused,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Amount',
-                              style: TextStyle(
-                                  color: CustomColor.red,
-                                  fontSize: FontSize.h3FontSize),
+                            Column(
+                              children: [
+                                Text(
+                                  'Amount',
+                                  style: TextStyle(
+                                      color: CustomColor.red,
+                                      fontSize: FontSize.h3FontSize),
+                                ),
+                                Text('\$${widget.postAdData['totalPrice']}',
+                                    style: TextStyle(
+                                        color: CustomColor.blue,
+                                        fontSize: FontSize.h2FontSize - 5)),
+                              ],
                             ),
-                            Text('\$${widget.postAdData['totalPrice']}',
-                                style: TextStyle(
-                                    color: CustomColor.blue,
-                                    fontSize: FontSize.h2FontSize - 5)),
                           ],
                         ),
-                      ],
-                    ),
-                    Text(
-                      'Card Number',
-                      style: TextStyle(color: CustomColor.red),
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 5,
-                          child: customTextField(
-                              fieldFormate: true,
-                              keyboardType: true,
-                              onChanged: (value) {
-                                setState(() {
-                                  cardNumber = value;
-                                  String brand =
-                                      CreditCardValidator.identifyCardBrand(
-                                          value);
-                                  if (brand != null) {
-                                    if (brand == 'visa')
-                                      brandIcon = FontAwesomeIcons.ccVisa;
-                                    else if (brand == 'master_card')
-                                      brandIcon = FontAwesomeIcons.ccMastercard;
-                                  }
-                                });
-                              },
-                              controller: cardNumberCtr,
-                              isPadding: true,
-                              text: '1234 5678 4325 3245',
-                              curveContainer: true,
-                              edgeInsets: EdgeInsets.only(left: 10)),
+                        Text(
+                          'Card Number',
+                          style: TextStyle(color: CustomColor.red),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                            height: 50,
-                            width: 65.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: CustomColor.textFieldFilledColor,
-                                border: Border.all(
-                                  color: CustomColor.textFieldBorderColor,
-                                )),
-                            child: Padding(
-                              padding: EdgeInsets.only(left: 5.0),
-                              child: FaIcon(
-                                brandIcon,
-                                size: 45.0,
-                                color: Colors.white38,
-                              ),
-                            ) //Image.asset('assets/visa.png'),
-                            )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Text(
-                      'Cardholder Name',
-                      style: TextStyle(color: CustomColor.red),
-                    ),
-                    SizedBox(height: 4),
-                    customTextField(
-                        onChanged: (value) {
-                          setState(() {
-                            isCvvFocused = true;
-                            cardHolderName = value;
-                          });
-                        },
-                        controller: cardHolderNameCtr,
-                        isPadding: true,
-                        text: 'John Doe',
-                        curveContainer: true,
-                        edgeInsets: EdgeInsets.only(left: 10)),
-                    SizedBox(
-                      height: 20.h,
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Expiry Date',
-                                style: TextStyle(color: CustomColor.red),
-                              ),
-                              customTextField(
-                                  keyboardType: true,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      expiryDate = value;
-                                    });
-                                  },
-                                  controller: expiryDateCtr,
-                                  isPadding: true,
-                                  text: '05 / 21',
-                                  curveContainer: true,
-                                  edgeInsets: EdgeInsets.only(left: 10)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 7,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'CVV',
-                                style: TextStyle(color: CustomColor.red),
-                              ),
-                              customTextField(
+                        SizedBox(height: 4),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 5,
+                              child: customTextField(
                                   fieldFormate: true,
                                   keyboardType: true,
                                   onChanged: (value) {
                                     setState(() {
-                                      cvvCode = value;
+                                      cardNumber = value;
+                                      String brand =
+                                          CreditCardValidator.identifyCardBrand(
+                                              value);
+                                      if (brand != null) {
+                                        if (brand == 'visa')
+                                          brandIcon = FontAwesomeIcons.ccVisa;
+                                        else if (brand == 'master_card')
+                                          brandIcon =
+                                              FontAwesomeIcons.ccMastercard;
+                                      }
                                     });
                                   },
-                                  controller: cvvCodeCtr,
+                                  controller: cardNumberCtr,
                                   isPadding: true,
-                                  text: '123',
+                                  text: '1234 5678 4325 3245',
                                   curveContainer: true,
                                   edgeInsets: EdgeInsets.only(left: 10)),
-                            ],
-                          ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                                height: 50,
+                                width: 65.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: CustomColor.textFieldFilledColor,
+                                    border: Border.all(
+                                      color: CustomColor.textFieldBorderColor,
+                                    )),
+                                child: Padding(
+                                  padding: EdgeInsets.only(left: 5.0),
+                                  child: FaIcon(
+                                    brandIcon,
+                                    size: 45.0,
+                                    color: Colors.white38,
+                                  ),
+                                ) //Image.asset('assets/visa.png'),
+                                )
+                          ],
                         ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10.h,
-                    ),
-                    Row(
-                      children: [
-                        Theme(
-                          data: ThemeData(unselectedWidgetColor: Colors.red),
-                          child: Checkbox(
-                            value: checkTick,
-                            onChanged: (value) {
-                              setState(() {
-                                checkTick = value;
-                              });
-                            },
-                          ),
+                        SizedBox(
+                          height: 20.h,
                         ),
                         Text(
-                          'Save Card',
-                          style: TextStyle(color: CustomColor.blue),
+                          'Cardholder Name',
+                          style: TextStyle(color: CustomColor.red),
+                        ),
+                        SizedBox(height: 4),
+                        customTextField(
+                            onChanged: (value) {
+                              setState(() {
+                                isCvvFocused = true;
+                                cardHolderName = value;
+                              });
+                            },
+                            controller: cardHolderNameCtr,
+                            isPadding: true,
+                            text: 'John Doe',
+                            curveContainer: true,
+                            edgeInsets: EdgeInsets.only(left: 10)),
+                        SizedBox(
+                          height: 20.h,
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Expiry Date',
+                                    style: TextStyle(color: CustomColor.red),
+                                  ),
+                                  customTextField(
+                                      keyboardType: true,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          expiryDate = value;
+                                        });
+                                      },
+                                      controller: expiryDateCtr,
+                                      isPadding: true,
+                                      text: '05 / 21',
+                                      curveContainer: true,
+                                      edgeInsets: EdgeInsets.only(left: 10)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'CVV',
+                                    style: TextStyle(color: CustomColor.red),
+                                  ),
+                                  customTextField(
+                                      fieldFormate: true,
+                                      keyboardType: true,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          cvvCode = value;
+                                        });
+                                      },
+                                      controller: cvvCodeCtr,
+                                      isPadding: true,
+                                      text: '123',
+                                      curveContainer: true,
+                                      edgeInsets: EdgeInsets.only(left: 10)),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.h,
+                        ),
+                        Row(
+                          children: [
+                            Theme(
+                              data:
+                                  ThemeData(unselectedWidgetColor: Colors.red),
+                              child: Checkbox(
+                                value: checkTick,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkTick = value;
+                                    saveCard(
+                                        cardHolderName: cardHolderNameCtr.text,
+                                        cardNumber: cardNumberCtr.text,
+                                        checkTick: checkTick,
+                                        cvvCode: cvvCodeCtr.text,
+                                        expiryDate: expiryDateCtr.text);
+                                  });
+                                },
+                              ),
+                            ),
+                            Text(
+                              'Save Card',
+                              style: TextStyle(color: CustomColor.blue),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
+                  child: blueButton(
+                    child: Text(
+                      'PAY',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    func: () {
+                      _onpressed();
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
-            child: blueButton(
-              child: Text(
-                'PAY',
-                style: TextStyle(color: Colors.white),
-              ),
-              func: () {
-                _onpressed();
-              },
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -38,6 +38,7 @@ class ThirdPage extends StatelessWidget {
                 ),
                 margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
                 child: TextFormField(
+                  enabled: false,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10))),

@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
@@ -60,6 +61,9 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     final database = Provider.of<DatabaseService>(context);
+
+    ScreenUtil.init(context,
+        designSize: Size(750, 1334), allowFontScaling: false);
     //evnetsFiller();
     _calendarCarouselNoHeader = cal2();
 
@@ -184,7 +188,7 @@ class _BookingScreenState extends State<BookingScreen> {
       width: 15,
       height: 15,
       decoration: BoxDecoration(
-          color: color, borderRadius: BorderRadius.all(Radius.circular(1000))),
+          color: color, borderRadius: BorderRadius.all(Radius.circular(30))),
     );
   }
 
@@ -414,7 +418,7 @@ class _BookingScreenState extends State<BookingScreen> {
 
   Widget _presentIcon(String day) => Container(
         width: 23,
-        height: 27,
+        height: 5,
         decoration: BoxDecoration(
           color: Colors.green,
           borderRadius: BorderRadius.all(

@@ -223,10 +223,10 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                             Constants.isLoading = true;
                           });
                           dynamic result = await _auth.registerWithEmailAndPassword(
-                              email: emailController.text,
+                              email: emailController.text.trim(),
                               password: passwordController.text,
                               name:
-                                  "${firstNameController.text + lastNameController.text}",
+                                  "${firstNameController.text + " " + lastNameController.text}",
                               index: _index);
 
                           if (result == null) {
