@@ -164,7 +164,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use
@@ -174,7 +173,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           setState(() {});
                                         }, file: file),
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use
@@ -184,7 +182,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           setState(() {});
                                         }, file: file1),
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use
@@ -203,7 +200,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use
@@ -213,7 +209,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           setState(() {});
                                         }, file: file3),
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use
@@ -223,7 +218,6 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                           setState(() {});
                                         }, file: file4),
                                         rectBorderWidget(context,
-                                            imageURL: '',
                                             height: 100,
                                             width: 100, func: () async {
                                           // ignore: deprecated_member_use

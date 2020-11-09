@@ -4,6 +4,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/reviews.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
+import 'package:abora/screens/Trainer/edit_video_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
@@ -852,6 +853,9 @@ class _WrapperRowState extends State<WrapperRow> {
                     VideoWidget(
                       play: true,
                       videoURL: snapshot.data[index].video,
+                      description: snapshot.data[index].description,
+                      title: snapshot.data[index].title,
+                      docId: snapshot.data[index].docId,
                     ),
                     SizedBox(
                       width: 8,
@@ -867,9 +871,13 @@ class _WrapperRowState extends State<WrapperRow> {
 
 class VideoWidget extends StatefulWidget {
   final bool play;
+  final String docId;
   final String videoURL;
+  final String title;
+  final String description;
 
-  VideoWidget({this.play, this.videoURL});
+  VideoWidget(
+      {this.play, this.videoURL, this.title, this.description, this.docId});
 
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
@@ -929,16 +937,29 @@ class _VideoWidgetState extends State<VideoWidget> {
                     Positioned(
                       right: 10,
                       bottom: 10,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: CustomColor.signUpButtonColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'Edit',
-                          style: TextStyle(color: CustomColor.white),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditSingleVideoPage(
+                                    docId: widget.docId,
+                                    videoURL: widget.videoURL,
+                                    title: widget.title,
+                                    description: widget.description),
+                              ));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 70,
+                          decoration: BoxDecoration(
+                              color: CustomColor.signUpButtonColor,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            'Edit',
+                            style: TextStyle(color: CustomColor.white),
+                          ),
                         ),
                       ),
                     )

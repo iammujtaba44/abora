@@ -18,11 +18,9 @@ class MultiuserLoginPage extends StatefulWidget {
 
 class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
   int _index = 0;
-  bool rememberMe = false;
+  bool rememberMe;
   String email;
   String password;
-
-  SharedPreferences prefs;
 
   AuthService _auth = AuthService();
   TextEditingController emailTextEditingController =
@@ -126,25 +124,35 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
   }
 
   getPrefs() async {
-    prefs = await SharedPreferences.getInstance();
-    prefs.setString('email', "");
-    prefs.setString('password', "");
-    prefs.setBool('rememberMe', false);
-    rememberMe = prefs.getBool('rememberMe');
-    emailTextEditingController.text = prefs.getString('email');
-    passwordTextEditingController.text = prefs.getString('password');
+    final prefs = await SharedPreferences.getInstance();
+    final prefsRememberMe = prefs.getBool('rememberMe');
+    final prefsEmail = prefs.getString('email');
+    final prefsPassword = prefs.getString('password');
+
+    if (prefsEmail != null) {
+      emailTextEditingController.text = prefs.getString('email');
+    }
+    if (prefsPassword != null) {
+      passwordTextEditingController.text = prefs.getString('password');
+    }
+    if (prefsRememberMe != null) {
+      rememberMe = prefs.getBool('rememberMe');
+    } else {
+      rememberMe = false;
+    }
+    setState(() {});
   }
 
   rememberCredentials(String email, String password, bool rememberMe) async {
-    prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     if (rememberMe) {
-      prefs.setString('email', email);
-      prefs.setString('password', password);
-      prefs.setBool('rememberMe', rememberMe);
+      await prefs.setString('email', email);
+      await prefs.setString('password', password);
+      await prefs.setBool('rememberMe', rememberMe);
     } else {
-      prefs.remove('email');
-      prefs.remove('password');
-      prefs.setBool('rememberMe', rememberMe);
+      await prefs.remove('email');
+      await prefs.remove('password');
+      await prefs.setBool('rememberMe', rememberMe);
     }
   }
 
@@ -183,9 +191,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       height: 15,
                       width: 15,
                       decoration: BoxDecoration(
-                          color: prefs.getBool('rememberMe')
-                              ? CustomColor.green
-                              : null,
+                          color: rememberMe ? CustomColor.green : null,
                           borderRadius: BorderRadius.circular(30),
                           border: Border.all(color: CustomColor.white)),
                     ),
