@@ -4,6 +4,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/reviews.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
+import 'package:abora/screens/Trainer/edit_video_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
@@ -109,9 +110,12 @@ class _ProfilePageState extends State<ProfilePage> {
         Stack(
           children: [
             Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/trainer.jpg'), fit: BoxFit.fill),
+              ),
               height: height / 2.5,
               width: double.infinity,
-              color: Colors.grey,
             ),
             Container(
               height: height / 2.5,
@@ -192,10 +196,12 @@ class _ProfileListViewState extends State<ProfileListView> {
   IconData editOrsaveIcon;
   IconData areaIconData;
   IconData specialityIconData;
-  IconData homeTrainingIconData;
-  IconData gymTrainingIconData;
+  Container homeTrainingIconData;
+  Container gymTrainingIconData;
   IconData pricePerSessionIconData;
   IconData paymentMethodIconData;
+
+  
 
   List<String> upperList = <String>['1', 'X', 'X'];
   List<String> lowerList = <String>['30', '65', '110'];
@@ -205,8 +211,8 @@ class _ProfileListViewState extends State<ProfileListView> {
     super.initState();
     areaIconData = Icons.edit;
     specialityIconData = Icons.edit;
-    homeTrainingIconData = Icons.edit;
-    gymTrainingIconData = Icons.edit;
+    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.grey,);
+    gymTrainingIconData = Container(height: 20, width: 20, color: Colors.grey,);
     pricePerSessionIconData = Icons.edit;
     paymentMethodIconData = Icons.edit;
     editOrsaveIcon = Icons.edit;
@@ -226,6 +232,24 @@ class _ProfileListViewState extends State<ProfileListView> {
             gymTrainingTextController.text = trainerData.gymTraining;
             pricePerSessionTextController.text = trainerData.pricePerSession;
             paymentMethodTextController.text = trainerData.paymentMethod;
+
+            if(trainerData.homeTraining == 'green' ) {
+              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
+              homeTrainingEnabled = true;
+            } else if(trainerData.homeTraining == 'red') {
+              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              homeTrainingEnabled = false;
+            } 
+
+             if(trainerData.gymTraining == 'green' ) {
+              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
+              gymTrainingEnabled = true;
+            } else if(trainerData.gymTraining == 'red') {
+              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              gymTrainingEnabled = false;
+            } 
+
+
 
             return ListView(
               shrinkWrap: true,
@@ -413,35 +437,37 @@ class _ProfileListViewState extends State<ProfileListView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: TextField(
-                                  controller: homeTrainingTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: homeTrainingEnabled,
+                                      enabled: false,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Home Training"),
                                   onChanged: (value) {},
                                 ),
                               )),
                           Align(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.centerRight,
                             child: GestureDetector(
                               onTap: () async {
                                 homeTrainingEnabled = !homeTrainingEnabled;
                                 homeTrainingEnabled
-                                    ? homeTrainingIconData = Icons.check
-                                    : homeTrainingIconData = Icons.edit;
+                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.green,):
+                                    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
 
-                                if (!homeTrainingEnabled) {
-                                  homeTrainingTextController.text =
+                                
+                                 homeTrainingEnabled ?  
                                       await widget.database.updateSignleField(
                                           key: 'homeTraining',
                                           value:
-                                              homeTrainingTextController.text);
-                                }
+                                              'green') : 
+                                              await widget.database.updateSignleField(key: 'homeTraining', value: 'red');
+                                
                                 setState(() {});
                               },
-                              child: Icon(homeTrainingIconData,
-                                  color: Colors.white, size: 30.h),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: homeTrainingIconData,
+                              )
                             ),
                           )
                         ],
@@ -460,7 +486,6 @@ class _ProfileListViewState extends State<ProfileListView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: TextField(
-                                  controller: gymTrainingTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
                                       enabled: gymTrainingEnabled,
@@ -475,20 +500,27 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 gymTrainingEnabled = !gymTrainingEnabled;
                                 gymTrainingEnabled
-                                    ? gymTrainingIconData = Icons.check
-                                    : gymTrainingIconData = Icons.edit;
+                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
+                                    : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
 
-                                if (!gymTrainingEnabled) {
-                                  gymTrainingTextController.text =
+                                             
+                                 gymTrainingEnabled ?  
                                       await widget.database.updateSignleField(
                                           key: 'gymTraining',
                                           value:
-                                              gymTrainingTextController.text);
-                                }
+                                              'green') : 
+                                              await widget.database.updateSignleField(key: 'gymTraining', value: 'red');
+                                
+                   
+
+                               
+                                
                                 setState(() {});
                               },
-                              child: Icon(gymTrainingIconData,
-                                  color: Colors.white, size: 30.h),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: gymTrainingIconData,
+                              ),
                             ),
                           )
                         ],
@@ -852,6 +884,9 @@ class _WrapperRowState extends State<WrapperRow> {
                     VideoWidget(
                       play: true,
                       videoURL: snapshot.data[index].video,
+                      description: snapshot.data[index].description,
+                      title: snapshot.data[index].title,
+                      docId: snapshot.data[index].docId,
                     ),
                     SizedBox(
                       width: 8,
@@ -867,9 +902,13 @@ class _WrapperRowState extends State<WrapperRow> {
 
 class VideoWidget extends StatefulWidget {
   final bool play;
+  final String docId;
   final String videoURL;
+  final String title;
+  final String description;
 
-  VideoWidget({this.play, this.videoURL});
+  VideoWidget(
+      {this.play, this.videoURL, this.title, this.description, this.docId});
 
   @override
   _VideoWidgetState createState() => _VideoWidgetState();
@@ -929,16 +968,29 @@ class _VideoWidgetState extends State<VideoWidget> {
                     Positioned(
                       right: 10,
                       bottom: 10,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 25,
-                        width: 70,
-                        decoration: BoxDecoration(
-                            color: CustomColor.signUpButtonColor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Text(
-                          'Edit',
-                          style: TextStyle(color: CustomColor.white),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditSingleVideoPage(
+                                    docId: widget.docId,
+                                    videoURL: widget.videoURL,
+                                    title: widget.title,
+                                    description: widget.description),
+                              ));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 25,
+                          width: 70,
+                          decoration: BoxDecoration(
+                              color: CustomColor.signUpButtonColor,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            'Edit',
+                            style: TextStyle(color: CustomColor.white),
+                          ),
                         ),
                       ),
                     )

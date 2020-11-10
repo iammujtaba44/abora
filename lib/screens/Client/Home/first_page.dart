@@ -42,6 +42,7 @@ class FirstPage extends StatelessWidget {
                         margin:
                             EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
                         child: TextFormField(
+                          enabled: false,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
                                   borderRadius:
@@ -160,9 +161,19 @@ class FirstPage extends StatelessWidget {
                                                           Navigator.push(
                                                             context,
                                                             MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        BookingTab()),
+                                                                builder: (context) => BookingTab(
+                                                                    bio: snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .bio,
+                                                                    email: snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .email,
+                                                                    name: snapshot
+                                                                        .data[
+                                                                            index]
+                                                                        .name)),
                                                           );
                                                         },
                                                         child: Text(

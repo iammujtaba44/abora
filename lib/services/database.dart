@@ -65,54 +65,6 @@ class DatabaseService {
     return trainer.snapshots().map(allTrainers);
   }
 
-  // // get trainer courses once
-  // Future onPressed() async {
-  //   List temp = List();
-  //   var querySnapshot = await trainer.where('email', isEqualTo: email).get();
-  //   querySnapshot.docs.forEach((result) async {
-  //     var querySnapshot2 =
-  //         await trainer.doc(result.id).collection("courses").get();
-
-  //     querySnapshot2.docs.forEach((result) {
-  //       //  print(result.data());
-  //       Constants.globalCourses.add(result.data());
-  //       //print('--------------${Constants.globalCourses}');
-  //     });
-  //   });
-
-  //   return Constants.globalCourses;
-  // }
-  // Stream<List<Course>> get getTrainerCoursesOnce {
-  //   return trainer.where('email', isEqualTo: email).get().then((querySnapshot) {
-  //     querySnapshot.docs.forEach((result) {
-  //       firestoreInstance
-  //           .collection("users")
-  //           .doc(result.id)
-  //           .collection("pets").
-  //
-  //
-  //   // //documents.collection('courses').snapshots().map(uploadCourse);
-  //   //
-  //   // documents.docs.forEach((doc) {
-  //   //   FirebaseFirestore.instance
-  //   //       .collection('trainer')
-  //   //       .doc(doc.id)
-  //   //       .collection('courses')
-  //   //       .get()
-  //   //       .then((value) {
-  //   //     value.docs.map((ds) {
-  //   //       return Course(
-  //   //           title: ds.data()['title'],
-  //   //           description: ds.data()['description'],
-  //   //           cost: ds.data()['cost'],
-  //   //           courseVideosLink: List.from(ds.data()['courseVideosLink']));
-  //   //     }).toList();
-  //   //   });
-  //   // });
-  //   //
-  //   // return documents;
-  // }
-
   // update single field
 
   Future<String> updateSignleField(
@@ -285,9 +237,11 @@ class DatabaseService {
   List<UploadVideo> getVidoeList(QuerySnapshot qs) {
     return qs.docs.map((e) {
       return UploadVideo(
-          title: e.data()['title'],
-          description: e.data()['description'],
-          video: e.data()['video']);
+        title: e.data()['title'],
+        description: e.data()['description'],
+        video: e.data()['video'],
+        docId: e.data()['docId'],
+      );
     }).toList();
   }
 
@@ -300,11 +254,27 @@ class DatabaseService {
   }
 
   Future uploadVideo({String title, String description, String video}) async {
+    var randomDoc =
+        appointments.doc('upcomingApointments').collection('data').doc();
     return await trainer
         .doc(uId)
         .collection('uploadVideo')
-        .doc()
-        .set({'title': title, 'description': description, 'video': video});
+        .doc(randomDoc.id)
+        .set({
+      'title': title,
+      'description': description,
+      'video': video,
+      'docId': randomDoc.id
+    });
+  }
+
+  Future editVideo(
+      {String title, String description, String videoURL, String docId}) async {
+    await trainer.doc(uId).collection('uploadVideo').doc(docId).update({
+      'title': title,
+      'description': description,
+      'video': videoURL,
+    });
   }
 
   TrainerUser getCurrentTrainerUser(DocumentSnapshot ds) {

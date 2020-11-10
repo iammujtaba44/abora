@@ -1,8 +1,10 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/loading_widget.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,9 @@ class MyApp extends StatelessWidget {
 }
 
 class MultiuserSignUpPage extends StatefulWidget {
+  final Function toggleView;
+  MultiuserSignUpPage({this.toggleView});
+
   @override
   _MultiuserSignUpPageState createState() => _MultiuserSignUpPageState();
 }
@@ -106,9 +111,14 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                         'Already have an account? ',
                         style: TextStyle(color: CustomColor.white),
                       ),
-                      Text(
-                        'Login',
-                        style: TextStyle(color: CustomColor.red),
+                      GestureDetector(
+                        onTap: () {
+                          widget.toggleView();
+                        },
+                        child: Text(
+                          'Login',
+                          style: TextStyle(color: CustomColor.red),
+                        ),
                       )
                     ],
                   ),
@@ -198,50 +208,55 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                 ),
               ],
             ),
-            blueButton(
-              func: () async {
-                if (emailController.text.isNotEmpty &&
-                    passwordController.text.isNotEmpty &&
-                    firstNameController.text.isNotEmpty &&
-                    lastNameController.text.isNotEmpty &&
-                    confirmPassowrdController.text.isNotEmpty) {
-                  if (passwordController.text ==
-                      confirmPassowrdController.text) {
-                    dynamic result = await _auth.registerWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                        name:
-                            "${firstNameController.text + lastNameController.text}",
-                        index: _index);
+            Constants.isLoading
+                ? loadingWidget()
+                : blueButton(
+                    func: () async {
+                      if (emailController.text.isNotEmpty &&
+                          passwordController.text.isNotEmpty &&
+                          firstNameController.text.isNotEmpty &&
+                          lastNameController.text.isNotEmpty &&
+                          confirmPassowrdController.text.isNotEmpty) {
+                        if (passwordController.text ==
+                            confirmPassowrdController.text) {
+                          setState(() {
+                            Constants.isLoading = true;
+                          });
+                          dynamic result = await _auth.registerWithEmailAndPassword(
+                              email: emailController.text.trim(),
+                              password: passwordController.text,
+                              name:
+                                  "${firstNameController.text + " " + lastNameController.text}",
+                              index: _index);
 
-                    if (result == null) {
-                      print('Sorry couldn\'t register');
-                    } else if (result != null) {
-                      emailController.clear();
-                      passwordController..clear();
-                      firstNameController..clear();
-                      lastNameController.clear();
-                      confirmPassowrdController.clear();
-                      customToast(text: 'Registered Successfully');
-                      //   Navigator.push(context,
-                      //       MaterialPageRoute(builder: (context) => HomePage()));
-                    }
-                  } else
-                    customToast(text: 'Passwords does not match');
-                } else
-                  customToast(text: 'Please fill all fiels first');
+                          if (result == null) {
+                            print('Sorry couldn\'t register');
+                          } else if (result != null) {
+                            emailController.clear();
+                            passwordController..clear();
+                            firstNameController..clear();
+                            lastNameController.clear();
+                            confirmPassowrdController.clear();
+                            customToast(text: 'Registered Successfully');
+                            //   Navigator.push(context,
+                            //       MaterialPageRoute(builder: (context) => HomePage()));
+                          }
+                        } else
+                          customToast(text: 'Passwords does not match');
+                      } else
+                        customToast(text: 'Please fill all fiels first');
 
-                // if (_formKey.currentState.validate()) {
+                      // if (_formKey.currentState.validate()) {
 
-                // }
+                      // }
 
-                // print('${firstNameController.text}');
-              },
-              child: Text(
-                'SIGN UP'.toUpperCase(),
-                style: TextStyle(color: CustomColor.white),
-              ),
-            ),
+                      // print('${firstNameController.text}');
+                    },
+                    child: Text(
+                      'SIGN UP'.toUpperCase(),
+                      style: TextStyle(color: CustomColor.white),
+                    ),
+                  ),
           ],
         ),
       ),

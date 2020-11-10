@@ -18,6 +18,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 class ClientPaymentPage extends StatefulWidget {
@@ -70,6 +71,57 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
     cardHolderNameCtr = TextEditingController();
     cvvCodeCtr = TextEditingController();
     StripeService.init();
+    getPrefs();
+  }
+
+  getPrefs() async {
+    final prefs = await SharedPreferences.getInstance();
+    final prefsCardNumber = prefs.getString('cardNumber');
+    final prefsCardHolderName = prefs.getString('CardHolderName');
+    final prefsExpiryDate = prefs.getString('Expiry Date');
+    final prefsCvv = prefs.getString('cvv');
+    final prefsCheckTick = prefs.getBool('checkTick');
+
+    if (prefsCardNumber != null) {
+      cardNumberCtr.text = prefs.getString('cardNumber');
+    }
+    if (prefsCardHolderName != null) {
+      cardHolderNameCtr.text = prefs.getString('CardHolderName');
+    }
+    if (prefsExpiryDate != null) {
+      expiryDateCtr.text = prefs.getString('Expiry Date');
+    }
+    if (prefsCvv != null) {
+      cvvCodeCtr.text = prefs.getString("cvv");
+    }
+    if (prefsCheckTick != null) {
+      checkTick = prefs.getBool('checkTick');
+    } else {
+      checkTick = false;
+    }
+    setState(() {});
+  }
+
+  saveCard(
+      {String expiryDate,
+      String cardHolderName,
+      String cardNumber,
+      String cvvCode,
+      bool checkTick}) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (checkTick) {
+      await prefs.setString('cardNumber', cardNumber);
+      await prefs.setString('CardHolderName', cardHolderName);
+      await prefs.setString('Expiry Date', expiryDate);
+      await prefs.setString('cvv', cvvCode);
+      await prefs.setBool('checkTick', checkTick);
+    } else {
+      await prefs.remove('cardNumber');
+      await prefs.remove('CardHolderName');
+      await prefs.remove('Expiry Date');
+      await prefs.remove('cvv');
+      await prefs.setBool('checkTick', checkTick);
+    }
   }
 
   @override
@@ -140,7 +192,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                   color: CustomColor.red,
                                   fontSize: FontSize.h3FontSize),
                             ),
-                            widget.addAp['totalPrice'] == null
+                            widget.addAp['totalPrice'] != null
                                 ? Text('\$${widget.addAp['totalPrice']}',
                                     style: TextStyle(
                                         color: CustomColor.blue,
@@ -243,7 +295,6 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                 style: TextStyle(color: CustomColor.red),
                               ),
                               customTextField(
-                                  keyboardType: true,
                                   onChanged: (value) {
                                     setState(() {
                                       expiryDate = value;
@@ -303,6 +354,12 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                             onChanged: (value) {
                               setState(() {
                                 checkTick = value;
+                                saveCard(
+                                    cardHolderName: cardHolderNameCtr.text,
+                                    cardNumber: cardNumberCtr.text,
+                                    checkTick: checkTick,
+                                    cvvCode: cvvCodeCtr.text,
+                                    expiryDate: expiryDateCtr.text);
                               });
                             },
                           ),

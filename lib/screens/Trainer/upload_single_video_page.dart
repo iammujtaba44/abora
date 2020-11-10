@@ -178,6 +178,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                           border: Border.all(
                               color: CustomColor.textFieldBorderColor)),
                       child: TextField(
+                          style: TextStyle(color: Colors.white),
                           controller: descriptionController,
                           keyboardType: TextInputType.multiline,
                           minLines: 5,

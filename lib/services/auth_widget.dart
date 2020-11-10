@@ -1,8 +1,9 @@
+import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
-import 'package:abora/screens/login_page.dart';
-import 'package:abora/screens/multiuser_login_page.dart';
+import 'package:abora/screens/authenticate/login_page.dart';
+import 'package:abora/screens/authenticate/multiuser_login_page.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,7 +58,16 @@ class _AuthWidgetState extends State<AuthWidget> {
     //int value = getUserType();
     if (widget.userSnapshot.connectionState == ConnectionState.active) {
       if (widget.userSnapshot.hasData) {
-        if (isLogin ?? false) {
+        if (isLogin == null || !widget.userSnapshot.hasData) {
+          return Scaffold(
+            backgroundColor: CustomColor.backgroundColor,
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        if (isLogin) {
           if (typeOfUser == 0) {
             if (isExistTrainer) {
               return BottonNavControllerTrainer();
@@ -85,10 +95,5 @@ class _AuthWidgetState extends State<AuthWidget> {
         return LoginPage();
       }
     }
-    return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
   }
 }

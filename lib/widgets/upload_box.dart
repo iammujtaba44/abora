@@ -7,13 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:video_player/video_player.dart';
 
-Widget rectBorderWidget(BuildContext context,
-    {double height = 90,
-    double width = 90,
-    Function func,
-    File file,
-    String imageURL,
-    bool isSingleUpload = false}) {
+Widget rectBorderWidget(
+  BuildContext context, {
+  double height = 90,
+  double width = 90,
+  Function func,
+  File file,
+  String videoURL,
+  bool isSingleUpload = false,
+  bool isEditVideo = false,
+}) {
   ScreenUtil.init(context,
       designSize: Size(640, 1134), allowFontScaling: false);
   return GestureDetector(
@@ -37,7 +40,9 @@ Widget rectBorderWidget(BuildContext context,
                 child: Chewie(
                   // key: PageStorageKey("https://firebasestorage.googleapis.com/v0/b/abora-42865.appspot.com/o/videos?alt=media&token=1e28571f-84ad-4f3c-b4f2-0feba4628efb"),
                   controller: ChewieController(
-                      videoPlayerController: VideoPlayerController.file(file),
+                      videoPlayerController: isEditVideo
+                          ? VideoPlayerController.network(videoURL)
+                          : VideoPlayerController.file(file),
                       aspectRatio: isSingleUpload ? 3.2.h : 1.8.h,
                       autoInitialize: true,
                       showControls: false,

@@ -8,6 +8,7 @@ class Constants {
   static String currentClientEmail;
   static String currentClientName;
   static ClientUser clientUserData;
+  static bool isLoading = false;
   static const List<String> choices = <String>[
     changeCard,
     addNewCard,

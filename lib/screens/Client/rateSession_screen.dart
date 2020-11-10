@@ -191,6 +191,7 @@ class _RateSessionState extends State<RateSession> {
           border:
               Border.all(width: 1, color: CustomColor.textFieldBorderColor)),
       child: TextFormField(
+        style: TextStyle(color: Colors.white),
         keyboardType: TextInputType.multiline,
         controller: reviewCtr,
         maxLines: null,
