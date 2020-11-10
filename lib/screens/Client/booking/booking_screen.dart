@@ -44,6 +44,8 @@ class _BookingScreenState extends State<BookingScreen> {
   List<String> _goalString = <String>[
     'One-on-One',
     'FaceTime',
+    'Video call',
+    'Meetup'
   ];
 
   final CollectionReference appointments =

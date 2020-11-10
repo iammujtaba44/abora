@@ -398,7 +398,8 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Mybookings()));
     } else {
-      customToast(text: response.message);
+      customToast(
+          text: '${response.message} : Check your details Card no/Info');
     }
   }
 

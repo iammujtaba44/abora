@@ -61,10 +61,11 @@ class _PostAdPageState extends State<PostAdPage> {
     "70 years",
     "80 years"
   ];
+  var _selectedyear;
   List<String> ex1 = <String>["Cardio", 'Lever', 'Thighs', 'Chest', 'Biceps'];
   List<int> _values = <int>[20, 30, 40, 50, 60];
   var _selected;
-  var _selectedyear;
+
   var _selectedEx1;
   var _selectedEx2;
   int totalprice = 20;
