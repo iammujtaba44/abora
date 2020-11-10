@@ -1,5 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
+import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Progress_screen.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/widgets/CustomToast.dart';
@@ -176,8 +177,8 @@ class _RateSessionState extends State<RateSession> {
       });
     });
 
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Mybookings()));
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => BottonNavControllerClient()));
   }
 
   _fields() {

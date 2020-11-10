@@ -11,34 +11,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: AppointmentPage(),
-    );
-  }
-}
-
 class AppointmentPage extends StatefulWidget {
   @override
   _AppointmentPageState createState() => _AppointmentPageState();
@@ -976,6 +948,12 @@ class _CalenderState extends State<Calender> {
   );
   List<DateTime> presentDates = [];
   List<DateTime> absentDates = [];
+  bool caller = false;
+  List<String> years = <String>[
+    "Weekly",
+    "Monthly",
+  ];
+  var _selectedyear;
   @override
   Widget build(BuildContext context) {
     //Stream<List<AppointmentModel>> apoint2 = widget.database.apintmentStream;
@@ -1036,10 +1014,10 @@ class _CalenderState extends State<Calender> {
       return CalendarCarousel<Event>(
         // height: cHeight / 2,
         // width: cwid / 1.2,
-        onDayPressed: (DateTime date, List<Event> events) {
-          this.setState(() => _currentDate2 = date);
-          events.forEach((event) => print(event.title));
-        },
+        // onDayPressed: (DateTime date, List<Event> events) {
+        //   this.setState(() => _currentDate2 = date);
+        //   events.forEach((event) => print(event.title));
+        // },
         showOnlyCurrentMonthDate: true,
         showHeader: false,
         weekdayTextStyle: TextStyle(color: Colors.white),
@@ -1052,6 +1030,7 @@ class _CalenderState extends State<Calender> {
         customGridViewPhysics: NeverScrollableScrollPhysics(),
         selectedDateTime: _currentDate2,
         todayButtonColor: Colors.blue[200],
+
         markedDatesMap: _markedDateMap,
         markedDateShowIcon: true,
         markedDateIconMaxShown: 1,
@@ -1074,13 +1053,130 @@ class _CalenderState extends State<Calender> {
       evnetsFiller();
     }
     _calendarCarouselNoHeader = cal2();
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        //    borderRadius: BorderRadius.all(Radius.circular(20.0))
-      ), //width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2.7,
-      child: _calendarCarouselNoHeader,
+
+    return Column(
+      children: [
+        // Row(
+        //   children: [
+        //     SizedBox(
+        //       width: 25.w,
+        //     ),
+        //     Container(
+        //       padding: EdgeInsets.only(left: 10.0),
+        //       width: 160.0,
+        //       height: 40.0,
+        //       // alignment: Alignment.bottomRight,
+        //       decoration: BoxDecoration(
+        //           color: CustomColor.backgroundColor,
+        //           borderRadius: BorderRadius.all(Radius.circular(6.0))),
+        //       child: DropdownButtonHideUnderline(
+        //         child: DropdownButton(
+        //           icon: Icon(
+        //             Icons.keyboard_arrow_down,
+        //             color: CustomColor.orangeColor,
+        //           ),
+        //           iconSize: 20,
+        //           style: TextStyle(
+        //             fontSize: 13.0,
+        //             color: CustomColor.red,
+        //             letterSpacing: 1.2,
+        //           ),
+        //           iconEnabledColor: Colors.red,
+        //           iconDisabledColor: Colors.red,
+        //           isDense: true,
+        //           items: years.map((years) {
+        //             return DropdownMenuItem(
+        //               child: Text(years),
+        //               value: years,
+        //             );
+        //           }).toList(),
+        //           onChanged: (newValue) {
+        //             setState(() {
+        //               _selectedyear = newValue;
+        //               _currentDate2 = DateTime(2021, 2, 1);
+        //               // print(_currentDate2);
+        //               // _calendarCarouselNoHeader = cal2();
+        //               // if (_selectedyear == 'Weekly') {
+        //               //   caller = true;
+        //               // } else
+        //               //   caller = false;
+        //             });
+        //           },
+        //           value: _selectedyear,
+        //           isExpanded: false,
+        //           hint: new Text(
+        //             "Weekly",
+        //             style: TextStyle(color: Colors.red),
+        //           ),
+        //         ),
+        //       ),
+        //     ),
+        //     // Container(
+        //     //     width: 180.w,
+        //     //     decoration: BoxDecoration(
+        //     //         color: CustomColor.backgroundColor,
+        //     //         borderRadius: BorderRadius.circular(5)),
+        //     //     child: Padding(
+        //     //       padding: const EdgeInsets.only(
+        //     //           left: 15.0,
+        //     //           right: 15.0,
+        //     //           top: 8.0,
+        //     //           bottom: 8.0),
+        //     //       child: Row(
+        //     //         children: [
+        //     //           Text(
+        //     //             'Weekly',
+        //     //             style: TextStyle(color: CustomColor.red),
+        //     //           ),
+        //     //           Spacer(),
+        //     //           Icon(
+        //     //             Icons.keyboard_arrow_down,
+        //     //             size: 20,
+        //     //             color: CustomColor.red,
+        //     //           )
+        //     //         ],
+        //     //       ),
+        //     //     )),
+        //     SizedBox(
+        //       width: 25.w,
+        //     ),
+        //     Container(
+        //         width: 180.w,
+        //         decoration: BoxDecoration(
+        //             color: CustomColor.backgroundColor,
+        //             borderRadius: BorderRadius.circular(5)),
+        //         child: Padding(
+        //           padding: const EdgeInsets.only(
+        //               left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
+        //           child: Row(
+        //             children: [
+        //               Text(
+        //                 '2020',
+        //                 style: TextStyle(color: CustomColor.red),
+        //               ),
+        //               Spacer(),
+        //               Icon(
+        //                 Icons.keyboard_arrow_down,
+        //                 size: 20,
+        //                 color: CustomColor.red,
+        //               )
+        //             ],
+        //           ),
+        //         )),
+        //   ],
+        // ),
+        SizedBox(
+          height: 22,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            //    borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ), //width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 2.7,
+          child: _calendarCarouselNoHeader,
+        )
+      ],
     );
   }
 }
