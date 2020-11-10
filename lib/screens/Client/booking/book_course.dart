@@ -99,13 +99,7 @@ class _BookCourseState extends State<BookCourse> {
                     children: List.generate(
                         dataList.length,
                         (index) => GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => UploadCoursePage()),
-                                );
-                              },
+                              onTap: () {},
                               child: Column(
                                 children: [
                                   Stack(

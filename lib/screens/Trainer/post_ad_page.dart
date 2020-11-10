@@ -427,7 +427,6 @@ class _PostAdPageState extends State<PostAdPage> {
               func: _ontap,
             ),
           ),
-          Spacer(),
         ],
       ),
     );

@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/services/storage.dart';
 import 'package:abora/widgets/alert_dialog.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/loading_widget.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,9 +98,14 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
           'UPLOAD COURSE',
           style: TextStyle(fontSize: 15),
         ),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.red,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.red,
+          ),
         ),
         centerTitle: true,
         actions: [
@@ -307,49 +314,46 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                               ],
                             ),
                           )),
-                      blueButton(
-                          child: Text(
-                            'UPLOAD VIDEO',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          func: () async {
-                            setState(() {
-                              showCircularProgressIndicator = true;
-                            });
-                            showCircularProgressIndicator =
-                                await storage.uploadCourseToStorage(
-                                    listFile: filesList,
-                                    cost: costController.text,
-                                    description: descriptionController.text,
-                                    title: courseTitleController.text);
+                      Constants.isLoading
+                          ? loadingWidget()
+                          : blueButton(
+                              child: Text(
+                                'UPLOAD VIDEO',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              func: () async {
+                                setState(() {
+                                  Constants.isLoading = true;
+                                });
+                                showCircularProgressIndicator =
+                                    await storage.uploadCourseToStorage(
+                                        listFile: filesList,
+                                        cost: costController.text,
+                                        description: descriptionController.text,
+                                        title: courseTitleController.text);
 
-                            setState(() {
-                              showCircularProgressIndicator = false;
+                                setState(() {
+                                  Constants.isLoading = false;
 
-                              onAlertButtonsPressed(context,
-                                  title: 'Course added Successfully !');
-                              filesList.clear();
-                              costController.text = '';
-                              descriptionController.text = '';
-                              courseTitleController.text = '';
-                              file = null;
-                              file1 = null;
-                              file2 = null;
-                              file3 = null;
-                              file4 = null;
-                              file5 = null;
-                            });
-                          }),
+                                  onAlertButtonsPressed(context,
+                                      title: 'Course added Successfully !');
+                                  filesList.clear();
+                                  costController.text = '';
+                                  descriptionController.text = '';
+                                  courseTitleController.text = '';
+                                  file = null;
+                                  file1 = null;
+                                  file2 = null;
+                                  file3 = null;
+                                  file4 = null;
+                                  file5 = null;
+                                });
+                              }),
                     ],
                   ),
                 ),
               ),
             ),
-          ),
-          Center(
-            child: showCircularProgressIndicator
-                ? CircularProgressIndicator()
-                : Container(),
           ),
         ],
       ),

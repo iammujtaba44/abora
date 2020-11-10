@@ -209,9 +209,9 @@ class _HomePageState extends State<HomePage> {
                         children: [
                           detailsDoubleContainer(context,
                               text: 'Total Views',
-                              value: trainerData.totalViews ?? '7',
+                              value: trainerData.totalViews ?? '0',
                               text2: 'This Month Views',
-                              value2: trainerData?.thisMonthVisits ?? '3'),
+                              value2: trainerData?.thisMonthVisits ?? '0'),
                           SizedBox(
                             height: 20,
                           ),

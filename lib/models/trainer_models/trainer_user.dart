@@ -18,25 +18,28 @@ class TrainerUser {
   final String visit;
   final String ratio;
   final String conversionRate;
+  final String parkTraining;
 
-  TrainerUser(
-      {this.uId,
-      this.bio,
-      this.area,
-      this.speciality,
-      this.homeTraining,
-      this.gymTraining,
-      this.pricePerSession,
-      this.paymentMethod,
-      this.email,
-      this.name,
-      this.password,
-      this.totalViews,
-      this.thisMonthVisits,
-      this.totalSessionsBooked,
-      this.totalBookingThisMonth,
-      this.booking,
-      this.visit,
-      this.ratio,
-      this.conversionRate});
+  TrainerUser({
+    this.uId,
+    this.bio,
+    this.area,
+    this.speciality,
+    this.homeTraining,
+    this.gymTraining,
+    this.parkTraining,
+    this.pricePerSession,
+    this.paymentMethod,
+    this.email,
+    this.name,
+    this.password,
+    this.totalViews,
+    this.thisMonthVisits,
+    this.totalSessionsBooked,
+    this.totalBookingThisMonth,
+    this.booking,
+    this.visit,
+    this.ratio,
+    this.conversionRate,
+  });
 }

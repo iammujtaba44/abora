@@ -162,6 +162,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
               height: 20,
             ),
             customTextField(
+                makeObscure: true,
                 passwordValid: true,
                 validator: 'Enter Your Password',
                 iconData: Icons.lock_outline,
@@ -171,6 +172,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
               height: 20,
             ),
             customTextField(
+                makeObscure: true,
                 passwordValid: true,
                 validator: 'Enter Confirm Password',
                 iconData: Icons.lock_outline,
@@ -231,13 +233,15 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
 
                           if (result == null) {
                             print('Sorry couldn\'t register');
+                            setState(() {
+                              Constants.isLoading = false;
+                            });
                           } else if (result != null) {
                             emailController.clear();
                             passwordController..clear();
                             firstNameController..clear();
                             lastNameController.clear();
                             confirmPassowrdController.clear();
-                            customToast(text: 'Registered Successfully');
                             //   Navigator.push(context,
                             //       MaterialPageRoute(builder: (context) => HomePage()));
                           }

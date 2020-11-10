@@ -168,6 +168,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
             height: 20,
           ),
           customTextField(
+              makeObscure: true,
               iconData: Icons.lock_outline,
               text: 'Password',
               controller: passwordTextEditingController),

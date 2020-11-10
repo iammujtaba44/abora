@@ -99,68 +99,68 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                            width: 180.w,
-                            decoration: BoxDecoration(
-                                color: CustomColor.backgroundColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15.0,
-                                  right: 15.0,
-                                  top: 8.0,
-                                  bottom: 8.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    'Weekly',
-                                    style: TextStyle(color: CustomColor.red),
-                                  ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: CustomColor.red,
-                                  )
-                                ],
-                              ),
-                            )),
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                            width: 180.w,
-                            decoration: BoxDecoration(
-                                color: CustomColor.backgroundColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15.0,
-                                  right: 15.0,
-                                  top: 8.0,
-                                  bottom: 8.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    '2020',
-                                    style: TextStyle(color: CustomColor.red),
-                                  ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: CustomColor.red,
-                                  )
-                                ],
-                              ),
-                            )),
-                      ],
-                    ),
+                    // Row(
+                    //   children: [
+                    //     SizedBox(
+                    //       width: 25.w,
+                    //     ),
+                    //     Container(
+                    //         width: 180.w,
+                    //         decoration: BoxDecoration(
+                    //             color: CustomColor.backgroundColor,
+                    //             borderRadius: BorderRadius.circular(5)),
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.only(
+                    //               left: 15.0,
+                    //               right: 15.0,
+                    //               top: 8.0,
+                    //               bottom: 8.0),
+                    //           child: Row(
+                    //             children: [
+                    //               Text(
+                    //                 'Weekly',
+                    //                 style: TextStyle(color: CustomColor.red),
+                    //               ),
+                    //               Spacer(),
+                    //               Icon(
+                    //                 Icons.keyboard_arrow_down,
+                    //                 size: 20,
+                    //                 color: CustomColor.red,
+                    //               )
+                    //             ],
+                    //           ),
+                    //         )),
+                    //     SizedBox(
+                    //       width: 25.w,
+                    //     ),
+                    //     Container(
+                    //         width: 180.w,
+                    //         decoration: BoxDecoration(
+                    //             color: CustomColor.backgroundColor,
+                    //             borderRadius: BorderRadius.circular(5)),
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.only(
+                    //               left: 15.0,
+                    //               right: 15.0,
+                    //               top: 8.0,
+                    //               bottom: 8.0),
+                    //           child: Row(
+                    //             children: [
+                    //               Text(
+                    //                 '2020',
+                    //                 style: TextStyle(color: CustomColor.red),
+                    //               ),
+                    //               Spacer(),
+                    //               Icon(
+                    //                 Icons.keyboard_arrow_down,
+                    //                 size: 20,
+                    //                 color: CustomColor.red,
+                    //               )
+                    //             ],
+                    //           ),
+                    //         )),
+                    //   ],
+                    // ),
                     SizedBox(
                       height: 22,
                     ),

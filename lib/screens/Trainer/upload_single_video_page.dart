@@ -1,10 +1,12 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/services/storage.dart';
 import 'package:abora/widgets/alert_dialog.dart';
 
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/loading_widget.dart';
 import 'package:abora/widgets/textfield_widget.dart';
 import 'package:abora/widgets/upload_box.dart';
 import 'package:flutter/cupertino.dart';
@@ -203,51 +205,48 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                   ],
                 ),
               ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 5.h,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
-                    child: blueButton(
-                      child: Text(
-                        'UPLOAD VIDEO',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      func: () async {
-                        setState(() {
-                          showCircularProgressIndicator = true;
-                        });
-                        await _storage.uploadToStorage(
-                            title: titleController.text,
-                            description: descriptionController.text,
-                            file: file);
-                        setState(() {
-                          showCircularProgressIndicator = false;
+              Constants.isLoading
+                  ? loadingWidget()
+                  : Column(
+                      children: [
+                        SizedBox(
+                          height: 5.h,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
+                          child: blueButton(
+                            child: Text(
+                              'UPLOAD VIDEO',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            func: () async {
+                              setState(() {
+                                Constants.isLoading = true;
+                              });
+                              await _storage.uploadToStorage(
+                                  title: titleController.text,
+                                  description: descriptionController.text,
+                                  file: file);
+                              setState(() {
+                                Constants.isLoading = false;
 
-                          onAlertButtonsPressed(context,
-                              title: 'Video added Successfully !');
-                          titleController.text = '';
-                          descriptionController.text = '';
-                          file = null;
-                        });
+                                onAlertButtonsPressed(context,
+                                    title: 'Video added Successfully !');
+                                titleController.text = '';
+                                descriptionController.text = '';
+                                file = null;
+                              });
 
-                        // final user = Provider.of<User>(context, listen: false);
-                        // // print('---------${user.uid}');
-                        // await DatabaseService(uId: user.uid).uploadVideo(
-                        //     title: 'Raheel', description: 'okay2', video: 'http2');
-                      }, //_onAlertButtonsPressed(context),
-                    ),
-                  ),
-                ],
-              )
+                              // final user = Provider.of<User>(context, listen: false);
+                              // // print('---------${user.uid}');
+                              // await DatabaseService(uId: user.uid).uploadVideo(
+                              //     title: 'Raheel', description: 'okay2', video: 'http2');
+                            }, //_onAlertButtonsPressed(context),
+                          ),
+                        ),
+                      ],
+                    )
             ],
-          ),
-          Center(
-            child: showCircularProgressIndicator
-                ? CircularProgressIndicator()
-                : Container(),
           ),
         ],
       ),

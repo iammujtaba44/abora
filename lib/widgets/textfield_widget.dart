@@ -15,7 +15,8 @@ Container customTextField(
     Function onChanged,
     Function onComplete,
     bool keyboardType = false,
-    bool fieldFormate = false}) {
+    bool fieldFormate = false,
+    bool makeObscure = false}) {
   return Container(
     height: 50,
     decoration: BoxDecoration(
@@ -23,6 +24,7 @@ Container customTextField(
         color: CustomColor.textFieldFilledColor,
         border: Border.all(color: CustomColor.textFieldBorderColor)),
     child: TextFormField(
+      obscureText: makeObscure,
       style: TextStyle(color: Colors.white),
       onChanged: onChanged,
       keyboardType: keyboardType ? TextInputType.number : TextInputType.text,

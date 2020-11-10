@@ -326,6 +326,7 @@ class FirstPage extends StatelessWidget {
                                                                                       'speciality': snapshot.data[index].speciality,
                                                                                       'hometraining': snapshot.data[index].homeTraining,
                                                                                       'gymtraining': snapshot.data[index].gymTraining,
+                                                                                      'parkTraining': snapshot.data[index].parkTraining,
                                                                                       'pricepersession': snapshot.data[index].pricePerSession,
                                                                                       'paymentmethod': snapshot.data[index].paymentMethod,
                                                                                     },

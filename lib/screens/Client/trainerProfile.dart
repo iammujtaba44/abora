@@ -201,6 +201,7 @@ class _ProfileListViewState extends State<ProfileListView> {
   bool specialityEnabled = false;
   bool homeTrainingEnabled = false;
   bool gymTrainingEnabled = false;
+  bool parkTrainingEnabled = false;
   bool pricePerSessionEnabled = false;
   bool paymentMethodEnabled = false;
 
@@ -209,6 +210,7 @@ class _ProfileListViewState extends State<ProfileListView> {
   // IconData specialityIconData;
   Container homeTrainingIconData;
   Container gymTrainingIconData;
+  Container parkTrainingIconData;
   // IconData pricePerSessionIconData;
   // IconData paymentMethodIconData;
 
@@ -233,15 +235,15 @@ class _ProfileListViewState extends State<ProfileListView> {
       homeTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.grey,
+        color: Colors.black,
       );
     }
 
-    if (widget.data['hometraining'] == 'green') {
+    if (widget.data['hometraining'] == 'black') {
       homeTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.green,
+        color: Colors.black,
       );
       homeTrainingEnabled = true;
     } else if (widget.data['hometraining'] == 'red') {
@@ -256,15 +258,15 @@ class _ProfileListViewState extends State<ProfileListView> {
       gymTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.grey,
+        color: Colors.black,
       );
     }
 
-    if (widget.data['gymtraining'] == 'green') {
+    if (widget.data['gymtraining'] == 'black') {
       gymTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.green,
+        color: Colors.black,
       );
       gymTrainingEnabled = true;
     } else if (widget.data['gymtraining'] == 'red') {
@@ -274,6 +276,30 @@ class _ProfileListViewState extends State<ProfileListView> {
         color: Colors.red,
       );
       gymTrainingEnabled = false;
+    }
+
+    if (widget.data['parkTraining'] == null) {
+      parkTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.black,
+      );
+    }
+
+    if (widget.data['parkTraining'] == 'black') {
+      parkTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.black,
+      );
+      parkTrainingEnabled = true;
+    } else if (widget.data['parkTraining'] == 'red') {
+      parkTrainingIconData = Container(
+        height: 20,
+        width: 20,
+        color: Colors.red,
+      );
+      parkTrainingEnabled = false;
     }
     getData();
 
@@ -355,7 +381,7 @@ class _ProfileListViewState extends State<ProfileListView> {
               borderRadius: BorderRadius.circular(5)),
           margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
           padding: const EdgeInsets.all(20),
-          height: 420,
+          height: 500,
           width: double.infinity,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -475,6 +501,39 @@ class _ProfileListViewState extends State<ProfileListView> {
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: gymTrainingIconData,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Stack(
+                children: [
+                  Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: CustomColor.backgroundColor,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: TextField(
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              enabled: false,
+                              hintStyle: TextStyle(color: Colors.white),
+                              hintText: "Park Training"),
+                          onChanged: (value) {},
+                        ),
+                      )),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: parkTrainingIconData,
                       ),
                     ),
                   )
@@ -892,7 +951,7 @@ class _WrapperRowState extends State<WrapperRow> {
     // final videos = Provider.of<List<UploadVideo>>(context) ?? [];
 
     return dataList.length == 0
-        ? Center(child: CircularProgressIndicator())
+        ? Container()
         : Container(
             alignment: Alignment.centerLeft,
             child: ListView.builder(

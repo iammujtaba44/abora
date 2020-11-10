@@ -180,16 +180,19 @@ class _ProfileListViewState extends State<ProfileListView> {
   TextEditingController homeTrainingTextController =
       new TextEditingController();
   TextEditingController gymTrainingTextController = new TextEditingController();
+  TextEditingController parkTrainingTextController = new TextEditingController();
   TextEditingController pricePerSessionTextController =
       new TextEditingController();
   TextEditingController paymentMethodTextController =
       new TextEditingController();
+
 
   bool bioEnabled = false;
   bool areaEnabled = false;
   bool specialityEnabled = false;
   bool homeTrainingEnabled = false;
   bool gymTrainingEnabled = false;
+  bool parkTrainingEnabled = false;
   bool pricePerSessionEnabled = false;
   bool paymentMethodEnabled = false;
 
@@ -198,6 +201,7 @@ class _ProfileListViewState extends State<ProfileListView> {
   IconData specialityIconData;
   Container homeTrainingIconData;
   Container gymTrainingIconData;
+  Container parkTrainingIconData;
   IconData pricePerSessionIconData;
   IconData paymentMethodIconData;
 
@@ -211,8 +215,9 @@ class _ProfileListViewState extends State<ProfileListView> {
     super.initState();
     areaIconData = Icons.edit;
     specialityIconData = Icons.edit;
-    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.grey,);
-    gymTrainingIconData = Container(height: 20, width: 20, color: Colors.grey,);
+    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+    gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+    parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
     pricePerSessionIconData = Icons.edit;
     paymentMethodIconData = Icons.edit;
     editOrsaveIcon = Icons.edit;
@@ -230,23 +235,33 @@ class _ProfileListViewState extends State<ProfileListView> {
             specialityTextController.text = trainerData.speciality;
             homeTrainingTextController.text = trainerData.homeTraining;
             gymTrainingTextController.text = trainerData.gymTraining;
+            parkTrainingTextController.text = trainerData.parkTraining;
             pricePerSessionTextController.text = trainerData.pricePerSession;
             paymentMethodTextController.text = trainerData.paymentMethod;
 
-            if(trainerData.homeTraining == 'green' ) {
-              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
-              homeTrainingEnabled = true;
-            } else if(trainerData.homeTraining == 'red') {
+
+            if(trainerData.homeTraining == 'red' ) {
               homeTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              homeTrainingEnabled = true;
+            } else if(trainerData.homeTraining == 'black') {
+              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
               homeTrainingEnabled = false;
             } 
 
-             if(trainerData.gymTraining == 'green' ) {
-              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
-              gymTrainingEnabled = true;
-            } else if(trainerData.gymTraining == 'red') {
+             if(trainerData.gymTraining == 'red' ) {
               gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              gymTrainingEnabled = true;
+            } else if(trainerData.gymTraining == 'black') {
+              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
               gymTrainingEnabled = false;
+            } 
+
+              if(trainerData.parkTraining == 'red' ) {
+              parkTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              parkTrainingEnabled = true;
+            } else if(trainerData.parkTraining == 'black') {
+              parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+              parkTrainingEnabled = false;
             } 
 
 
@@ -322,7 +337,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                       borderRadius: BorderRadius.circular(5)),
                   margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                   padding: const EdgeInsets.all(20),
-                  height: 420,
+                  height: 500,
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -451,16 +466,16 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 homeTrainingEnabled = !homeTrainingEnabled;
                                 homeTrainingEnabled
-                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.green,):
-                                    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.red,):
+                                    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
                                 
                                  homeTrainingEnabled ?  
                                       await widget.database.updateSignleField(
                                           key: 'homeTraining',
                                           value:
-                                              'green') : 
-                                              await widget.database.updateSignleField(key: 'homeTraining', value: 'red');
+                                              'red') : 
+                                              await widget.database.updateSignleField(key: 'homeTraining', value: 'black');
                                 
                                 setState(() {});
                               },
@@ -486,9 +501,10 @@ class _ProfileListViewState extends State<ProfileListView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: TextField(
+
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: gymTrainingEnabled,
+                                      enabled: false,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "GYM Training"),
                                   onChanged: (value) {},
@@ -500,16 +516,16 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 gymTrainingEnabled = !gymTrainingEnabled;
                                 gymTrainingEnabled
-                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
-                                    : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,)
+                                    : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
                                              
                                  gymTrainingEnabled ?  
                                       await widget.database.updateSignleField(
                                           key: 'gymTraining',
                                           value:
-                                              'green') : 
-                                              await widget.database.updateSignleField(key: 'gymTraining', value: 'red');
+                                              'red') : 
+                                              await widget.database.updateSignleField(key: 'gymTraining', value: 'black');
                                 
                    
 
@@ -520,6 +536,59 @@ class _ProfileListViewState extends State<ProfileListView> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: gymTrainingIconData,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: TextField(
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: false,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "Park Training"),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () async {
+                                parkTrainingEnabled = !parkTrainingEnabled;
+                                parkTrainingEnabled
+                                    ? parkTrainingIconData = Container(height: 20, width: 20, color: Colors.red,)
+                                    : parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+
+                                             
+                                 parkTrainingEnabled ?  
+                                      await widget.database.updateSignleField(
+                                          key: 'parkTraining',
+                                          value:
+                                              'red') : 
+                                              await widget.database.updateSignleField(key: 'parkTraining', value: 'black');
+                                
+                   
+
+                               
+                                
+                                setState(() {});
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: parkTrainingIconData,
                               ),
                             ),
                           )

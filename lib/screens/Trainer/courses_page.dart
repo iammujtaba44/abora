@@ -125,12 +125,7 @@ class _CourseGridViewState extends State<CourseGridView> {
       children: List.generate(
           courses?.length ?? 0,
           (index) => GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => UploadSingleVideoPage()));
-                },
+                onTap: () {},
                 child: Column(
                   children: [
                     Stack(
@@ -159,7 +154,7 @@ class _CourseGridViewState extends State<CourseGridView> {
                                 color: CustomColor.signUpButtonColor,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              courses[index].cost,
+                              '\$${courses[index].cost}',
                               style: TextStyle(color: CustomColor.white),
                             ),
                           ),
