@@ -23,11 +23,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
   CalendarController _controller;
   DatabaseService database;
 
-  List<String> years = <String>[
-    "Weekly",
-    "Monthly",
-  ];
-  var _selectedyear;
   TextStyle dayStyle(FontWeight fontWeight) {
     return TextStyle(color: Color(0xFF30384c), fontWeight: fontWeight);
   }
@@ -76,118 +71,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10.0),
-                          width: 160.0,
-                          height: 40.0,
-                          // alignment: Alignment.bottomRight,
-                          decoration: BoxDecoration(
-                              color: CustomColor.backgroundColor,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(6.0))),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              icon: Icon(
-                                Icons.keyboard_arrow_down,
-                                color: CustomColor.orangeColor,
-                              ),
-                              iconSize: 20,
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                color: CustomColor.red,
-                                letterSpacing: 1.2,
-                              ),
-                              iconEnabledColor: Colors.red,
-                              iconDisabledColor: Colors.red,
-                              isDense: true,
-                              items: years.map((years) {
-                                return DropdownMenuItem(
-                                  child: Text(years),
-                                  value: years,
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  _selectedyear = newValue;
-                                });
-                              },
-                              value: _selectedyear,
-                              isExpanded: false,
-                              hint: new Text(
-                                "Weekly",
-                                style: TextStyle(color: Colors.red),
-                              ),
-                            ),
-                          ),
-                        ),
-                        // Container(
-                        //     width: 180.w,
-                        //     decoration: BoxDecoration(
-                        //         color: CustomColor.backgroundColor,
-                        //         borderRadius: BorderRadius.circular(5)),
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.only(
-                        //           left: 15.0,
-                        //           right: 15.0,
-                        //           top: 8.0,
-                        //           bottom: 8.0),
-                        //       child: Row(
-                        //         children: [
-                        //           Text(
-                        //             'Weekly',
-                        //             style: TextStyle(color: CustomColor.red),
-                        //           ),
-                        //           Spacer(),
-                        //           Icon(
-                        //             Icons.keyboard_arrow_down,
-                        //             size: 20,
-                        //             color: CustomColor.red,
-                        //           )
-                        //         ],
-                        //       ),
-                        //     )),
-                        SizedBox(
-                          width: 25.w,
-                        ),
-                        Container(
-                            width: 180.w,
-                            decoration: BoxDecoration(
-                                color: CustomColor.backgroundColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 15.0,
-                                  right: 15.0,
-                                  top: 8.0,
-                                  bottom: 8.0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    '2020',
-                                    style: TextStyle(color: CustomColor.red),
-                                  ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.keyboard_arrow_down,
-                                    size: 20,
-                                    color: CustomColor.red,
-                                  )
-                                ],
-                              ),
-                            )),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 22,
-                    ),
-                    Calender(
-                      database: database,
-                    ),
+                    Calender(database: database),
                     Padding(
                       padding: const EdgeInsets.only(left: 30.0, top: 15.0),
                       child: Row(
@@ -997,6 +881,12 @@ class _CalenderState extends State<Calender> {
   );
   List<DateTime> presentDates = [];
   List<DateTime> absentDates = [];
+  bool caller = false;
+  List<String> years = <String>[
+    "Weekly",
+    "Monthly",
+  ];
+  var _selectedyear;
   @override
   Widget build(BuildContext context) {
     //Stream<List<AppointmentModel>> apoint2 = widget.database.apintmentStream;
@@ -1073,7 +963,7 @@ class _CalenderState extends State<Calender> {
         customGridViewPhysics: NeverScrollableScrollPhysics(),
         selectedDateTime: _currentDate2,
         todayButtonColor: Colors.blue[200],
-        weekFormat: true,
+
         markedDatesMap: _markedDateMap,
         markedDateShowIcon: true,
         markedDateIconMaxShown: 1,
@@ -1096,13 +986,130 @@ class _CalenderState extends State<Calender> {
       evnetsFiller();
     }
     _calendarCarouselNoHeader = cal2();
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.transparent,
-        //    borderRadius: BorderRadius.all(Radius.circular(20.0))
-      ), //width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height / 2.7,
-      child: _calendarCarouselNoHeader,
+
+    return Column(
+      children: [
+        Row(
+          children: [
+            SizedBox(
+              width: 25.w,
+            ),
+            Container(
+              padding: EdgeInsets.only(left: 10.0),
+              width: 160.0,
+              height: 40.0,
+              // alignment: Alignment.bottomRight,
+              decoration: BoxDecoration(
+                  color: CustomColor.backgroundColor,
+                  borderRadius: BorderRadius.all(Radius.circular(6.0))),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton(
+                  icon: Icon(
+                    Icons.keyboard_arrow_down,
+                    color: CustomColor.orangeColor,
+                  ),
+                  iconSize: 20,
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    color: CustomColor.red,
+                    letterSpacing: 1.2,
+                  ),
+                  iconEnabledColor: Colors.red,
+                  iconDisabledColor: Colors.red,
+                  isDense: true,
+                  items: years.map((years) {
+                    return DropdownMenuItem(
+                      child: Text(years),
+                      value: years,
+                    );
+                  }).toList(),
+                  onChanged: (newValue) {
+                    setState(() {
+                      _selectedyear = newValue;
+                      _currentDate2 = DateTime(2021, 2, 1);
+                      // print(_currentDate2);
+                      // _calendarCarouselNoHeader = cal2();
+                      // if (_selectedyear == 'Weekly') {
+                      //   caller = true;
+                      // } else
+                      //   caller = false;
+                    });
+                  },
+                  value: _selectedyear,
+                  isExpanded: false,
+                  hint: new Text(
+                    "Weekly",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                ),
+              ),
+            ),
+            // Container(
+            //     width: 180.w,
+            //     decoration: BoxDecoration(
+            //         color: CustomColor.backgroundColor,
+            //         borderRadius: BorderRadius.circular(5)),
+            //     child: Padding(
+            //       padding: const EdgeInsets.only(
+            //           left: 15.0,
+            //           right: 15.0,
+            //           top: 8.0,
+            //           bottom: 8.0),
+            //       child: Row(
+            //         children: [
+            //           Text(
+            //             'Weekly',
+            //             style: TextStyle(color: CustomColor.red),
+            //           ),
+            //           Spacer(),
+            //           Icon(
+            //             Icons.keyboard_arrow_down,
+            //             size: 20,
+            //             color: CustomColor.red,
+            //           )
+            //         ],
+            //       ),
+            //     )),
+            SizedBox(
+              width: 25.w,
+            ),
+            Container(
+                width: 180.w,
+                decoration: BoxDecoration(
+                    color: CustomColor.backgroundColor,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        '2020',
+                        style: TextStyle(color: CustomColor.red),
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        size: 20,
+                        color: CustomColor.red,
+                      )
+                    ],
+                  ),
+                )),
+          ],
+        ),
+        SizedBox(
+          height: 22,
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            //    borderRadius: BorderRadius.all(Radius.circular(20.0))
+          ), //width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height / 2.7,
+          child: _calendarCarouselNoHeader,
+        )
+      ],
     );
   }
 }
