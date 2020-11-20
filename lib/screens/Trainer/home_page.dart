@@ -4,6 +4,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/courses_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
+import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/screens/settings_page.dart';
 import 'package:abora/services/database.dart';
@@ -86,6 +87,22 @@ class _HomePageState extends State<HomePage> {
     _controller.dispose();
   }
 
+  void choiceAction(String choice) {
+    if (choice == Constants.changeCard) {
+      print('changeCard');
+    } else if (choice == Constants.addNewCard) {
+      print('addNewCard');
+    }
+  }
+
+  void coursesAction(String value) {
+    if (value == Constants.course) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return CoursesPage();
+      }));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     _calendarCarouselNoHeader = cal();
@@ -101,69 +118,6 @@ class _HomePageState extends State<HomePage> {
             Constants.trainerUserData = snapshot.data;
             TrainerUser trainerData = snapshot.data;
             return Scaffold(
-              floatingActionButton: SpeedDial(
-                child: Icon(Icons.add),
-                animatedIconTheme: IconThemeData(size: 22.0),
-                // this is ignored if animatedIcon is non null
-                // child: Icon(Icons.add),
-
-                curve: Curves.bounceIn,
-                overlayColor: Colors.black,
-                overlayOpacity: 0.5,
-                onOpen: () => print('OPENING DIAL'),
-                onClose: () => print('DIAL CLOSED'),
-                tooltip: 'Speed Dial',
-                heroTag: 'speed-dial-hero-tag',
-                backgroundColor: CustomColor.signUpButtonColor,
-                foregroundColor: CustomColor.white,
-                elevation: 8.0,
-                shape: CircleBorder(),
-                children: [
-                  SpeedDialChild(
-                      child: Icon(Icons.add_circle),
-                      backgroundColor: Colors.orange,
-                      label: 'Post Ad',
-                      onTap: () async {
-                        // List<AppointmentModel> aa = database.apintmentStream;
-                        // print(aa);
-                        // 2020-10-25
-                        // List<String> dates1 = [Helper.getDate(DateTime.now())];
-                        // List<String> dates1 = [
-                        //   '2020-10-10',
-                        //   '2020-10-11',
-                        //   '2020-10-12'
-                        // ];
-                        // database.uploadApointmentAsync(
-                        //     clientName: 'RaheelZain',
-                        //     imageUrl: 'XYZ',
-                        //     goal: 'loose 4kg',
-                        //     noOfBookings: '1',
-                        //     sessionType: 'one-o-one',
-                        //     dates: dates1);
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => PostAdPage()),
-                        );
-                      }
-                      // onTap: () async {
-                      //   await _auth.signOut();
-                      // },
-                      ),
-                  SpeedDialChild(
-                    child: Icon(Icons.cloud_upload),
-                    backgroundColor: Colors.red,
-                    label: 'Upload Video',
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UploadSingleVideoPage(),
-                          ));
-                    },
-                  ),
-                ],
-              ),
               backgroundColor: CustomColor.backgroundColor,
               appBar: AppBar(
                 centerTitle: true,
@@ -172,6 +126,19 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(fontSize: 16),
                 ),
                 actions: [
+                  PopupMenuButton<String>(
+                      icon: Icon(Icons.more_vert, color: Colors.red),
+                      color: Theme.of(context).primaryColor,
+                      onSelected: coursesAction,
+                      itemBuilder: (BuildContext context) {
+                        return Constants.courses.map((String choice) {
+                          return PopupMenuItem<String>(
+                            textStyle: TextStyle(color: CustomColor.white),
+                            value: choice,
+                            child: Text(choice),
+                          );
+                        }).toList();
+                      }),
                   IconButton(
                     onPressed: () async {
                       Navigator.push(

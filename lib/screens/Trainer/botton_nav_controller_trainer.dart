@@ -1,4 +1,5 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,7 @@ class _BottonNavControllerTrainerState
         children: [
           HomePage(),
           AppointmentPage(),
-          CoursesPage(),
+          NewsPage(),
           ProfilePage(),
         ],
         controller: pageController,
@@ -90,8 +91,8 @@ class _BottonNavControllerTrainerState
           text: 'Home',
           imageURL2: 'assets/appointment_menu_icon.png',
           text2: 'Appointment',
-          imageURL3: 'assets/dumbbell_icon.png',
-          text3: 'My courses',
+          imageURL3: 'assets/news_icon.png',
+          text3: 'News',
           imageURL4: 'assets/profile_menu_icon.png',
           text4: 'Me'),
     );

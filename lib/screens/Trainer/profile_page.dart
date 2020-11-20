@@ -5,11 +5,14 @@ import 'package:abora/models/UploadVideoModel.dart';
 import 'package:abora/models/trainer_models/reviews.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/edit_video_page.dart';
+import 'package:abora/screens/Trainer/post_ad_page.dart';
+import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/database.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
@@ -66,6 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
     database = Provider.of<DatabaseService>(context);
 
     return Scaffold(
+      
       appBar: AppBar(
         title: Text(
           'PROFILE',
@@ -82,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
       ),
       backgroundColor: CustomColor.backgroundColor,
+      
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -101,66 +106,134 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
+    
+     floatingActionButton: SpeedDial(
+                child: Icon(Icons.add),
+                animatedIconTheme: IconThemeData(size: 22.0),
+                // this is ignored if animatedIcon is non null
+                // child: Icon(Icons.add),
+
+                curve: Curves.bounceIn,
+                overlayColor: Colors.black,
+                overlayOpacity: 0.5,
+                onOpen: () => print('OPENING DIAL'),
+                onClose: () => print('DIAL CLOSED'),
+                tooltip: 'Speed Dial',
+                heroTag: 'speed-dial-hero-tag',
+                backgroundColor: CustomColor.signUpButtonColor,
+                foregroundColor: CustomColor.white,
+                elevation: 8.0,
+                shape: CircleBorder(),
+                children: [
+                  SpeedDialChild(
+                      child: Icon(Icons.add_circle),
+                      backgroundColor: Colors.orange,
+                      label: 'Post Ad',
+                      onTap: () async {
+                        // List<AppointmentModel> aa = database.apintmentStream;
+                        // print(aa);
+                        // 2020-10-25
+                        // List<String> dates1 = [Helper.getDate(DateTime.now())];
+                        // List<String> dates1 = [
+                        //   '2020-10-10',
+                        //   '2020-10-11',
+                        //   '2020-10-12'
+                        // ];
+                        // database.uploadApointmentAsync(
+                        //     clientName: 'RaheelZain',
+                        //     imageUrl: 'XYZ',
+                        //     goal: 'loose 4kg',
+                        //     noOfBookings: '1',
+                        //     sessionType: 'one-o-one',
+                        //     dates: dates1);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => PostAdPage()),
+                        );
+                      }
+                      // onTap: () async {
+                      //   await _auth.signOut();
+                      // },
+                      ),
+                  SpeedDialChild(
+                    child: Icon(Icons.cloud_upload),
+                    backgroundColor: Colors.red,
+                    label: 'Upload Video',
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UploadSingleVideoPage(),
+                          ));
+                    },
+                  ),
+                ],
+              ),
+              
     );
   }
 
   Widget _buildContent() {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/trainer.jpg'), fit: BoxFit.fill),
+    return Padding(
+      padding: const EdgeInsets.only(left: 20.0, right: 20),
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/trainer.jpg'), fit: BoxFit.fill),
+                ),
+                height: height / 2.5,
+                width: double.infinity,
               ),
-              height: height / 2.5,
-              width: double.infinity,
-            ),
-            Container(
-              height: height / 2.5,
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              Constants.trainerUserData.name,
-                              style: TextStyle(
-                                  fontSize: FontSize.h3FontSize + 5,
-                                  color: CustomColor.white),
+              Container(
+                height: height / 2.5,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: Container(
+                        width: double.infinity,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                Constants.trainerUserData.name,
+                                style: TextStyle(
+                                    fontSize: FontSize.h3FontSize + 5,
+                                    color: CustomColor.white),
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 15,
-                          ),
-                        ],
+                            SizedBox(
+                              height: 15,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 20.0),
-                        child: WrapperRow(database: database),
-                      )),
-                  Expanded(flex: 1, child: Container()),
-                ],
+                    Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: WrapperRow(database: database),
+                        )),
+                    Expanded(flex: 1, child: Container()),
+                  ],
+                ),
               ),
-            ),
-          ],
-        ),
-      ],
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

@@ -68,7 +68,7 @@ class _HomeTabsState extends State<HomeTabs> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => SettingsPage()));
                 },
-              )
+              ),
             ],
 
             //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -81,7 +81,7 @@ class _HomeTabsState extends State<HomeTabs> {
                     child: Text(
                   'One-On-One',
                 )),
-                Tab(child: Text('Group')),
+                Tab(child: Text('Courses')),
                 Tab(child: Text('Online')),
               ],
             ),
