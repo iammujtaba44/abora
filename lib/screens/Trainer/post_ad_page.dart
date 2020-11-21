@@ -84,9 +84,14 @@ class _PostAdPageState extends State<PostAdPage> {
           style: TextStyle(
               fontSize: FontSize.h3FontSize, fontWeight: FontWeight.w400),
         ),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: CustomColor.red,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: CustomColor.red,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         centerTitle: true,
         actions: [
