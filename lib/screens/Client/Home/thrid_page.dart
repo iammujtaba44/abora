@@ -229,13 +229,7 @@ class ThirdPage extends StatelessWidget {
                   children: List.generate(
                       snapshot.data.length,
                       (index) => GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => UploadCoursePage()),
-                              );
-                            },
+                            onTap: () {},
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Theme.of(context).primaryColor,

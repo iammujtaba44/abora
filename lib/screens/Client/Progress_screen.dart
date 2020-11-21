@@ -112,8 +112,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => ProfileClientPage()),
+          MaterialPageRoute(builder: (context) => ProfileClientPage()),
         );
       },
       child: Container(
@@ -144,14 +143,12 @@ class _ProgressScreenState extends State<ProgressScreen> {
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: Expanded(
-        child: charts.LineChart(
-          _seriesLineData,
-          defaultRenderer:
-              new charts.LineRendererConfig(includeArea: true, stacked: true),
-          animate: true,
-          animationDuration: Duration(seconds: 5),
-        ),
+      child: charts.LineChart(
+        _seriesLineData,
+        defaultRenderer:
+            new charts.LineRendererConfig(includeArea: true, stacked: true),
+        animate: true,
+        animationDuration: Duration(seconds: 5),
       ),
     );
   }

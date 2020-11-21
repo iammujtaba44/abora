@@ -313,24 +313,24 @@ class _ProfileListViewState extends State<ProfileListView> {
             paymentMethodTextController.text = trainerData.paymentMethod;
 
 
-            if(trainerData.homeTraining == 'red' ) {
-              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+            if(trainerData.homeTraining == 'green' ) {
+              homeTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
               homeTrainingEnabled = true;
             } else if(trainerData.homeTraining == 'black') {
               homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
               homeTrainingEnabled = false;
             } 
 
-             if(trainerData.gymTraining == 'red' ) {
-              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+             if(trainerData.gymTraining == 'green' ) {
+              gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
               gymTrainingEnabled = true;
             } else if(trainerData.gymTraining == 'black') {
               gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
               gymTrainingEnabled = false;
             } 
 
-              if(trainerData.parkTraining == 'red' ) {
-              parkTrainingIconData = Container(height: 20, width: 20, color: Colors.red,);
+              if(trainerData.parkTraining == 'green' ) {
+              parkTrainingIconData = Container(height: 20, width: 20, color: Colors.green,);
               parkTrainingEnabled = true;
             } else if(trainerData.parkTraining == 'black') {
               parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
@@ -539,7 +539,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 homeTrainingEnabled = !homeTrainingEnabled;
                                 homeTrainingEnabled
-                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.red,):
+                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.green,):
                                     homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
                                 
@@ -547,7 +547,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                       await widget.database.updateSignleField(
                                           key: 'homeTraining',
                                           value:
-                                              'red') : 
+                                              'green') : 
                                               await widget.database.updateSignleField(key: 'homeTraining', value: 'black');
                                 
                                 setState(() {});
@@ -589,7 +589,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 gymTrainingEnabled = !gymTrainingEnabled;
                                 gymTrainingEnabled
-                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.red,)
+                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
                                     : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
                                              
@@ -597,7 +597,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                       await widget.database.updateSignleField(
                                           key: 'gymTraining',
                                           value:
-                                              'red') : 
+                                              'green') : 
                                               await widget.database.updateSignleField(key: 'gymTraining', value: 'black');
                                 
                    
@@ -642,7 +642,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                               onTap: () async {
                                 parkTrainingEnabled = !parkTrainingEnabled;
                                 parkTrainingEnabled
-                                    ? parkTrainingIconData = Container(height: 20, width: 20, color: Colors.red,)
+                                    ? parkTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
                                     : parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
                                              
@@ -650,7 +650,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                       await widget.database.updateSignleField(
                                           key: 'parkTraining',
                                           value:
-                                              'red') : 
+                                              'green') : 
                                               await widget.database.updateSignleField(key: 'parkTraining', value: 'black');
                                 
                    
