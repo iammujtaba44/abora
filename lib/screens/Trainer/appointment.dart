@@ -91,13 +91,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     //             children: [
                     //               Text(
                     //                 'Weekly',
-                    //                 style: TextStyle(color: CustomColor.red),
+                    //                 style: TextStyle(color: CustomColor.white),
                     //               ),
                     //               Spacer(),
                     //               Icon(
                     //                 Icons.keyboard_arrow_down,
                     //                 size: 20,
-                    //                 color: CustomColor.red,
+                    //                 color: CustomColor.white,
                     //               )
                     //             ],
                     //           ),
@@ -120,13 +120,13 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     //             children: [
                     //               Text(
                     //                 '2020',
-                    //                 style: TextStyle(color: CustomColor.red),
+                    //                 style: TextStyle(color: CustomColor.white),
                     //               ),
                     //               Spacer(),
                     //               Icon(
                     //                 Icons.keyboard_arrow_down,
                     //                 size: 20,
-                    //                 color: CustomColor.red,
+                    //                 color: CustomColor.white,
                     //               )
                     //             ],
                     //           ),
@@ -188,8 +188,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         children: [
                           Text(
                             'Upcoming Appointments',
-                            style:
-                                TextStyle(color: CustomColor.red, fontSize: 18),
+                            style: TextStyle(
+                                color: CustomColor.white, fontSize: 18),
                           ),
                           SizedBox(
                             height: 20,
@@ -226,8 +226,8 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         children: [
                           Text(
                             'Previous Appointments',
-                            style:
-                                TextStyle(color: CustomColor.red, fontSize: 18),
+                            style: TextStyle(
+                                color: CustomColor.white, fontSize: 18),
                           ),
                           SizedBox(
                             height: 20,
@@ -297,7 +297,7 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                           width: 35,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),
-                              color: CustomColor.red),
+                              color: CustomColor.white),
                         ),
                         SizedBox(
                           width: 10,
@@ -482,7 +482,7 @@ class _PreviousSessionState extends State<PreviousSession> {
                             width: 35,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(360),
-                                color: CustomColor.red),
+                                color: CustomColor.white),
                           ),
                           SizedBox(
                             width: 10,
@@ -654,7 +654,7 @@ class _PreviousSessionState extends State<PreviousSession> {
 //                     width: 35,
 //                     decoration: BoxDecoration(
 //                         borderRadius: BorderRadius.circular(360),
-//                         color: CustomColor.red),
+//                         color: CustomColor.white),
 //                   ),
 //                   SizedBox(
 //                     width: 10,
@@ -802,7 +802,7 @@ class _PreviousSessionState extends State<PreviousSession> {
 //                     width: 35,
 //                     decoration: BoxDecoration(
 //                         borderRadius: BorderRadius.circular(360),
-//                         color: CustomColor.red),
+//                         color: CustomColor.white),
 //                   ),
 //                   SizedBox(
 //                     width: 10,
@@ -1024,7 +1024,7 @@ class _CalenderState extends State<Calender> {
         dayPadding: 6,
         daysTextStyle: TextStyle(color: Colors.grey),
         weekendTextStyle: TextStyle(
-          color: Colors.red,
+          color: CustomColor.white,
         ),
 
         customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -1078,11 +1078,11 @@ class _CalenderState extends State<Calender> {
         //           iconSize: 20,
         //           style: TextStyle(
         //             fontSize: 13.0,
-        //             color: CustomColor.red,
+        //             color: CustomColor.white,
         //             letterSpacing: 1.2,
         //           ),
-        //           iconEnabledColor: Colors.red,
-        //           iconDisabledColor: Colors.red,
+        //           iconEnabledColor: CustomColor.white,
+        //           iconDisabledColor: CustomColor.white,
         //           isDense: true,
         //           items: years.map((years) {
         //             return DropdownMenuItem(
@@ -1106,7 +1106,7 @@ class _CalenderState extends State<Calender> {
         //           isExpanded: false,
         //           hint: new Text(
         //             "Weekly",
-        //             style: TextStyle(color: Colors.red),
+        //             style: TextStyle(color: CustomColor.white),
         //           ),
         //         ),
         //       ),
@@ -1126,13 +1126,13 @@ class _CalenderState extends State<Calender> {
         //     //         children: [
         //     //           Text(
         //     //             'Weekly',
-        //     //             style: TextStyle(color: CustomColor.red),
+        //     //             style: TextStyle(color: CustomColor.white),
         //     //           ),
         //     //           Spacer(),
         //     //           Icon(
         //     //             Icons.keyboard_arrow_down,
         //     //             size: 20,
-        //     //             color: CustomColor.red,
+        //     //             color: CustomColor.white,
         //     //           )
         //     //         ],
         //     //       ),
@@ -1152,13 +1152,13 @@ class _CalenderState extends State<Calender> {
         //             children: [
         //               Text(
         //                 '2020',
-        //                 style: TextStyle(color: CustomColor.red),
+        //                 style: TextStyle(color: CustomColor.white),
         //               ),
         //               Spacer(),
         //               Icon(
         //                 Icons.keyboard_arrow_down,
         //                 size: 20,
-        //                 color: CustomColor.red,
+        //                 color: CustomColor.white,
         //               )
         //             ],
         //           ),

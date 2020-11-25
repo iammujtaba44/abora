@@ -62,7 +62,7 @@ class _HomeTabsState extends State<HomeTabs> {
               IconButton(
                 icon: Icon(
                   Icons.settings,
-                  color: Colors.red,
+                  color: CustomColor.white,
                 ),
                 onPressed: () {
                   Navigator.push(context,
@@ -73,9 +73,9 @@ class _HomeTabsState extends State<HomeTabs> {
 
             //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             bottom: TabBar(
-              labelColor: CustomColor.red,
+              labelColor: CustomColor.white,
               unselectedLabelColor: CustomColor.grey,
-              indicatorColor: CustomColor.red,
+              indicatorColor: CustomColor.white,
               tabs: [
                 Tab(
                     child: Text(

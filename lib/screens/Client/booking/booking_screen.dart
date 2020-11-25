@@ -202,6 +202,9 @@ class _BookingScreenState extends State<BookingScreen> {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/trainer.jpg'),
+                      fit: BoxFit.fill),
                   color: Colors.grey,
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),
             ),
@@ -314,7 +317,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   letterSpacing: 1.2,
                 ),
                 iconEnabledColor: Colors.grey,
-                iconDisabledColor: Colors.red,
+                iconDisabledColor: CustomColor.white,
                 isDense: true,
                 items: _goalString.map((city) {
                   return DropdownMenuItem(
@@ -377,7 +380,7 @@ class _BookingScreenState extends State<BookingScreen> {
                   letterSpacing: 1.2,
                 ),
                 iconEnabledColor: Colors.grey,
-                iconDisabledColor: Colors.red,
+                iconDisabledColor: CustomColor.white,
                 isDense: true,
                 items: _values.map((city) {
                   return DropdownMenuItem(
@@ -526,7 +529,7 @@ class _BookingScreenState extends State<BookingScreen> {
       dayPadding: 6,
       daysTextStyle: TextStyle(color: Colors.grey),
       weekendTextStyle: TextStyle(
-        color: Colors.red,
+        color: CustomColor.white,
       ),
 
       customGridViewPhysics: NeverScrollableScrollPhysics(),

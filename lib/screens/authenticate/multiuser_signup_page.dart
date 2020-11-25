@@ -117,7 +117,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                         },
                         child: Text(
                           'Login',
-                          style: TextStyle(color: CustomColor.red),
+                          style: TextStyle(color: CustomColor.white),
                         ),
                       )
                     ],
@@ -198,7 +198,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                         new TextSpan(
                           style: TextStyle(
                               decoration: TextDecoration.underline,
-                              color: CustomColor.red,
+                              color: CustomColor.white,
                               fontSize: FontSize.h5FontSize),
                           text: 'Terms of Service.',
                           recognizer: new TapGestureRecognizer()
@@ -282,13 +282,14 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       Icon(
                         Icons.person,
                         color:
-                            _index == 0 ? CustomColor.red : CustomColor.white,
+                            _index == 0 ? CustomColor.white : CustomColor.white,
                       ),
                       Text(
                         'I\'m a Trainer',
                         style: TextStyle(
-                          color:
-                              _index == 0 ? CustomColor.red : CustomColor.white,
+                          color: _index == 0
+                              ? CustomColor.white
+                              : CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                         ),
                       )
@@ -301,7 +302,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       ? Container(
                           height: 2,
                           width: 40,
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                         )
                       : Container(),
                 ],
@@ -323,13 +324,14 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       Icon(
                         Icons.person,
                         color:
-                            _index == 1 ? CustomColor.red : CustomColor.white,
+                            _index == 1 ? CustomColor.white : CustomColor.white,
                       ),
                       Text(
                         'I\'m a Client',
                         style: TextStyle(
-                          color:
-                              _index == 1 ? CustomColor.red : CustomColor.white,
+                          color: _index == 1
+                              ? CustomColor.white
+                              : CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                         ),
                       )
@@ -342,7 +344,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                       ? Container(
                           height: 2,
                           width: 40,
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                         )
                       : Container(),
                 ],

@@ -87,7 +87,7 @@ class _PostAdPageState extends State<PostAdPage> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: CustomColor.red,
+            color: CustomColor.white,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -159,11 +159,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.red,
+                                    color: CustomColor.white,
                                     letterSpacing: 1.2,
                                   ),
-                                  iconEnabledColor: Colors.red,
-                                  iconDisabledColor: Colors.red,
+                                  iconEnabledColor: CustomColor.white,
+                                  iconDisabledColor: CustomColor.white,
                                   isDense: true,
                                   items: years.map((years) {
                                     return DropdownMenuItem(
@@ -180,7 +180,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   isExpanded: false,
                                   hint: new Text(
                                     "40 Years",
-                                    style: TextStyle(color: Colors.red),
+                                    style: TextStyle(color: CustomColor.white),
                                   ),
                                 ),
                               ),
@@ -206,11 +206,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.red,
+                                    color: CustomColor.white,
                                     letterSpacing: 1.2,
                                   ),
-                                  iconEnabledColor: Colors.red,
-                                  iconDisabledColor: Colors.red,
+                                  iconEnabledColor: CustomColor.white,
+                                  iconDisabledColor: CustomColor.white,
                                   isDense: true,
                                   items: ex1.map((ex1) {
                                     return DropdownMenuItem(
@@ -227,7 +227,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   isExpanded: false,
                                   hint: new Text(
                                     "Cardio",
-                                    style: TextStyle(color: Colors.red),
+                                    style: TextStyle(color: CustomColor.white),
                                   ),
                                 ),
                               ),
@@ -253,11 +253,11 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.red,
+                                    color: CustomColor.white,
                                     letterSpacing: 1.2,
                                   ),
-                                  iconEnabledColor: Colors.red,
-                                  iconDisabledColor: Colors.red,
+                                  iconEnabledColor: CustomColor.white,
+                                  iconDisabledColor: CustomColor.white,
                                   isDense: true,
                                   items: ex1.map((ex1) {
                                     return DropdownMenuItem(
@@ -274,7 +274,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   isExpanded: false,
                                   hint: new Text(
                                     "Lever",
-                                    style: TextStyle(color: Colors.red),
+                                    style: TextStyle(color: CustomColor.white),
                                   ),
                                 ),
                               ),
@@ -323,11 +323,11 @@ class _PostAdPageState extends State<PostAdPage> {
                               iconSize: 20,
                               style: TextStyle(
                                 fontSize: 15.0,
-                                color: Colors.red,
+                                color: CustomColor.white,
                                 letterSpacing: 1.2,
                               ),
                               iconEnabledColor: Colors.grey,
-                              iconDisabledColor: Colors.red,
+                              iconDisabledColor: CustomColor.white,
                               isDense: true,
                               items: _values.map((city) {
                                 return DropdownMenuItem(
@@ -369,7 +369,7 @@ class _PostAdPageState extends State<PostAdPage> {
               children: [
                 Text(
                   'Area',
-                  style: TextStyle(color: CustomColor.red),
+                  style: TextStyle(color: CustomColor.white),
                 ),
                 Text('Number of miles : 3',
                     style: TextStyle(color: CustomColor.white)),
@@ -412,7 +412,7 @@ class _PostAdPageState extends State<PostAdPage> {
                   children: [
                     Text(
                       'Total Price',
-                      style: TextStyle(color: Colors.red, fontSize: 15),
+                      style: TextStyle(color: CustomColor.white, fontSize: 15),
                     ),
                     Text(
                       'Euro $totalprice',

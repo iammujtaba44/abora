@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 actions: [
                   PopupMenuButton<String>(
-                      icon: Icon(Icons.more_vert, color: Colors.red),
+                      icon: Icon(Icons.more_vert, color: CustomColor.white),
                       color: Theme.of(context).primaryColor,
                       onSelected: coursesAction,
                       itemBuilder: (BuildContext context) {
@@ -152,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     icon: Icon(
                       Icons.settings,
-                      color: CustomColor.red,
+                      color: CustomColor.white,
                     ),
                   )
                 ],
@@ -310,7 +310,7 @@ class _HomePageState extends State<HomePage> {
 
   static Widget _absentIcon(String day) => Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: CustomColor.white,
           borderRadius: BorderRadius.all(
             Radius.circular(1000),
           ),

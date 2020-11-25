@@ -1,9 +1,9 @@
-
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:flutter/material.dart';
 
-Widget detailsDoubleContainer(BuildContext context, {String text, String value, String text2, String value2}) {
+Widget detailsDoubleContainer(BuildContext context,
+    {String text, String value, String text2, String value2}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 15.0),
     child: Container(
@@ -11,8 +11,6 @@ Widget detailsDoubleContainer(BuildContext context, {String text, String value, 
         borderRadius: BorderRadius.circular(10),
         color: Theme.of(context).primaryColor,
       ),
-
-
       child: Column(
         children: [
           Padding(
@@ -30,7 +28,7 @@ Widget detailsDoubleContainer(BuildContext context, {String text, String value, 
                 Text(
                   value,
                   style: TextStyle(
-                      color: CustomColor.red,
+                      color: CustomColor.white,
                       fontSize: FontSize.h3FontSize - 2),
                 )
               ],
@@ -53,13 +51,13 @@ Widget detailsDoubleContainer(BuildContext context, {String text, String value, 
                   text2,
                   style: TextStyle(
                       color: CustomColor.white,
-                      fontSize: FontSize.h3FontSize -2),
+                      fontSize: FontSize.h3FontSize - 2),
                 ),
                 Text(
                   value2,
                   style: TextStyle(
-                      color: CustomColor.red,
-                      fontSize: FontSize.h3FontSize -2),
+                      color: CustomColor.white,
+                      fontSize: FontSize.h3FontSize - 2),
                 )
               ],
             ),
@@ -69,4 +67,3 @@ Widget detailsDoubleContainer(BuildContext context, {String text, String value, 
     ),
   );
 }
-

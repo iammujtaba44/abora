@@ -18,7 +18,7 @@ Widget bottomNavBar(
       topRight: Radius.circular(30.0),
     ),
     child: Container(
-      color: Colors.red,
+      color: CustomColor.white,
       child: BottomNavigationBar(
         backgroundColor: CustomColor.signUpButtonColor,
         type: BottomNavigationBarType.fixed,

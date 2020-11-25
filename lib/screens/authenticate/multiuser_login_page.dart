@@ -66,7 +66,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                     Text(
                       'Keep Connected',
                       style: TextStyle(
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                           fontSize: FontSize.h3FontSize + 4,
                           fontWeight: FontWeight.bold),
                     ),
@@ -107,7 +107,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                           },
                           child: Text(
                             'Sign up',
-                            style: TextStyle(color: CustomColor.red),
+                            style: TextStyle(color: CustomColor.white),
                           ),
                         )
                       ],
@@ -253,13 +253,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       Icon(
                         Icons.person,
                         color:
-                            _index == 0 ? CustomColor.red : CustomColor.white,
+                            _index == 0 ? CustomColor.white : CustomColor.white,
                       ),
                       Text(
                         'I\'m a Trainer',
                         style: TextStyle(
-                          color:
-                              _index == 0 ? CustomColor.red : CustomColor.white,
+                          color: _index == 0
+                              ? CustomColor.white
+                              : CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                         ),
                       )
@@ -272,7 +273,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       ? Container(
                           height: 2,
                           width: 40,
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                         )
                       : Container(),
                 ],
@@ -294,13 +295,14 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       Icon(
                         Icons.person,
                         color:
-                            _index == 1 ? CustomColor.red : CustomColor.white,
+                            _index == 1 ? CustomColor.white : CustomColor.white,
                       ),
                       Text(
                         'I\'m a Client',
                         style: TextStyle(
-                          color:
-                              _index == 1 ? CustomColor.red : CustomColor.white,
+                          color: _index == 1
+                              ? CustomColor.white
+                              : CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                         ),
                       )
@@ -313,7 +315,7 @@ class _MultiuserLoginPageState extends State<MultiuserLoginPage> {
                       ? Container(
                           height: 2,
                           width: 40,
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                         )
                       : Container(),
                 ],

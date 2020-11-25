@@ -8,6 +8,7 @@ import 'package:abora/screens/Trainer/edit_video_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/widgets/blue_button.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       ),
                   SpeedDialChild(
                     child: Icon(Icons.cloud_upload),
-                    backgroundColor: Colors.red,
+                    backgroundColor: CustomColor.white,
                     label: 'Upload Video',
                     onTap: () {
                       Navigator.push(
@@ -286,14 +287,14 @@ class _ProfileListViewState extends State<ProfileListView> {
   @override
   void initState() {
     super.initState();
-    areaIconData = Icons.edit;
-    specialityIconData = Icons.edit;
+    areaIconData = null;
+    specialityIconData = null;
     homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
     gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
     parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
-    pricePerSessionIconData = Icons.edit;
-    paymentMethodIconData = Icons.edit;
-    editOrsaveIcon = Icons.edit;
+    pricePerSessionIconData = null;
+    paymentMethodIconData = null;
+    editOrsaveIcon = null;
   }
 
   @override
@@ -359,22 +360,22 @@ class _ProfileListViewState extends State<ProfileListView> {
                         children: [
                           Text(
                             'Bio',
-                            style: TextStyle(color: CustomColor.red),
+                            style: TextStyle(color: CustomColor.white),
                           ),
                           GestureDetector(
                             onTap: () async {
-                              bioEnabled = !bioEnabled;
-                              bioEnabled
-                                  ? editOrsaveIcon = Icons.check
-                                  : editOrsaveIcon = Icons.edit;
+                              // bioEnabled = !bioEnabled;
+                              // bioEnabled
+                              //     ? editOrsaveIcon = Icons.check
+                              //     : editOrsaveIcon = Icons.edit;
 
-                              if (!bioEnabled) {
-                                bioTextController.text = await widget.database
-                                    .updateSignleField(
-                                        key: 'bio',
-                                        value: bioTextController.text);
-                              }
-                              setState(() {});
+                              // if (!bioEnabled) {
+                              //   bioTextController.text = await widget.database
+                              //       .updateSignleField(
+                              //           key: 'bio',
+                              //           value: bioTextController.text);
+                              // }
+                              // setState(() {});
                             },
                             child: Icon(
                               editOrsaveIcon,
@@ -417,7 +418,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     children: [
                       Text(
                         'Description',
-                        style: TextStyle(color: CustomColor.red),
+                        style: TextStyle(color: CustomColor.white),
                       ),
                       SizedBox(
                         height: 10,
@@ -446,18 +447,18 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                areaEnabled = !areaEnabled;
-                                areaEnabled
-                                    ? areaIconData = Icons.check
-                                    : areaIconData = Icons.edit;
+                                // areaEnabled = !areaEnabled;
+                                // areaEnabled
+                                //     ? areaIconData = Icons.check
+                                //     : areaIconData = Icons.edit;
 
-                                if (!areaEnabled) {
-                                  areaTextController.text =
-                                      await widget.database.updateSignleField(
-                                          key: 'area',
-                                          value: areaTextController.text);
-                                }
-                                setState(() {});
+                                // if (!areaEnabled) {
+                                //   areaTextController.text =
+                                //       await widget.database.updateSignleField(
+                                //           key: 'area',
+                                //           value: areaTextController.text);
+                                // }
+                                // setState(() {});
                               },
                               child: Icon(areaIconData,
                                   color: Colors.white, size: 30.h),
@@ -492,18 +493,18 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                specialityEnabled = !specialityEnabled;
-                                specialityEnabled
-                                    ? specialityIconData = Icons.check
-                                    : specialityIconData = Icons.edit;
+                                // specialityEnabled = !specialityEnabled;
+                                // specialityEnabled
+                                //     ? specialityIconData = Icons.check
+                                //     : specialityIconData = Icons.edit;
 
-                                if (!specialityEnabled) {
-                                  specialityTextController.text =
-                                      await widget.database.updateSignleField(
-                                          key: 'speciality',
-                                          value: specialityTextController.text);
-                                }
-                                setState(() {});
+                                // if (!specialityEnabled) {
+                                //   specialityTextController.text =
+                                //       await widget.database.updateSignleField(
+                                //           key: 'speciality',
+                                //           value: specialityTextController.text);
+                                // }
+                                // setState(() {});
                               },
                               child: Icon(specialityIconData,
                                   color: Colors.white, size: 30.h),
@@ -694,21 +695,21 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                print('abc--------------');
-                                pricePerSessionEnabled =
-                                    !pricePerSessionEnabled;
-                                pricePerSessionEnabled
-                                    ? pricePerSessionIconData = Icons.check
-                                    : pricePerSessionIconData = Icons.edit;
+                                // print('abc--------------');
+                                // pricePerSessionEnabled =
+                                //     !pricePerSessionEnabled;
+                                // pricePerSessionEnabled
+                                //     ? pricePerSessionIconData = Icons.check
+                                //     : pricePerSessionIconData = Icons.edit;
 
-                                if (!pricePerSessionEnabled) {
-                                  pricePerSessionTextController.text =
-                                      await widget.database.updateSignleField(
-                                          key: 'pricePerSession',
-                                          value: pricePerSessionTextController
-                                              .text);
-                                }
-                                setState(() {});
+                                // if (!pricePerSessionEnabled) {
+                                //   pricePerSessionTextController.text =
+                                //       await widget.database.updateSignleField(
+                                //           key: 'pricePerSession',
+                                //           value: pricePerSessionTextController
+                                //               .text);
+                                // }
+                                // setState(() {});
                               },
                               child: Icon(pricePerSessionIconData,
                                   color: Colors.white, size: 30.h),
@@ -743,19 +744,19 @@ class _ProfileListViewState extends State<ProfileListView> {
                             alignment: Alignment.topRight,
                             child: GestureDetector(
                               onTap: () async {
-                                paymentMethodEnabled = !paymentMethodEnabled;
-                                paymentMethodEnabled
-                                    ? paymentMethodIconData = Icons.check
-                                    : paymentMethodIconData = Icons.edit;
+                                // paymentMethodEnabled = !paymentMethodEnabled;
+                                // paymentMethodEnabled
+                                //     ? paymentMethodIconData = Icons.check
+                                //     : paymentMethodIconData = Icons.edit;
 
-                                if (!paymentMethodEnabled) {
-                                  paymentMethodTextController.text =
-                                      await widget.database.updateSignleField(
-                                          key: 'paymentMethod',
-                                          value:
-                                              paymentMethodTextController.text);
-                                }
-                                setState(() {});
+                                // if (!paymentMethodEnabled) {
+                                //   paymentMethodTextController.text =
+                                //       await widget.database.updateSignleField(
+                                //           key: 'paymentMethod',
+                                //           value:
+                                //               paymentMethodTextController.text);
+                                // }
+                                // setState(() {});
                               },
                               child: Icon(paymentMethodIconData,
                                   color: Colors.white, size: 30.h),
@@ -763,7 +764,27 @@ class _ProfileListViewState extends State<ProfileListView> {
                           )
                         ],
                       ),
+
+                    blueButton(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'SIGN IN',
+                        style: TextStyle(color: CustomColor.white),
+                      ),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: CustomColor.white,
+                      ),
                     ],
+                  ),
+                  func: () {
+                   
+                  }),
+              
+                    ],
+                 
                   ),
                 ),
                 Container(
@@ -780,7 +801,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                       Text(
                         'Bulk Sessions',
                         style: TextStyle(
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                         ),
                       ),
                       SizedBox(
@@ -831,7 +852,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           children: [
                             Text(
                               'Reviews',
-                              style: TextStyle(color: CustomColor.red),
+                              style: TextStyle(color: CustomColor.white),
                             ),
                             SizedBox(
                               height: 10,
@@ -978,14 +999,14 @@ class _ProfileListViewState extends State<ProfileListView> {
           alignment: Alignment.topRight,
           child: GestureDetector(
             onTap: () async {
-              enabled = !enabled;
-              enabled ? iconData = Icons.check : iconData = Icons.edit;
+              // enabled = !enabled;
+              // enabled ? iconData = Icons.check : iconData = Icons.edit;
 
-              if (!enabled) {
-                controller.text = await widget.database
-                    .updateSignleField(key: key, value: controller.text);
-              }
-              setState(() {});
+              // if (!enabled) {
+              //   controller.text = await widget.database
+              //       .updateSignleField(key: key, value: controller.text);
+              // }
+              // setState(() {});
             },
             child: Icon(iconData, color: Colors.white, size: 30.h),
           ),

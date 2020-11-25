@@ -100,7 +100,7 @@ class _ViewDetailState extends State<ViewDetail> {
                                           Text(
                                             '3',
                                             style: TextStyle(
-                                                color: CustomColor.red),
+                                                color: CustomColor.white),
                                           )
                                         ],
                                       ),
@@ -119,7 +119,7 @@ class _ViewDetailState extends State<ViewDetail> {
                                           Text(
                                             'Lose 4Kgs in 3 sessions',
                                             style: TextStyle(
-                                                color: CustomColor.red),
+                                                color: CustomColor.white),
                                           )
                                         ],
                                       ),
@@ -138,7 +138,7 @@ class _ViewDetailState extends State<ViewDetail> {
                                           Text(
                                             'One-one-One',
                                             style: TextStyle(
-                                                color: CustomColor.red),
+                                                color: CustomColor.white),
                                           )
                                         ],
                                       ),
@@ -241,7 +241,7 @@ class _ViewDetailState extends State<ViewDetail> {
 
   static Widget _absentIcon(String day) => Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: CustomColor.white,
           borderRadius: BorderRadius.all(
             Radius.circular(1000),
           ),

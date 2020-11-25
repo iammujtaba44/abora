@@ -60,7 +60,7 @@ class _BookingTabState extends State<BookingTab> {
             centerTitle: true,
             leading: Icon(
               Icons.arrow_back_ios,
-              color: CustomColor.red,
+              color: CustomColor.white,
             ),
 
             actions: [
@@ -73,9 +73,9 @@ class _BookingTabState extends State<BookingTab> {
 
             //backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             bottom: TabBar(
-              labelColor: CustomColor.red,
+              labelColor: CustomColor.white,
               unselectedLabelColor: CustomColor.grey,
-              indicatorColor: CustomColor.red,
+              indicatorColor: CustomColor.white,
               tabs: [
                 Tab(child: Text('Book Sesson')),
                 Tab(child: Text('Book Course')),

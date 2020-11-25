@@ -64,7 +64,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                 width: 30,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(360),
-                    color: CustomColor.red),
+                    color: CustomColor.white),
               ),
               SizedBox(
                 width: 5,
@@ -88,7 +88,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
           ),
           leading: Icon(
             Icons.arrow_back_ios,
-            color: Colors.red,
+            color: CustomColor.white,
           ),
           actions: [
             Image.asset(
@@ -135,8 +135,8 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                                         ),
                                         Text(
                                           widget.detailsData['noOfBookings'],
-                                          style:
-                                              TextStyle(color: CustomColor.red),
+                                          style: TextStyle(
+                                              color: CustomColor.white),
                                         )
                                       ],
                                     ),
@@ -154,8 +154,8 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                                         ),
                                         Text(
                                           widget.detailsData['goal'],
-                                          style:
-                                              TextStyle(color: CustomColor.red),
+                                          style: TextStyle(
+                                              color: CustomColor.white),
                                         )
                                       ],
                                     ),
@@ -173,8 +173,8 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                                         ),
                                         Text(
                                           widget.detailsData['sessionType'],
-                                          style:
-                                              TextStyle(color: CustomColor.red),
+                                          style: TextStyle(
+                                              color: CustomColor.white),
                                         )
                                       ],
                                     ),
@@ -362,7 +362,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
       dayPadding: 6,
       daysTextStyle: TextStyle(color: Colors.grey),
       weekendTextStyle: TextStyle(
-        color: Colors.red,
+        color: CustomColor.white,
       ),
 
       customGridViewPhysics: NeverScrollableScrollPhysics(),
@@ -387,7 +387,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   }
 // Widget _absentIcon(String day) => Container(
 //       decoration: BoxDecoration(
-//         color: Colors.red,
+//         color: CustomColor.white,
 //         borderRadius: BorderRadius.all(
 //           Radius.circular(1000),
 //         ),

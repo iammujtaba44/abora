@@ -140,7 +140,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
         ),
         leading: Icon(
           Icons.arrow_back_ios,
-          color: CustomColor.red,
+          color: CustomColor.white,
         ),
         centerTitle: true,
         actions: [
@@ -189,7 +189,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                             Text(
                               'Amount',
                               style: TextStyle(
-                                  color: CustomColor.red,
+                                  color: CustomColor.white,
                                   fontSize: FontSize.h3FontSize),
                             ),
                             widget.addAp['totalPrice'] != null
@@ -207,7 +207,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                     ),
                     Text(
                       'Card Number',
-                      style: TextStyle(color: CustomColor.red),
+                      style: TextStyle(color: CustomColor.white),
                     ),
                     SizedBox(height: 4),
                     Row(
@@ -265,7 +265,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                     ),
                     Text(
                       'Cardholder Name',
-                      style: TextStyle(color: CustomColor.red),
+                      style: TextStyle(color: CustomColor.white),
                     ),
                     SizedBox(height: 4),
                     customTextField(
@@ -292,7 +292,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                             children: [
                               Text(
                                 'Expiry Date',
-                                style: TextStyle(color: CustomColor.red),
+                                style: TextStyle(color: CustomColor.white),
                               ),
                               customTextField(
                                   onChanged: (value) {
@@ -375,7 +375,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                             children: [
                               Text(
                                 'CVV',
-                                style: TextStyle(color: CustomColor.red),
+                                style: TextStyle(color: CustomColor.white),
                               ),
                               customTextField(
                                   fieldFormate: true,
@@ -405,7 +405,8 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                     Row(
                       children: [
                         Theme(
-                          data: ThemeData(unselectedWidgetColor: Colors.red),
+                          data: ThemeData(
+                              unselectedWidgetColor: CustomColor.white),
                           child: Checkbox(
                             value: checkTick,
                             onChanged: (value) {

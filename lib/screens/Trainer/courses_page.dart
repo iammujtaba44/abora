@@ -154,7 +154,7 @@ class _CourseGridViewState extends State<CourseGridView> {
                                 color: CustomColor.signUpButtonColor,
                                 borderRadius: BorderRadius.circular(5)),
                             child: Text(
-                              '\$${courses[index].cost}',
+                              '\£${courses[index].cost}',
                               style: TextStyle(color: CustomColor.white),
                             ),
                           ),
@@ -164,7 +164,7 @@ class _CourseGridViewState extends State<CourseGridView> {
                     Text(
                       courses[index].title,
                       style: TextStyle(
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                           fontWeight: FontWeight.w600),
                     ),

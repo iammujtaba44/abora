@@ -246,11 +246,11 @@ class _ProfileListViewState extends State<ProfileListView> {
         color: Colors.black,
       );
       homeTrainingEnabled = true;
-    } else if (widget.data['hometraining'] == 'red') {
+    } else if (widget.data['hometraining'] == 'green') {
       homeTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.red,
+        color: CustomColor.green,
       );
       homeTrainingEnabled = false;
     }
@@ -269,11 +269,11 @@ class _ProfileListViewState extends State<ProfileListView> {
         color: Colors.black,
       );
       gymTrainingEnabled = true;
-    } else if (widget.data['gymtraining'] == 'red') {
+    } else if (widget.data['gymtraining'] == 'green') {
       gymTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.red,
+        color: CustomColor.green,
       );
       gymTrainingEnabled = false;
     }
@@ -293,11 +293,11 @@ class _ProfileListViewState extends State<ProfileListView> {
         color: Colors.black,
       );
       parkTrainingEnabled = true;
-    } else if (widget.data['parkTraining'] == 'red') {
+    } else if (widget.data['parkTraining'] == 'green') {
       parkTrainingIconData = Container(
         height: 20,
         width: 20,
-        color: Colors.red,
+        color: CustomColor.green,
       );
       parkTrainingEnabled = false;
     }
@@ -351,7 +351,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                 children: [
                   Text(
                     'Bio',
-                    style: TextStyle(color: CustomColor.red),
+                    style: TextStyle(color: CustomColor.white),
                   ),
                 ],
               ),
@@ -388,7 +388,7 @@ class _ProfileListViewState extends State<ProfileListView> {
             children: [
               Text(
                 'Description',
-                style: TextStyle(color: CustomColor.red),
+                style: TextStyle(color: CustomColor.white),
               ),
               SizedBox(
                 height: 10,
@@ -606,7 +606,7 @@ class _ProfileListViewState extends State<ProfileListView> {
               Text(
                 'Bulk Sessions',
                 style: TextStyle(
-                  color: CustomColor.red,
+                  color: CustomColor.white,
                 ),
               ),
               SizedBox(
@@ -648,7 +648,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     children: [
                       Text(
                         'Reviews',
-                        style: TextStyle(color: CustomColor.red),
+                        style: TextStyle(color: CustomColor.white),
                       ),
                       SizedBox(
                         height: 10,
@@ -669,7 +669,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     children: [
                       Text(
                         'Reviews',
-                        style: TextStyle(color: CustomColor.red),
+                        style: TextStyle(color: CustomColor.white),
                       ),
                       SizedBox(
                         height: 10,
@@ -749,7 +749,7 @@ class _ProfileListViewState extends State<ProfileListView> {
     //             children: [
     //               Text(
     //                 'Reviews',
-    //                 style: TextStyle(color: CustomColor.red),
+    //                 style: TextStyle(color: CustomColor.white),
     //               ),
     //               SizedBox(
     //                 height: 10,

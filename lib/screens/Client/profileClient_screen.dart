@@ -97,7 +97,7 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                       children: [
                         Text(
                           'Bio',
-                          style: TextStyle(color: CustomColor.red),
+                          style: TextStyle(color: CustomColor.white),
                         ),
                         SizedBox(
                           height: 10,
@@ -123,7 +123,7 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                       children: [
                         Text(
                           'Description',
-                          style: TextStyle(color: CustomColor.red),
+                          style: TextStyle(color: CustomColor.white),
                         ),
                         SizedBox(
                           height: 10,
@@ -166,7 +166,7 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                       children: [
                         Text(
                           'Bulk Sessions',
-                          style: TextStyle(color: CustomColor.red),
+                          style: TextStyle(color: CustomColor.white),
                         ),
                         SizedBox(
                           height: 10,
@@ -238,7 +238,7 @@ class _ProfileClientPageState extends State<ProfileClientPage> {
                         children: [
                           Text(
                             'Reviews',
-                            style: TextStyle(color: CustomColor.red),
+                            style: TextStyle(color: CustomColor.white),
                           ),
                           SizedBox(
                             height: 10,

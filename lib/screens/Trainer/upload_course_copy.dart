@@ -69,7 +69,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                 children: [
                   Icon(
                     Icons.arrow_back_ios,
-                    color: CustomColor.red,
+                    color: CustomColor.white,
                   ),
                   Text(
                     'UPLOAD COURSE',
@@ -79,7 +79,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                   ),
                   Icon(
                     Icons.arrow_back_ios,
-                    color: CustomColor.red,
+                    color: CustomColor.white,
                   ),
                 ],
               ),
@@ -102,7 +102,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                       text: new TextSpan(
                         style: TextStyle(
                             fontSize: FontSize.h3FontSize,
-                            color: CustomColor.red),
+                            color: CustomColor.white),
                         text: 'Upload videos',
                         children: [
                           new TextSpan(
@@ -260,7 +260,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                   Text(
                     'Course Title',
                     style: TextStyle(
-                        color: CustomColor.red,
+                        color: CustomColor.white,
                         fontSize: FontSize.h3FontSize,
                         fontWeight: FontWeight.bold),
                   ),
@@ -289,7 +289,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                   Text(
                     'Course Title',
                     style: TextStyle(
-                        color: CustomColor.red,
+                        color: CustomColor.white,
                         fontSize: FontSize.h3FontSize,
                         fontWeight: FontWeight.bold),
                   ),
@@ -318,7 +318,7 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                   Text(
                     'Course Title',
                     style: TextStyle(
-                        color: CustomColor.red,
+                        color: CustomColor.white,
                         fontSize: FontSize.h3FontSize,
                         fontWeight: FontWeight.bold),
                   ),

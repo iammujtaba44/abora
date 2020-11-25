@@ -131,7 +131,7 @@ class _BookCourseState extends State<BookCourse> {
                                               borderRadius:
                                                   BorderRadius.circular(5)),
                                           child: Text(
-                                            '\$${dataList[index]['cost']}',
+                                            '\£${dataList[index]['cost']}',
                                             style: TextStyle(
                                                 color: CustomColor.white),
                                           ),
@@ -142,7 +142,7 @@ class _BookCourseState extends State<BookCourse> {
                                   Text(
                                     dataList[index]['title'],
                                     style: TextStyle(
-                                        color: CustomColor.red,
+                                        color: CustomColor.white,
                                         fontSize: FontSize.h3FontSize,
                                         fontWeight: FontWeight.w600),
                                   ),

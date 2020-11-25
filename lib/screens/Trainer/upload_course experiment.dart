@@ -76,7 +76,7 @@ class _UploadCoursePageExperimentState
                       text: new TextSpan(
                         style: TextStyle(
                             fontSize: FontSize.h3FontSize,
-                            color: CustomColor.red),
+                            color: CustomColor.white),
                         text: 'Upload videos',
                         children: [
                           new TextSpan(

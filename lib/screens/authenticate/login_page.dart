@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
               Text(
                 'Your Personal Trainer',
                 style: TextStyle(
-                    color: CustomColor.red,
+                    color: CustomColor.white,
                     fontSize: FontSize.h2FontSize,
                     fontWeight: FontWeight.bold),
               ),

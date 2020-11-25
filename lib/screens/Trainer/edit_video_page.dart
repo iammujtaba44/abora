@@ -109,7 +109,7 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
         ),
         leading: Icon(
           Icons.arrow_back_ios,
-          color: Colors.red,
+          color: CustomColor.white,
         ),
         centerTitle: true,
         actions: [
@@ -145,7 +145,7 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                                 text: new TextSpan(
                                   style: TextStyle(
                                       fontSize: FontSize.h3FontSize,
-                                      color: CustomColor.red),
+                                      color: CustomColor.white),
                                   text: 'Upload videos',
                                   children: [],
                                 ),
@@ -209,7 +209,7 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                                 child: Text(
                                   'Title',
                                   style: TextStyle(
-                                      color: CustomColor.red,
+                                      color: CustomColor.white,
                                       fontSize: FontSize.h3FontSize,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -241,7 +241,7 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
                             Text(
                               'Description',
                               style: TextStyle(
-                                  color: CustomColor.red,
+                                  color: CustomColor.white,
                                   fontSize: FontSize.h3FontSize,
                                   fontWeight: FontWeight.bold),
                             ),

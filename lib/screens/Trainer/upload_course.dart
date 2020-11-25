@@ -104,7 +104,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
           },
           child: Icon(
             Icons.arrow_back_ios,
-            color: Colors.red,
+            color: CustomColor.white,
           ),
         ),
         centerTitle: true,
@@ -144,7 +144,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                         text: new TextSpan(
                                           style: TextStyle(
                                               fontSize: FontSize.h3FontSize,
-                                              color: CustomColor.red),
+                                              color: CustomColor.white),
                                           text: 'Upload videos',
                                           children: [
                                             new TextSpan(
@@ -246,7 +246,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                     Text(
                                       'Course Title',
                                       style: TextStyle(
-                                          color: CustomColor.red,
+                                          color: CustomColor.white,
                                           fontSize: FontSize.h3FontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -259,7 +259,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                     Text(
                                       'Cost',
                                       style: TextStyle(
-                                          color: CustomColor.red,
+                                          color: CustomColor.white,
                                           fontSize: FontSize.h3FontSize,
                                           fontWeight: FontWeight.bold),
                                     ),
@@ -275,7 +275,7 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
                                     Text(
                                       'Description',
                                       style: TextStyle(
-                                          color: CustomColor.red,
+                                          color: CustomColor.white,
                                           fontSize: FontSize.h3FontSize,
                                           fontWeight: FontWeight.bold),
                                     ),

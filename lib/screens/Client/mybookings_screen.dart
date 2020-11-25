@@ -75,7 +75,7 @@ class _MybookingsState extends State<Mybookings> {
                               Text(
                                 'Upcoming Appointments',
                                 style: TextStyle(
-                                    color: CustomColor.red, fontSize: 18),
+                                    color: CustomColor.white, fontSize: 18),
                               ),
                               SizedBox(
                                 height: 10,
@@ -108,7 +108,7 @@ class _MybookingsState extends State<Mybookings> {
                               Text(
                                 'Previous Appointments',
                                 style: TextStyle(
-                                    color: CustomColor.red, fontSize: 18),
+                                    color: CustomColor.white, fontSize: 18),
                               ),
                               SizedBox(
                                 height: 10,
@@ -175,7 +175,7 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                           width: 35,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(360),
-                              color: CustomColor.red),
+                              color: CustomColor.white),
                         ),
                         SizedBox(
                           width: 10,
@@ -362,7 +362,7 @@ class _PreviousSessionState extends State<PreviousSession> {
                             width: 35,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(360),
-                                color: CustomColor.red),
+                                color: CustomColor.white),
                           ),
                           SizedBox(
                             width: 10,

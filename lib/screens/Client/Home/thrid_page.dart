@@ -78,8 +78,8 @@ class ThirdPage extends StatelessWidget {
                     const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
                 child: Text(
                   'Ads',
-                  style:
-                      TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      color: CustomColor.white, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
@@ -203,7 +203,8 @@ class ThirdPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 18),
             child: Text(
               'Top Training Companies',
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  color: CustomColor.white, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -280,7 +281,7 @@ class ThirdPage extends StatelessWidget {
                                   Text(
                                     snapshot.data[index].title,
                                     style: TextStyle(
-                                        color: CustomColor.red,
+                                        color: CustomColor.white,
                                         fontSize: FontSize.h3FontSize,
                                         fontWeight: FontWeight.w600),
                                   ),

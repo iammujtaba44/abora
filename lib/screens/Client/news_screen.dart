@@ -37,7 +37,7 @@ class _NewsPageState extends State<NewsPage> {
             children: [
               Text(
                 'Trending Topics',
-                style: TextStyle(color: CustomColor.red, fontSize: 18),
+                style: TextStyle(color: CustomColor.white, fontSize: 18),
               ),
               SizedBox(
                 height: 20.0,

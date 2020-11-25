@@ -67,7 +67,7 @@ class _OTPPageState extends State<OTPPage> {
               Text(
                 'Forget Passowrd',
                 style: TextStyle(
-                    color: CustomColor.red,
+                    color: CustomColor.white,
                     fontSize: FontSize.h3FontSize + 4,
                     fontWeight: FontWeight.w500),
               ),

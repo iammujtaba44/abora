@@ -113,7 +113,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                         text: new TextSpan(
                           style: TextStyle(
                               fontSize: FontSize.h3FontSize,
-                              color: CustomColor.red),
+                              color: CustomColor.white),
                           text: 'Upload videos',
                           children: [],
                         ),
@@ -148,7 +148,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                       child: Text(
                         'Title',
                         style: TextStyle(
-                            color: CustomColor.red,
+                            color: CustomColor.white,
                             fontSize: FontSize.h3FontSize,
                             fontWeight: FontWeight.bold),
                       ),
@@ -167,7 +167,7 @@ class _UploadSingleVideoPageState extends State<UploadSingleVideoPage> {
                     Text(
                       'Description',
                       style: TextStyle(
-                          color: CustomColor.red,
+                          color: CustomColor.white,
                           fontSize: FontSize.h3FontSize,
                           fontWeight: FontWeight.bold),
                     ),
