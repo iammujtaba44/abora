@@ -6,8 +6,11 @@ import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/loading_widget.dart';
 import 'package:abora/widgets/textfield_widget.dart';
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -57,6 +60,15 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
 
   int _index = 0;
   bool isChecked = false;
+  List<String> postcodes = List();
+  String selectedPostcode;
+  loadAsset() async {
+    final myData = await rootBundle.loadString('assets/postcodes.txt');
+
+    var datt = myData.split(',');
+    postcodes = datt;
+    // print(postcodes);
+  }
 
   @override
   void initState() {
@@ -67,6 +79,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPassowrdController = TextEditingController();
+    loadAsset();
   }
 
   @override
@@ -76,54 +89,55 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
       body: Container(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Container(
-              height: MediaQuery.of(context).size.height / 1.1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/logo.png',
-                        width: 130,
-                        height: 130,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  tabs(context),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  signUp(context),
-                  Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Already have an account? ',
+          child: Container(
+            height: MediaQuery.of(context).size.height / 1.1,
+            child: ListView(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              //  crossAxisAlignment: CrossAxisAlignment.center,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              children: [
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/logo.png',
+                      width: 130,
+                      height: 130,
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                tabs(context),
+                SizedBox(
+                  height: 20,
+                ),
+                signUp(context),
+                SizedBox(
+                  height: 40.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Already have an account? ',
+                      style: TextStyle(color: CustomColor.white),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        widget.toggleView();
+                      },
+                      child: Text(
+                        'Login',
                         style: TextStyle(color: CustomColor.white),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          widget.toggleView();
-                        },
-                        child: Text(
-                          'Login',
-                          style: TextStyle(color: CustomColor.white),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                    )
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -181,6 +195,47 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
             SizedBox(
               height: 20,
             ),
+            _index == 1
+                ? Container(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Container(
+                      // padding: EdgeInsets.only(left: 50.0, right: 15.0),
+                      //  width: 120.0,
+                      //  height: 100.0,
+                      // padding: const EdgeInsets.only(
+                      //     left: 20.0, right: 20, top: 20.0, bottom: 20),
+                      // alignment: Alignment.bottomRight,
+                      decoration: BoxDecoration(
+                          //color: Theme.of(context).primaryColor,
+                          color: CustomColor.orangeColor,
+                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                      child: DropdownButtonHideUnderline(
+                        child: DropDownField(
+                          onValueChanged: (dynamic value) {
+                            selectedPostcode = value.toString().toUpperCase();
+                          },
+                          labelStyle: TextStyle(
+                            fontSize: 15.0,
+                            color: CustomColor.white,
+                            letterSpacing: 1.2,
+                          ),
+                          value: selectedPostcode,
+                          required: false,
+                          hintText: 'Choose a postcode',
+                          labelText: 'Postcode',
+                          hintStyle:
+                              TextStyle(color: Colors.grey.withOpacity(0.5)),
+                          items: postcodes,
+                          textStyle: TextStyle(
+                            fontSize: 15.0,
+                            color: CustomColor.white,
+                            letterSpacing: 1.2,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
             Row(
               children: [
                 Checkbox(
@@ -218,7 +273,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                           passwordController.text.isNotEmpty &&
                           firstNameController.text.isNotEmpty &&
                           lastNameController.text.isNotEmpty &&
-                          confirmPassowrdController.text.isNotEmpty) {
+                          confirmPassowrdController.text.isNotEmpty &&
+                          selectedPostcode != null) {
                         if (passwordController.text ==
                             confirmPassowrdController.text) {
                           setState(() {
@@ -229,7 +285,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                               password: passwordController.text,
                               name:
                                   "${firstNameController.text + " " + lastNameController.text}",
-                              index: _index);
+                              index: _index,
+                              area: selectedPostcode);
 
                           if (result == null) {
                             print('Sorry couldn\'t register');

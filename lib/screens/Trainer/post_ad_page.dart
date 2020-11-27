@@ -1,41 +1,21 @@
 import 'dart:async';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/payment_page.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
+
+import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: PostAdPage(),
-    );
-  }
-}
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 class PostAdPage extends StatefulWidget {
   @override
@@ -69,6 +49,24 @@ class _PostAdPageState extends State<PostAdPage> {
   var _selectedEx1;
   var _selectedEx2;
   int totalprice = 20;
+  String selectedPostcode;
+
+  List<String> postcodes = List();
+
+  loadAsset() async {
+    final myData = await rootBundle.loadString('assets/postcodes.txt');
+
+    var datt = myData.split(',');
+    postcodes = datt;
+    // print(postcodes);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //print(loadAsset());
+    loadAsset();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +157,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.white,
+                                    color: CustomColor.orangeColor,
                                     letterSpacing: 1.2,
                                   ),
                                   iconEnabledColor: CustomColor.white,
@@ -206,7 +204,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.white,
+                                    color: CustomColor.orangeColor,
                                     letterSpacing: 1.2,
                                   ),
                                   iconEnabledColor: CustomColor.white,
@@ -253,7 +251,7 @@ class _PostAdPageState extends State<PostAdPage> {
                                   iconSize: 20,
                                   style: TextStyle(
                                     fontSize: 13.0,
-                                    color: CustomColor.white,
+                                    color: CustomColor.orangeColor,
                                     letterSpacing: 1.2,
                                   ),
                                   iconEnabledColor: CustomColor.white,
@@ -323,7 +321,7 @@ class _PostAdPageState extends State<PostAdPage> {
                               iconSize: 20,
                               style: TextStyle(
                                 fontSize: 15.0,
-                                color: CustomColor.white,
+                                color: CustomColor.orangeColor,
                                 letterSpacing: 1.2,
                               ),
                               iconEnabledColor: Colors.grey,
@@ -354,39 +352,41 @@ class _PostAdPageState extends State<PostAdPage> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            color: Theme.of(context).primaryColor,
-            padding: const EdgeInsets.only(
-                left: 20.0, right: 20, top: 5, bottom: 20),
-            margin: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Area',
-                  style: TextStyle(color: CustomColor.white),
-                ),
-                Text('Number of miles : 3',
-                    style: TextStyle(color: CustomColor.white)),
-                SizedBox(
-                  height: 10,
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
+                Container(
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Container(
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(300)),
-                    height: 200,
-                    child: GoogleMap(
-                      onMapCreated: _onMapCreated,
-                      initialCameraPosition: CameraPosition(
-                        target: _center,
-                        zoom: 11.0,
+                    // padding: EdgeInsets.only(left: 50.0, right: 15.0),
+                    //  width: 120.0,
+                    //height: 40.0,
+                    // padding: const EdgeInsets.only(
+                    //     left: 20.0, right: 20, top: 20.0, bottom: 20),
+                    // alignment: Alignment.bottomRight,
+                    decoration: BoxDecoration(
+                        //color: Theme.of(context).primaryColor,
+                        color: CustomColor.orangeColor,
+                        borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                    child: DropdownButtonHideUnderline(
+                      child: DropDownField(
+                        onValueChanged: (dynamic value) {
+                          selectedPostcode = value.toString().toUpperCase();
+                        },
+                        labelStyle: TextStyle(
+                          fontSize: 15.0,
+                          color: CustomColor.white,
+                          letterSpacing: 1.2,
+                        ),
+                        value: selectedPostcode,
+                        required: false,
+                        hintText: 'Choose a postcode',
+                        labelText: 'Postcode',
+                        hintStyle:
+                            TextStyle(color: Colors.grey.withOpacity(0.5)),
+                        items: postcodes,
+                        textStyle: TextStyle(
+                          fontSize: 15.0,
+                          color: CustomColor.white,
+                          letterSpacing: 1.2,
+                        ),
                       ),
                     ),
                   ),
@@ -394,6 +394,45 @@ class _PostAdPageState extends State<PostAdPage> {
               ],
             ),
           ),
+
+          // Container(
+          //   width: double.infinity,
+          //   color: Theme.of(context).primaryColor,
+          //   padding: const EdgeInsets.only(
+          //       left: 20.0, right: 20, top: 5, bottom: 20),
+          //   margin: EdgeInsets.all(20),
+          //   child: Column(
+          //     mainAxisAlignment: MainAxisAlignment.start,
+          //     crossAxisAlignment: CrossAxisAlignment.start,
+          //     children: [
+          //       Text(
+          //         'Area',
+          //         style: TextStyle(color: CustomColor.white),
+          //       ),
+          //       Text('Number of miles : 3',
+          //           style: TextStyle(color: CustomColor.white)),
+          //       SizedBox(
+          //         height: 10,
+          //       ),
+          //       ClipRRect(
+          //         borderRadius: BorderRadius.circular(10),
+          //         child: Container(
+          //           decoration:
+          //               BoxDecoration(borderRadius: BorderRadius.circular(300)),
+          //           height: 200,
+          //           child: GoogleMap(
+          //             onMapCreated: _onMapCreated,
+          //             initialCameraPosition: CameraPosition(
+          //               target: _center,
+          //               zoom: 11.0,
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          SizedBox(height: 20.0),
           Padding(
             padding: EdgeInsets.only(left: 30.0.h, right: 30.h),
             child: Container(
@@ -439,10 +478,12 @@ class _PostAdPageState extends State<PostAdPage> {
   }
 
   _ontap() {
+    print(selectedPostcode);
     if (_selectedyear.toString().isNotEmpty &&
         _selectedEx1.toString().isNotEmpty &&
         _selectedEx2.toString().isNotEmpty &&
-        _selected.toString().isNotEmpty) {
+        _selected.toString().isNotEmpty &&
+        selectedPostcode != null) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -452,10 +493,12 @@ class _PostAdPageState extends State<PostAdPage> {
                     'ex': _selectedEx1.toString(),
                     'ex1': _selectedEx2.toString(),
                     'days': _selected.toString(),
-                    'totalPrice': totalprice.toString()
+                    'totalPrice': totalprice.toString(),
+                    'postCode': selectedPostcode
                   },
                 )),
       );
-    }
+    } else
+      customToast(text: 'fill all fields');
   }
 }

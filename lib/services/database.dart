@@ -227,7 +227,8 @@ class DatabaseService {
     return ClientUser(
         email: ds.data()['email'],
         name: ds.data()['name'],
-        password: ds.data()['password']);
+        password: ds.data()['password'],
+        area: ds.data()['area']);
   }
 
   Stream<ClientUser> get currentClientUserStream {
@@ -365,9 +366,6 @@ class DatabaseService {
       'totalPrice': totalPrice
     });
     return await trainer.doc(uId).collection('postAds').doc().set({
-      'name': Constants.trainerUserData.name,
-      'bio': Constants.trainerUserData.bio ?? '',
-      'email': Constants.trainerUserData.email,
       'years': years,
       'exerciseType': exerciseType,
       'exerciseSubType': exerciseSubType,
@@ -398,10 +396,10 @@ class DatabaseService {
   }
 
   // Client
-  Future clientUserData({String email, String name, String password}) async {
-    return await client
-        .doc(uId)
-        .set({'email': email, 'name': name, 'password': password});
+  Future clientUserData(
+      {String email, String name, String password, String area}) async {
+    return await client.doc(uId).set(
+        {'email': email, 'name': name, 'password': password, 'area': area});
   }
 
   Future updateTrainerHomeData(

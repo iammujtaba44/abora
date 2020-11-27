@@ -49,6 +49,7 @@ dependencies:
   font_awesome_flutter: ^8.10.0
   credit_card_validate: ^0.0.3
   shared_preferences: ^0.5.12+2
+  dropdownfield: 1.0.0
 
   # video player packages
   chewie: 
@@ -70,6 +71,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/postcodes.txt
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
