@@ -9,6 +9,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class ClientDetailPage extends StatefulWidget {
   final detailsData;
@@ -38,6 +39,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   );
   List<DateTime> presentDates = [];
   List<DateTime> absentDates = [];
+
   @override
   void initState() {
     super.initState();
@@ -262,18 +264,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                           style: TextStyle(color: CustomColor.white),
                         ),
                         func: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RateSession(
-                                      trainerData: {
-                                        'email':
-                                            widget.detailsData['trainerEmail'],
-                                        'url': widget.detailsData['trainerUrl'],
-                                        'docId': widget.detailsData['docId']
-                                      },
-                                    )),
-                          );
+                          onAlertWithCustomContentPressed(context);
                         }),
                   )
                 : SizedBox()
@@ -346,6 +337,56 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
     //     ),
     //   );
     // }
+  }
+
+  TextEditingController initialWeightController = TextEditingController();
+
+  onAlertWithCustomContentPressed(context) {
+    Alert(
+        style: AlertStyle(
+            titleStyle: TextStyle(color: CustomColor.white),
+            backgroundColor: CustomColor.backgroundColor),
+        context: context,
+        title: "Session Started",
+        content: Column(
+          children: <Widget>[
+            TextField(
+              controller: initialWeightController,
+              style: TextStyle(color: CustomColor.white),
+              decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  labelText: 'Enter you current weight',
+                  labelStyle: TextStyle(color: CustomColor.white)),
+            ),
+          ],
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              print('---${initialWeightController.text}');
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => RateSession(
+                          trainerData: {
+                            'initialWeight': initialWeightController.text,
+                            'email': widget.detailsData['trainerEmail'],
+                            'url': widget.detailsData['trainerUrl'],
+                            'docId': widget.detailsData['docId']
+                          },
+                        )),
+              );
+            },
+            child: Text(
+              "Submit",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+          )
+        ]).show();
   }
 
   cal2() {

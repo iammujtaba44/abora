@@ -227,6 +227,15 @@ class DatabaseService {
     });
   }
 
+  // CLIENT FUNCTIONS
+
+  Future clientProgress({String initialWeight, String endWeight}) async {
+    return await client.doc(uId).collection('progress').doc().set({
+      'initialWeight': initialWeight,
+      'engWeight': endWeight,
+    });
+  }
+
   ClientUser getCurrentClientUser(DocumentSnapshot ds) {
     return ClientUser(
         email: ds.data()['email'],

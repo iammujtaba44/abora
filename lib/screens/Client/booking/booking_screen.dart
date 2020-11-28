@@ -116,6 +116,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       } else {
                         //  print(Helper.getDate(DateTime.now()));
                         // print(_selectedDates);
+
                         customToast(text: 'Please fill all fields');
                         customToast(
                             text:
@@ -504,8 +505,8 @@ class _BookingScreenState extends State<BookingScreen> {
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
 
-        selectTime(context);
-        print(_time);
+        // selectTime(context);
+        // print(_time);
 
         if (_markedDateMap.events.isEmpty) {
           _selectedDates.add(Helper.getDate(date));

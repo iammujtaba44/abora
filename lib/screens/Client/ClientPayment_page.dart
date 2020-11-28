@@ -305,18 +305,21 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
                                                   offset: 0);
+                                          expiryDate = expiryDateCtr.text;
                                           break;
                                         case 1:
                                           expiryDateCtr.text = "${value}M/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
                                                   offset: 1);
+                                          expiryDate = expiryDateCtr.text;
                                           break;
                                         case 2:
                                           expiryDateCtr.text = "$value/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
                                                   offset: 2);
+                                          expiryDate = expiryDateCtr.text;
                                           break;
                                         case 3:
                                           expiryDateCtr.text =
@@ -324,6 +327,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
                                                   offset: 4);
+                                          expiryDate = expiryDateCtr.text;
                                           break;
                                         case 4:
                                           expiryDateCtr.text =
@@ -331,6 +335,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
                                                   offset: 5);
+                                          expiryDate = expiryDateCtr.text;
                                           break;
                                       }
                                       if (value.length > 4) {
@@ -338,6 +343,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                             "${value.substring(0, 2)}/${value.substring(2, 4)}";
                                         expiryDateCtr.selection =
                                             TextSelection.collapsed(offset: 5);
+                                        expiryDate = expiryDateCtr.text;
                                       }
                                     });
                                     // if (expiryDateCtr.text.toString().length >
@@ -455,18 +461,14 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
   }
 
   _onpressed() {
-    if (!expiryDate.contains('/')) {
-      customToast(text: 'Please fill expiry with /');
-    } else {
-      if (cardNumber != '' &&
-          expiryDate != '' &&
-          cardHolderName != '' &&
-          cvvCode != '') {
-        var exDate = expiryDate.split('/');
-        payViaExistingCard2(context, exDate[0], exDate[1], cardNumber);
-      } else
-        customToast(text: 'Please fill the fileds');
-    }
+    if (cardNumber != '' &&
+        expiryDate != '' &&
+        cardHolderName != '' &&
+        cvvCode != '') {
+      var exDate = expiryDate.split('/');
+      payViaExistingCard2(context, exDate[0], exDate[1], cardNumber);
+    } else
+      customToast(text: 'Please fill the fileds');
   }
 
   payViaExistingCard2(BuildContext context, month, year, cardNumber) async {

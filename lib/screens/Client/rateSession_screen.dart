@@ -3,6 +3,7 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/Progress_screen.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
+import 'package:abora/services/database.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
@@ -10,6 +11,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class RateSession extends StatefulWidget {
@@ -39,6 +41,8 @@ class _RateSessionState extends State<RateSession> {
 
   @override
   Widget build(BuildContext context) {
+    final database = Provider.of<DatabaseService>(context);
+
     ScreenUtil.init(context,
         designSize: Size(640, 1134), allowFontScaling: false);
 
@@ -116,7 +120,7 @@ class _RateSessionState extends State<RateSession> {
 
                         if (loseCtr.text.isNotEmpty &&
                             reviewCtr.text.isNotEmpty) {
-                          submitReview();
+                          submitReview(database: database);
                           customToast(
                               text:
                                   'Your review has been submitted. Thank You!');
@@ -128,13 +132,18 @@ class _RateSessionState extends State<RateSession> {
             )));
   }
 
-  submitReview() async {
+  submitReview({DatabaseService database}) async {
+    await database.clientProgress(
+        initialWeight: widget.trainerData['initialWeight'],
+        endWeight: loseCtr.text);
+
     await appointments
         .doc('upcomingApointments')
         .collection('data')
         .get()
         .then((value) {
       value.docs.forEach((element) async {
+        //----------------------- why is there trainerData named varialbe?
         if (element.data()['docId'] == widget.trainerData['docId']) {
           print(element.data());
 

@@ -14,8 +14,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
   List<charts.Series<Sales, int>> _seriesLineData;
   _generateData() {
     var linesalesdata = [
-      new Sales(0, 35),
-      new Sales(1, 46),
+      new Sales(0, 65),
+      new Sales(1, 63),
       new Sales(2, 45),
       new Sales(3, 50),
       new Sales(4, 51),
@@ -108,29 +108,21 @@ class _ProgressScreenState extends State<ProgressScreen> {
   }
 
   _topContainer() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProfileClientPage()),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
-            borderRadius: BorderRadius.all(Radius.circular(10.0))),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Goal',
-              style: TextStyle(color: CustomColor.orangeColor),
-            ),
-            Text('Loss 10 kgs in 5 days',
-                style: TextStyle(color: CustomColor.grey))
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor,
+          borderRadius: BorderRadius.all(Radius.circular(10.0))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Goal',
+            style: TextStyle(color: CustomColor.orangeColor),
+          ),
+          Text('Loss 10 kgs in 5 days',
+              style: TextStyle(color: CustomColor.grey))
+        ],
       ),
     );
   }

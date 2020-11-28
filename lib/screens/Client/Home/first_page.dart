@@ -47,7 +47,6 @@ class FirstPage extends StatelessWidget {
 
           if (snapshot.hasData) {
             Constants.clientUserData = snapshot.data;
-            //  print('------------${Constants.clientUserData.area}');
             return Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
