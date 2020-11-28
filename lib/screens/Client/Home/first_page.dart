@@ -161,10 +161,17 @@ class FirstPage extends StatelessWidget {
                                                   SizedBox(
                                                     height: 2,
                                                   ),
-                                                  Text(snapshot.data[index].bio,
+                                                  Container(
+                                                    width: 120,
+                                                    child: Text(
+                                                      snapshot.data[index].bio,
                                                       style: TextStyle(
                                                         color: Colors.grey,
-                                                      )),
+                                                      ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
                                                   SizedBox(
                                                     height: 1,
                                                   ),
@@ -276,15 +283,18 @@ class FirstPage extends StatelessWidget {
                                     SizedBox(
                                       height: 5.0,
                                     ),
-                                    Text(
-                                      snapshot.data[index].bio ?? '',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 12,
+                                    Container(
+                                      width: 150,
+                                      child: Text(
+                                        snapshot.data[index].bio ?? '',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 12,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        textAlign: TextAlign.justify,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 5,
-                                      textAlign: TextAlign.justify,
                                     ),
                                     SizedBox(
                                       height: 3.0,

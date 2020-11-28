@@ -153,10 +153,16 @@ class ThirdPage extends StatelessWidget {
                                           SizedBox(
                                             height: 2,
                                           ),
-                                          Text(snapshot.data[index].bio,
+                                          Container(
+                                            width: 120,
+                                            child: Text(
+                                              snapshot.data[index].bio,
                                               style: TextStyle(
                                                 color: Colors.grey,
-                                              )),
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
                                           SizedBox(
                                             height: 1,
                                           ),

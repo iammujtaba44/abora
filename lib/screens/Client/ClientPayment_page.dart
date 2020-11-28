@@ -304,47 +304,40 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                           expiryDateCtr.text = "MM/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  //    offset: 0
-                                                  );
+                                                  offset: 0);
                                           break;
                                         case 1:
                                           expiryDateCtr.text = "${value}M/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  //    offset: 1
-                                                  );
+                                                  offset: 1);
                                           break;
                                         case 2:
                                           expiryDateCtr.text = "$value/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  //    offset: 2
-                                                  );
+                                                  offset: 2);
                                           break;
                                         case 3:
                                           expiryDateCtr.text =
                                               "${value.substring(0, 2)}/${value.substring(2)}Y";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  //    offset: 4
-                                                  );
+                                                  offset: 4);
                                           break;
                                         case 4:
                                           expiryDateCtr.text =
                                               "${value.substring(0, 2)}/${value.substring(2, 4)}";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  //    offset: 5
-                                                  );
+                                                  offset: 5);
                                           break;
                                       }
                                       if (value.length > 4) {
                                         expiryDateCtr.text =
                                             "${value.substring(0, 2)}/${value.substring(2, 4)}";
                                         expiryDateCtr.selection =
-                                            TextSelection.collapsed(
-                                                //  offset: 5
-                                                );
+                                            TextSelection.collapsed(offset: 5);
                                       }
                                     });
                                     // if (expiryDateCtr.text.toString().length >
