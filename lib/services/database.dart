@@ -71,6 +71,10 @@ class DatabaseService {
   Future<String> updateSignleField(
       {@required String key, @required String value}) async {
     await trainer.doc(uId).update({key: value});
+
+    // if (key == "paymentMethod") {
+    //   Constants.isLoading = false;
+    // }
     return value;
   }
 

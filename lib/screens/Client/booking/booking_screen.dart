@@ -32,6 +32,9 @@ List<DateTime> presentDates = [];
 List<DateTime> absentDates = [];
 
 class _BookingScreenState extends State<BookingScreen> {
+  TimeOfDay _time = TimeOfDay.now();
+  TimeOfDay picked;
+
   TextEditingController goalTextFieldController = TextEditingController();
   DateTime _currentDate2 = DateTime.now();
   CalendarCarousel _calendarCarouselNoHeader;
@@ -484,10 +487,25 @@ class _BookingScreenState extends State<BookingScreen> {
     }
   }
 
+  Future<Null> selectTime(BuildContext context) async {
+    picked = await showTimePicker(
+      context: context,
+      initialTime: _time,
+    );
+
+    setState(() {
+      _time = picked;
+      print(_time);
+    });
+  }
+
   cal2() {
     return CalendarCarousel<Event>(
       onDayPressed: (DateTime date, List<Event> events) {
         this.setState(() => _currentDate2 = date);
+
+        selectTime(context);
+        print(_time);
 
         if (_markedDateMap.events.isEmpty) {
           _selectedDates.add(Helper.getDate(date));
@@ -523,6 +541,7 @@ class _BookingScreenState extends State<BookingScreen> {
         //evnetsFiller();
         events.forEach((event) => print(event.title));
       },
+
       showOnlyCurrentMonthDate: true,
       showHeader: false,
       weekdayTextStyle: TextStyle(color: Colors.white),

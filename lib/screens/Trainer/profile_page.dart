@@ -8,7 +8,9 @@ import 'package:abora/screens/Trainer/edit_video_page.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
 import 'package:abora/services/database.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/loading_widget.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -370,10 +372,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                               //     : editOrsaveIcon = Icons.edit;
 
                               // if (!bioEnabled) {
-                              //   bioTextController.text = await widget.database
-                              //       .updateSignleField(
-                              //           key: 'bio',
-                              //           value: bioTextController.text);
+                          
                               // }
                               // setState(() {});
                             },
@@ -391,10 +390,12 @@ class _ProfileListViewState extends State<ProfileListView> {
                       Container(
                         width: 500.h,
                         child: TextField(
+                          
                           controller: bioTextController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                              enabled: bioEnabled,
+                            border: InputBorder.none,
+                              enabled: true,
                               hintMaxLines: 5,
                               hintStyle: TextStyle(color: Colors.white),
                               hintText: "bio"),
@@ -411,7 +412,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                       borderRadius: BorderRadius.circular(5)),
                   margin: const EdgeInsets.only(top: 20, left: 20.0, right: 20),
                   padding: const EdgeInsets.all(20),
-                  height: 500,
+                  height: 550,
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -434,10 +435,13 @@ class _ProfileListViewState extends State<ProfileListView> {
                               child: Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: TextField(
+                                   
                                   controller: areaTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: areaEnabled,
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(bottom: 10),
+                                      enabled: true,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Area"),
                                   onChanged: (value) {},
@@ -453,11 +457,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                 //     : areaIconData = Icons.edit;
 
                                 // if (!areaEnabled) {
-                                //   areaTextController.text =
-                                //       await widget.database.updateSignleField(
-                                //           key: 'area',
-                                //           value: areaTextController.text);
-                                // }
+                               //  }
                                 // setState(() {});
                               },
                               child: Icon(areaIconData,
@@ -483,7 +483,9 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   controller: specialityTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: specialityEnabled,
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(bottom: 10),
+                                      enabled: true,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Speciality"),
                                   onChanged: (value) {},
@@ -499,11 +501,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                 //     : specialityIconData = Icons.edit;
 
                                 // if (!specialityEnabled) {
-                                //   specialityTextController.text =
-                                //       await widget.database.updateSignleField(
-                                //           key: 'speciality',
-                                //           value: specialityTextController.text);
-                                // }
+                            //     }
                                 // setState(() {});
                               },
                               child: Icon(specialityIconData,
@@ -528,6 +526,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                 child: TextField(
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
+
                                       enabled: false,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Home Training"),
@@ -685,7 +684,9 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   controller: pricePerSessionTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: pricePerSessionEnabled,
+                                     border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(bottom: 10),
+                                      enabled: true,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Price Per Session"),
                                   onChanged: (value) {},
@@ -703,11 +704,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                 //     : pricePerSessionIconData = Icons.edit;
 
                                 // if (!pricePerSessionEnabled) {
-                                //   pricePerSessionTextController.text =
-                                //       await widget.database.updateSignleField(
-                                //           key: 'pricePerSession',
-                                //           value: pricePerSessionTextController
-                                //               .text);
+                                
                                 // }
                                 // setState(() {});
                               },
@@ -734,7 +731,9 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   controller: paymentMethodTextController,
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
-                                      enabled: paymentMethodEnabled,
+                                     border: InputBorder.none,
+                                    contentPadding: EdgeInsets.only(bottom: 10),
+                                      enabled: true,
                                       hintStyle: TextStyle(color: Colors.white),
                                       hintText: "Payment Method"),
                                   onChanged: (value) {},
@@ -750,11 +749,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                 //     : paymentMethodIconData = Icons.edit;
 
                                 // if (!paymentMethodEnabled) {
-                                //   paymentMethodTextController.text =
-                                //       await widget.database.updateSignleField(
-                                //           key: 'paymentMethod',
-                                //           value:
-                                //               paymentMethodTextController.text);
+                            
                                 // }
                                 // setState(() {});
                               },
@@ -765,22 +760,60 @@ class _ProfileListViewState extends State<ProfileListView> {
                         ],
                       ),
 
-                    blueButton(
+                      SizedBox(height: 10),
+              // Constants.isLoading
+              // ? loadingWidget() :
+                     blueButton(
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       Text(
-                        'SIGN IN',
+                        'Save Changes'.toUpperCase(),
                         style: TextStyle(color: CustomColor.white),
-                      ),
-                      Icon(
-                        Icons.arrow_forward,
-                        color: CustomColor.white,
                       ),
                     ],
                   ),
-                  func: () {
-                   
+                  func: () async {
+                    // Constants.isLoading = true;
+                    // setState(() {
+                      
+                    // });
+
+                    customToast(text: 'Please wait....');
+
+                      areaTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'area',
+                                          value: areaTextController.text);
+                                                specialityTextController.text =
+                           specialityTextController.text =           await widget.database.updateSignleField(
+                                          key: 'speciality',
+                                          value: specialityTextController.text);
+                           
+                                bioTextController.text = await widget.database
+                                    .updateSignleField(
+                                        key: 'bio',
+                                        value: bioTextController.text);                
+
+                                          pricePerSessionTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'pricePerSession',
+                                          value: pricePerSessionTextController
+                                              .text);
+
+                                                    paymentMethodTextController.text =
+                                      await widget.database.updateSignleField(
+                                          key: 'paymentMethod',
+                                          value:
+                                              paymentMethodTextController.text);
+
+                                              customToast(text: 'updated successfully');
+
+                                              // setState(() {
+                                                
+                                              // });
+                              
                   }),
               
                     ],
@@ -968,52 +1001,6 @@ class _ProfileListViewState extends State<ProfileListView> {
     );
   }
 
-  Widget descriptionContainer({
-    String text,
-    TextEditingController controller,
-    bool enabled,
-    IconData iconData,
-    String key,
-  }) {
-    return Stack(
-      children: [
-        Container(
-            height: 50,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: CustomColor.backgroundColor,
-                borderRadius: BorderRadius.circular(5)),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: TextField(
-                controller: controller,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                    enabled: enabled,
-                    hintStyle: TextStyle(color: Colors.white),
-                    hintText: "Bio"),
-                onChanged: (value) {},
-              ),
-            )),
-        Align(
-          alignment: Alignment.topRight,
-          child: GestureDetector(
-            onTap: () async {
-              // enabled = !enabled;
-              // enabled ? iconData = Icons.check : iconData = Icons.edit;
-
-              // if (!enabled) {
-              //   controller.text = await widget.database
-              //       .updateSignleField(key: key, value: controller.text);
-              // }
-              // setState(() {});
-            },
-            child: Icon(iconData, color: Colors.white, size: 30.h),
-          ),
-        )
-      ],
-    );
-  }
 }
 
 class WrapperRow extends StatefulWidget {
