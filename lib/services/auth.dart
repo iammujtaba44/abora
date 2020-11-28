@@ -53,7 +53,8 @@ class AuthService {
       {@required String email,
       @required String password,
       @required String name,
-      @required int index}) async {
+      @required int index,
+      String area}) async {
     try {
       var result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -68,8 +69,8 @@ class AuthService {
         await DatabaseService(uId: user.uid)
             .trainerUserData(email: email, password: password, name: name);
       } else if (index == 1) {
-        await DatabaseService(uId: user.uid)
-            .clientUserData(email: email, password: password, name: name);
+        await DatabaseService(uId: user.uid).clientUserData(
+            email: email, password: password, name: name, area: area);
       }
       Constants.isLoading = false;
       return user;
