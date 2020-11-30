@@ -340,6 +340,9 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   }
 
   TextEditingController initialWeightController = TextEditingController();
+  TextEditingController initialBenchpressController = TextEditingController();
+  TextEditingController initialdeadliftsController = TextEditingController();
+  TextEditingController initialLegPressController = TextEditingController();
 
   onAlertWithCustomContentPressed(context) {
     Alert(
@@ -361,12 +364,48 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                   labelText: 'Enter you current weight',
                   labelStyle: TextStyle(color: CustomColor.white)),
             ),
+            TextField(
+              controller: initialBenchpressController,
+              style: TextStyle(color: CustomColor.white),
+              decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  labelText: 'Enter you current Benchpress weight',
+                  labelStyle: TextStyle(color: CustomColor.white)),
+            ),
+            TextField(
+              controller: initialdeadliftsController,
+              style: TextStyle(color: CustomColor.white),
+              decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  labelText: 'Enter you current Deadlifts weight',
+                  labelStyle: TextStyle(color: CustomColor.white)),
+            ),
+            TextField(
+              controller: initialLegPressController,
+              style: TextStyle(color: CustomColor.white),
+              decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: CustomColor.white)),
+                  labelText: 'Enter you current Legpress weight',
+                  labelStyle: TextStyle(color: CustomColor.white)),
+            ),
           ],
         ),
         buttons: [
           DialogButton(
             onPressed: () {
-              print('---${initialWeightController.text}');
+              print(initialWeightController.text);
+              print(initialBenchpressController.text);
+              print(initialLegPressController.text);
+              print(initialdeadliftsController.text);
               Navigator.pop(context);
               Navigator.push(
                 context,
@@ -374,6 +413,12 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                     builder: (context) => RateSession(
                           trainerData: {
                             'initialWeight': initialWeightController.text,
+                            'initialbenchpressWeight':
+                                initialBenchpressController.text,
+                            'initialdeadliftsWeight':
+                                initialdeadliftsController.text,
+                            'initiallegpressWeight':
+                                initialLegPressController.text,
                             'email': widget.detailsData['trainerEmail'],
                             'url': widget.detailsData['trainerUrl'],
                             'docId': widget.detailsData['docId']

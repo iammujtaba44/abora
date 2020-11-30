@@ -1,3 +1,4 @@
+import 'package:abora/global/constants.dart';
 import 'package:abora/services/auth.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/storage.dart';
@@ -17,6 +18,7 @@ class AuthWidgetBuilder extends StatelessWidget {
         print('StreamBuilder: ${snapshot.connectionState}');
         final User user = snapshot.data;
         if (user != null) {
+          Constants.currentUserID = user.uid;
           return MultiProvider(
             providers: [
               Provider<User>.value(

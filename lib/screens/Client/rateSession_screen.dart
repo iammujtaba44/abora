@@ -24,7 +24,10 @@ class RateSession extends StatefulWidget {
 
 class _RateSessionState extends State<RateSession> {
   TextEditingController loseCtr = TextEditingController(),
-      reviewCtr = TextEditingController();
+      reviewCtr = TextEditingController(),
+      benchCtr = TextEditingController(),
+      legCtr = TextEditingController(),
+      dumbbellCtr = TextEditingController();
   final CollectionReference trainer =
       FirebaseFirestore.instance.collection('trainer');
   List dataList = List();
@@ -76,7 +79,19 @@ class _RateSessionState extends State<RateSession> {
                     children: [
                       customtextfieldWithText(
                           controller: loseCtr,
-                          text: 'How Much Weight Did You Lose',
+                          text: 'Enter you Current Weight',
+                          hintText: '0.00'),
+                      customtextfieldWithText(
+                          controller: dumbbellCtr,
+                          text: 'Enter you current dumbbell weight',
+                          hintText: '0.00'),
+                      customtextfieldWithText(
+                          controller: benchCtr,
+                          text: 'Enter your current benchpress weight',
+                          hintText: '0.00'),
+                      customtextfieldWithText(
+                          controller: legCtr,
+                          text: 'Enter your current legpress weight',
                           hintText: '0.00'),
                       SizedBox(
                         height: 30.0,
@@ -119,7 +134,10 @@ class _RateSessionState extends State<RateSession> {
                         print(_rateTrainer);
 
                         if (loseCtr.text.isNotEmpty &&
-                            reviewCtr.text.isNotEmpty) {
+                            reviewCtr.text.isNotEmpty &&
+                            dumbbellCtr.text.isNotEmpty &&
+                            benchCtr.text.isNotEmpty &&
+                            legCtr.text.isNotEmpty) {
                           submitReview(database: database);
                           customToast(
                               text:
@@ -133,9 +151,15 @@ class _RateSessionState extends State<RateSession> {
   }
 
   submitReview({DatabaseService database}) async {
-    await database.clientProgress(
+    await database.clientProgressAsync(
         initialWeight: widget.trainerData['initialWeight'],
-        endWeight: loseCtr.text);
+        endWeight: loseCtr.text,
+        initialBenchPressWeight: widget.trainerData['initialbenchpressWeight'],
+        endBenchPressWeight: benchCtr.text,
+        initialDumbbellWeight: widget.trainerData['initialdeadliftsWeight'],
+        endDumbbellWeight: dumbbellCtr.text,
+        initialLegPressWeight: widget.trainerData['initiallegpressWeight'],
+        endLegPressWeight: legCtr.text);
 
     await appointments
         .doc('upcomingApointments')

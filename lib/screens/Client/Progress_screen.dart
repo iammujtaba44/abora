@@ -1,8 +1,13 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
+import 'package:abora/models/progressModel.dart';
 import 'package:abora/screens/Client/profileClient_screen.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import 'package:abora/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:abora/models/ClientModel.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ProgressScreen extends StatefulWidget {
@@ -11,37 +16,127 @@ class ProgressScreen extends StatefulWidget {
 }
 
 class _ProgressScreenState extends State<ProgressScreen> {
+  final CollectionReference client =
+      FirebaseFirestore.instance.collection('client');
   List<charts.Series<Sales, int>> _seriesLineData;
-  _generateData() {
-    var linesalesdata = [
-      new Sales(0, 65),
-      new Sales(1, 63),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
-    ];
+  List<charts.Series<Sales, int>> weightLinesData;
+  List<charts.Series<Sales, int>> dumbbellWeightLinesData;
+  List<charts.Series<Sales, int>> legPressWeightLinesData;
+  List<charts.Series<Sales, int>> benchPressWeightLinesData;
 
-    _seriesLineData.add(
+  List<Sales> weightlinesalesdata = [];
+  List<Sales> dumbbellWeightlinesalesdata = [];
+  List<Sales> legPressWeightlinesalesdata = [];
+  List<Sales> benchPressWeightlinesalesdata = [];
+  List weight = [];
+  List dumbbellWeight = [];
+  List legPressWeight = [];
+  List benchPressWeight = [];
+
+  @override
+  void initState() {
+    weightLinesData = List<charts.Series<Sales, int>>();
+    dumbbellWeightLinesData = List<charts.Series<Sales, int>>();
+    legPressWeightLinesData = List<charts.Series<Sales, int>>();
+    benchPressWeightLinesData = List<charts.Series<Sales, int>>();
+    getData();
+    //_generateData();
+    super.initState();
+  }
+
+  getData() async {
+    var document = await client
+        .doc(Constants.currentUserID)
+        .collection('progress')
+        .doc('weight')
+        .get();
+    weight = List.from(document.data()['list']);
+
+    var document2 = await client
+        .doc(Constants.currentUserID)
+        .collection('progress')
+        .doc('dumbbell')
+        .get();
+    dumbbellWeight = List.from(document2.data()['list']);
+
+    var document3 = await client
+        .doc(Constants.currentUserID)
+        .collection('progress')
+        .doc('legPress')
+        .get();
+    legPressWeight = List.from(document3.data()['list']);
+
+    var document4 = await client
+        .doc(Constants.currentUserID)
+        .collection('progress')
+        .doc('benchPress')
+        .get();
+    benchPressWeight = List.from(document4.data()['list']);
+
+    for (int i = 0; i < dumbbellWeight.length; i++) {
+      dumbbellWeightlinesalesdata.add(Sales(i, int.parse(dumbbellWeight[i])));
+    }
+
+    for (int i = 0; i < weight.length; i++) {
+      weightlinesalesdata.add(Sales(i, int.parse(weight[i])));
+    }
+
+    for (int i = 0; i < legPressWeight.length; i++) {
+      legPressWeightlinesalesdata.add(Sales(i, int.parse(legPressWeight[i])));
+    }
+
+    for (int i = 0; i < benchPressWeight.length; i++) {
+      benchPressWeightlinesalesdata
+          .add(Sales(i, int.parse(benchPressWeight[i])));
+    }
+
+    benchPressWeightLinesData.add(
       charts.Series(
         colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
-        id: 'Air Pollution',
-        data: linesalesdata,
+        id: 'benchPressWeight',
+        data: benchPressWeightlinesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
       ),
     );
-  }
 
-  @override
-  void initState() {
-    _seriesLineData = List<charts.Series<Sales, int>>();
-    _generateData();
-    super.initState();
+    dumbbellWeightLinesData.add(
+      charts.Series(
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        id: 'dumbbellWeight',
+        data: dumbbellWeightlinesalesdata,
+        domainFn: (Sales sales, _) => sales.yearval,
+        measureFn: (Sales sales, _) => sales.salesval,
+      ),
+    );
+
+    weightLinesData.add(
+      charts.Series(
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        id: 'weight',
+        data: weightlinesalesdata,
+        domainFn: (Sales sales, _) => sales.yearval,
+        measureFn: (Sales sales, _) => sales.salesval,
+      ),
+    );
+
+    legPressWeightLinesData.add(
+      charts.Series(
+        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        id: 'legPressweight',
+        data: legPressWeightlinesalesdata,
+        domainFn: (Sales sales, _) => sales.yearval,
+        measureFn: (Sales sales, _) => sales.salesval,
+      ),
+    );
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    //final database = Provider.of<DatabaseService>(context);
+
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -66,27 +161,32 @@ class _ProgressScreenState extends State<ProgressScreen> {
               SizedBox(
                 height: 30.0,
               ),
-              _row('Day 1', 'On Track'),
+              _row('Body Weight', 'On Track'),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(),
+              garphContainer(weightLinesData),
               SizedBox(
                 height: 10.0,
               ),
-              _row('Day 2', 'On Track'),
+              _row('Dumbbell Weight', 'On Track'),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(),
+              garphContainer(dumbbellWeightLinesData),
               SizedBox(
                 height: 10.0,
               ),
-              _row('Day 3', 'On Track'),
+              _row('Leg Press Weight', 'On Track'),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(),
+              garphContainer(legPressWeightLinesData),
+              _row('Bench Press Weight', 'On Track'),
+              SizedBox(
+                height: 10.0,
+              ),
+              garphContainer(benchPressWeightLinesData),
             ],
           ),
         ),
@@ -127,7 +227,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     );
   }
 
-  garphContainer() {
+  garphContainer(List linesData) {
     return Container(
       height: 200,
       padding:
@@ -136,7 +236,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
       child: charts.LineChart(
-        _seriesLineData,
+        linesData,
         defaultRenderer:
             new charts.LineRendererConfig(includeArea: true, stacked: true),
         animate: true,

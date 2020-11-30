@@ -15,4 +15,5 @@ class Constants {
     addNewCard,
   ];
   static const List<String> courses = <String>[course];
+  static String currentUserID;
 }

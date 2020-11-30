@@ -1,6 +1,7 @@
 import 'package:abora/global/constants.dart';
 import 'package:abora/models/ClientModel.dart';
 import 'package:abora/models/UploadVideoModel.dart';
+import 'package:abora/models/progressModel.dart';
 import 'package:abora/models/trainer_models/apointmentModel.dart';
 import 'package:abora/models/trainer_models/course.dart';
 import 'package:abora/models/trainer_models/post_ad.dart';
@@ -227,21 +228,92 @@ class DatabaseService {
     });
   }
 
+  // List<ProgressModel> clientProgress(QuerySnapshot qs) {
+  //   return qs.docs.map((ds) {
+  //     return ProgressModel(
+  //         dumbbell: List.from(ds.data()['dumbbell']),
+  //         benchPress: List.from(ds.data()['benchPress']),
+  //         legPress: List.from(ds.data()['legPress']),
+  //         weight: List.from(ds.data()['weight']));
+  //   }).toList();
+  // }
+
+  // Stream<List<ProgressModel>> get clientProgressStream {
+  //   return client
+  //       .doc(uId)
+  //       .collection('progress')
+  //       .doc('')
+  //       .snapshots()
+  //       .map(clientProgress);
+  // }
+
   // CLIENT FUNCTIONS
 
-  Future clientProgress({String initialWeight, String endWeight}) async {
-    return await client.doc(uId).collection('progress').doc().set({
-      'initialWeight': initialWeight,
-      'engWeight': endWeight,
+  Future clientProgressAsync(
+      {String initialWeight,
+      String initialDumbbellWeight,
+      String endDumbbellWeight,
+      String initialLegPressWeight,
+      String endLegPressWeight,
+      String initialBenchPressWeight,
+      String endBenchPressWeight,
+      String endWeight}) async {
+    List weight = List();
+    List dumbbell = List();
+    List legPress = List();
+    List benchPress = List();
+
+    var document =
+        await client.doc(uId).collection('progress').doc('weight').get();
+    weight = List.from(document.data()['list']);
+
+    var document2 =
+        await client.doc(uId).collection('progress').doc('dumbbell').get();
+    dumbbell = List.from(document2.data()['list']);
+
+    var document3 =
+        await client.doc(uId).collection('progress').doc('legPress').get();
+    legPress = List.from(document3.data()['list']);
+
+    var document4 =
+        await client.doc(uId).collection('progress').doc('benchPress').get();
+    benchPress = List.from(document4.data()['list']);
+
+    weight.add(initialWeight);
+    weight.add(endWeight);
+
+    dumbbell.add(initialDumbbellWeight);
+    dumbbell.add(endDumbbellWeight);
+
+    legPress.add(initialLegPressWeight);
+    legPress.add(endLegPressWeight);
+
+    benchPress.add(initialBenchPressWeight);
+    benchPress.add(endBenchPressWeight);
+
+    await client.doc(uId).collection('progress').doc('weight').set({
+      'list': weight,
+    });
+    await client.doc(uId).collection('progress').doc('dumbbell').set({
+      'list': dumbbell,
+    });
+    await client.doc(uId).collection('progress').doc('legPress').set({
+      'list': legPress,
+    });
+    return await client.doc(uId).collection('progress').doc('benchPress').set({
+      'list': benchPress,
     });
   }
 
   ClientUser getCurrentClientUser(DocumentSnapshot ds) {
+    print(ds.data()['progress']);
+
     return ClientUser(
-        email: ds.data()['email'],
-        name: ds.data()['name'],
-        password: ds.data()['password'],
-        area: ds.data()['area']);
+      email: ds.data()['email'],
+      name: ds.data()['name'],
+      password: ds.data()['password'],
+      area: ds.data()['area'],
+    );
   }
 
   Stream<ClientUser> get currentClientUserStream {
