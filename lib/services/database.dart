@@ -279,16 +279,12 @@ class DatabaseService {
         await client.doc(uId).collection('progress').doc('benchPress').get();
     benchPress = List.from(document4.data()['list']);
 
-    weight.add(initialWeight);
     weight.add(endWeight);
 
-    dumbbell.add(initialDumbbellWeight);
     dumbbell.add(endDumbbellWeight);
 
-    legPress.add(initialLegPressWeight);
     legPress.add(endLegPressWeight);
 
-    benchPress.add(initialBenchPressWeight);
     benchPress.add(endBenchPressWeight);
 
     await client.doc(uId).collection('progress').doc('weight').set({

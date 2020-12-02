@@ -152,13 +152,9 @@ class _RateSessionState extends State<RateSession> {
 
   submitReview({DatabaseService database}) async {
     await database.clientProgressAsync(
-        initialWeight: widget.trainerData['initialWeight'],
         endWeight: loseCtr.text,
-        initialBenchPressWeight: widget.trainerData['initialbenchpressWeight'],
         endBenchPressWeight: benchCtr.text,
-        initialDumbbellWeight: widget.trainerData['initialdeadliftsWeight'],
         endDumbbellWeight: dumbbellCtr.text,
-        initialLegPressWeight: widget.trainerData['initiallegpressWeight'],
         endLegPressWeight: legCtr.text);
 
     await appointments

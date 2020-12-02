@@ -74,27 +74,33 @@ class _ProgressScreenState extends State<ProgressScreen> {
     benchPressWeight = List.from(document4.data()['list']);
 
     for (int i = 0; i < dumbbellWeight.length; i++) {
-      dumbbellWeightlinesalesdata.add(Sales(i, int.parse(dumbbellWeight[i])));
+      dumbbellWeightlinesalesdata
+          .add(Sales(i + 1, int.parse(dumbbellWeight[i])));
     }
 
     for (int i = 0; i < weight.length; i++) {
-      weightlinesalesdata.add(Sales(i, int.parse(weight[i])));
+      weightlinesalesdata.add(Sales(i + 1, int.parse(weight[i])));
     }
 
     for (int i = 0; i < legPressWeight.length; i++) {
-      legPressWeightlinesalesdata.add(Sales(i, int.parse(legPressWeight[i])));
+      legPressWeightlinesalesdata
+          .add(Sales(i + 1, int.parse(legPressWeight[i])));
     }
 
     for (int i = 0; i < benchPressWeight.length; i++) {
       benchPressWeightlinesalesdata
-          .add(Sales(i, int.parse(benchPressWeight[i])));
+          .add(Sales(i + 1, int.parse(benchPressWeight[i])));
     }
 
     benchPressWeightLinesData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        displayName: 'print the name here',
+        // domainFn: (BarChartConfig barchartconfig, _) => barchartconfig.name,
+        colorFn: (__, _) =>
+            charts.ColorUtil.fromDartColor(CustomColor.signUpButtonColor),
         id: 'benchPressWeight',
         data: benchPressWeightlinesalesdata,
+
         domainFn: (Sales sales, _) => sales.yearval,
         measureFn: (Sales sales, _) => sales.salesval,
       ),
@@ -102,7 +108,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
     dumbbellWeightLinesData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        colorFn: (__, _) =>
+            charts.ColorUtil.fromDartColor(CustomColor.signUpButtonColor),
         id: 'dumbbellWeight',
         data: dumbbellWeightlinesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
@@ -112,7 +119,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
     weightLinesData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        colorFn: (__, _) =>
+            charts.ColorUtil.fromDartColor(CustomColor.signUpButtonColor),
         id: 'weight',
         data: weightlinesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
@@ -122,7 +130,8 @@ class _ProgressScreenState extends State<ProgressScreen> {
 
     legPressWeightLinesData.add(
       charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xff990099)),
+        colorFn: (__, _) =>
+            charts.ColorUtil.fromDartColor(CustomColor.signUpButtonColor),
         id: 'legPressweight',
         data: legPressWeightlinesalesdata,
         domainFn: (Sales sales, _) => sales.yearval,
@@ -140,7 +149,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text("Rate Session"),
+        title: Text("Progress Session"),
         leading: Container(),
         centerTitle: true,
         actions: [
@@ -157,36 +166,36 @@ class _ProgressScreenState extends State<ProgressScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _topContainer(),
+              // _topContainer(),
               SizedBox(
                 height: 30.0,
               ),
-              _row('Body Weight', 'On Track'),
+              // _row('Body Weight', ''),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(weightLinesData),
+              garphContainer(weightLinesData, 'Body Weight'),
               SizedBox(
                 height: 10.0,
               ),
-              _row('Dumbbell Weight', 'On Track'),
+              //_row('Dumbbell Weight', ''),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(dumbbellWeightLinesData),
+              garphContainer(dumbbellWeightLinesData, 'Dumbbell Weight'),
               SizedBox(
                 height: 10.0,
               ),
-              _row('Leg Press Weight', 'On Track'),
+              // _row('Leg Press Weight', ''),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(legPressWeightLinesData),
-              _row('Bench Press Weight', 'On Track'),
+              garphContainer(legPressWeightLinesData, 'Leg Press Weight'),
+              // _row('Bench Press Weight', ''),
               SizedBox(
                 height: 10.0,
               ),
-              garphContainer(benchPressWeightLinesData),
+              garphContainer(benchPressWeightLinesData, 'Bench Press Weight'),
             ],
           ),
         ),
@@ -227,7 +236,7 @@ class _ProgressScreenState extends State<ProgressScreen> {
     );
   }
 
-  garphContainer(List linesData) {
+  garphContainer(List linesData, String y_axis) {
     return Container(
       height: 200,
       padding:
@@ -235,12 +244,31 @@ class _ProgressScreenState extends State<ProgressScreen> {
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColor,
           borderRadius: BorderRadius.all(Radius.circular(10.0))),
-      child: charts.LineChart(
-        linesData,
-        defaultRenderer:
-            new charts.LineRendererConfig(includeArea: true, stacked: true),
-        animate: true,
-        animationDuration: Duration(seconds: 5),
+      child: Row(
+        children: [
+          Expanded(
+            child: RotatedBox(
+                quarterTurns: -1,
+                child: Text(y_axis, style: TextStyle(color: Colors.white))),
+          ),
+          Expanded(
+            flex: 15,
+            child: Column(
+              children: [
+                Expanded(
+                  child: charts.LineChart(
+                    linesData,
+                    defaultRenderer: new charts.LineRendererConfig(
+                        includeArea: true, stacked: true),
+                    animate: true,
+                    animationDuration: Duration(seconds: 5),
+                  ),
+                ),
+                Text('No. Sessions', style: TextStyle(color: Colors.white)),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

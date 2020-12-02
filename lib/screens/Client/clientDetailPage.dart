@@ -264,7 +264,20 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                           style: TextStyle(color: CustomColor.white),
                         ),
                         func: () {
-                          onAlertWithCustomContentPressed(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RateSession(
+                                      trainerData: {
+                                        'email':
+                                            widget.detailsData['trainerEmail'],
+                                        'url': widget.detailsData['trainerUrl'],
+                                        'docId': widget.detailsData['docId']
+                                      },
+                                    )),
+                          );
+
+                          // onAlertWithCustomContentPressed(context);
                         }),
                   )
                 : SizedBox()
