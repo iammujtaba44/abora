@@ -1,8 +1,10 @@
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/Client/rateSession_screen.dart';
 import 'package:abora/screens/settings_page.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -19,6 +21,9 @@ class ClientDetailPage extends StatefulWidget {
 }
 
 class _ClientDetailPageState extends State<ClientDetailPage> {
+  final CollectionReference client =
+      FirebaseFirestore.instance.collection('client');
+
   double height;
 
   double width;
@@ -263,21 +268,33 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                           'START SESSION',
                           style: TextStyle(color: CustomColor.white),
                         ),
-                        func: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RateSession(
-                                      trainerData: {
-                                        'email':
-                                            widget.detailsData['trainerEmail'],
-                                        'url': widget.detailsData['trainerUrl'],
-                                        'docId': widget.detailsData['docId']
-                                      },
-                                    )),
-                          );
+                        func: () async {
+                          var document = await client
+                              .doc(Constants.currentUserID)
+                              .collection('progress')
+                              .doc('weight')
+                              .get();
 
-                          // onAlertWithCustomContentPressed(context);
+                          if (!document.exists) {
+                            print('there is not weight data');
+                            onAlertWithCustomContentPressed(context);
+                          } else {
+                            print('weight data is there');
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RateSession(
+                                        trainerData: {
+                                          'email': widget
+                                              .detailsData['trainerEmail'],
+                                          'url':
+                                              widget.detailsData['trainerUrl'],
+                                          'docId': widget.detailsData['docId']
+                                        },
+                                      )),
+                            );
+                          }
                         }),
                   )
                 : SizedBox()
@@ -425,6 +442,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                 MaterialPageRoute(
                     builder: (context) => RateSession(
                           trainerData: {
+                            'isFirstTime': true,
                             'initialWeight': initialWeightController.text,
                             'initialbenchpressWeight':
                                 initialBenchpressController.text,

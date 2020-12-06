@@ -250,7 +250,8 @@ class DatabaseService {
   // CLIENT FUNCTIONS
 
   Future clientProgressAsync(
-      {String initialWeight,
+      {bool isFirstTime = false,
+      String initialWeight,
       String initialDumbbellWeight,
       String endDumbbellWeight,
       String initialLegPressWeight,
@@ -265,27 +266,49 @@ class DatabaseService {
 
     var document =
         await client.doc(uId).collection('progress').doc('weight').get();
-    weight = List.from(document.data()['list']);
+    if (document.exists) {
+      weight = List.from(document.data()['list']);
+    }
 
     var document2 =
         await client.doc(uId).collection('progress').doc('dumbbell').get();
-    dumbbell = List.from(document2.data()['list']);
+
+    if (document2.exists) {
+      dumbbell = List.from(document2.data()['list']);
+    }
 
     var document3 =
         await client.doc(uId).collection('progress').doc('legPress').get();
-    legPress = List.from(document3.data()['list']);
+
+    if (document3.exists) {
+      legPress = List.from(document3.data()['list']);
+    }
 
     var document4 =
         await client.doc(uId).collection('progress').doc('benchPress').get();
-    benchPress = List.from(document4.data()['list']);
 
-    weight.add(endWeight);
+    if (document4.exists) {
+      benchPress = List.from(document4.data()['list']);
+    }
 
-    dumbbell.add(endDumbbellWeight);
+    if (isFirstTime) {
+      weight.add(initialWeight);
+      weight.add(endWeight);
+      dumbbell.add(initialDumbbellWeight);
+      dumbbell.add(endDumbbellWeight);
+      legPress.add(initialLegPressWeight);
+      legPress.add(endLegPressWeight);
+      benchPress.add(initialBenchPressWeight);
+      benchPress.add(endBenchPressWeight);
+    } else {
+      weight.add(endWeight);
 
-    legPress.add(endLegPressWeight);
+      dumbbell.add(endDumbbellWeight);
 
-    benchPress.add(endBenchPressWeight);
+      legPress.add(endLegPressWeight);
+
+      benchPress.add(endBenchPressWeight);
+    }
 
     await client.doc(uId).collection('progress').doc('weight').set({
       'list': weight,

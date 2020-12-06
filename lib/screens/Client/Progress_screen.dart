@@ -74,22 +74,20 @@ class _ProgressScreenState extends State<ProgressScreen> {
     benchPressWeight = List.from(document4.data()['list']);
 
     for (int i = 0; i < dumbbellWeight.length; i++) {
-      dumbbellWeightlinesalesdata
-          .add(Sales(i + 1, int.parse(dumbbellWeight[i])));
+      dumbbellWeightlinesalesdata.add(Sales(i, int.parse(dumbbellWeight[i])));
     }
 
     for (int i = 0; i < weight.length; i++) {
-      weightlinesalesdata.add(Sales(i + 1, int.parse(weight[i])));
+      weightlinesalesdata.add(Sales(i, int.parse(weight[i])));
     }
 
     for (int i = 0; i < legPressWeight.length; i++) {
-      legPressWeightlinesalesdata
-          .add(Sales(i + 1, int.parse(legPressWeight[i])));
+      legPressWeightlinesalesdata.add(Sales(i, int.parse(legPressWeight[i])));
     }
 
     for (int i = 0; i < benchPressWeight.length; i++) {
       benchPressWeightlinesalesdata
-          .add(Sales(i + 1, int.parse(benchPressWeight[i])));
+          .add(Sales(i, int.parse(benchPressWeight[i])));
     }
 
     benchPressWeightLinesData.add(
