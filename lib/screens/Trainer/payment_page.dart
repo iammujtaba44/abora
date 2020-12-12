@@ -136,25 +136,28 @@ class _PaymentPageState extends State<PaymentPage> {
           'PAYMENT',
           style: TextStyle(fontSize: 15),
         ),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: CustomColor.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: CustomColor.white,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
-        actions: [
-          PopupMenuButton<String>(
-              color: Theme.of(context).primaryColor,
-              onSelected: choiceAction,
-              itemBuilder: (BuildContext context) {
-                return Constants.choices.map((String choice) {
-                  return PopupMenuItem<String>(
-                    textStyle: TextStyle(color: CustomColor.white),
-                    value: choice,
-                    child: Text(choice),
-                  );
-                }).toList();
-              })
-        ],
+        // actions: [
+        //   PopupMenuButton<String>(
+        //       color: Theme.of(context).primaryColor,
+        //       onSelected: choiceAction,
+        //       itemBuilder: (BuildContext context) {
+        //         return Constants.choices.map((String choice) {
+        //           return PopupMenuItem<String>(
+        //             textStyle: TextStyle(color: CustomColor.white),
+        //             value: choice,
+        //             child: Text(choice),
+        //           );
+        //         }).toList();
+        //       })
+        // ],
       ),
       body: Container(
         child: Center(

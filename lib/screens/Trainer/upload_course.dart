@@ -98,14 +98,12 @@ class _UploadCoursePageState extends State<UploadCoursePage> {
           'UPLOAD COURSE',
           style: TextStyle(fontSize: 15),
         ),
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
+        leading: IconButton(
+          icon: Icon(
             Icons.arrow_back_ios,
             color: CustomColor.white,
           ),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         actions: [

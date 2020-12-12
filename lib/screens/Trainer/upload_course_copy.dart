@@ -67,9 +67,12 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: CustomColor.white,
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: CustomColor.white,
+                    ),
+                    onPressed: () => Navigator.pop(context),
                   ),
                   Text(
                     'UPLOAD COURSE',
@@ -77,9 +80,12 @@ class _UploadCoursePageCopyState extends State<UploadCoursePageCopy> {
                         color: CustomColor.white,
                         fontSize: FontSize.h3FontSize + 4),
                   ),
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: CustomColor.white,
+                  IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: CustomColor.white,
+                    ),
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),

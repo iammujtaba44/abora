@@ -677,6 +677,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                       ListView.builder(
                         itemCount: dataList.length,
                         shrinkWrap: true,
+                        primary: false,
                         itemBuilder: (context, index) {
                           return Column(
                             children: [

@@ -107,9 +107,12 @@ class _EditSingleVideoPageState extends State<EditSingleVideoPage> {
           style: TextStyle(
               fontSize: FontSize.h3FontSize, fontWeight: FontWeight.w400),
         ),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: CustomColor.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: CustomColor.white,
+          ),
+          onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
         actions: [

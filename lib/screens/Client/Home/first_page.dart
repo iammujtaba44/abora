@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Client/SearchPage.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Client/trainerProfile.dart';
 import 'package:abora/services/database.dart';
@@ -51,24 +52,33 @@ class FirstPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                    ),
-                    margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-                    child: TextFormField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          hintText: 'Search trainer, courses',
-                          hintStyle: TextStyle(color: Colors.grey),
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.grey,
-                          )),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchPage()));
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                      ),
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+                      child: TextFormField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            hintText: 'Search trainer, courses',
+                            hintStyle: TextStyle(color: Colors.grey),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.grey,
+                            )),
+                      ),
                     ),
                   ),
                   Row(
@@ -124,16 +134,13 @@ class FirstPage extends StatelessWidget {
                                                 Theme.of(context).primaryColor,
                                             child: Container(
                                               padding: EdgeInsets.only(
-                                                  left: 12,
-                                                  right: 12,
-                                                  top: 20.0,
-                                                  bottom: 20.0),
+                                                left: 5,
+                                                right: 5,
+                                                top: 10.0,
+                                              ),
                                               child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
                                                 children: [
                                                   ClipRRect(
                                                     borderRadius:
@@ -145,9 +152,7 @@ class FirstPage extends StatelessWidget {
                                                       height: 80.h,
                                                     ),
                                                   ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
+                                                  SizedBox(height: 10),
                                                   Text(
                                                     snapshot.data[index].name,
                                                     style: TextStyle(
@@ -158,7 +163,7 @@ class FirstPage extends StatelessWidget {
                                                             .h5FontSize),
                                                   ),
                                                   SizedBox(
-                                                    height: 2,
+                                                    height: 10,
                                                   ),
                                                   Container(
                                                     width: 120,
@@ -172,7 +177,7 @@ class FirstPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   SizedBox(
-                                                    height: 1,
+                                                    height: 10,
                                                   ),
                                                   SizedBox(
                                                     width: 200.w,
@@ -216,7 +221,7 @@ class FirstPage extends StatelessWidget {
                                   },
                                 ),
                               )
-                            : CircularProgressIndicator();
+                            : Center(child: CircularProgressIndicator());
                       },
                     ),
                   ),

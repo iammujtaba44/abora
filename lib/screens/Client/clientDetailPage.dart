@@ -93,9 +93,12 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
               )
             ],
           ),
-          leading: Icon(
-            Icons.arrow_back_ios,
-            color: CustomColor.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: CustomColor.white,
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
           actions: [
             Image.asset(

@@ -112,9 +112,12 @@ class _DetailPageState extends State<DetailPage> {
               )
             ],
           ),
-          leading: Icon(
-            Icons.arrow_back_ios,
-            color: CustomColor.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: CustomColor.white,
+            ),
+            onPressed: () => Navigator.pop(context),
           ),
           actions: [
             Image.asset(
