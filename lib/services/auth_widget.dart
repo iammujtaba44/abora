@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key key, @required this.userSnapshot}) : super(key: key);
@@ -59,12 +60,7 @@ class _AuthWidgetState extends State<AuthWidget> {
     if (widget.userSnapshot.connectionState == ConnectionState.active) {
       if (widget.userSnapshot.hasData) {
         if (isLogin == null || !widget.userSnapshot.hasData) {
-          return Scaffold(
-            backgroundColor: CustomColor.backgroundColor,
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
+          return ShimmerList();
         }
 
         if (isLogin) {
@@ -97,3 +93,71 @@ class _AuthWidgetState extends State<AuthWidget> {
     }
   }
 }
+
+class ShimmerList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    int offset = 0;
+    int time = 800;
+
+    return SafeArea(child: Scaffold(
+      backgroundColor: CustomColor.backgroundColor,
+      body: ListView.builder(itemBuilder: (BuildContext context, int index) {
+        offset += 5;
+        time = 800 + offset;
+
+        return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Shimmer.fromColors(child: ShimmerLayout(),
+              highlightColor: CustomColor.signUpButtonColor,
+              baseColor: Colors.grey[300] ,
+              period: Duration(milliseconds: time),)
+        );
+      }),
+    ));
+  }
+}
+
+class ShimmerLayout extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    double containerWidth = MediaQuery.of(context).size.width/1.5;
+    double containerHeight = 50;
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 7.5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            color: Colors.grey,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(height: containerHeight,
+                width: containerWidth,
+                color: Colors.grey,),
+              SizedBox(height: 5,),
+              Container(
+                height: containerHeight,
+                width: containerWidth,
+                color: Colors.grey,
+              ),
+              SizedBox(height: 5,),
+              Container(
+                height: containerHeight,
+                width: containerWidth*0.75,
+                color: Colors.grey,
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+

@@ -522,7 +522,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   color: CustomColor.backgroundColor,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                                 child: TextField(
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
@@ -533,82 +533,31 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   onChanged: (value) {},
                                 ),
                               )),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: GestureDetector(
-                              onTap: () async {
-                                homeTrainingEnabled = !homeTrainingEnabled;
-                                homeTrainingEnabled
-                                    ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.green,):
-                                    homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0, top: 5),
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  homeTrainingEnabled = !homeTrainingEnabled;
+                                  homeTrainingEnabled
+                                      ? homeTrainingIconData = Container(height: 20, width: 20 color: Colors.green,):
+                                      homeTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
-                                
-                                 homeTrainingEnabled ?  
-                                      await widget.database.updateSignleField(
-                                          key: 'homeTraining',
-                                          value:
-                                              'green') : 
-                                              await widget.database.updateSignleField(key: 'homeTraining', value: 'black');
-                                
-                                setState(() {});
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: homeTrainingIconData,
-                              )
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Stack(
-                        children: [
-                          Container(
-                              height: 50,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: CustomColor.backgroundColor,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
-                                child: TextField(
 
-                                  style: TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                      enabled: false,
-                                      hintStyle: TextStyle(color: Colors.white),
-                                      hintText: "GYM Training"),
-                                  onChanged: (value) {},
-                                ),
-                              )),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () async {
-                                gymTrainingEnabled = !gymTrainingEnabled;
-                                gymTrainingEnabled
-                                    ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
-                                    : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+                                   homeTrainingEnabled ?
+                                        await widget.database.updateSignleField(
+                                            key: 'homeTraining',
+                                            value:
+                                                'green') :
+                                                await widget.database.updateSignleField(key: 'homeTraining', value: 'black');
 
-                                             
-                                 gymTrainingEnabled ?  
-                                      await widget.database.updateSignleField(
-                                          key: 'gymTraining',
-                                          value:
-                                              'green') : 
-                                              await widget.database.updateSignleField(key: 'gymTraining', value: 'black');
-                                
-                   
-
-                               
-                                
-                                setState(() {});
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: gymTrainingIconData,
+                                  setState(() {});
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: homeTrainingIconData,
+                                )
                               ),
                             ),
                           )
@@ -626,7 +575,64 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   color: CustomColor.backgroundColor,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Padding(
-                                padding: const EdgeInsets.all(15.0),
+                                padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
+                                child: TextField(
+
+                                  style: TextStyle(color: Colors.white),
+                                  decoration: InputDecoration(
+                                      enabled: false,
+                                      hintStyle: TextStyle(color: Colors.white),
+                                      hintText: "GYM Training"),
+                                  onChanged: (value) {},
+                                ),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0, top: 5),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  gymTrainingEnabled = !gymTrainingEnabled;
+                                  gymTrainingEnabled
+                                      ? gymTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
+                                      : gymTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+
+
+                                   gymTrainingEnabled ?
+                                        await widget.database.updateSignleField(
+                                            key: 'gymTraining',
+                                            value:
+                                                'green') :
+                                                await widget.database.updateSignleField(key: 'gymTraining', value: 'black');
+
+
+
+
+
+                                  setState(() {});
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: gymTrainingIconData,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Stack(
+                        children: [
+                          Container(
+                              height: 50,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: CustomColor.backgroundColor,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                                 child: TextField(
                                   style: TextStyle(color: Colors.white),
                                   decoration: InputDecoration(
@@ -636,32 +642,35 @@ class _ProfileListViewState extends State<ProfileListView> {
                                   onChanged: (value) {},
                                 ),
                               )),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () async {
-                                parkTrainingEnabled = !parkTrainingEnabled;
-                                parkTrainingEnabled
-                                    ? parkTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
-                                    : parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
+                          Padding(
+                            padding: const EdgeInsets.only(right: 8.0, top: 5),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  parkTrainingEnabled = !parkTrainingEnabled;
+                                  parkTrainingEnabled
+                                      ? parkTrainingIconData = Container(height: 20, width: 20, color: Colors.green,)
+                                      : parkTrainingIconData = Container(height: 20, width: 20, color: Colors.black,);
 
-                                             
-                                 parkTrainingEnabled ?  
-                                      await widget.database.updateSignleField(
-                                          key: 'parkTraining',
-                                          value:
-                                              'green') : 
-                                              await widget.database.updateSignleField(key: 'parkTraining', value: 'black');
-                                
-                   
 
-                               
-                                
-                                setState(() {});
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: parkTrainingIconData,
+                                   parkTrainingEnabled ?
+                                        await widget.database.updateSignleField(
+                                            key: 'parkTraining',
+                                            value:
+                                                'green') :
+                                                await widget.database.updateSignleField(key: 'parkTraining', value: 'black');
+
+
+
+
+
+                                  setState(() {});
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: parkTrainingIconData,
+                                ),
                               ),
                             ),
                           )

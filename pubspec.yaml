@@ -50,7 +50,8 @@ dependencies:
   credit_card_validate: ^0.0.3
   shared_preferences: ^0.5.12+2
   dropdownfield: 1.0.0
-  rflutter_alert: ^1.1.0
+  rflutter_alert:
+  shimmer:
 
   # video player packages
   chewie: 

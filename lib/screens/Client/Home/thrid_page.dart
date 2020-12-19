@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Client/SearchPage.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/services/database.dart';
@@ -52,23 +53,31 @@ class ThirdPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
-            child: TextFormField(
-              enabled: false,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  hintText: 'Search trainer, courses',
-                  hintStyle: TextStyle(color: Colors.grey),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey,
-                  )),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchPage()));
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+              margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8),
+              child: TextFormField(
+                enabled: false,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
+                    hintText: 'Search trainer, courses',
+                    hintStyle: TextStyle(color: Colors.grey),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey,
+                    )),
+              ),
             ),
           ),
           Row(

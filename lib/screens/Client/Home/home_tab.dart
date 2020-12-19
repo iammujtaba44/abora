@@ -81,8 +81,8 @@ class _HomeTabsState extends State<HomeTabs> {
                     child: Text(
                   'One-On-One',
                 )),
-                Tab(child: Text('Courses')),
-                Tab(child: Text('Online')),
+                Tab(child: Text('Groups')),
+                Tab(child: Text('Videos')),
               ],
             ),
           ),

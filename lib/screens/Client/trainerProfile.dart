@@ -402,7 +402,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           controller: areaTextController,
                           style: TextStyle(color: Colors.white),
@@ -427,8 +427,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: TextField(
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),                        child: TextField(
                           controller: specialityTextController,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -452,7 +451,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -466,7 +465,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 15.0, right: 10),
                         child: homeTrainingIconData,
                       ),
                     ),
@@ -485,7 +484,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -499,7 +498,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 15.0, right: 10),
                         child: gymTrainingIconData,
                       ),
                     ),
@@ -518,7 +517,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -532,7 +531,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                     alignment: Alignment.topRight,
                     child: GestureDetector(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
+                        padding: const EdgeInsets.only(top: 15.0, right: 10),
                         child: parkTrainingIconData,
                       ),
                     ),
@@ -551,7 +550,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           controller: pricePerSessionTextController,
                           style: TextStyle(color: Colors.white),
@@ -576,7 +575,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           color: CustomColor.backgroundColor,
                           borderRadius: BorderRadius.circular(5)),
                       child: Padding(
-                        padding: const EdgeInsets.all(15.0),
+                        padding: const EdgeInsets.only(left: 15.0, bottom: 5, top: 15, right: 10),
                         child: TextField(
                           controller: paymentMethodTextController,
                           style: TextStyle(color: Colors.white),
