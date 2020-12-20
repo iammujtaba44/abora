@@ -43,8 +43,22 @@ class HomeTabs extends StatefulWidget {
 }
 
 class _HomeTabsState extends State<HomeTabs> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+
+  }
+
+  fetchCurrentUserRating() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: DefaultTabController(
         initialIndex: 0,

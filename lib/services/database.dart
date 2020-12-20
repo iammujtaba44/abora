@@ -36,6 +36,34 @@ class DatabaseService {
 
   // get all Trainer records
 
+  Future<double> trainerRatings(String email) async {
+    double num = 0;
+    int count = 0;
+
+    final value = await trainer.where('email', isEqualTo: email).get();
+
+    for(var doc in value.docs) {
+      final value = await trainer.doc(doc.id).collection('reviews').get();
+
+      for(var doc in value.docs) {
+        print(doc.data()['trainerRate']);
+        num = num + doc.data()['trainerRate'];
+        count = count + 1;
+      }
+    }
+
+
+
+
+
+
+    double result = num/count;
+
+
+
+    return result;
+  }
+
   List<TrainerUser> allTrainers(QuerySnapshot qs) {
     return qs.docs.map((ds) {
       return TrainerUser(
