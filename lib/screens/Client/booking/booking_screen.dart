@@ -94,30 +94,32 @@ class _BookingScreenState extends State<BookingScreen> {
                           _selectedSession != null &&
                           goalTextFieldController.text.isNotEmpty &&
                           _selectedDates.isNotEmpty) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ClientPaymentPage(
-                                      addAp: {
-                                        'clientEmail':
-                                            Constants.clientUserData.email,
-                                        'clientImageUrl': 'abc',
-                                        'clientName':
-                                            Constants.clientUserData.name,
-                                        'dates': _selectedDates,
-                                        'goal': goalTextFieldController.text,
-                                        'noOfBookings': _selected,
-                                        'sessionType': _selectedSession,
-                                        'trainerEmail': widget.email,
-                                        'trainerImageUrl': 'abc',
-                                        'trainerName': widget.name
-                                      },
-                                    )));
+                        if (_selectedDates.length == _selected) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ClientPaymentPage(
+                                        addAp: {
+                                          'clientEmail':
+                                              Constants.clientUserData.email,
+                                          'clientImageUrl': 'abc',
+                                          'clientName':
+                                              Constants.clientUserData.name,
+                                          'dates': _selectedDates,
+                                          'goal': goalTextFieldController.text,
+                                          'noOfBookings': _selected,
+                                          'sessionType': _selectedSession,
+                                          'trainerEmail': widget.email,
+                                          'trainerImageUrl': 'abc',
+                                          'trainerName': widget.name
+                                        },
+                                      )));
+                        } else
+                          customToast(
+                              text: 'please select equal dates as sessions');
                       } else {
-                        //  print(Helper.getDate(DateTime.now()));
-                        // print(_selectedDates);
-
-                        customToast(text: 'Please fill all fields');
+                        customToast(
+                            text: 'please fill all the fields to continue');
                         customToast(
                             text:
                                 'Select Dates from Calender by clicking dates');
@@ -208,7 +210,7 @@ class _BookingScreenState extends State<BookingScreen> {
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage('assets/trainer.jpg'),
-                      fit: BoxFit.fill),
+                      fit: BoxFit.cover),
                   color: Colors.grey,
                   borderRadius: BorderRadius.all(Radius.circular(5.0))),
             ),
@@ -315,9 +317,10 @@ class _BookingScreenState extends State<BookingScreen> {
                   color: CustomColor.textFieldLabelColor,
                 ),
                 iconSize: 20,
+                dropdownColor: Theme.of(context).primaryColor,
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: CustomColor.textFieldLabelColor,
+                  color: Colors.white, //CustomColor.textFieldLabelColor,
                   letterSpacing: 1.2,
                 ),
                 iconEnabledColor: Colors.grey,
@@ -378,9 +381,10 @@ class _BookingScreenState extends State<BookingScreen> {
                   color: CustomColor.orangeColor,
                 ),
                 iconSize: 20,
+                dropdownColor: Theme.of(context).primaryColor,
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.grey.withOpacity(0.5),
+                  color: Colors.white, //Colors.grey.withOpacity(0.5),
                   letterSpacing: 1.2,
                 ),
                 iconEnabledColor: Colors.grey,
@@ -508,22 +512,9 @@ class _BookingScreenState extends State<BookingScreen> {
         // selectTime(context);
         // print(_time);
 
-        if (_markedDateMap.events.isEmpty) {
-          _selectedDates.add(Helper.getDate(date));
-          _markedDateMap.add(
-            date,
-            new Event(
-              date: date,
-              title: 'Event 5',
-              icon: _presentIcon(
-                date.day.toString(),
-              ),
-            ),
-          );
-        } else {
-          for (int i = 0; i < _markedDateMap.events.keys.length; i++) {
-            //  print(_markedDateMap.events.keys);
-            if (!_markedDateMap.events.keys.contains(date)) {
+        if (_selected != null) {
+          if (_markedDateMap.events.length <= _selected) {
+            if (_markedDateMap.events.isEmpty) {
               _selectedDates.add(Helper.getDate(date));
               _markedDateMap.add(
                 date,
@@ -535,9 +526,28 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                 ),
               );
+            } else {
+              for (int i = 0; i < _markedDateMap.events.keys.length; i++) {
+                //  print(_markedDateMap.events.keys);
+                if (!_markedDateMap.events.keys.contains(date)) {
+                  _selectedDates.add(Helper.getDate(date));
+                  _markedDateMap.add(
+                    date,
+                    new Event(
+                      date: date,
+                      title: 'Event 5',
+                      icon: _presentIcon(
+                        date.day.toString(),
+                      ),
+                    ),
+                  );
+                }
+              }
             }
-          }
-        }
+          } else
+            customToast(text: 'Your sessions range is done');
+        } else
+          customToast(text: 'Pick No. of sessions first');
 
         //evnetsFiller();
         events.forEach((event) => print(event.title));
