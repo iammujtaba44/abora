@@ -50,7 +50,7 @@ class _BottonNavControllerTrainerState
     extends State<BottonNavControllerTrainer> {
   PageController pageController;
 
-  int pageIndex = 3;
+  int pageIndex = 0;
 
   onTapChangedPage(int pageIndex) {
     pageController.animateToPage(pageIndex,

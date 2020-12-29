@@ -19,6 +19,10 @@ class TrainerUser {
   final String ratio;
   final String conversionRate;
   final String parkTraining;
+  final String session1;
+  final String session2;
+  final String session3;
+
 
   TrainerUser({
     this.uId,
@@ -41,5 +45,8 @@ class TrainerUser {
     this.visit,
     this.ratio,
     this.conversionRate,
+    this.session1,
+    this.session3,
+    this.session2
   });
 }

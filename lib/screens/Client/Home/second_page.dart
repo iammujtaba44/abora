@@ -3,6 +3,7 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/SearchPage.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
+import 'package:abora/screens/Client/trainerProfile.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,6 +12,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class SecondPage extends StatelessWidget {
   final Color presidentialBlue = Color(0XFF151B54);
+  double ratings = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class SecondPage extends StatelessWidget {
           slivers: [
             SliverAppBar(
               backgroundColor: CustomColor.backgroundColor,
-              expandedHeight: height / 2,
+              expandedHeight: height / 2.2,
               leading: Container(),
               flexibleSpace:
                   FlexibleSpaceBar(background: topContainer(context)),
@@ -37,6 +39,15 @@ class SecondPage extends StatelessWidget {
         ));
   }
 
+  Future<double> ratingsFunc(String email) async {
+    ratings = await DatabaseService().trainerRatings(email);
+    print('------------->$ratings');
+    if (ratings.isNaN) {
+      return 0.0;
+    }
+    return ratings;
+  }
+
   Column topContainer(BuildContext context) {
     final database = Provider.of<DatabaseService>(context);
     return Column(
@@ -45,9 +56,7 @@ class SecondPage extends StatelessWidget {
         GestureDetector(
           onTap: () {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => SearchPage()));
+                context, MaterialPageRoute(builder: (context) => SearchPage()));
           },
           child: Container(
             decoration: BoxDecoration(
@@ -118,10 +127,10 @@ class SecondPage extends StatelessWidget {
                                   color: Theme.of(context).primaryColor,
                                   child: Container(
                                     padding: EdgeInsets.only(
-                                        left: 12,
-                                        right: 12,
-                                        top: 20.0,
-                                        bottom: 20.0),
+                                      left: 5,
+                                      right: 5,
+                                      top: 10.0,
+                                    ),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
@@ -133,8 +142,8 @@ class SecondPage extends StatelessWidget {
                                               BorderRadius.circular(8.0),
                                           child: Image.asset(
                                             'assets/trainerCube.png',
-                                            width: 80.h,
-                                            height: 80.h,
+                                            width: 90.h,
+                                            height: 90.h,
                                           ),
                                         ),
                                         SizedBox(
@@ -174,15 +183,23 @@ class SecondPage extends StatelessWidget {
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         BookingTab(
-                                                            bio: snapshot
-                                                                .data[index]
-                                                                .bio,
-                                                            email: snapshot
-                                                                .data[index]
-                                                                .email,
-                                                            name: snapshot
-                                                                .data[index]
-                                                                .name)),
+                                                          bio: snapshot
+                                                              .data[index].bio,
+                                                          email: snapshot
+                                                              .data[index]
+                                                              .email,
+                                                          name: snapshot
+                                                              .data[index].name,
+                                                          session1: snapshot
+                                                              .data[index]
+                                                              .session1,
+                                                          session2: snapshot
+                                                              .data[index]
+                                                              .session2,
+                                                          session3: snapshot
+                                                              .data[index]
+                                                              .session3,
+                                                        )),
                                               );
                                             },
                                             child: Text(
@@ -282,28 +299,95 @@ class SecondPage extends StatelessWidget {
                                       width: 350.h,
                                       child: Row(
                                         children: [
-                                          Expanded(
-                                            child: SmoothStarRating(
-                                                allowHalfRating: false,
-                                                onRated: (v) {},
-                                                starCount: 5,
-                                                rating: 3,
-                                                size: 15.0,
-                                                isReadOnly: true,
-                                                color: Colors.yellow[800],
-                                                borderColor: Colors.yellow[800],
-                                                spacing: 0.0),
-                                          ),
+                                          FutureBuilder(
+                                              future: ratingsFunc(
+                                                  snapshot.data[index].email),
+                                              builder: (context, snapshot) {
+                                                if (!snapshot.hasData)
+                                                  return CircularProgressIndicator();
+
+                                                return Expanded(
+                                                  child: SmoothStarRating(
+                                                      allowHalfRating: false,
+                                                      onRated: (v) {},
+                                                      starCount: 5,
+                                                      rating: snapshot.data,
+                                                      size: 15.0,
+                                                      isReadOnly: true,
+                                                      color: Colors.yellow[800],
+                                                      borderColor:
+                                                          Colors.yellow[800],
+                                                      spacing: 0.0),
+                                                );
+                                              }),
                                           Expanded(
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.end,
                                               children: [
-                                                Text(
-                                                  'View Profile',
-                                                  style: TextStyle(
-                                                      color: CustomColor
-                                                          .signUpButtonColor),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TrainerProfilePage(
+                                                                trainerData: {
+                                                                  'bio': snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .bio,
+                                                                  'email': snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .email,
+                                                                  'name': snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .name,
+                                                                  'area': snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .area,
+                                                                  'speciality': snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .speciality,
+                                                                  'hometraining':
+                                                                  snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .homeTraining,
+                                                                  'gymtraining':
+                                                                  snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .gymTraining,
+                                                                  'parkTraining':
+                                                                  snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .parkTraining,
+                                                                  'pricepersession':
+                                                                  snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .pricePerSession,
+                                                                  'paymentmethod':
+                                                                  snapshot
+                                                                      .data[
+                                                                  index]
+                                                                      .paymentMethod,
+                                                                },
+                                                              )),
+                                                    );
+                                          },
+                                                  child: Text(
+                                                    'View Profile',
+                                                    style: TextStyle(
+                                                        color: CustomColor
+                                                            .signUpButtonColor),
+                                                  ),
                                                 ),
                                                 SizedBox(
                                                   width: 3,

@@ -33,7 +33,7 @@ class ThirdPage extends StatelessWidget {
           slivers: [
             SliverAppBar(
               backgroundColor: CustomColor.backgroundColor,
-              expandedHeight: height / 2,
+              expandedHeight: height / 2.2,
               leading: Container(),
               flexibleSpace:
                   FlexibleSpaceBar(background: topContainer(context)),
@@ -130,10 +130,10 @@ class ThirdPage extends StatelessWidget {
                                     color: Theme.of(context).primaryColor,
                                     child: Container(
                                       padding: EdgeInsets.only(
-                                          left: 12,
-                                          right: 12,
-                                          top: 20.0,
-                                          bottom: 20.0),
+                                        left: 5,
+                                        right: 5,
+                                        top: 10.0,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
@@ -145,8 +145,8 @@ class ThirdPage extends StatelessWidget {
                                                 BorderRadius.circular(8.0),
                                             child: Image.asset(
                                               'assets/trainerCube.png',
-                                              width: 80.h,
-                                              height: 80.h,
+                                              width: 90.h,
+                                              height: 90.h,
                                             ),
                                           ),
                                           SizedBox(
@@ -194,7 +194,13 @@ class ThirdPage extends StatelessWidget {
                                                                   .email,
                                                               name: snapshot
                                                                   .data[index]
-                                                                  .name)),
+                                                                  .name,
+                                                            session1: snapshot.data[index].session1,
+                                                            session2: snapshot.data[index].session2,
+                                                            session3: snapshot.data[index].session3,),
+
+
+                                                    ),
                                                 );
                                               },
                                               child: Text(

@@ -40,8 +40,11 @@ class BookingTab extends StatefulWidget {
   final String email;
   final String name;
   final String bio;
+  final String session1;
+  final String session2;
+  final String session3;
 
-  BookingTab({this.email, this.name, this.bio});
+  BookingTab({this.email, this.name, this.bio, this.session1, this.session2, this.session3});
 
   @override
   _BookingTabState createState() => _BookingTabState();
@@ -53,7 +56,7 @@ class _BookingTabState extends State<BookingTab> {
     return SafeArea(
       child: DefaultTabController(
         initialIndex: 0,
-        length: 2,
+        length: 1,
         child: Scaffold(
           appBar: AppBar(
             title: Text('BOOKING'),
@@ -81,15 +84,18 @@ class _BookingTabState extends State<BookingTab> {
               indicatorColor: CustomColor.white,
               tabs: [
                 Tab(child: Text('Book Sesson')),
-                Tab(child: Text('Book Course')),
+
               ],
             ),
           ),
           body: TabBarView(
             children: [
               BookingScreen(
-                  email: widget.email, name: widget.name, bio: widget.bio),
-              BookCourse(email: widget.email),
+                  email: widget.email, name: widget.name, bio: widget.bio,
+                session1: widget.session1,
+                session2: widget.session2,
+                session3: widget.session3,),
+
             ],
           ),
         ),

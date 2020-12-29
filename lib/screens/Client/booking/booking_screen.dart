@@ -22,8 +22,11 @@ class BookingScreen extends StatefulWidget {
   final String name;
   final String bio;
   final String email;
+  final String session1;
+  final String session2;
+  final String session3;
 
-  BookingScreen({this.name, this.bio, this.email});
+  BookingScreen({this.name, this.bio, this.email, this.session1, this.session2, this.session3});
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -55,10 +58,16 @@ class _BookingScreenState extends State<BookingScreen> {
   var _selected;
   var _selectedSession;
 
+  List<String> numOfSessions = ['1', '2', '3'];
+  List<String> priceOfSessions;
+
+
   @override
   void initState() {
     super.initState();
     evenFiller();
+
+     priceOfSessions = ['${widget.session1}','${widget.session2}','${widget.session3}'];
   }
 
   @override
@@ -263,12 +272,12 @@ class _BookingScreenState extends State<BookingScreen> {
                     color: Colors.grey.withOpacity(0.5), width: 1),
                 children: [
                   TableRow(
-                      children: List.generate(4, (index) {
-                    return _tableContainer('X', Color(0xFF43810C));
+                      children: List.generate(3, (index) {
+                    return _tableContainer(numOfSessions[index], Color(0xFF43810C));
                   })),
                   TableRow(
-                      children: List.generate(4, (index) {
-                    return _tableContainer('Y', Colors.grey.withOpacity(0.5));
+                      children: List.generate(3, (index) {
+                    return _tableContainer(priceOfSessions[index] ?? '0', Colors.grey.withOpacity(0.5));
                   })),
                 ],
               ),

@@ -30,7 +30,7 @@ class _FirstPageState extends State<FirstPage> {
           slivers: [
             SliverAppBar(
               backgroundColor: CustomColor.backgroundColor,
-              expandedHeight: height / 2,
+              expandedHeight: height / 2.2,
               leading: Container(),
               flexibleSpace: FlexibleSpaceBar(background: upperPart(context)),
             ),
@@ -154,8 +154,8 @@ class _FirstPageState extends State<FirstPage> {
                                                   8.0),
                                               child: Image.asset(
                                                 'assets/trainerCube.png',
-                                                width: 80.h,
-                                                height: 80.h,
+                                                width: 90.h,
+                                                height: 90.h,
                                               ),
                                             ),
                                             SizedBox(height: 10),
@@ -206,7 +206,11 @@ class _FirstPageState extends State<FirstPage> {
                                                             name: snapshot
                                                                 .data[
                                                             index]
-                                                                .name)),
+                                                                .name,
+                                                          session1: snapshot.data[index].session1,
+                                                          session2: snapshot.data[index].session2,
+                                                          session3: snapshot.data[index].session3,
+                                                        )),
                                                   );
                                                 },
                                                 child: Text(

@@ -86,6 +86,7 @@ class _ProfilePageState extends State<ProfilePage> {
             width: 40,
             height: 130,
           ),
+          SizedBox(width: 20,)
         ],
       ),
       backgroundColor: CustomColor.backgroundColor,
@@ -263,6 +264,8 @@ class _ProfileListViewState extends State<ProfileListView> {
       new TextEditingController();
 
 
+
+
   bool bioEnabled = false;
   bool areaEnabled = false;
   bool specialityEnabled = false;
@@ -281,10 +284,18 @@ class _ProfileListViewState extends State<ProfileListView> {
   IconData pricePerSessionIconData;
   IconData paymentMethodIconData;
 
+
+
   
 
-  List<String> upperList = <String>['1', 'X', 'X'];
-  List<String> lowerList = <String>['30', '65', '110'];
+  List<String> upperList = <String>['1', '2', '3'];
+  List<TextEditingController> bulkSessionTextFields = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
+
+
 
   @override
   void initState() {
@@ -314,6 +325,9 @@ class _ProfileListViewState extends State<ProfileListView> {
             parkTrainingTextController.text = trainerData.parkTraining;
             pricePerSessionTextController.text = trainerData.pricePerSession;
             paymentMethodTextController.text = trainerData.paymentMethod;
+            bulkSessionTextFields[0].text = trainerData.session1;
+            bulkSessionTextFields[1].text = trainerData.session2;
+            bulkSessionTextFields[2].text = trainerData.session3;
 
 
             if(trainerData.homeTraining == 'green' ) {
@@ -791,11 +805,27 @@ class _ProfileListViewState extends State<ProfileListView> {
 
                     customToast(text: 'Please wait....');
 
-                      areaTextController.text =
+
+                    bulkSessionTextFields[0].text = await widget.database.updateSignleField(key: 'session1',
+                        value: bulkSessionTextFields[0].text);
+
+                    bulkSessionTextFields[1].text = await widget.database.updateSignleField(key: 'session2',
+                        value: bulkSessionTextFields[1].text);
+
+                    bulkSessionTextFields[2].text = await widget.database.updateSignleField(key: 'session3',
+                        value: bulkSessionTextFields[2].text);
+
+
+
+
+
+
+
+                    areaTextController.text =
                                       await widget.database.updateSignleField(
                                           key: 'area',
                                           value: areaTextController.text);
-                                                specialityTextController.text =
+//                                                specialityTextController.text =
                            specialityTextController.text =           await widget.database.updateSignleField(
                                           key: 'speciality',
                                           value: specialityTextController.text);
@@ -817,7 +847,13 @@ class _ProfileListViewState extends State<ProfileListView> {
                                           value:
                                               paymentMethodTextController.text);
 
+                    Constants.bulkSessions[0] = bulkSessionTextFields[0].text;
+                    Constants.bulkSessions[1] = bulkSessionTextFields[1].text;
+                    Constants.bulkSessions[2] = bulkSessionTextFields[2].text;
+
                                               customToast(text: 'updated successfully');
+
+
 
                                               // setState(() {
                                                 
@@ -860,13 +896,17 @@ class _ProfileListViewState extends State<ProfileListView> {
                             TableRow(
                                 children: List.generate(upperList.length, (i) {
                               return _tableContainer(
-                                  upperList[i], Colors.white, 1);
+                                  label: upperList[i], color: Colors.white,
+
+                                  type: 1);
                             })),
                             TableRow(
-                                children: List.generate(lowerList.length, (i) {
-                              return _tableContainer(lowerList[i],
-                                  Colors.grey.withOpacity(0.5), 2);
-                            })),
+                                children: List.generate(bulkSessionTextFields.length, (i) {
+                                  return _tableContainer(
+
+                                    textEditingController: bulkSessionTextFields[i],
+                                      color: Colors.grey.withOpacity(0.5),type: 2,);
+                                })),
                           ],
                         ),
                       ),
@@ -991,22 +1031,29 @@ class _ProfileListViewState extends State<ProfileListView> {
         });
   }
 
-  _tableContainer(String _label, Color _color, int type) {
+  _tableContainer({TextEditingController textEditingController, String label, Color color, int type} ) {
     return Container(
       padding: EdgeInsets.all(20.0.h),
       child: type == 1
-          ? Text(_label,
+          ? Text(label,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: _color,
+                color: color,
                 fontSize: 20.0.h,
               ))
-          : Text(_label,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: _color,
-                fontSize: 20.0.h,
-              )),
+          : Container(
+          alignment: Alignment.center,
+          width: 30 ,height: 20,child: TextField(
+controller: textEditingController,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          hintText: '0',
+          hintStyle: TextStyle(color: Colors.grey, ),
+        ),
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 20.0.h,),
+      ),)
     );
   }
 

@@ -174,6 +174,9 @@ class _HomePageState extends State<HomePage> {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         children: [
+                          SizedBox(
+                            height: 20,
+                          ),
                           detailsDoubleContainer(context,
                               text: 'Total Views',
                               value: trainerData.totalViews ?? '0',

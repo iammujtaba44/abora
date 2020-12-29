@@ -444,6 +444,8 @@ class _PaymentPageState extends State<PaymentPage> {
     //  print(response.message);
     if (response.success == true) {
       _onAlertButtonsPressed(context);
+
+      print('----------${Constants.bulkSessions[0]}');
       database.postAdAsync(
           numberOfDay: widget.postAdData['days'],
           exerciseSubType: widget.postAdData['ex'],

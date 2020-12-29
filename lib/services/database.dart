@@ -433,6 +433,9 @@ class DatabaseService {
       totalSessionsBooked: ds.data()['totalSessionsBooked'],
       totalBookingThisMonth: ds.data()['totalBookingThisMonth'],
       visit: ds.data()['visit'],
+      session1: ds.data()['session1'],
+      session2: ds.data()['session2'],
+      session3: ds.data()['session3']
     );
   }
 
@@ -463,6 +466,9 @@ class DatabaseService {
         numberOfDay: document.data()['numberOfDay'],
         totalPrice: document.data()['totalPrice'],
         years: document.data()['years'],
+        session1: document.data()['session1'],
+        session2: document.data()['session2'],
+        session3: document.data()['session3'],
       );
     }).toList();
   }
@@ -487,6 +493,9 @@ class DatabaseService {
       String area,
       String totalPrice}) async {
     await allAds.doc().set({
+      'session1': Constants.bulkSessions[0],
+      'session2': Constants.bulkSessions[0],
+      'session3': Constants.bulkSessions[0],
       'name': Constants.trainerUserData.name,
       'bio': Constants.trainerUserData.bio ?? '',
       'email': Constants.trainerUserData.email,

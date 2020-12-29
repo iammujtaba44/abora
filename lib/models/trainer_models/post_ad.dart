@@ -8,6 +8,9 @@ class PostAd {
   String name;
   String bio;
   String email;
+  String session1;
+  String session2;
+  String session3;
 
   PostAd(
       {this.email,
@@ -18,5 +21,8 @@ class PostAd {
       this.exerciseSubType,
       this.numberOfDay,
       this.area,
-      this.totalPrice});
+      this.totalPrice,
+      this.session1,
+      this.session2,
+      this.session3});
 }
