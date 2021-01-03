@@ -56,7 +56,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
       lastNameController,
       emailController,
       passwordController,
-      confirmPassowrdController;
+      confirmPassowrdController,
+      postalCodeController;
 
   int _index = 0;
   bool isChecked = false;
@@ -79,7 +80,8 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPassowrdController = TextEditingController();
-    loadAsset();
+    postalCodeController = TextEditingController();
+    // loadAsset();
   }
 
   @override
@@ -196,45 +198,44 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
               height: 20,
             ),
             _index == 1
-                ? Container(
-                    padding: const EdgeInsets.only(top: 5.0),
-                    child: Container(
-                      // padding: EdgeInsets.only(left: 50.0, right: 15.0),
-                      //  width: 120.0,
-                      //  height: 100.0,
-                      // padding: const EdgeInsets.only(
-                      //     left: 20.0, right: 20, top: 20.0, bottom: 20),
-                      // alignment: Alignment.bottomRight,
-                      decoration: BoxDecoration(
-                          //color: Theme.of(context).primaryColor,
-                          color: CustomColor.orangeColor,
-                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
-                      child: DropdownButtonHideUnderline(
-                        child: DropDownField(
-                          onValueChanged: (dynamic value) {
-                            selectedPostcode = value.toString().toUpperCase();
-                          },
-                          labelStyle: TextStyle(
-                            fontSize: 15.0,
-                            color: CustomColor.white,
-                            letterSpacing: 1.2,
-                          ),
-                          value: selectedPostcode,
-                          required: false,
-                          hintText: 'Choose a postcode',
-                          labelText: 'Postcode',
-                          hintStyle:
-                              TextStyle(color: Colors.grey.withOpacity(0.5)),
-                          items: postcodes,
-                          textStyle: TextStyle(
-                            fontSize: 15.0,
-                            color: CustomColor.white,
-                            letterSpacing: 1.2,
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
+                ? customTextField(
+                    validator: 'Enter Postal code',
+                    iconData: Icons.person,
+                    text: 'Postal code',
+                    controller: postalCodeController)
+                // ? Container(
+                //     padding: const EdgeInsets.only(top: 5.0),
+                //     child: Container(
+                //       decoration: BoxDecoration(
+                //           //color: Theme.of(context).primaryColor,
+                //           color: CustomColor.orangeColor,
+                //           borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                //       child: DropdownButtonHideUnderline(
+                //         child: DropDownField(
+                //           onValueChanged: (dynamic value) {
+                //             selectedPostcode = value.toString().toUpperCase();
+                //           },
+                //           labelStyle: TextStyle(
+                //             fontSize: 15.0,
+                //             color: CustomColor.white,
+                //             letterSpacing: 1.2,
+                //           ),
+                //           value: selectedPostcode,
+                //           required: false,
+                //           hintText: 'Choose a postcode',
+                //           labelText: 'Postcode',
+                //           hintStyle:
+                //               TextStyle(color: Colors.grey.withOpacity(0.5)),
+                //           items: postcodes,
+                //           textStyle: TextStyle(
+                //             fontSize: 15.0,
+                //             color: CustomColor.white,
+                //             letterSpacing: 1.2,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //   )
                 : SizedBox(),
             Row(
               children: [
@@ -274,7 +275,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                           firstNameController.text.isNotEmpty &&
                           lastNameController.text.isNotEmpty &&
                           confirmPassowrdController.text.isNotEmpty &&
-                          selectedPostcode != null) {
+                          postalCodeController.text.isNotEmpty) {
                         if (passwordController.text ==
                             confirmPassowrdController.text) {
                           setState(() {
@@ -286,7 +287,7 @@ class _MultiuserSignUpPageState extends State<MultiuserSignUpPage> {
                               name:
                                   "${firstNameController.text + " " + lastNameController.text}",
                               index: _index,
-                              area: selectedPostcode);
+                              area: postalCodeController.text);
 
                           if (result == null) {
                             print('Sorry couldn\'t register');

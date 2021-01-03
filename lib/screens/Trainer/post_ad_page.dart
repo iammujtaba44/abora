@@ -7,6 +7,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Trainer/payment_page.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
+import 'package:abora/widgets/textfield_widget.dart';
 
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,6 +51,7 @@ class _PostAdPageState extends State<PostAdPage> {
   var _selectedEx2;
   int totalprice = 20;
   String selectedPostcode;
+  TextEditingController postalCodeController = TextEditingController();
 
   List<String> postcodes = List();
 
@@ -65,7 +67,7 @@ class _PostAdPageState extends State<PostAdPage> {
   void initState() {
     super.initState();
     //print(loadAsset());
-    loadAsset();
+    // loadAsset();
   }
 
   @override
@@ -354,42 +356,47 @@ class _PostAdPageState extends State<PostAdPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: Container(
-                    // padding: EdgeInsets.only(left: 50.0, right: 15.0),
-                    //  width: 120.0,
-                    //height: 40.0,
-                    // padding: const EdgeInsets.only(
-                    //     left: 20.0, right: 20, top: 20.0, bottom: 20),
-                    // alignment: Alignment.bottomRight,
-                    decoration: BoxDecoration(
-                        //color: Theme.of(context).primaryColor,
-                        color: CustomColor.orangeColor,
-                        borderRadius: BorderRadius.all(Radius.circular(6.0))),
-                    child: DropdownButtonHideUnderline(
-                      child: DropDownField(
-                        onValueChanged: (dynamic value) {
-                          selectedPostcode = value.toString().toUpperCase();
-                        },
-                        labelStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: CustomColor.white,
-                          letterSpacing: 1.2,
-                        ),
-                        value: selectedPostcode,
-                        required: false,
-                        hintText: 'Choose a postcode',
-                        labelText: 'Postcode',
-                        hintStyle:
-                            TextStyle(color: Colors.grey.withOpacity(0.5)),
-                        items: postcodes,
-                        textStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: CustomColor.white,
-                          letterSpacing: 1.2,
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: customTextField(
+                      validator: 'Enter Postal code',
+                      iconData: Icons.person,
+                      text: 'Postal code',
+                      controller: postalCodeController),
+                  // child: Container(
+                  //   // padding: EdgeInsets.only(left: 50.0, right: 15.0),
+                  //   //  width: 120.0,
+                  //   //height: 40.0,
+                  //   // padding: const EdgeInsets.only(
+                  //   //     left: 20.0, right: 20, top: 20.0, bottom: 20),
+                  //   // alignment: Alignment.bottomRight,
+                  //   decoration: BoxDecoration(
+                  //       //color: Theme.of(context).primaryColor,
+                  //       color: CustomColor.orangeColor,
+                  //       borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                  //   child: DropdownButtonHideUnderline(
+                  //     child: DropDownField(
+                  //       onValueChanged: (dynamic value) {
+                  //         selectedPostcode = value.toString().toUpperCase();
+                  //       },
+                  //       labelStyle: TextStyle(
+                  //         fontSize: 15.0,
+                  //         color: CustomColor.white,
+                  //         letterSpacing: 1.2,
+                  //       ),
+                  //       value: selectedPostcode,
+                  //       required: false,
+                  //       hintText: 'Choose a postcode',
+                  //       labelText: 'Postcode',
+                  //       hintStyle:
+                  //           TextStyle(color: Colors.grey.withOpacity(0.5)),
+                  //       items: postcodes,
+                  //       textStyle: TextStyle(
+                  //         fontSize: 15.0,
+                  //         color: CustomColor.white,
+                  //         letterSpacing: 1.2,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ],
             ),
@@ -483,7 +490,7 @@ class _PostAdPageState extends State<PostAdPage> {
         _selectedEx1.toString().isNotEmpty &&
         _selectedEx2.toString().isNotEmpty &&
         _selected.toString().isNotEmpty &&
-        selectedPostcode != null) {
+        postalCodeController.text.isNotEmpty) {
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -494,7 +501,7 @@ class _PostAdPageState extends State<PostAdPage> {
                     'ex1': _selectedEx2.toString(),
                     'days': _selected.toString(),
                     'totalPrice': totalprice.toString(),
-                    'postCode': selectedPostcode
+                    'postCode': postalCodeController.text
                   },
                 )),
       );
