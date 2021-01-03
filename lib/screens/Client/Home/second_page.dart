@@ -335,53 +335,53 @@ class SecondPage extends StatelessWidget {
                                                                 trainerData: {
                                                                   'bio': snapshot
                                                                       .data[
-                                                                  index]
+                                                                          index]
                                                                       .bio,
                                                                   'email': snapshot
                                                                       .data[
-                                                                  index]
+                                                                          index]
                                                                       .email,
                                                                   'name': snapshot
                                                                       .data[
-                                                                  index]
+                                                                          index]
                                                                       .name,
                                                                   'area': snapshot
                                                                       .data[
-                                                                  index]
+                                                                          index]
                                                                       .area,
                                                                   'speciality': snapshot
                                                                       .data[
-                                                                  index]
+                                                                          index]
                                                                       .speciality,
                                                                   'hometraining':
-                                                                  snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .homeTraining,
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .homeTraining,
                                                                   'gymtraining':
-                                                                  snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .gymTraining,
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .gymTraining,
                                                                   'parkTraining':
-                                                                  snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .parkTraining,
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .parkTraining,
                                                                   'pricepersession':
-                                                                  snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .pricePerSession,
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .pricePerSession,
                                                                   'paymentmethod':
-                                                                  snapshot
-                                                                      .data[
-                                                                  index]
-                                                                      .paymentMethod,
+                                                                      snapshot
+                                                                          .data[
+                                                                              index]
+                                                                          .paymentMethod,
                                                                 },
                                                               )),
                                                     );
-                                          },
+                                                  },
                                                   child: Text(
                                                     'View Profile',
                                                     style: TextStyle(

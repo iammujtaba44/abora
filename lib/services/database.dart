@@ -494,8 +494,8 @@ class DatabaseService {
       String totalPrice}) async {
     await allAds.doc().set({
       'session1': Constants.bulkSessions[0],
-      'session2': Constants.bulkSessions[0],
-      'session3': Constants.bulkSessions[0],
+      'session2': Constants.bulkSessions[1],
+      'session3': Constants.bulkSessions[2],
       'name': Constants.trainerUserData.name,
       'bio': Constants.trainerUserData.bio ?? '',
       'email': Constants.trainerUserData.email,

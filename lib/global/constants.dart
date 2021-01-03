@@ -10,7 +10,7 @@ class Constants {
   static String currentClientName;
   static ClientUser clientUserData;
   static bool isLoading = false;
-  static List<String> bulkSessions = ['0','0','0'];
+  static List<String> bulkSessions = [];
   static const List<String> choices = <String>[
     changeCard,
     addNewCard,

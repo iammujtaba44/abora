@@ -847,9 +847,9 @@ class _ProfileListViewState extends State<ProfileListView> {
                                           value:
                                               paymentMethodTextController.text);
 
-                    Constants.bulkSessions[0] = bulkSessionTextFields[0].text;
-                    Constants.bulkSessions[1] = bulkSessionTextFields[1].text;
-                    Constants.bulkSessions[2] = bulkSessionTextFields[2].text;
+                    Constants.bulkSessions.add(bulkSessionTextFields[0].text);
+                    Constants.bulkSessions.add(bulkSessionTextFields[1].text);
+                    Constants.bulkSessions.add(bulkSessionTextFields[2].text);
 
                                               customToast(text: 'updated successfully');
 
