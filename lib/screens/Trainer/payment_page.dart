@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Trainer/botton_nav_controller_trainer.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/paymentService.dart';
 import 'package:abora/widgets/CustomToast.dart';
@@ -18,9 +19,12 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stripe_payment/stripe_payment.dart';
+import 'dart:async';
+
 
 class PaymentPage extends StatefulWidget {
   final postAdData;
+
   const PaymentPage({Key key, this.postAdData}) : super(key: key);
 
   @override
@@ -60,6 +64,7 @@ class _PaymentPageState extends State<PaymentPage> {
       expiryDateCtr,
       cardHolderNameCtr,
       cvvCodeCtr;
+
   @override
   void initState() {
     super.initState();
@@ -295,13 +300,65 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                   customTextField(
                                       onChanged: (value) {
+
+
                                         setState(() {
-                                          expiryDate = value;
+                                          value = value.replaceAll(RegExp(r"\D"), "");
+                                          switch(value.length) {
+                                            case 0:
+                                              expiryDateCtr.text = "MM/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                    offset: 0
+                                                  );
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 1:
+                                              expiryDateCtr.text = "${value}M/YY";
+                                              expiryDateCtr.selection = TextSelection.collapsed(
+                                                offset: 1);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 2:
+                                              expiryDateCtr.text = "$value/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                    offset: 2);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 3:
+                                              expiryDateCtr.text =
+                                              "${value.substring(0, 2)}/${value.substring(2)}Y";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                    offset: 4);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+
+                                            case 4:
+                                              expiryDateCtr.text =
+                                              "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                    offset: 5);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+
+                                          }
+                                          if (value.length > 4) {
+                                            expiryDateCtr.text =
+                                            "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                            expiryDateCtr.selection =
+                                                TextSelection.collapsed(
+                                                  offset: 5);
+                                            expiryDate = expiryDateCtr.text;
+                                          }
                                         });
                                       },
                                       controller: expiryDateCtr,
                                       isPadding: true,
-                                      text: '05 / 21',
+                                      text: 'MM/YY',
+                                      keyboardType: true,
                                       curveContainer: true,
                                       edgeInsets: EdgeInsets.only(left: 10)),
                                 ],
@@ -495,5 +552,17 @@ class _PaymentPageState extends State<PaymentPage> {
       desc: "Payment Successful !",
       image: Image.asset('assets/dialog_img.png'),
     ).show();
+
+    Timer.periodic(new Duration(seconds: 2), (timer) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottonNavControllerTrainer(),
+          ));
+
+      timer.cancel();
+    });
   }
+
+
 }

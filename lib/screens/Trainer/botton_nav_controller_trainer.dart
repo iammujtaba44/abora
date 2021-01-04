@@ -1,5 +1,6 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/screens/Client/news_screen.dart';
+import 'package:abora/screens/Trainer/manage_screen.dart';
 import 'package:abora/widgets/bottomNav_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -75,6 +76,7 @@ class _BottonNavControllerTrainerState
       backgroundColor: CustomColor.backgroundColor,
       body: PageView(
         children: [
+          //ManageScreen(),
           HomePage(),
           AppointmentPage(),
           NewsPage(),

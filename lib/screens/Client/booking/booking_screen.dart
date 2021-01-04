@@ -47,7 +47,7 @@ class _BookingScreenState extends State<BookingScreen> {
     events: {},
   );
   List<String> _selectedDates = [];
-  List<int> _values = <int>[01, 02, 03, 04, 05];
+  List<int> _values = <int>[01, 02, 03];
   List<String> _goalString = <String>[
     'Face to face',
     'Video call',
@@ -399,10 +399,10 @@ class _BookingScreenState extends State<BookingScreen> {
                 iconEnabledColor: Colors.grey,
                 iconDisabledColor: CustomColor.white,
                 isDense: true,
-                items: _values.map((city) {
+                items: _values.map((value) {
                   return DropdownMenuItem(
-                    child: Text(city.toString()),
-                    value: city,
+                    child: Text(value.toString()),
+                    value: value,
                   );
                 }).toList(),
                 onChanged: (newValue) {

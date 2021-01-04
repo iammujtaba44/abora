@@ -1,6 +1,7 @@
 import 'package:abora/global/colors.dart';
 import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/screens/Client/Home/botton_nav_controller_client.dart';
 import 'package:abora/screens/Client/mybookings_screen.dart';
 import 'package:abora/services/database.dart';
 import 'package:abora/services/paymentService.dart';
@@ -20,6 +21,8 @@ import 'package:progress_dialog/progress_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stripe_payment/stripe_payment.dart';
+import 'dart:async';
+
 
 class ClientPaymentPage extends StatefulWidget {
   final addAp;
@@ -563,5 +566,17 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
       desc: "Payment Successful !",
       image: Image.asset('assets/dialog_img.png'),
     ).show();
+
+    Timer.periodic(new Duration(seconds: 2), (timer) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BottonNavControllerClient(),
+          ));
+
+      timer.cancel();
+    });
+
+
   }
 }

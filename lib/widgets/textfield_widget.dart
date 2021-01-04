@@ -16,7 +16,8 @@ Container customTextField(
     Function onComplete,
     bool keyboardType = false,
     bool fieldFormate = false,
-    bool makeObscure = false}) {
+    bool makeObscure = false,
+    IconData suffixIcon}) {
   return Container(
     height: 50,
     decoration: BoxDecoration(
@@ -24,6 +25,7 @@ Container customTextField(
         color: CustomColor.textFieldFilledColor,
         border: Border.all(color: CustomColor.textFieldBorderColor)),
     child: TextFormField(
+
       obscureText: makeObscure,
       style: TextStyle(color: Colors.white),
       onChanged: onChanged,
@@ -41,6 +43,12 @@ Container customTextField(
               : null,
       controller: controller == null ? null : controller,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon != null ? Icon(
+          suffixIcon,
+          color: CustomColor.textFieldLabelColor,
+          size: FontSize.h3FontSize + 2,
+        )
+            : null,
         prefixIcon: iconData != null
             ? Icon(
                 iconData,
