@@ -288,7 +288,11 @@ class _ProfileListViewState extends State<ProfileListView> {
 
   
 
-  List<String> upperList = <String>['1', '2', '3'];
+  List<TextEditingController> upperList = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController()
+  ];
   List<TextEditingController> bulkSessionTextFields = [
     TextEditingController(),
     TextEditingController(),
@@ -328,6 +332,10 @@ class _ProfileListViewState extends State<ProfileListView> {
             bulkSessionTextFields[0].text = trainerData.session1;
             bulkSessionTextFields[1].text = trainerData.session2;
             bulkSessionTextFields[2].text = trainerData.session3;
+            upperList[0].text = trainerData.noOfSession1;
+            upperList[1].text = trainerData.noOfSession2;
+            upperList[2].text = trainerData.noOfSession3;
+
 
 
             if(trainerData.homeTraining == 'green' ) {
@@ -698,6 +706,7 @@ class _ProfileListViewState extends State<ProfileListView> {
                           Container(
                               height: 50,
                               width: double.infinity,
+
                               decoration: BoxDecoration(
                                   color: CustomColor.backgroundColor,
                                   borderRadius: BorderRadius.circular(5)),
@@ -815,6 +824,13 @@ class _ProfileListViewState extends State<ProfileListView> {
                     bulkSessionTextFields[2].text = await widget.database.updateSignleField(key: 'session3',
                         value: bulkSessionTextFields[2].text);
 
+                    upperList[0].text = await widget.database.updateSignleField(key: 'noOfSession1',
+                        value: upperList[0].text);
+                    upperList[1].text = await widget.database.updateSignleField(key: 'noOfSession2',
+                        value: upperList[1].text);
+                    upperList[2].text = await widget.database.updateSignleField(key: 'noOfSession3',
+                        value: upperList[2].text);
+
 
 
 
@@ -850,6 +866,10 @@ class _ProfileListViewState extends State<ProfileListView> {
                     Constants.bulkSessions.add(bulkSessionTextFields[0].text);
                     Constants.bulkSessions.add(bulkSessionTextFields[1].text);
                     Constants.bulkSessions.add(bulkSessionTextFields[2].text);
+                    Constants.bulkSessions.add(upperList[0].text);
+                    Constants.bulkSessions.add(upperList[1].text);
+                    Constants.bulkSessions.add(upperList[2].text);
+
 
                                               customToast(text: 'updated successfully');
 
@@ -896,15 +916,14 @@ class _ProfileListViewState extends State<ProfileListView> {
                             TableRow(
                                 children: List.generate(upperList.length, (i) {
                               return _tableContainer(
-                                  label: upperList[i], color: Colors.white,
+                                  textEditingController: upperList[i], color: Colors.white,
 
-                                  type: 1);
+                                  type: 2);
                             })),
                             TableRow(
                                 children: List.generate(bulkSessionTextFields.length, (i) {
                                   return _tableContainer(
-
-                                    textEditingController: bulkSessionTextFields[i],
+                                      textEditingController: bulkSessionTextFields[i],
                                       color: Colors.grey.withOpacity(0.5),type: 2,);
                                 })),
                           ],

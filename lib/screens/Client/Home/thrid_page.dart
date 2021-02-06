@@ -3,7 +3,6 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/SearchPage.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
-import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

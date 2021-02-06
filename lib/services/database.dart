@@ -435,7 +435,10 @@ class DatabaseService {
       visit: ds.data()['visit'],
       session1: ds.data()['session1'],
       session2: ds.data()['session2'],
-      session3: ds.data()['session3']
+      session3: ds.data()['session3'],
+      noOfSession1: ds.data()['noOfSession1'],
+      noOfSession2: ds.data()['noOfSession2'],
+      noOfSession3: ds.data()['noOfSession3']
     );
   }
 
@@ -469,6 +472,9 @@ class DatabaseService {
         session1: document.data()['session1'],
         session2: document.data()['session2'],
         session3: document.data()['session3'],
+        noOfSession1: document.data()['noOfSession1'],
+        noOfSession2: document.data()['noOfSession2'],
+        noOfSession3: document.data()['noOfSession3'],
       );
     }).toList();
   }
@@ -496,6 +502,9 @@ class DatabaseService {
       'session1': Constants.bulkSessions[0],
       'session2': Constants.bulkSessions[1],
       'session3': Constants.bulkSessions[2],
+      'noOfSession1': Constants.bulkSessions[3],
+      'noOfSession2': Constants.bulkSessions[4],
+      'noOfSession3': Constants.bulkSessions[5],
       'name': Constants.trainerUserData.name,
       'bio': Constants.trainerUserData.bio ?? '',
       'email': Constants.trainerUserData.email,

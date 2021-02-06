@@ -11,6 +11,9 @@ class PostAd {
   String session1;
   String session2;
   String session3;
+  String noOfSession1;
+  String noOfSession2;
+  String noOfSession3;
 
   PostAd(
       {this.email,
@@ -24,5 +27,8 @@ class PostAd {
       this.totalPrice,
       this.session1,
       this.session2,
-      this.session3});
+      this.session3,
+      this.noOfSession1,
+      this.noOfSession2,
+        this.noOfSession3});
 }

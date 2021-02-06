@@ -43,8 +43,14 @@ class BookingTab extends StatefulWidget {
   final String session1;
   final String session2;
   final String session3;
+  final String noOfSession1;
+  final String noOfSession2;
+  final String noOfSession3;
 
-  BookingTab({this.email, this.name, this.bio, this.session1, this.session2, this.session3});
+
+  BookingTab({this.email, this.name, this.bio,
+    this.session1, this.session2, this.session3,
+    this.noOfSession1, this.noOfSession2, this.noOfSession3});
 
   @override
   _BookingTabState createState() => _BookingTabState();
@@ -94,7 +100,12 @@ class _BookingTabState extends State<BookingTab> {
                   email: widget.email, name: widget.name, bio: widget.bio,
                 session1: widget.session1,
                 session2: widget.session2,
-                session3: widget.session3,),
+                session3: widget.session3,
+                noOfSession1: widget.noOfSession1,
+                noOfSession2: widget.noOfSession2,
+                noOfSession3: widget.noOfSession3,
+
+                ),
 
             ],
           ),

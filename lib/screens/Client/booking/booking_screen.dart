@@ -25,8 +25,12 @@ class BookingScreen extends StatefulWidget {
   final String session1;
   final String session2;
   final String session3;
+  final String noOfSession1;
+  final String noOfSession2;
+  final String noOfSession3;
 
-  BookingScreen({this.name, this.bio, this.email, this.session1, this.session2, this.session3});
+  BookingScreen({this.name, this.bio, this.email, this.session1, this.session2, this.session3,
+  this.noOfSession1, this.noOfSession2, this.noOfSession3});
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -47,7 +51,7 @@ class _BookingScreenState extends State<BookingScreen> {
     events: {},
   );
   List<String> _selectedDates = [];
-  List<int> _values = <int>[01, 02, 03];
+  List<int> _values ;
   List<String> _goalString = <String>[
     'Face to face',
     'Video call',
@@ -58,7 +62,7 @@ class _BookingScreenState extends State<BookingScreen> {
   var _selected;
   var _selectedSession;
 
-  List<String> numOfSessions = ['1', '2', '3'];
+  List<String> numOfSessions;
   List<String> priceOfSessions;
 
 
@@ -66,8 +70,9 @@ class _BookingScreenState extends State<BookingScreen> {
   void initState() {
     super.initState();
     evenFiller();
-
      priceOfSessions = ['${widget.session1}','${widget.session2}','${widget.session3}'];
+    numOfSessions = ['${widget.noOfSession1}','${widget.noOfSession2}','${widget.noOfSession3}'];
+    _values = [int.parse(widget.noOfSession1), int.parse(widget.noOfSession2),int.parse(widget.noOfSession3), ];
   }
 
   @override
@@ -154,7 +159,7 @@ class _BookingScreenState extends State<BookingScreen> {
           _secondContainer(),
           _dropdownContainer(),
           _fields(),
-          Container(
+          /*Container(
             margin: EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +197,8 @@ class _BookingScreenState extends State<BookingScreen> {
                 )
               ],
             ),
-          ),
+          ),*/
+
         ],
       ),
     );
@@ -413,7 +419,7 @@ class _BookingScreenState extends State<BookingScreen> {
                 value: _selected,
                 isExpanded: false,
                 hint: new Text(
-                  "01",
+                  "No.",
                   style: TextStyle(color: Colors.grey.withOpacity(0.5)),
                 ),
               ),

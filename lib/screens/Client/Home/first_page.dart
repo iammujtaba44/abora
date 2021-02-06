@@ -4,6 +4,7 @@ import 'package:abora/global/fontSize.dart';
 import 'package:abora/screens/Client/SearchPage.dart';
 import 'package:abora/screens/Client/booking/booking_tab.dart';
 import 'package:abora/screens/Client/trainerProfile.dart';
+import 'package:abora/screens/Trainer/manage_screen.dart';
 import 'package:abora/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -215,6 +216,19 @@ class _FirstPageState extends State<FirstPage> {
                                                                         session3: snapshot
                                                                             .data[index]
                                                                             .session3,
+
+                                                                        noOfSession1: snapshot
+                                                                            .data[index]
+                                                                            .noOfSession1,
+                                                                        noOfSession2: snapshot
+                                                                            .data[index]
+                                                                            .noOfSession2,
+                                                                        noOfSession3: snapshot
+                                                                            .data[index]
+                                                                            .noOfSession3,
+
+
+
                                                                       )),
                                                         );
                                                       },
@@ -363,6 +377,9 @@ class _FirstPageState extends State<FirstPage> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
+                                                              /// A temporary chnage for manage screen
+
+
                                                               TrainerProfilePage(
                                                                 trainerData: {
                                                                   'bio': snapshot

@@ -18,6 +18,7 @@ class AuthService {
     return _auth.authStateChanges();
   }
 
+
   Future signInAnon() async {
     try {
       var result = await _auth.signInAnonymously();

@@ -22,6 +22,9 @@ class TrainerUser {
   final String session1;
   final String session2;
   final String session3;
+  final String noOfSession1;
+  final String noOfSession2;
+  final String noOfSession3;
 
 
   TrainerUser({
@@ -47,6 +50,10 @@ class TrainerUser {
     this.conversionRate,
     this.session1,
     this.session3,
-    this.session2
+    this.session2,
+    this.noOfSession1,
+    this.noOfSession2,
+    this.noOfSession3
+
   });
 }
