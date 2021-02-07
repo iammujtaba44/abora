@@ -3,6 +3,7 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
 import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/courses_page.dart';
+import 'package:abora/screens/Trainer/manage_screen.dart';
 import 'package:abora/screens/Trainer/post_ad_page.dart';
 import 'package:abora/screens/Trainer/upload_course.dart';
 import 'package:abora/screens/Trainer/upload_single_video_page.dart';
@@ -99,6 +100,10 @@ class _HomePageState extends State<HomePage> {
     if (value == Constants.course) {
       Navigator.push(context, MaterialPageRoute(builder: (context) {
         return CoursesPage();
+      }));
+    } else if(value == Constants.timings) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return ManageScreen();
       }));
     }
   }

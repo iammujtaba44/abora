@@ -481,39 +481,39 @@ class _ManageScreenState extends State<ManageScreen> {
                   ),
                   onPressed: () {
 
-                    if(dayTileColorMon) {
+
                       database.updateSignleField(key: 'MondayFrom',
-                          value: pickedMonFrom.format(context));
+                          value: pickedMonFrom?.format(context));
                       database.updateSignleField(
-                          key: 'MondayTo', value: pickedMonTo.format(context));
-                    }
-                    if(dayTileColorTues) {
+                          key: 'MondayTo', value: pickedMonTo?.format(context));
+
+
                       database.updateSignleField(key: 'TuesdayFrom',
-                          value: pickedTuesFrom.format(context));
+                          value: pickedTuesFrom?.format(context));
                       database.updateSignleField(key: 'TuesdayTo',
-                          value: pickedTuesTo.format(context));
-                    }
-
-                    if(dayTileColorWed) {
-                    database.updateSignleField(key: 'WednesdayFrom', value: pickedWedFrom.format(context));
-                    database.updateSignleField(key: 'WednesdayTo', value: pickedWedTo.format(context)); }
+                          value: pickedTuesTo?.format(context));
 
 
-                    if(dayTileColorThurs) {
-                    database.updateSignleField(key: 'ThursdayFrom', value: pickedThuFrom.format(context));
-                    database.updateSignleField(key: 'ThursdayTo', value: pickedThurTo.format(context)); }
 
-                    if(dayTileColorFri) {
-                    database.updateSignleField(key: 'FridayFrom', value: pickedFriFrom.format(context));
-                    database.updateSignleField(key: 'FridayTo', value: pickedFriTo.format(context)); }
+                    database.updateSignleField(key: 'WednesdayFrom', value: pickedWedFrom?.format(context));
+                    database.updateSignleField(key: 'WednesdayTo', value: pickedWedTo?.format(context));
 
-                    if(dayTileColorSat) {
-                    database.updateSignleField(key: 'SaturdayFrom', value: pickedSatFrom.format(context));
-                    database.updateSignleField(key: 'SaturdayTo', value: pickedSatTo.format(context)); }
 
-                    if(dayTileColorSun) {
-                    database.updateSignleField(key: 'SundayFrom', value:  pickedSunFrom.format(context));
-                    database.updateSignleField(key: 'SundayTo', value:  pickedSunTo.format(context)); }
+
+                    database.updateSignleField(key: 'ThursdayFrom', value: pickedThuFrom?.format(context));
+                    database.updateSignleField(key: 'ThursdayTo', value: pickedThurTo?.format(context));
+
+
+                    database.updateSignleField(key: 'FridayFrom', value: pickedFriFrom?.format(context));
+                    database.updateSignleField(key: 'FridayTo', value: pickedFriTo?.format(context));
+
+
+                    database.updateSignleField(key: 'SaturdayFrom', value: pickedSatFrom?.format(context));
+                    database.updateSignleField(key: 'SaturdayTo', value: pickedSatTo?.format(context));
+
+
+                    database.updateSignleField(key: 'SundayFrom', value:  pickedSunFrom?.format(context));
+                    database.updateSignleField(key: 'SundayTo', value:  pickedSunTo?.format(context));
 
 
                     /*_onAlertButtonsPressed(context);*/

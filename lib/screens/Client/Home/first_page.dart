@@ -227,6 +227,23 @@ class _FirstPageState extends State<FirstPage> {
                                                                             .data[index]
                                                                             .noOfSession3,
 
+                                                                          monTo: snapshot.data[index].monTo,
+                                                                          monFrom: snapshot.data[index].monFrom,
+                                                                          tueFrom: snapshot.data[index].tueFrom,
+                                                                          tueTo: snapshot.data[index].tueTo,
+                                                                          wedFrom: snapshot.data[index].wedFrom,
+                                                                          wedTo: snapshot.data[index].wedTo,
+                                                                          thurFrom: snapshot.data[index].thurFrom,
+                                                                          thurTo: snapshot.data[index].thurTo,
+                                                                          friFrom: snapshot.data[index].friFrom,
+                                                                          friTo: snapshot.data[index].friTo,
+                                                                          satFrom: snapshot.data[index].satFrom,
+                                                                          satTo: snapshot.data[index].satTo,
+                                                                          sunFrom: snapshot.data[index].sunFrom,
+                                                                          sunTo: snapshot.data[index].sunTo
+
+
+
 
 
                                                                       )),

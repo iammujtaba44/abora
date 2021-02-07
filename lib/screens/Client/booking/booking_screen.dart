@@ -28,9 +28,39 @@ class BookingScreen extends StatefulWidget {
   final String noOfSession1;
   final String noOfSession2;
   final String noOfSession3;
+  final String monTo, monFrom;
+  final String tueTo, tueFrom;
+  final String wedTo, wedFrom;
+  final String thurTo, thurFrom;
+  final String friTo, friFrom;
+  final String satTo, satFrom;
+  final String sunTo, sunFrom;
 
-  BookingScreen({this.name, this.bio, this.email, this.session1, this.session2, this.session3,
-  this.noOfSession1, this.noOfSession2, this.noOfSession3});
+  BookingScreen(
+      {this.name,
+      this.bio,
+      this.email,
+      this.session1,
+      this.session2,
+      this.session3,
+      this.noOfSession1,
+      this.noOfSession2,
+      this.noOfSession3,
+      this.monTo,
+      this.monFrom,
+      this.tueFrom,
+      this.tueTo,
+      this.wedFrom,
+      this.wedTo,
+      this.thurFrom,
+      this.thurTo,
+      this.friFrom,
+      this.friTo,
+      this.satFrom,
+      this.satTo,
+      this.sunFrom,
+      this.sunTo});
+
   @override
   _BookingScreenState createState() => _BookingScreenState();
 }
@@ -51,7 +81,9 @@ class _BookingScreenState extends State<BookingScreen> {
     events: {},
   );
   List<String> _selectedDates = [];
-  List<int> _values ;
+  List<int> _values;
+
+  List<String> _timing;
   List<String> _goalString = <String>[
     'Face to face',
     'Video call',
@@ -65,14 +97,41 @@ class _BookingScreenState extends State<BookingScreen> {
   List<String> numOfSessions;
   List<String> priceOfSessions;
 
-
   @override
   void initState() {
     super.initState();
     evenFiller();
-     priceOfSessions = ['${widget.session1}','${widget.session2}','${widget.session3}'];
-    numOfSessions = ['${widget.noOfSession1}','${widget.noOfSession2}','${widget.noOfSession3}'];
-    _values = [int.parse(widget.noOfSession1), int.parse(widget.noOfSession2),int.parse(widget.noOfSession3), ];
+    priceOfSessions = [
+      '${widget.session1}',
+      '${widget.session2}',
+      '${widget.session3}'
+    ];
+    numOfSessions = [
+      '${widget.noOfSession1}',
+      '${widget.noOfSession2}',
+      '${widget.noOfSession3}'
+    ];
+    _values = [
+      int.parse(widget.noOfSession1),
+      int.parse(widget.noOfSession2),
+      int.parse(widget.noOfSession3),
+    ];
+    _timing = [
+      widget.monTo,
+      widget.monFrom,
+      widget.tueFrom,
+      widget.tueTo,
+      widget.wedFrom,
+      widget.wedTo,
+      widget.thurFrom,
+      widget.thurTo,
+      widget.friFrom,
+      widget.friTo,
+      widget.satFrom,
+      widget.satTo,
+      widget.sunFrom,
+      widget.sunTo
+    ];
   }
 
   @override
@@ -198,7 +257,6 @@ class _BookingScreenState extends State<BookingScreen> {
               ],
             ),
           ),*/
-
         ],
       ),
     );
@@ -279,11 +337,13 @@ class _BookingScreenState extends State<BookingScreen> {
                 children: [
                   TableRow(
                       children: List.generate(3, (index) {
-                    return _tableContainer(numOfSessions[index], Color(0xFF43810C));
+                    return _tableContainer(
+                        numOfSessions[index], Color(0xFF43810C));
                   })),
                   TableRow(
                       children: List.generate(3, (index) {
-                    return _tableContainer(priceOfSessions[index] ?? '0', Colors.grey.withOpacity(0.5));
+                    return _tableContainer(priceOfSessions[index] ?? '0',
+                        Colors.grey.withOpacity(0.5));
                   })),
                 ],
               ),
@@ -362,10 +422,204 @@ class _BookingScreenState extends State<BookingScreen> {
               ),
             ),
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Monday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.monTo == null || widget.monFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.monTo + ' ' + 'From: ' + widget.monFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Tuesday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.tueTo == null || widget.tueFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.tueTo + ' ' + 'From: ' + widget.tueFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Wednesday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.wedTo == null ||  widget.wedFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.wedTo + ' ' + 'From: ' + widget.wedFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Thursday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.thurTo == null ||  widget.thurFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.thurTo + ' ' + 'From: ' + widget.thurFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Friday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),/**/
+              Row(
+                children: [
+                  widget.friTo == null || widget.friFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.friTo + ' ' + 'From: ' + widget.friFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Saturday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.satTo == null || widget.satFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.satTo + ' ' + 'From: ' + widget.satFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Sunday: ',
+                style: TextStyle(color: Colors.white),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  widget.sunTo == null || widget.sunFrom == null
+                      ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                      : Text('To: ' + widget.sunTo + ' ' + 'From: ' + widget.sunFrom,
+                      style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ],
+          ),
+
+        //  _timingsWidget('Monday', widget.monTo, widget.monFrom),
+        /*  _timingsWidget('Tuesday', widget.tueTo, widget.tueFrom),
+          _timingsWidget('Wednesday', widget.wedTo, widget.wedFrom),
+          _timingsWidget('Thursday', widget.thurTo, widget.thurFrom),
+          _timingsWidget('Friday', widget.friTo, widget.friFrom),
+          _timingsWidget('Saturday', widget.satTo, widget.satFrom),
+          _timingsWidget('Sunday', widget.sunTo, widget.sunFrom),*/
         ],
       ),
     );
   }
+
+/*  _timingsWidget(String day, String to, String from) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          '$day: ',
+          style: TextStyle(color: Colors.white),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            to == null
+                ? Text('Unavailable',style: TextStyle(color: Colors.white))
+                : Text('To: ' + to + ' ' + 'From: ' + from,
+                    style: TextStyle(color: Colors.white)),
+          ],
+        ),
+      ],
+    );
+  }*/
 
   _dropdownContainer() {
     return Container(
@@ -462,6 +716,7 @@ class _BookingScreenState extends State<BookingScreen> {
         ),
       );
   List<String> getDates = List();
+
   evenFiller() async {
     // List<String> aa = widget.detailsData['dates'];
     // print(aa);

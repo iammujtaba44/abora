@@ -46,11 +46,32 @@ class BookingTab extends StatefulWidget {
   final String noOfSession1;
   final String noOfSession2;
   final String noOfSession3;
+  final String monTo,monFrom;
+  final String tueTo,tueFrom;
+  final String wedTo,wedFrom;
+  final String thurTo,thurFrom;
+  final String friTo,friFrom;
+  final String satTo,satFrom;
+  final String sunTo,sunFrom;
 
 
   BookingTab({this.email, this.name, this.bio,
     this.session1, this.session2, this.session3,
-    this.noOfSession1, this.noOfSession2, this.noOfSession3});
+    this.noOfSession1, this.noOfSession2, this.noOfSession3,
+    this.monTo,
+    this.monFrom,
+    this.tueFrom,
+    this.tueTo,
+    this.wedFrom,
+    this.wedTo,
+    this.thurFrom,
+    this.thurTo,
+    this.friFrom,
+    this.friTo,
+    this.satFrom,
+    this.satTo,
+    this.sunFrom,
+    this.sunTo});
 
   @override
   _BookingTabState createState() => _BookingTabState();
@@ -104,8 +125,24 @@ class _BookingTabState extends State<BookingTab> {
                 noOfSession1: widget.noOfSession1,
                 noOfSession2: widget.noOfSession2,
                 noOfSession3: widget.noOfSession3,
+                 monTo: widget.monTo ,
+                  monFrom: widget.monFrom ,
+                  tueFrom: widget.tueFrom ,
+                  tueTo: widget.tueTo ,
+                  wedFrom: widget.wedFrom ,
+                  wedTo: widget.wedTo,
+                  thurFrom: widget.thurFrom ,
+                  thurTo: widget.thurTo ,
+                  friFrom: widget.friFrom ,
+                  friTo: widget.friTo ,
+                  satFrom: widget.satFrom ,
+                  satTo: widget.satTo ,
+                  sunFrom: widget.sunFrom ,
+                  sunTo: widget.sunTo
 
-                ),
+
+
+              ),
 
             ],
           ),

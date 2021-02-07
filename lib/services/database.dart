@@ -438,7 +438,22 @@ class DatabaseService {
       session3: ds.data()['session3'],
       noOfSession1: ds.data()['noOfSession1'],
       noOfSession2: ds.data()['noOfSession2'],
-      noOfSession3: ds.data()['noOfSession3']
+      noOfSession3: ds.data()['noOfSession3'],
+      monFrom: ds.data()['MondayFrom'],
+      monTo: ds.data()['MondayTo'],
+      tueFrom: ds.data()['TuesdayFrom'],
+      tueTo: ds.data()['TuesdayTo'],
+      wedFrom: ds.data()['WednesdayFrom'],
+      wedTo: ds.data()['WednesdayTo'],
+      thurFrom: ds.data()['ThursdayFrom'],
+      thurTo: ds.data()['ThursdayTo'],
+      friFrom: ds.data()['FridayFrom'],
+      friTo: ds.data()['FridayTo'],
+      satFrom: ds.data()['SaturdayFrom'],
+      satTo: ds.data()['SaturdayTo'],
+      sunFrom: ds.data()['SundayFrom'],
+      sunTo: ds.data()['SundayTo']
+
     );
   }
 
@@ -475,6 +490,22 @@ class DatabaseService {
         noOfSession1: document.data()['noOfSession1'],
         noOfSession2: document.data()['noOfSession2'],
         noOfSession3: document.data()['noOfSession3'],
+          monFrom: document.data()['MondayFrom'],
+          monTo: document.data()['MondayTo'],
+          tueFrom: document.data()['TuesdayFrom'],
+          tueTo: document.data()['TuesdayTo'],
+          wedFrom: document.data()['WednesdayFrom'],
+          wedTo: document.data()['WednesdayTo'],
+          thurFrom: document.data()['ThursdayFrom'],
+          thurTo: document.data()['ThursdayTo'],
+          friFrom: document.data()['FridayFrom'],
+          friTo: document.data()['FridayTo'],
+          satFrom: document.data()['SaturdayFrom'],
+          satTo: document.data()['SaturdayTo'],
+          sunFrom: document.data()['SundayFrom'],
+          sunTo: document.data()['SundayTo']
+
+
       );
     }).toList();
   }
@@ -499,6 +530,20 @@ class DatabaseService {
       String area,
       String totalPrice}) async {
     await allAds.doc().set({
+      'MondayFrom': Constants.timingsList[0],
+      'MondayTo': Constants.timingsList[1],
+      'TuesdayFrom': Constants.timingsList[2],
+      'TuesdayTo': Constants.timingsList[3],
+      'WednesdayFrom': Constants.timingsList[4],
+      'WednesdayTo': Constants.timingsList[5],
+      'ThursdayFrom': Constants.timingsList[6],
+      'ThursdayTo': Constants.timingsList[7],
+      'FridayFrom': Constants.timingsList[8],
+      'FridayTo': Constants.timingsList[9],
+      'SaturdayFrom': Constants.timingsList[10],
+      'SaturdayTo': Constants.timingsList[11],
+      'SundayFrom': Constants.timingsList[12],
+      'SundayTo': Constants.timingsList[13],
       'session1': Constants.bulkSessions[0],
       'session2': Constants.bulkSessions[1],
       'session3': Constants.bulkSessions[2],

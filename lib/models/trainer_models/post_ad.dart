@@ -14,6 +14,14 @@ class PostAd {
   String noOfSession1;
   String noOfSession2;
   String noOfSession3;
+  final String monTo,monFrom;
+  final String tueTo,tueFrom;
+  final String wedTo,wedFrom;
+  final String thurTo,thurFrom;
+  final String friTo,friFrom;
+  final String satTo,satFrom;
+  final String sunTo,sunFrom;
+
 
   PostAd(
       {this.email,
@@ -30,5 +38,19 @@ class PostAd {
       this.session3,
       this.noOfSession1,
       this.noOfSession2,
-        this.noOfSession3});
+        this.noOfSession3,
+        this.monTo,
+        this.monFrom,
+        this.tueFrom,
+        this.tueTo,
+        this.wedFrom,
+        this.wedTo,
+        this.thurFrom,
+        this.thurTo,
+        this.friFrom,
+        this.friTo,
+        this.satFrom,
+        this.satTo,
+        this.sunFrom,
+        this.sunTo});
 }

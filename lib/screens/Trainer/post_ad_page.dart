@@ -3,11 +3,15 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:abora/global/colors.dart';
+import 'package:abora/global/constants.dart';
 import 'package:abora/global/fontSize.dart';
+import 'package:abora/models/trainer_models/trainer_user.dart';
 import 'package:abora/screens/Trainer/payment_page.dart';
+import 'package:abora/services/database.dart';
 import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:abora/widgets/textfield_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:dropdownfield/dropdownfield.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +21,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class PostAdPage extends StatefulWidget {
   @override
@@ -33,6 +38,7 @@ class _PostAdPageState extends State<PostAdPage> {
   }
 
   double height;
+  DatabaseService databaseService;
 
   double width;
   List<String> years = <String>[
@@ -72,6 +78,10 @@ class _PostAdPageState extends State<PostAdPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final database = Provider.of<DatabaseService>(context);
+    databaseService = database;
+
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     ScreenUtil.init(context,
@@ -476,7 +486,59 @@ class _PostAdPageState extends State<PostAdPage> {
                 'POST ADD',
                 style: TextStyle(color: Colors.white),
               ),
-              func: _ontap,
+              func: () async {
+
+                var document = await FirebaseFirestore.instance.collection('trainer').doc(Constants.currentUserID);
+                var value = await document.get();
+                Constants.timingsList.add(value.data()['MondayFrom']);
+                Constants.timingsList.add(value.data()['MondayTo']);
+                Constants.timingsList.add(value.data()['TuesdayFrom'],);
+                Constants.timingsList.add(value.data()['TuesdayTo'],);
+                Constants.timingsList.add(value.data()['WednesdayFrom'],);
+                Constants.timingsList.add(value.data()['WednesdayTo'],);
+                Constants.timingsList.add(value.data()['ThursdayFrom'],);
+                Constants.timingsList.add(value.data()['ThursdayTo'],);
+                Constants.timingsList.add(value.data()['FridayFrom'],);
+                Constants.timingsList.add(value.data()['FridayTo'],);
+                Constants.timingsList.add(value.data()['SaturdayFrom'],);
+                Constants.timingsList.add(value.data()['SaturdayTo'],);
+                Constants.timingsList.add(value.data()['SundayFrom'],);
+                Constants.timingsList.add(value.data()['SundayTo']);
+
+                Constants.bulkSessions.add(value.data()['session1']);
+                Constants.bulkSessions.add(value.data()['session2']);
+                Constants.bulkSessions.add(value.data()['session3']);
+                Constants.bulkSessions.add(value.data()['noOfSession1']);
+                Constants.bulkSessions.add(value.data()['noOfSession2']);
+                Constants.bulkSessions.add(value.data()['noOfSession3']);
+
+
+
+
+                if (_selectedyear.toString().isNotEmpty &&
+                    _selectedEx1.toString().isNotEmpty &&
+                    _selectedEx2.toString().isNotEmpty &&
+                    _selected.toString().isNotEmpty &&
+                    postalCodeController.text.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PaymentPage(
+                          postAdData: {
+                            'years': _selectedyear.toString(),
+                            'ex': _selectedEx1.toString(),
+                            'ex1': _selectedEx2.toString(),
+                            'days': _selected.toString(),
+                            'totalPrice': totalprice.toString(),
+                            'postCode': postalCodeController.text
+                          },
+                        )),
+                  );
+                } else
+                  customToast(text: 'fill all fields');
+
+
+              },
             ),
           ),
         ],
@@ -485,6 +547,41 @@ class _PostAdPageState extends State<PostAdPage> {
   }
 
   _ontap() {
+
+
+
+
+
+    new StreamBuilder(
+        stream: databaseService.currentTrainerUserStream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return null;
+          }
+          TrainerUser trainerData = snapshot.data;
+          Constants.timingsList.add(trainerData.monTo);
+          Constants.timingsList.add(trainerData.monFrom);
+          Constants.timingsList.add(trainerData.tueTo);
+          Constants.timingsList.add(trainerData.tueFrom);
+          Constants.timingsList.add(trainerData.wedTo);
+          Constants.timingsList.add(trainerData.wedFrom);
+          Constants.timingsList.add(trainerData.thurTo);
+          Constants.timingsList.add(trainerData.thurFrom);
+          Constants.timingsList.add(trainerData.friTo);
+          Constants.timingsList.add(trainerData.friFrom);
+          Constants.timingsList.add(trainerData.satTo);
+          Constants.timingsList.add(trainerData.satFrom);
+          Constants.timingsList.add(trainerData.sunTo);
+          Constants.timingsList.add(trainerData.sunFrom);
+
+          print("--------" + Constants.timingsList[0]);
+
+          return null;
+
+
+        }
+    );
+
     print(selectedPostcode);
     if (_selectedyear.toString().isNotEmpty &&
         _selectedEx1.toString().isNotEmpty &&

@@ -25,6 +25,14 @@ class TrainerUser {
   final String noOfSession1;
   final String noOfSession2;
   final String noOfSession3;
+  final String monTo,monFrom;
+  final String tueTo,tueFrom;
+  final String wedTo,wedFrom;
+  final String thurTo,thurFrom;
+  final String friTo,friFrom;
+  final String satTo,satFrom;
+  final String sunTo,sunFrom;
+
 
 
   TrainerUser({
@@ -53,7 +61,21 @@ class TrainerUser {
     this.session2,
     this.noOfSession1,
     this.noOfSession2,
-    this.noOfSession3
+    this.noOfSession3,
+    this.monTo,
+    this.monFrom,
+    this.tueFrom,
+    this.tueTo,
+    this.wedFrom,
+    this.wedTo,
+    this.thurFrom,
+    this.thurTo,
+    this.friFrom,
+    this.friTo,
+    this.satFrom,
+    this.satTo,
+    this.sunFrom,
+    this.sunTo
 
   });
 }
