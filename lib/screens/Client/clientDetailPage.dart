@@ -3,6 +3,8 @@ import 'package:abora/global/constants.dart';
 import 'package:abora/screens/Client/news_screen.dart';
 import 'package:abora/screens/Client/rateSession_screen.dart';
 import 'package:abora/screens/settings_page.dart';
+import 'package:abora/services/database.dart';
+import 'package:abora/widgets/CustomToast.dart';
 import 'package:abora/widgets/blue_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -23,6 +26,9 @@ class ClientDetailPage extends StatefulWidget {
 class _ClientDetailPageState extends State<ClientDetailPage> {
   final CollectionReference client =
       FirebaseFirestore.instance.collection('client');
+
+  final CollectionReference appointments =
+  FirebaseFirestore.instance.collection('appointments');
 
   double height;
 
@@ -44,16 +50,20 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   );
   List<DateTime> presentDates = [];
   List<DateTime> absentDates = [];
+  int listCount;
 
   @override
   void initState() {
     super.initState();
     // print(widget.detailsData['docId']);
+    listCount = int.parse(widget.detailsData['noOfBookings']) - int.parse(widget.detailsData['noOfCompleteSession']);
     _controller = CalendarController();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final database = Provider.of<DatabaseService>(context);
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
     ScreenUtil.init(context,
@@ -206,7 +216,38 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
             SizedBox(
               height: 20,
             ),
-            Container(
+            ListView.builder(
+              shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: listCount,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      blueButton(child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.check_circle, color: Colors.white,),
+                      SizedBox(width: 20,),
+                      Text('Session  ${(index+1).toString()} Complete', style: TextStyle(color: Colors.white),),
+                          ],),
+                           func: () async  {
+                        setState(() {
+                          listCount--;
+                        });
+
+                        customToast(text: 'Please wait...', bgcolor: Colors.black);
+                             await appointments
+                                 .doc('upcomingApointments')
+                                 .collection('data').doc(widget.detailsData['docId']).update({'noOfCompleteSession':(int.parse(widget.detailsData['noOfCompleteSession']) + 1).toString() + "" });
+
+                        customToast(text: 'Session completed...', bgcolor: Colors.black);
+
+                          }),
+                      SizedBox(height: 10,),
+                    ],
+                  );
+                }),
+            /*Container(
               margin: const EdgeInsets.only(left: 20.0, right: 20.0),
               color: Theme.of(context).primaryColor,
               child: Column(
@@ -261,14 +302,14 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                   )
                 ],
               ),
-            ),
-            widget.detailsData['get'] == '0'
+            ),*/
+            ( widget.detailsData['get'] == '0' && (int.parse(widget.detailsData['noOfBookings']) == int.parse(widget.detailsData['noOfCompleteSession']) ) )
                 ? Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20.0, vertical: 20),
                     child: blueButton(
                         child: Text(
-                          'START SESSION',
+                          'Give Review',
                           style: TextStyle(color: CustomColor.white),
                         ),
                         func: () async {

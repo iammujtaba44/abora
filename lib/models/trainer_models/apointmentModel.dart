@@ -10,6 +10,7 @@ class AppointmentModel {
   final String goal;
   final List<String> dates;
   final String docId;
+  final String noOfCompletedSessions;
 
   AppointmentModel(
       {this.docId,
@@ -22,5 +23,6 @@ class AppointmentModel {
       this.noOfBookings,
       this.sessionType,
       this.goal,
-      this.dates});
+      this.dates,
+      this.noOfCompletedSessions});
 }

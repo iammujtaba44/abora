@@ -225,7 +225,7 @@ class _DetailPageState extends State<DetailPage> {
             SizedBox(
               height: 20,
             ),
-            Container(
+            /*Container(
               margin: const EdgeInsets.only(left: 20.0, right: 20.0),
               color: Theme.of(context).primaryColor,
               child: Column(
@@ -280,7 +280,7 @@ class _DetailPageState extends State<DetailPage> {
                   )
                 ],
               ),
-            ),
+            ),*/
             widget.detailsData['get'] == '0'
                 ? Padding(
                     padding: const EdgeInsets.symmetric(

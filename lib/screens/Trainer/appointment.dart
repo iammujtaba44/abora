@@ -136,7 +136,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                     SizedBox(
                       height: 22,
                     ),
-                    Calender(
+                    /*Calender(
                       database: database,
                     ),
                     Padding(
@@ -162,7 +162,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                           )
                         ],
                       ),
-                    ),
+                    ),*/
                     SizedBox(
                       height: 40,
                     )
@@ -340,7 +340,8 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                                         .trainerImageUrl,
                                                     'docId': snapshot
                                                         .data[index].docId,
-                                                    'get': '0'
+                                                    'get': '0',
+
                                                   },
                                                 )),
                                       );

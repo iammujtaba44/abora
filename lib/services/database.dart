@@ -211,7 +211,8 @@ class DatabaseService {
           noOfBookings: ds.data()['noOfBookings'],
           sessionType: ds.data()['sessionType'],
           dates: List.from(ds.data()['dates']),
-          docId: ds.data()['docId']);
+          docId: ds.data()['docId'],
+      noOfCompletedSessions: ds.data()['noOfCompleteSession']);
     }).toList();
   }
 
@@ -234,6 +235,7 @@ class DatabaseService {
     String sessionType,
     String goal,
     List<String> dates,
+    String NoOfCompleteSessions,
   }) async {
     var randomDoc =
         appointments.doc('upcomingApointments').collection('data').doc();
@@ -252,7 +254,8 @@ class DatabaseService {
       'noOfBookings': noOfBookings,
       'sessionType': sessionType,
       'dates': dates,
-      'docId': randomDoc.id
+      'docId': randomDoc.id,
+      'noOfCompleteSession': NoOfCompleteSessions
     });
   }
 

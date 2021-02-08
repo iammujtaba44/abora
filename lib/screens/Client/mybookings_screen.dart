@@ -220,7 +220,9 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                                         .trainerImageUrl,
                                                     'docId': snapshot
                                                         .data[index].docId,
-                                                    'get': '0'
+                                                    'get': '0',
+                                                    'noOfCompleteSession': snapshot.data[index].noOfCompletedSessions
+
                                                   },
                                                 )),
                                       );
@@ -249,12 +251,31 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
+
                                   Text(
                                     'No of Bookings:',
                                     style: TextStyle(color: CustomColor.grey),
                                   ),
                                   Text(
                                     snapshot.data[index].noOfBookings,
+                                    style: TextStyle(color: CustomColor.grey),
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                children: [
+
+                                  Text(
+                                    'No of Completed Bookings',
+                                    style: TextStyle(color: CustomColor.grey),
+                                  ),
+                                  Text(
+                                    snapshot.data[index].noOfCompletedSessions ?? '',
                                     style: TextStyle(color: CustomColor.grey),
                                   )
                                 ],

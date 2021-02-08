@@ -304,7 +304,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                               ),
                               customTextField(
                                   onChanged: (value) {
-                                    setState(() {
+                                    /*setState(() {
                                       value =
                                           value.replaceAll(RegExp(r"\D"), "");
                                       switch (value.length) {
@@ -312,21 +312,21 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                           expiryDateCtr.text = "MM/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  /*offset: 0*/);
+                                                  *//*offset: 0*//*);
                                           expiryDate = expiryDateCtr.text;
                                           break;
                                         case 1:
                                           expiryDateCtr.text = "${value}M/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  /*offset: 1*/);
+                                                  *//*offset: 1*//*);
                                           expiryDate = expiryDateCtr.text;
                                           break;
                                         case 2:
                                           expiryDateCtr.text = "$value/YY";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  /*offset: 2*/);
+                                                  *//*offset: 2*//*);
                                           expiryDate = expiryDateCtr.text;
                                           break;
                                         case 3:
@@ -334,7 +334,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                               "${value.substring(0, 2)}/${value.substring(2)}Y";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  /*offset: 4*/);
+                                                  *//*offset: 4*//*);
                                           expiryDate = expiryDateCtr.text;
                                           break;
                                         case 4:
@@ -342,7 +342,7 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                               "${value.substring(0, 2)}/${value.substring(2, 4)}";
                                           expiryDateCtr.selection =
                                               TextSelection.collapsed(
-                                                  /*offset: 5*/);
+                                                  *//*offset: 5*//*);
                                           expiryDate = expiryDateCtr.text;
                                           break;
                                       }
@@ -351,25 +351,25 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                                             "${value.substring(0, 2)}/${value.substring(2, 4)}";
                                         expiryDateCtr.selection =
                                             TextSelection.collapsed(
-                                                /*offset: 5*/);
+                                                *//*offset: 5*//*);
                                         expiryDate = expiryDateCtr.text;
                                       }
+                                    });*/
+                                    if (expiryDateCtr.text.toString().length >
+                                            1 &&
+                                        expiryDateCtr.text.toString().length <
+                                            3) {
+                                      value = value + ' / ';
+                                      expiryDateCtr.text = value;
+                                      expiryDateCtr.selection =
+                                          TextSelection.fromPosition(
+                                              TextPosition(
+                                                  offset: expiryDateCtr
+                                                      .text.length));
+                                    }
+                                    setState(() {
+                                      expiryDate = value;
                                     });
-                                    // if (expiryDateCtr.text.toString().length >
-                                    //         1 &&
-                                    //     expiryDateCtr.text.toString().length <
-                                    //         3) {
-                                    //   value = value + ' / ';
-                                    //   expiryDateCtr.text = value;
-                                    //   expiryDateCtr.selection =
-                                    //       TextSelection.fromPosition(
-                                    //           TextPosition(
-                                    //               offset: expiryDateCtr
-                                    //                   .text.length));
-                                    // }
-                                    // setState(() {
-                                    //   expiryDate = value;
-                                    // });
                                   },
                                   controller: expiryDateCtr,
                                   isPadding: true,
@@ -511,7 +511,8 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
           sessionType: widget.addAp['sessionType'],
           trainerEmail: widget.addAp['trainerEmail'],
           trainerImageUrl: widget.addAp['trainerImageUrl'],
-          trainerName: widget.addAp['trainerName']);
+          trainerName: widget.addAp['trainerName'],
+      NoOfCompleteSessions: widget.addAp['noOfCompleteSession']);
 
       cardNumber = '';
       expiryDate = '';

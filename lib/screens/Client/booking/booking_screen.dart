@@ -69,6 +69,7 @@ List<DateTime> presentDates = [];
 List<DateTime> absentDates = [];
 
 class _BookingScreenState extends State<BookingScreen> {
+  TimeOfDay pickedMonFrom;
   TimeOfDay _time = TimeOfDay.now();
   TimeOfDay picked;
 
@@ -165,9 +166,9 @@ class _BookingScreenState extends State<BookingScreen> {
                       // print(_selectedDates);
                       if (_selected != null &&
                           _selectedSession != null &&
-                          goalTextFieldController.text.isNotEmpty &&
-                          _selectedDates.isNotEmpty) {
-                        if (_selectedDates.length == _selected) {
+                          goalTextFieldController.text.isNotEmpty
+                          ) {
+
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -184,12 +185,12 @@ class _BookingScreenState extends State<BookingScreen> {
                                           'sessionType': _selectedSession,
                                           'trainerEmail': widget.email,
                                           'trainerImageUrl': 'abc',
-                                          'trainerName': widget.name
+                                          'trainerName': widget.name,
+                                          'noOfCompleteSession': "0"
+
                                         },
                                       )));
-                        } else
-                          customToast(
-                              text: 'please select equal dates as sessions');
+
                       } else {
                         customToast(
                             text: 'please fill all the fields to continue');
@@ -580,6 +581,47 @@ class _BookingScreenState extends State<BookingScreen> {
                       style: TextStyle(color: Colors.white)),
                 ],
               ),
+
+              SizedBox(height: 20,),
+
+              Row(
+                children: [
+                  Text(
+                    'Select start session time: ',
+                    style: TextStyle(
+                        color: CustomColor.blue, fontSize: 18),
+                  ),
+                  Text(
+                    pickedMonFrom != null
+                        ? pickedMonFrom.format(context)
+                        : '-- : -- ',
+                    style: TextStyle(
+                        color: Colors.white, fontSize: 18),
+                  ),
+                  GestureDetector(
+                      onTap: () async {
+                        pickedMonFrom = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay.now(),
+                          builder:
+                              (BuildContext context, Widget child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context).copyWith(
+                                  alwaysUse24HourFormat: true),
+                              child: child,
+                            );
+                          },
+                        );
+                        setState(() {});
+                      },
+                      child:
+                      Icon(Icons.timer, color: Colors.white)),
+                ],
+              ),
+              Row(children: [
+                Text('Start Session: '),
+
+              ],)
             ],
           ),
 
