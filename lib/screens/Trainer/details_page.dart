@@ -282,21 +282,27 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),*/
             widget.detailsData['get'] == '0'
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 20),
-                    child: blueButton(
-                        child: Text(
-                          'START SESSION',
-                          style: TextStyle(color: CustomColor.white),
-                        ),
-                        func: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => SettingsPage()),
-                          // );
-                        }),
-                  )
+                ? Column(
+                  children: [
+
+                    Center(child: Text('Completed Session(s): ${widget.detailsData['noOfCompleteSession']}', style: TextStyle(color: Colors.white),)),
+                    /*Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 20),
+                        child: blueButton(
+                            child: Text(
+                              'START SESSION',
+                              style: TextStyle(color: CustomColor.white),
+                            ),
+                            func: () {
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(builder: (context) => SettingsPage()),
+                              // );
+                            }),
+                      ),*/
+                  ],
+                )
                 : SizedBox()
           ],
         ));

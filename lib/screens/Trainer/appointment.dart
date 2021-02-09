@@ -341,6 +341,7 @@ class _UpcomingSessionState extends State<UpcomingSession> {
                                                     'docId': snapshot
                                                         .data[index].docId,
                                                     'get': '0',
+                                                    'noOfCompleteSession': snapshot.data[index].noOfCompletedSessions
 
                                                   },
                                                 )),
@@ -528,7 +529,8 @@ class _PreviousSessionState extends State<PreviousSession> {
                                                           .trainerImageUrl,
                                                       'docId': snapshot
                                                           .data[index].docId,
-                                                      'get': '1'
+                                                      'get': '1',
+
                                                     },
                                                   )),
                                         );

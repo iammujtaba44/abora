@@ -58,12 +58,16 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
   ];
   String cardNumber = '';
   String expiryDate = '';
+  String expiryDateDay = '';
+  String expiryDateMonth = '';
   String cardHolderName = '';
   String cvvCode = '';
   bool isCvvFocused = false;
   DatabaseService database;
   TextEditingController cardNumberCtr,
       expiryDateCtr,
+      expiryDateCtrDay,
+      expiryDateCtrMonth,
       cardHolderNameCtr,
       cvvCodeCtr;
 
@@ -291,126 +295,228 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
                     SizedBox(
                       height: 20.h,
                     ),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 2,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Expiry Date',
-                                style: TextStyle(color: CustomColor.white),
+                        Text(
+                          'Expiry Date',
+                          style: TextStyle(color: CustomColor.white),
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Day',
+                                    style: TextStyle(color: CustomColor.white),
+                                  ),
+                                  customTextField(
+                                      onChanged: (value) {
+                                        /*setState(() {
+                                          value =
+                                              value.replaceAll(RegExp(r"\D"), "");
+                                          switch (value.length) {
+                                            case 0:
+                                              expiryDateCtr.text = "MM/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 0*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 1:
+                                              expiryDateCtr.text = "${value}M/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 1*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 2:
+                                              expiryDateCtr.text = "$value/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 2*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 3:
+                                              expiryDateCtr.text =
+                                                  "${value.substring(0, 2)}/${value.substring(2)}Y";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 4*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 4:
+                                              expiryDateCtr.text =
+                                                  "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 5*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                          }
+                                          if (value.length > 4) {
+                                            expiryDateCtr.text =
+                                                "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                            expiryDateCtr.selection =
+                                                TextSelection.collapsed(
+                                                    *//*offset: 5*//*);
+                                            expiryDate = expiryDateCtr.text;
+                                          }
+                                        });*/
+                                        /*if (expiryDateCtr.text.toString().length >
+                                                1 &&
+                                            expiryDateCtr.text.toString().length <
+                                                3) {
+                                          value = value + ' / ';
+                                          expiryDateCtr.text = value;
+                                          *//*expiryDateCtr.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: expiryDateCtr
+                                                          .text.length));*//*
+                                        }*/
+                                        setState(() {
+                                          expiryDateDay = value;
+
+                                        });
+                                      },
+                                      controller: expiryDateCtrDay,
+                                      isPadding: true,
+                                      keyboardType: true,
+                                      text: 'MM/YY',
+                                      curveContainer: true,
+                                      edgeInsets: EdgeInsets.only(left: 10)),
+                                ],
                               ),
-                              customTextField(
-                                  onChanged: (value) {
-                                    /*setState(() {
-                                      value =
-                                          value.replaceAll(RegExp(r"\D"), "");
-                                      switch (value.length) {
-                                        case 0:
-                                          expiryDateCtr.text = "MM/YY";
-                                          expiryDateCtr.selection =
-                                              TextSelection.collapsed(
-                                                  *//*offset: 0*//*);
-                                          expiryDate = expiryDateCtr.text;
-                                          break;
-                                        case 1:
-                                          expiryDateCtr.text = "${value}M/YY";
-                                          expiryDateCtr.selection =
-                                              TextSelection.collapsed(
-                                                  *//*offset: 1*//*);
-                                          expiryDate = expiryDateCtr.text;
-                                          break;
-                                        case 2:
-                                          expiryDateCtr.text = "$value/YY";
-                                          expiryDateCtr.selection =
-                                              TextSelection.collapsed(
-                                                  *//*offset: 2*//*);
-                                          expiryDate = expiryDateCtr.text;
-                                          break;
-                                        case 3:
-                                          expiryDateCtr.text =
-                                              "${value.substring(0, 2)}/${value.substring(2)}Y";
-                                          expiryDateCtr.selection =
-                                              TextSelection.collapsed(
-                                                  *//*offset: 4*//*);
-                                          expiryDate = expiryDateCtr.text;
-                                          break;
-                                        case 4:
-                                          expiryDateCtr.text =
-                                              "${value.substring(0, 2)}/${value.substring(2, 4)}";
-                                          expiryDateCtr.selection =
-                                              TextSelection.collapsed(
-                                                  *//*offset: 5*//*);
-                                          expiryDate = expiryDateCtr.text;
-                                          break;
-                                      }
-                                      if (value.length > 4) {
-                                        expiryDateCtr.text =
-                                            "${value.substring(0, 2)}/${value.substring(2, 4)}";
-                                        expiryDateCtr.selection =
-                                            TextSelection.collapsed(
-                                                *//*offset: 5*//*);
-                                        expiryDate = expiryDateCtr.text;
-                                      }
-                                    });*/
-                                    if (expiryDateCtr.text.toString().length >
+                            ),
+                            SizedBox(
+                              width: 10,
+                              child: Text('/', style: TextStyle(color: CustomColor.white)
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Month',
+                                    style: TextStyle(color: CustomColor.white),
+                                  ),
+                                  customTextField(
+                                      onChanged: (value) {
+                                        /*setState(() {
+                                          value =
+                                              value.replaceAll(RegExp(r"\D"), "");
+                                          switch (value.length) {
+                                            case 0:
+                                              expiryDateCtr.text = "MM/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 0*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 1:
+                                              expiryDateCtr.text = "${value}M/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 1*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 2:
+                                              expiryDateCtr.text = "$value/YY";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 2*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 3:
+                                              expiryDateCtr.text =
+                                                  "${value.substring(0, 2)}/${value.substring(2)}Y";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 4*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                            case 4:
+                                              expiryDateCtr.text =
+                                                  "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                              expiryDateCtr.selection =
+                                                  TextSelection.collapsed(
+                                                      *//*offset: 5*//*);
+                                              expiryDate = expiryDateCtr.text;
+                                              break;
+                                          }
+                                          if (value.length > 4) {
+                                            expiryDateCtr.text =
+                                                "${value.substring(0, 2)}/${value.substring(2, 4)}";
+                                            expiryDateCtr.selection =
+                                                TextSelection.collapsed(
+                                                    *//*offset: 5*//*);
+                                            expiryDate = expiryDateCtr.text;
+                                          }
+                                        });*/
+                                        /*if (expiryDateCtr.text.toString().length >
                                             1 &&
-                                        expiryDateCtr.text.toString().length <
-                                            3) {
-                                      value = value + ' / ';
-                                      expiryDateCtr.text = value;
-                                      expiryDateCtr.selection =
-                                          TextSelection.fromPosition(
-                                              TextPosition(
-                                                  offset: expiryDateCtr
-                                                      .text.length));
-                                    }
-                                    setState(() {
-                                      expiryDate = value;
-                                    });
-                                  },
-                                  controller: expiryDateCtr,
-                                  isPadding: true,
-                                  keyboardType: true,
-                                  text: 'MM/YY',
-                                  curveContainer: true,
-                                  edgeInsets: EdgeInsets.only(left: 10)),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 7,
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'CVV',
-                                style: TextStyle(color: CustomColor.white),
+                                            expiryDateCtr.text.toString().length <
+                                                3) {
+                                          value = value + ' / ';
+                                          expiryDateCtr.text = value;
+                                          expiryDateCtr.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: expiryDateCtr
+                                                          .text.length));
+                                        }*/
+                                        setState(() {
+                                          expiryDateMonth = value;
+                                        });
+                                      },
+                                      controller: expiryDateCtrMonth,
+                                      isPadding: true,
+                                      keyboardType: true,
+                                      text: 'MM/YY',
+                                      curveContainer: true,
+                                      edgeInsets: EdgeInsets.only(left: 10)),
+                                ],
                               ),
-                              customTextField(
-                                  fieldFormate: true,
-                                  keyboardType: true,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      cvvCode = value;
-                                    });
-                                  },
-                                  controller: cvvCodeCtr,
-                                  isPadding: true,
-                                  text: '123',
-                                  curveContainer: true,
-                                  edgeInsets: EdgeInsets.only(left: 10)),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(),
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'CVV',
+                                    style: TextStyle(color: CustomColor.white),
+                                  ),
+                                  customTextField(
+                                      fieldFormate: true,
+                                      keyboardType: true,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          cvvCode = value;
+                                        });
+                                      },
+                                      controller: cvvCodeCtr,
+                                      isPadding: true,
+                                      text: '123',
+                                      curveContainer: true,
+                                      edgeInsets: EdgeInsets.only(left: 10)),
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 3,
+                              child: Container(),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -470,10 +576,14 @@ class _ClientPaymentPageState extends State<ClientPaymentPage> {
   }
 
   _onpressed() {
+
     if (cardNumber != '' &&
-        expiryDate != '' &&
+        expiryDateDay != '' &&
+        expiryDateMonth != '' &&
         cardHolderName != '' &&
         cvvCode != '') {
+
+      expiryDate = expiryDateDay + "/" + expiryDateMonth;
       var exDate = expiryDate.split('/');
       payViaExistingCard2(context, exDate[0], exDate[1], cardNumber);
     } else

@@ -51,12 +51,15 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   List<DateTime> presentDates = [];
   List<DateTime> absentDates = [];
   int listCount;
+  int noOfCompleteSession;
 
   @override
   void initState() {
     super.initState();
     // print(widget.detailsData['docId']);
     listCount = int.parse(widget.detailsData['noOfBookings']) - int.parse(widget.detailsData['noOfCompleteSession']);
+    noOfCompleteSession = int.parse(
+        widget.detailsData['noOfCompleteSession']);
     _controller = CalendarController();
   }
 
@@ -216,6 +219,7 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
             SizedBox(
               height: 20,
             ),
+            Center(child: Text('Remaining Session(s): $listCount', style: TextStyle(color: Colors.white),)),
             ListView.builder(
               shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
@@ -223,26 +227,42 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      blueButton(child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+
+                    Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Session $index',
+                        style:
+                        TextStyle(color: CustomColor.white),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+
+                          _showModalBottomSheet(context);
+
+                        }
+
+                          ,
+                        child: Row(
                           children: [
-                            Icon(Icons.check_circle, color: Colors.white,),
-                      SizedBox(width: 20,),
-                      Text('Session  ${(index+1).toString()} Complete', style: TextStyle(color: Colors.white),),
-                          ],),
-                           func: () async  {
-                        setState(() {
-                          listCount--;
-                        });
+                            Text(
+                              'Mark As Complete',
+                              style: TextStyle(
+                                  color: CustomColor.blue),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 12,
+                              color: CustomColor.blue,
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
 
-                        customToast(text: 'Please wait...', bgcolor: Colors.black);
-                             await appointments
-                                 .doc('upcomingApointments')
-                                 .collection('data').doc(widget.detailsData['docId']).update({'noOfCompleteSession':(int.parse(widget.detailsData['noOfCompleteSession']) + 1).toString() + "" });
-
-                        customToast(text: 'Session completed...', bgcolor: Colors.black);
-
-                          }),
                       SizedBox(height: 10,),
                     ],
                   );
@@ -417,6 +437,83 @@ class _ClientDetailPageState extends State<ClientDetailPage> {
   TextEditingController initialBenchpressController = TextEditingController();
   TextEditingController initialdeadliftsController = TextEditingController();
   TextEditingController initialLegPressController = TextEditingController();
+
+  _showModalBottomSheet(context, {var cartItem, var user, var index}) {
+    showModalBottomSheet(
+        context: context,
+        backgroundColor: CustomColor.blue,
+        isScrollControlled: true,
+        builder: (BuildContext ctxz) {
+          return SingleChildScrollView(
+            child: Container(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text('Are you sure you want to delete this item? ', style: TextStyle(color: CustomColor.white)),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(),
+                          ),
+                          Expanded(
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: FlatButton(
+                                    child: Text("Cancel",
+                                        style: TextStyle(color: Colors.white)),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Flexible(child: RaisedButton(child: Text('Yes'), onPressed: () async {
+
+                                  setState(() {
+                                    listCount--;
+                                  });
+
+                                  customToast(text: 'Please wait...', bgcolor: Colors
+                                      .black);
+                                  await appointments
+                                      .doc('upcomingApointments')
+                                      .collection('data').doc(
+                                      widget.detailsData['docId']).update({
+                                    'noOfCompleteSession': ( int.parse(widget.detailsData['noOfBookings']) - listCount )
+                                        .toString() + ""
+                                  });
+
+                                  customToast(
+                                      text: 'Session completed...', bgcolor: Colors
+                                      .black);
+
+                                  Navigator.of(context).pop();
+                                },))
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          );
+        });
+  }
 
   onAlertWithCustomContentPressed(context) {
     Alert(

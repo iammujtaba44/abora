@@ -429,7 +429,8 @@ class _PreviousSessionState extends State<PreviousSession> {
                                                           .trainerImageUrl,
                                                       'docId': snapshot
                                                           .data[index].docId,
-                                                      'get': '1'
+                                                      'get': '1',
+                                                      'noOfCompleteSession':snapshot.data[index].noOfCompletedSessions
                                                     },
                                                   )),
                                         );

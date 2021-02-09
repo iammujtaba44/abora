@@ -186,7 +186,9 @@ class _BookingScreenState extends State<BookingScreen> {
                                           'trainerEmail': widget.email,
                                           'trainerImageUrl': 'abc',
                                           'trainerName': widget.name,
-                                          'noOfCompleteSession': "0"
+                                          'noOfCompleteSession': "0",
+                                          //'numOfSessionList': List<int>.generate(int.parse(_selected), (int index) => index )
+
 
                                         },
                                       )));

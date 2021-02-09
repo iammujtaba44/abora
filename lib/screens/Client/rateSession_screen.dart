@@ -187,7 +187,9 @@ class _RateSessionState extends State<RateSession> {
             'noOfBookings': element.data()['noOfBookings'],
             'sessionType': element.data()['sessionType'],
             'dates': List.from(element.data()['dates']),
-            'docId': widget.trainerData['docId']
+            'docId': widget.trainerData['docId'],
+            'noOfCompleteSession': element.data()['noOfBookings'],
+
           });
         }
       });

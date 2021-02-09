@@ -110,7 +110,7 @@ class _BookingTabState extends State<BookingTab> {
               unselectedLabelColor: CustomColor.grey,
               indicatorColor: CustomColor.white,
               tabs: [
-                Tab(child: Text('Book Sesson')),
+                Tab(child: Text('Book Session')),
 
               ],
             ),
